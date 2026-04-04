@@ -1,0 +1,40 @@
+.alley_exit {
+    background: grey;
+    border: 1px grey solid;
+}
+.cell {
+    width: 20px;
+    height: 20px;
+    
+    float:left;
+}
+.cell.empty{
+    border: 1px white solid;
+}
+
+.row{
+    clear:both;
+}
+
+
+.filled:not(.player) {
+    background: black;
+    border: 1px black solid;
+    
+}
+.player{
+    border: 1px darkslategray solid;
+    background: DarkSlateGray;
+    color: white;
+    text-align: center;
+}
+
+.sewer_exit {
+    background: red;
+     border: 1px red solid;
+}
+
+.street_exit{
+    background: green;
+     border: 1px green solid;
+}

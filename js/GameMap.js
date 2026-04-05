@@ -7,6 +7,7 @@ class GameMap {
         street: [],
 
     }
+    loot = {};
     
 
     constructor(max_x, max_y){
@@ -15,11 +16,13 @@ class GameMap {
         this.wipe();        
         this.generate_alley();
         this.locations.alley.push(this.grid);
+        this.populate_with_trash_cans();
     }
 
     at (x, y){
         return this.grid[x][y];
     }
+
 
     draw(from, to, thickness){
         let delta = {x: to.x - from.x, y: to.y - from.y };
@@ -61,6 +64,14 @@ class GameMap {
             }
         }
     }
+    fetch_border_spot(){
+        while(true){
+            let open = this.fetch_open();
+            if (this.is_on_the_border(open.x, open.y)){
+                return open;
+            }
+        }
+    }
 
     fetch_distance(from_x, from_y, to_x, to_y){
 	    return Math.sqrt(Math.pow(from_x - to_x, 2) + Math.pow(from_y - to_y, 2))
@@ -74,6 +85,18 @@ class GameMap {
                 return {x: rand_x, y: rand_y };
             }
         }
+    }
+
+    fetch_size(){
+        let n = 0;
+        for (let x = 0; x < Config.max_x; x ++){
+            for (let y = 0; y < Config.max_y; y ++){
+                if (this.at(x, y) != null){
+                    n ++;
+                }
+            }
+        }
+        return n;
     }
 
     fetch_farthest(point, arr){
@@ -132,12 +155,14 @@ class GameMap {
             this.is(exit.x, exit.y, exit_id);
         }
         if (starting_here == null){
-            console.log("solo");
             let last_exit = exits[exits.length - 1];
             starting_here = last_exit;
-            this.is(last_exit.x, last_exit.y, 
-                Config.exit_types.indexOf(location_type));
+            let desired_id = Config.exit_types.indexOf(location_type);
+            if (desired_id >= 2){
+                this.is(last_exit.x, last_exit.y, desired_id);
+            }
         }
+        this.populate_with_trash_cans();
         return starting_here;
     }
 
@@ -169,8 +194,10 @@ class GameMap {
             console.log("solo");
             let last_exit = exits[exits.length - 1];
             starting_here = last_exit;
-            this.is(last_exit.x, last_exit.y, 
-                Config.exit_types.indexOf(location_type));
+            let desired_id = Config.exit_types.indexOf(location_type);
+            if (desired_id >= 2){
+                this.is(last_exit.x, last_exit.y, desired_id);
+            }
         }
         return starting_here;
     }
@@ -202,8 +229,10 @@ class GameMap {
             console.log("solo");
             let last_exit = exits[exits.length - 1];
             starting_here = last_exit;
-            this.is(last_exit.x, last_exit.y, 
-                Config.exit_types.indexOf(location_type));
+            let desired_id = Config.exit_types.indexOf(location_type);
+            if (desired_id >= 2){
+                this.is(last_exit.x, last_exit.y, desired_id);
+            }
         }
         return starting_here;
     }
@@ -229,6 +258,21 @@ class GameMap {
         return exits;
     }
 
+    is_on_the_border(pos_x, pos_y){
+        for (let x = pos_x -1; x <= pos_x + 1; x ++){
+            for (let y = pos_y -1; y <= pos_y + 1; y ++){
+                if (!this.is_valid(x, y) || (x == pos_x && y == pos_y)){
+                    continue;
+                }
+                if (this.at(x, y) == null){
+                    return true;
+                }
+            }    
+        }
+        return false;
+
+    }
+
     is (x, y, what){
         if (!this.is_valid(x, y)){
             return;
@@ -246,6 +290,15 @@ class GameMap {
 
     load(location_type, id){
         this.grid = this.locations[location_type][id];
+    }
+
+    populate_with_trash_cans(){
+        let size = this.fetch_size();
+        let num_of_trash_cans = Math.round(size * .05);
+        for (let i = 0; i < num_of_trash_cans; i ++){
+            let border = this.fetch_border_spot();
+            this.is(border.x, border.y, 5);
+        }
     }
 
     wipe(){

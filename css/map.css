@@ -5,7 +5,7 @@
 .cell {
     width: 20px;
     height: 20px;
-    
+    text-align: center;
     float:left;
 }
 .cell.empty{
@@ -17,16 +17,19 @@
 }
 
 
-.filled:not(.player) {
+.filled {
     background: black;
-    border: 1px black solid;
     
+    
+}
+
+.filled:not(.player) {
+    border: 1px black solid;
 }
 .player{
     border: 1px darkslategray solid;
-    background: DarkSlateGray;
+    
     color: white;
-    text-align: center;
 }
 
 .sewer_exit {
@@ -37,4 +40,9 @@
 .street_exit{
     background: green;
      border: 1px green solid;
+}
+
+.trash{
+    background: orange;
+    border: 1px black solid;
 }

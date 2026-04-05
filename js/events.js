@@ -4,12 +4,15 @@ document.addEventListener('keydown', (event) => {
    ui.refresh();
 });
 
-$(document).on('click', '.your-dynamic-element-class', function() {
-    // Your code here
-    console.log("Dynamic element clicked!");
-    
-    // 'this' refers to the specific element that was clicked
-    $(this).css('background-color', 'red');
+$(document).on('click', '.close', function() {
+    juego.player.looting = false;
+    ui.change_screen('map');
+    ui.refresh();
+});
+
+$(document).on('click', '.item', function() {
+    juego.input.move_item(this.id.split('-')[0], this.id.split('-')[1], juego);
+    ui.refresh();
 });
 
 for (let button of document.querySelectorAll('button')){

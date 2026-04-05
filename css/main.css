@@ -1,0 +1,54 @@
+
+.hidden{
+    display: none;
+}
+
+.screen.hidden{
+    display: none !important;
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+.item{
+    margin: 25px;
+    cursor: pointer;
+}
+
+#loot{
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+#loot_panels{
+    display: flex;
+    gap: 8px;
+    height: 75%;
+}
+
+#loot_container, #loot_inventory{
+    background: lightgray;
+    flex: 1;
+    border: 1px black solid;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+#close_loot_div{
+    width: 100%;
+}
+
+#close-loot{
+    display: block;
+    width: 100%;
+}
+
+#status {
+    text-align: center;
+}
+#top {
+    text-align: center;
+}

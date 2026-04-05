@@ -7,10 +7,13 @@ class Input {
         }
     }
     press_key(pressed){
-        
+        console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
-        if (pressed == " " && juego.player.looting){
+        if (pressed == "Escape" && juego.player.looting){
+            juego.player.looting = false;
+            ui.change_screen('map');
+        } else if (pressed == " " && juego.player.looting){
             juego.player.take_all(juego);
         } else if (!juego.player.looting && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.move(pressed.substring(5).toLowerCase(), juego);

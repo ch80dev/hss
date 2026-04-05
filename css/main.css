@@ -1,4 +1,18 @@
-
+body{ 
+    background: #111111;
+    color: grey;
+}
+:root{
+    --top-bar-height: 28px;
+    --status-bar-height: 24px;
+}
+body:has(#loot:not(.hidden)){
+    overflow: hidden;
+}
+.heading{
+    font-weight: bold;
+    color: black;
+}
 .hidden{
     display: none;
 }
@@ -18,15 +32,17 @@ html, body{
 }
 
 #loot{
-    position: fixed;
-    inset: 0;
+    position: relative;
+    height: calc(100vh - (var(--top-bar-height) + var(--status-bar-height)));
     overflow: hidden;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
 }
 
 #loot_panels{
     display: flex;
     gap: 8px;
-    height: 75%;
+    min-height: 0;
 }
 
 #loot_container, #loot_inventory{
@@ -35,20 +51,32 @@ html, body{
     border: 1px black solid;
     box-sizing: border-box;
     height: 100%;
+    overflow-y: auto;
 }
 
 #close_loot_div{
     width: 100%;
 }
 
-#close-loot{
+#close-loot, #take_all_loot{
     display: block;
     width: 100%;
+    padding: 10px;
+    font-size: 25px;
 }
 
+#take_all_loot{
+    font-size: 25px;
+    padding: 10px;
+}
 #status {
     text-align: center;
+    height: var(--status-bar-height);
+    line-height: var(--status-bar-height);
 }
 #top {
     text-align: center;
+    height: var(--top-bar-height);
+    line-height: var(--top-bar-height);
+    colro: white;
 }

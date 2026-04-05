@@ -15,6 +15,11 @@ $(document).on('click', '.item', function() {
     ui.refresh();
 });
 
+$(document).on('click', '#take_all_loot', function() {
+    juego.player.take_all(juego);
+    ui.refresh();
+});
+
 for (let button of document.querySelectorAll('button')){
 	button.addEventListener('click', function(e){
 		ui.refresh();

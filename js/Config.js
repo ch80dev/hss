@@ -4,9 +4,21 @@ class Config {
 	static max_num_of_items_in_trash = 3;
 	static max_x = 45;
 	static max_y = 25;
-	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
 	static degradable = ['weapon', 'tool'];
+	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
+	static usable = ['food', 'food (spoiled)', 'medicine', 'medicine (expired)', 'drugs'];
+	static max_num_of_humans = {
+		alley: 3, 
+		street: 10,
+		sewer: 1,
+	}
+	static max_num_of_rats = {
+		alley: 3, 
+		street: 0, 
+		sewer: 10,
+	}
 
+	
 	static trash_item_odds = {		
 		recyclables: [1, 40],
 		'food (spoiled)': [41, 58],

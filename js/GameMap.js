@@ -1,6 +1,7 @@
 class GameMap {
     exits = {};
     grid = [];
+    humans = {};
     locations = {
         alley: [],
         sewer: [],
@@ -8,6 +9,7 @@ class GameMap {
 
     }
     loot = {};
+    rats = {};
     
 
     constructor(max_x, max_y){
@@ -17,6 +19,8 @@ class GameMap {
         this.generate_alley();
         this.locations.alley.push(this.grid);
         this.populate_with_trash_cans();
+        this.populate_with_rats('alley');
+        this.populate_with_humans('alley');
     }
 
     at (x, y){
@@ -291,6 +295,23 @@ class GameMap {
     load(location_type, id){
         this.grid = this.locations[location_type][id];
     }
+    populate_with_humans(location_type){
+        let num_of_humans = rand_num(0, Config.max_num_of_humans[location_type]);
+        console.log(num_of_humans);
+        for (let i = 0; i < num_of_humans; i ++){
+            let open = this.fetch_open();
+            this.is(open.x, open.y, 7);
+        }
+    }
+    populate_with_rats(location_type){
+        let num_of_rats = rand_num(0, Config.max_num_of_rats[location_type]);
+        console.log(num_of_rats);
+        for (let i = 0; i < num_of_rats; i ++){
+            let open = this.fetch_open();
+            this.is(open.x, open.y, 6);
+        }
+        
+    }
 
     populate_with_trash_cans(){
         let size = this.fetch_size();
@@ -300,6 +321,8 @@ class GameMap {
             this.is(border.x, border.y, 5);
         }
     }
+
+
 
     wipe(){
         this.grid = [];

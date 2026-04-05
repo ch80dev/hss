@@ -1,15 +1,20 @@
 .alley_exit {
-    background: grey;
-    border: 1px grey solid;
+    color: hwb(211 42% 46%);
 }
 .cell {
     width: 20px;
     height: 20px;
     text-align: center;
     float:left;
+
+}
+.cell:not(.empty):not(.player){
+    background: #222222;
+    border: 1px #222222 solid;
 }
 .cell.empty{
-    border: 1px white solid;
+    background: #111111;
+    border: 1px #111111 solid;
 }
 
 .row{
@@ -18,31 +23,36 @@
 
 
 .filled {
-    background: black;
+    
     
     
 }
 
-.filled:not(.player) {
-    border: 1px black solid;
+
+.human{
+    color: #7a8a99;
+
+
 }
 .player{
-    border: 1px darkslategray solid;
-    
-    color: white;
+    border: 1px #66ccff solid;
+    background: #222222;
+    color: #66ccff;
+}
+
+.rat{
+    color: #8b5a2b;
 }
 
 .sewer_exit {
-    background: red;
-     border: 1px red solid;
+    color: #b04a4a;
+    
 }
 
 .street_exit{
-    background: green;
-     border: 1px green solid;
+    color: #4caf50;
 }
 
 .trash{
-    background: orange;
-    border: 1px black solid;
+    color: #8b5a2b;
 }

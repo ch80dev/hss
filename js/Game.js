@@ -16,4 +16,7 @@ class Game{
 			}
 		}
 	}
+	do_turn(){
+		
+	}
 }

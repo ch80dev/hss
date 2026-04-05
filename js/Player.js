@@ -132,7 +132,7 @@ class Player{
 
     search_trash(x, y, juego){
         let already_found = [];
-        let trash_usable = rand_num(1, 2) == 1;
+        let trash_usable = rand_num(1, 3) == 1;
         this.use_stamina(.4);
         if (!trash_usable){
             ui.log("Nothing usable in trash");
@@ -170,6 +170,7 @@ class Player{
 
     take_all(juego){
         let at = this.fetch_from();
+        console.log(at);
         if (juego.map.loot[at] == undefined){
             return;
         }

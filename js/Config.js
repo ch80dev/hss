@@ -1,12 +1,17 @@
 class Config {
 	static exit_types = [null, null, 'sewer', 'alley', 'street'];
+	static food_gain = [10, 30];
 	static loop_interval_timing = 1000;
 	static max_num_of_items_in_trash = 3;
+	static max_sickness = 100;
 	static max_x = 45;
 	static max_y = 25;
+	static medicine_gain = [10, 100];
 	static degradable = ['weapon', 'tool'];
 	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
-	static usable = ['food', 'food (spoiled)', 'medicine', 'medicine (expired)', 'drugs'];
+	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];
+
+	static spoiled_sick_gain = [1, 50];
 	static max_num_of_humans = {
 		alley: 3, 
 		street: 10,

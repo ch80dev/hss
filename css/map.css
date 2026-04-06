@@ -17,6 +17,10 @@
     border: 1px #111111 solid;
 }
 
+
+.crate {
+    color: #D4A017;
+}
 .row{
     clear:both;
 }

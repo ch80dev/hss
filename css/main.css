@@ -16,6 +16,9 @@ body:has(#loot:not(.hidden)){
 .hidden{
     display: none;
 }
+.in_crate{
+    margin-left: 25px;
+}
 
 .screen.hidden{
     display: none !important;
@@ -78,5 +81,5 @@ html, body{
     text-align: center;
     height: var(--top-bar-height);
     line-height: var(--top-bar-height);
-    colro: white;
+    color: white;
 }

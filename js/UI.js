@@ -10,6 +10,7 @@ class UI{
 	}
 
 	display_loot_items (items, is_loot){
+		let crate_here = '';
 		let max_slots = '';
 		let max_weight = '';
 		let txt = `<button id='take_all_loot'>take all</button>`;
@@ -20,25 +21,35 @@ class UI{
 			max_slots = ' max ';
 		}
 		if (!is_loot){
-
 			txt = `<span class='heading'>Slots</span>: <span class='${max_slots}'>${juego.player.inventory.length}/${juego.player.slots_in_inventory}</span> <span class='heading'>Weight</span>: <span class='${max_weight}'>${juego.player.inventory_weight.toFixed(1)}/${juego.player.max_inventory_weight}</span>`;
+		}
+		if (is_loot && juego.map.is_item_here('crate (placed)', juego.player.fetch_from())){
+			crate_here = ' in_crate ';
+			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
 		}
 		for (let id in items){			
 			
 			let item = items[id].name
+			if (item == 'crate (placed)'){
+				continue;
+			}
 			let n = items[id].quantity;
 			let can_they_take = juego.player.can_they_take(item, n);
 			let can_take = "";
 			let usable = "";
+			let where = 'inventory';
+			if (is_loot){
+				where = 'loot';
+			}
 			if (can_they_take){
 				can_take = " can_take ";
 			} 
-			if (Config.usable.includes(item)){
+			if (!is_loot && Config.usable.includes(item)){
 				usable = `<button id='use-${id}' class='use'>use</button>`;
 			}
-			let line = `<div id='loot-${id}' class='item ${can_take}'>${item}${usable}</div>`;
+			let line = `<div><span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item}${usable}</span></div>`;
 			if (Config.stackable.includes(item)){
-				line = `<div id='loot-${id}' class='item ${can_take}'>${item} (${n})${usable}</div>`;
+				line = `<div><span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item} (${n})</span>${usable}</div>`;
 			}
 			txt += line;
 		}
@@ -74,6 +85,8 @@ class UI{
 					cell_class = ' rat ';
 				} else if (juego.map.at(x, y) == 7){
 					cell_class = ' human ';
+				} else if (juego.map.at(x, y) == 8){
+					cell_class = ' crate ';
 				}
 
 				if (juego.player.at(x, y)){
@@ -89,6 +102,8 @@ class UI{
 					cell_txt = 'r';
 				} else if (juego.map.at(x,y) == 7){
 					cell_txt = 'h';
+				} else if (juego.map.at(x,y) == 8){
+					cell_txt = "&#9644;"
 				} else if (juego.map.at(x, y) != null && juego.map.at(x, y) > 1 && juego.map.at(x, y) < 5){
 					cell_txt = '&#9673;';
 				}
@@ -115,7 +130,14 @@ class UI{
 			this.status_msg = "";
 		}
 		$(".screen").addClass('hidden');
-		console.log(this.screen_focused);
 		$("#" + this.screen_focused).removeClass('hidden');
+
+		$("#sickness").html(juego.player.sickness);
+		console.log(juego.player.sickness);
+		$("#sickness_container").addClass('hidden');
+		if (juego.player.sickness > 0){
+			$("#sickness_container").removeClass('hidden');
+		}
+
 	}
 }

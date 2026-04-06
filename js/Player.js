@@ -9,15 +9,18 @@ class Player{
     movement_cost = .1;
     slots_in_inventory = 5;
     stamina = 100;
+    sickness = 0;
     x = null;
     y = null;
-    inventory = [];
+    inventory = [{name: 'crate', quantity: 1}];
     inventory_weight =  0;
     constructor(juego){
+        this.juego = juego;
         let open = juego.map.fetch_open();
         this.x = open.x;
         this.y = open.y;
     }
+
 
     at(x, y){
         return (x == this.x && y == this.y);
@@ -33,8 +36,40 @@ class Player{
             return false;
         }
         return true;
-        
+    }
 
+    can_they_use(name){
+        console.log('can_they_use', name, this.juego.map.at(this.x, this.y));
+        if ((name == 'lighter' && !this.is_in_inventory('fuel')) 
+            || (name == 'crate' && this.juego.map.is_item_here('crate (placed)', this.fetch_from()))
+            || (name == 'crate' && this.juego.map.at(this.x, this.y) != 1)){
+            return false;
+
+        }
+        return Config.usable.includes(name);
+    }
+
+    change_sickness(n){
+        console.log(n, this.sickness);
+        n = Number(n);
+        this.sickness = (Number(this.sickness) || 0) + n;
+        if (this.sickness < 0){
+            this.sickness = 0;
+        } else if (this.sickness > Config.max_sickness){
+            this.sickness = Config.max_sickness;
+        }
+        console.log(n, this.sickness);
+    }
+
+    change_stamina(n){
+        n = Number(n);
+        this.stamina = (Number(this.stamina) || 0) + n;
+        if (this.stamina > this.max_stamina){
+            this.stamina = this.max_stamina;            
+        } else if (this.stamina < 0){
+            this.stamina = 0;
+        }
+        this.stamina = Math.round(this.stamina * 10) / 10;
     }
 
     die(){
@@ -44,31 +79,48 @@ class Player{
         console.log("DIE");
     }
 
-    explore(exit_id, juego){                
+    drop_item(id){
+        let at = this.fetch_from();
+        let item = this.inventory[id];
+        console.log(id, item);
+        if (Config.stackable.includes(item.name) && this.juego.map.is_item_here(item.name, at)){
+            this.juego.map.stack_items(item.name, item.quantity, at);
+            this.inventory.splice(id, 1)
+            return;
+        } 
+        
+        if (this.juego.map.loot[at] == undefined){
+            this.juego.map.loot[at] = [];
+        } 
+        this.juego.map.loot[at].push(this.inventory.splice(id, 1)[0]);        
+                
+    }
+
+    explore(exit_id){   
         let from = `${this.location_type}-${this.location_id}-${this.x}-${this.y}`;
-        if (this.have_they_used_this_exit(juego, this.location_type, this.location_id, this.x, this.y)){
-            let exits_to = juego.map.exits[from];
+        if (this.have_they_used_this_exit(this.juego, this.location_type, this.location_id, this.x, this.y)){
+            let exits_to = this.juego.map.exits[from];
             let to_type = exits_to.split('-')[0];
             let to_id = exits_to.split('-')[1];
             let to_x = exits_to.split('-')[2];
             let to_y = exits_to.split('-')[3];
-            juego.map.load(to_type, to_id);
+            this.juego.map.load(to_type, to_id);
             this.location_type = to_type;
             this.location_id = parseInt(to_id, 10);
             this.x = parseInt(to_x, 10);
             this.y = parseInt(to_y, 10);
             return;
         }
-        juego.map.wipe();  
-        let start = juego.map[`generate_${Config.exit_types[exit_id]}`](this.location_type);        
-        juego.map.locations[Config.exit_types[exit_id]].push(juego.map.grid);
-        let to = `${Config.exit_types[exit_id]}-${juego.map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
+        this.juego.map.wipe();  
+        let start = this.juego.map[`generate_${Config.exit_types[exit_id]}`](this.location_type);        
+        this.juego.map.locations[Config.exit_types[exit_id]].push(this.juego.map.grid);
+        let to = `${Config.exit_types[exit_id]}-${this.juego.map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
         this.location_type = Config.exit_types[exit_id];
-        this.location_id = juego.map.locations[Config.exit_types[exit_id]].length - 1;
+        this.location_id = this.juego.map.locations[Config.exit_types[exit_id]].length - 1;
         this.x = start.x;
         this.y = start.y;
-        juego.map.exits[from] = to;
-        juego.map.exits[to] = from;
+        this.juego.map.exits[from] = to;
+        this.juego.map.exits[to] = from;
         
         
     }
@@ -82,9 +134,10 @@ class Player{
         return Config.weights[name] * quantity;
     }
 
-    have_they_used_this_exit(juego, location_type, location_id, x, y){
+
+    have_they_used_this_exit(location_type, location_id, x, y){
         let from = `${location_type}-${location_id}-${x}-${y}`;
-        return (juego.map.exits[from] != undefined);
+        return (this.juego.map.exits[from] != undefined);
 
         
     }
@@ -98,7 +151,7 @@ class Player{
         return false;
     }
 
-    move(where, juego){
+    move(where){
         let directions = {
             up: { x: 0, y: -1 },
             right: { x: 1, y: 0 },
@@ -106,21 +159,21 @@ class Player{
             left: { x: -1, y: 0 },
         };
         let pos = {x : this.x + directions[where].x, y: this.y + directions[where].y};        
-        if (juego.map.at(pos.x, pos.y) == null || !juego.map.is_valid(pos.x, pos.y)){
+        if (this.juego.map.at(pos.x, pos.y) == null || !this.juego.map.is_valid(pos.x, pos.y)){
             return;
         }  
         if (this.stamina > 0){
-            this.use_stamina(this.movement_cost);
+            this.change_stamina(-this.movement_cost);
         } else if (this.health > 0){
             this.health -= this.movement_cost;
         }
         this.x = pos.x;
         this.y = pos.y;
-        if (juego.map.at(pos.x, pos.y) != 1 && juego.map.at(pos.x, pos.y) < 5){
-            this.explore(juego.map.at(pos.x, pos.y), juego);
+        if (this.juego.map.at(pos.x, pos.y) != 1 && this.juego.map.at(pos.x, pos.y) < 5){
+            this.explore(this.juego.map.at(pos.x, pos.y), this.juego);
             return;
-        } else if (juego.map.at(pos.x, pos.y) == 5){
-            this.search_trash(this.x, this.y, juego)
+        } else if (this.juego.map.at(pos.x, pos.y) == 5){
+            this.search_trash(this.x, this.y, this.juego)
         }
     }
     open_trash(x, y){
@@ -130,19 +183,19 @@ class Player{
 
     
 
-    search_trash(x, y, juego){
+    search_trash(x, y){
         let already_found = [];
         let trash_usable = rand_num(1, 3) == 1;
-        this.use_stamina(.4);
+        this.change_stamina(-.4);
         if (!trash_usable){
             ui.log("Nothing usable in trash");
-            juego.map.is(x, y, 1);
+            this.juego.map.is(x, y, 1);
             return;
         }
         let num_of_items = rand_num(1, Config.max_num_of_items_in_trash);
         let found = [];    
         for (let i = 0; i < num_of_items; i ++){            
-            let item = juego.generate_item_from_trash();
+            let item = this.juego.generate_item_from_trash();
             let n = 1;
             if(already_found.includes(item)){
                 continue;
@@ -154,12 +207,12 @@ class Player{
             found.push({ name: item, quantity: n });
             
         }
-        juego.map.loot[`${this.location_type}-${this.location_id}-${this.x}-${this.y}`] = found;
+        this.juego.map.loot[`${this.location_type}-${this.location_id}-${this.x}-${this.y}`] = found;
         this.open_trash(x, y);
         
     }
 
-    stack_item(what, n){
+    stack_item_in_inventory(what, n){
         for (let item of this.inventory){
             if (item.name == what){
                 item.quantity += n;
@@ -168,52 +221,68 @@ class Player{
         }
     }
 
-    take_all(juego){
+    take_all(){
         let at = this.fetch_from();
-        console.log(at);
-        if (juego.map.loot[at] == undefined){
+        if (this.juego.map.loot[at] == undefined){
             return;
         }
-        while (juego.map.loot[at] && juego.map.loot[at].length > 0){
-            let status = this.take_item(0, juego);
+        while (this.juego.map.loot[at] && this.juego.map.loot[at].length > 0){
+            let status = this.take_item(0, this.juego);
             if (status === false){
                 return;
             }
         }
     }
 
-    take_item(id, juego){
+    take_item(id){
         //you should be able to take stuff when adjacent but not now
-
         let at = this.fetch_from();
-        console.log(juego.map.loot[at], at);
-        if (juego.map.loot[at] == undefined 
-            || !this.can_they_take(juego.map.loot[at][id].name, juego.map.loot[at][id].quantity)){
+        if (this.juego.map.loot[at] == undefined 
+            || (this.juego.map.loot[at] != undefined && !this.can_they_take(this.juego.map.loot[at][id].name, this.juego.map.loot[at][id].quantity))){
             return false;
         }
-        let weight = this.fetch_weight(juego.map.loot[at][id].name, juego.map.loot[at][id].quantity);
-        let what = juego.map.loot[at][id].name;
+        let weight = this.fetch_weight(this.juego.map.loot[at][id].name, this.juego.map.loot[at][id].quantity);
+        let what = this.juego.map.loot[at][id].name;
         this.inventory_weight += weight;
 
         if (Config.stackable.includes(what) && this.is_in_inventory(what)){
-            this.stack_item(what, juego.map.loot[at][id].quantity);
-            juego.map.loot[at].splice(id, 1)
+            this.stack_item_in_inventory(what, this.juego.map.loot[at][id].quantity);
+            this.juego.map.loot[at].splice(id, 1)
         } else {
-            this.inventory.push(juego.map.loot[at].splice(id, 1)[0]);        
+            this.inventory.push(this.juego.map.loot[at].splice(id, 1)[0]);        
         }
         
-        if (juego.map.loot[at].length == 0 && juego.map.at(this.x, this.y) == 5){
-            juego.map.is(this.x, this.y, 1);
+        if (this.juego.map.loot[at].length == 0 && this.juego.map.at(this.x, this.y) == 5){
+            this.juego.map.is(this.x, this.y, 1);
         }
-        if (juego.map.loot[at].length == 0){
-            delete juego.map.loot[at];
+        if (this.juego.map.loot[at].length == 0){
+            delete this.juego.map.loot[at];
             this.looting = false;
             ui.change_screen('map');
         }
     }
 
-    use_stamina(n){
-        this.stamina -= n;
-        this.stamina = this.stamina.toFixed(1);
+    use_item(id){
+        let item = this.inventory[id];
+        let medicine_works = rand_num(1, 10) == 1;
+        if (!this.can_they_use(item.name)){
+            return;
+        }
+        if (item.name == 'crate'){
+           
+            item.name = 'crate (placed)';
+            this.drop_item(id);
+            this.juego.map.is(this.x, this.y, 8);
+        } else if (item.name == 'food' || item.name == 'food (spoiled)'){
+            this.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
+        } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
+            this.change_sickness(-rand_num(Config.medicine_gain[0], Config.medicine_gain[1]));
+        
+        }
+
+        if (item.name == 'food (spoiled)'){
+            this.change_sickness(rand_num(Config.spoiled_sick_gain[0], Config.spoiled_sick_gain[1]));
+        }
     }
+
 }

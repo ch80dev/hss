@@ -262,6 +262,20 @@ class GameMap {
         return exits;
     }
 
+    is_item_here(name, from){
+        console.log(name, from);
+        if (this.loot[from] == undefined){
+            return false;
+        }
+        for (let item of this.loot[from]){
+            if (item.name == name){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     is_on_the_border(pos_x, pos_y){
         for (let x = pos_x -1; x <= pos_x + 1; x ++){
             for (let y = pos_y -1; y <= pos_y + 1; y ++){
@@ -297,7 +311,6 @@ class GameMap {
     }
     populate_with_humans(location_type){
         let num_of_humans = rand_num(0, Config.max_num_of_humans[location_type]);
-        console.log(num_of_humans);
         for (let i = 0; i < num_of_humans; i ++){
             let open = this.fetch_open();
             this.is(open.x, open.y, 7);
@@ -305,7 +318,6 @@ class GameMap {
     }
     populate_with_rats(location_type){
         let num_of_rats = rand_num(0, Config.max_num_of_rats[location_type]);
-        console.log(num_of_rats);
         for (let i = 0; i < num_of_rats; i ++){
             let open = this.fetch_open();
             this.is(open.x, open.y, 6);
@@ -322,6 +334,13 @@ class GameMap {
         }
     }
 
+    stack_items(name, n, from){
+        for (let item of this.loot[from]){
+            if (item.name == name){
+                item.quantity += n;
+            }
+        }
+    }
 
 
     wipe(){

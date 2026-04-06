@@ -1,4 +1,7 @@
 class Config {
+	static default_rat_sense_range = 2;
+	static default_rat_max_health = 10;	
+	static default_rat_max_stamina = 30;
 	static exit_types = [null, null, 'sewer', 'alley', 'street'];
 	static food_gain = [10, 30];
 	static loop_interval_timing = 1000;

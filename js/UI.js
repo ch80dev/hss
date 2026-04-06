@@ -89,6 +89,10 @@ class UI{
 					cell_class = ' crate ';
 				}
 
+				if (juego.map.at(x, y) == 6 && juego.map.fetch_rat(juego.player.location_type, juego.player.location_id, x, y).hungry){
+					cell_class = ' rat hungry';
+				} 
+
 				if (juego.player.at(x, y)){
 					cell_txt = "@";
 					cell_class += " player ";
@@ -133,7 +137,6 @@ class UI{
 		$("#" + this.screen_focused).removeClass('hidden');
 
 		$("#sickness").html(juego.player.sickness);
-		console.log(juego.player.sickness);
 		$("#sickness_container").addClass('hidden');
 		if (juego.player.sickness > 0){
 			$("#sickness_container").removeClass('hidden');

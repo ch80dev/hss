@@ -1,7 +1,11 @@
 class GameMap {
     exits = {};
     grid = [];
-    humans = {};
+    humans = {
+        alley: [],
+        sewer: [],
+        street: [],
+    };
     locations = {
         alley: [],
         sewer: [],
@@ -9,17 +13,22 @@ class GameMap {
 
     }
     loot = {};
-    rats = {};
+    rats = {
+        alley: [],
+        sewer: [],
+        street: [],
+    };
     
 
-    constructor(max_x, max_y){
+    constructor(max_x, max_y, juego){
+        this.juego = juego;
         this.max_x = max_x;
         this.max_y = max_y;
         this.wipe();        
         this.generate_alley();
         this.locations.alley.push(this.grid);
-        this.populate_with_trash_cans();
-        this.populate_with_rats('alley');
+        
+        this.populate_with_rats('alley', this.locations.alley.length - 1);
         this.populate_with_humans('alley');
     }
 
@@ -29,17 +38,8 @@ class GameMap {
 
 
     draw(from, to, thickness){
-        let delta = {x: to.x - from.x, y: to.y - from.y };
-        if (delta.x > 0 ){
-            delta.x = 1;
-        } else if (delta.x < 0){
-            delta.x = -1;
-        }
-        if (delta.y > 0 ){
-            delta.y = 1;
-        } else if (delta.y < 0){
-            delta.y = -1;
-        }
+        let delta = this.fetch_delta(to.x, to.y, from.x, from.y);
+        
         let start_x = from.x;
         let start_y = from.y;
         while(start_x != to.x){
@@ -68,6 +68,25 @@ class GameMap {
             }
         }
     }
+    fetch_adjacent(pos_x, pos_y, what, orthogonal){
+        let adjacent = [];
+        for (let x = pos_x - 1; x <= pos_x + 1; x ++){
+            for (let y = pos_y - 1; y <= pos_y + 1; y ++){
+                if (!this.is_valid(x, y) || (x == pos_x && y == pos_y)){
+                    continue;
+                }
+                if (orthogonal && !this.is_orthogonal(x, y, pos_x, pos_y)){
+                    continue;
+                }
+                if (this.at(x, y) == null || this.at(x, y) != what){
+                    continue;
+                }
+                adjacent.push({ x: x, y: y });
+            }
+        }
+        return adjacent;
+    }
+
     fetch_border_spot(){
         while(true){
             let open = this.fetch_open();
@@ -75,6 +94,21 @@ class GameMap {
                 return open;
             }
         }
+    }
+
+    fetch_delta(x1, y1, x2, y2){
+        let delta = {x: x1 - x2, y: y1 - y2 };
+        if (delta.x > 0 ){
+            delta.x = 1;
+        } else if (delta.x < 0){
+            delta.x = -1;
+        }
+        if (delta.y > 0 ){
+            delta.y = 1;
+        } else if (delta.y < 0){
+            delta.y = -1;
+        }
+        return delta;
     }
 
     fetch_distance(from_x, from_y, to_x, to_y){
@@ -89,6 +123,18 @@ class GameMap {
                 return {x: rand_x, y: rand_y };
             }
         }
+    }
+
+    fetch_rat(location_type, location_id, x, y){
+        console.log(location_type, location_id, x, y);
+        for (let rat of this.rats[location_type][location_id]){
+
+            if (rat.x == x && rat.y == y){
+                console.log(rat.stamina, rat.hungry);
+                return rat;
+            }
+        }
+        return null;
     }
 
     fetch_size(){
@@ -137,6 +183,30 @@ class GameMap {
         return arr[closest_id];
     }
 
+    fill_trash(id, x, y){
+        let already_found = [];
+        let empty_trash = rand_num(1, 2) == 1;
+        let num_of_items = rand_num(1, Config.max_num_of_items_in_trash);
+        if (empty_trash){
+            num_of_items = 0;
+        }
+        let found = [];    
+        for (let i = 0; i < num_of_items; i ++){            
+            let item = this.juego.generate_item_from_trash();
+            let n = 1;
+            if(already_found.includes(item)){
+                continue;
+            }
+            already_found.push(item);
+            if (item == 'recyclables'){
+                n = rand_num(1, 10);
+            }
+            found.push({ name: item, quantity: n });
+            
+        }
+        this.loot[`alley-${id}-${x}-${y}`] = found;
+    }
+
     generate_alley(location_type){
         
         let num_of_exits = rand_num (2, 4);
@@ -166,7 +236,7 @@ class GameMap {
                 this.is(last_exit.x, last_exit.y, desired_id);
             }
         }
-        this.populate_with_trash_cans();
+        this.populate_with_trash_cans(this.locations.alley.length);
         return starting_here;
     }
 
@@ -195,7 +265,6 @@ class GameMap {
             this.is(exit.x, exit.y, exit_id);
         }
         if (starting_here == null){
-            console.log("solo");
             let last_exit = exits[exits.length - 1];
             starting_here = last_exit;
             let desired_id = Config.exit_types.indexOf(location_type);
@@ -230,7 +299,6 @@ class GameMap {
             this.is(exit.x, exit.y, exit_id);
         }
         if (starting_here == null){
-            console.log("solo");
             let last_exit = exits[exits.length - 1];
             starting_here = last_exit;
             let desired_id = Config.exit_types.indexOf(location_type);
@@ -262,8 +330,9 @@ class GameMap {
         return exits;
     }
 
+    
+
     is_item_here(name, from){
-        console.log(name, from);
         if (this.loot[from] == undefined){
             return false;
         }
@@ -316,22 +385,54 @@ class GameMap {
             this.is(open.x, open.y, 7);
         }
     }
-    populate_with_rats(location_type){
-        let num_of_rats = rand_num(0, Config.max_num_of_rats[location_type]);
+    populate_with_rats(location_type, location_id){
+        let num_of_rats = rand_num(1, Config.max_num_of_rats[location_type]);
+        this.rats[location_type][location_id] = [];
         for (let i = 0; i < num_of_rats; i ++){
             let open = this.fetch_open();
             this.is(open.x, open.y, 6);
+            
+            this.rats[location_type][location_id].push({
+                dead: false,
+                delta: {x: 0, y: 0},
+                health: Config.default_rat_max_health,
+                hungry: false,
+                sense_range: Config.default_rat_sense_range,
+                stamina: Config.default_rat_max_stamina,
+                max_health: Config.default_rat_max_health,
+                max_stamina: Config.default_rat_max_stamina,
+                x: open.x, y: open.y                
+            });
         }
         
     }
 
-    populate_with_trash_cans(){
+    populate_with_trash_cans(id){
         let size = this.fetch_size();
         let num_of_trash_cans = Math.round(size * .05);
         for (let i = 0; i < num_of_trash_cans; i ++){
             let border = this.fetch_border_spot();
             this.is(border.x, border.y, 5);
+            this.fill_trash(id, border.x, border.y);
         }
+        
+    }
+    
+    search_for_food(pos_x, pos_y, range, location_type, location_id){
+        for (let x = pos_x - range; x <= pos_x + range; x ++){
+            for (let y = pos_y - range; y <= pos_y + range; y ++){                
+                if (this.loot[`${location_type}-${location_id}-${x}-${y}`] == undefined){
+                    continue;
+                }                
+                for (let item of this.loot[`${location_type}-${location_id}-${x}-${y}`]){
+                    if (item.name == 'food' || item.name == 'food (spoiled)'){
+                        return this.fetch_delta(x, y, pos_x, pos_y);
+                    }
+                }
+
+            }    
+        }
+        return {x: 0, y: 0}; 
     }
 
     stack_items(name, n, from){

@@ -48,6 +48,10 @@
     color: #8b5a2b;
 }
 
+.rat.hungry{
+    color: red;
+}
+
 .sewer_exit {
     color: #b04a4a;
     

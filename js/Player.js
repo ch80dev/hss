@@ -1,5 +1,6 @@
 class Player{
-    health = 100;
+    health = 100;    
+    is_sick = true;
     location_type = 'alley';
     location_id = 0;
     looting = false;
@@ -9,7 +10,9 @@ class Player{
     movement_cost = .1;
     slots_in_inventory = 5;
     stamina = 100;
+    stamina_delta = 0;    
     sickness = 0;
+
     x = null;
     y = null;
     inventory = [{name: 'crate', quantity: 1}];
@@ -39,7 +42,6 @@ class Player{
     }
 
     can_they_use(name){
-        console.log('can_they_use', name, this.juego.map.at(this.x, this.y));
         if ((name == 'lighter' && !this.is_in_inventory('fuel')) 
             || (name == 'crate' && this.juego.map.is_item_here('crate (placed)', this.fetch_from()))
             || (name == 'crate' && this.juego.map.at(this.x, this.y) != 1)){
@@ -50,7 +52,6 @@ class Player{
     }
 
     change_sickness(n){
-        console.log(n, this.sickness);
         n = Number(n);
         this.sickness = (Number(this.sickness) || 0) + n;
         if (this.sickness < 0){
@@ -58,11 +59,13 @@ class Player{
         } else if (this.sickness > Config.max_sickness){
             this.sickness = Config.max_sickness;
         }
-        console.log(n, this.sickness);
     }
 
-    change_stamina(n){
-        n = Number(n);
+    change_stamina(){
+        if (this.is_sick){
+			this.stamina_delta *= 2;
+		}
+        let n = Number(this.stamina_delta);
         this.stamina = (Number(this.stamina) || 0) + n;
         if (this.stamina > this.max_stamina){
             this.stamina = this.max_stamina;            
@@ -70,6 +73,11 @@ class Player{
             this.stamina = 0;
         }
         this.stamina = Math.round(this.stamina * 10) / 10;
+        this.stamina_delta = 0;
+    }
+
+    change_stamina_delta(n){
+        this.stamina_delta += Number(n);
     }
 
     die(){
@@ -82,7 +90,6 @@ class Player{
     drop_item(id){
         let at = this.fetch_from();
         let item = this.inventory[id];
-        console.log(id, item);
         if (Config.stackable.includes(item.name) && this.juego.map.is_item_here(item.name, at)){
             this.juego.map.stack_items(item.name, item.quantity, at);
             this.inventory.splice(id, 1)
@@ -163,18 +170,20 @@ class Player{
             return;
         }  
         if (this.stamina > 0){
-            this.change_stamina(-this.movement_cost);
+            this.change_stamina_delta(-this.movement_cost);
         } else if (this.health > 0){
             this.health -= this.movement_cost;
         }
         this.x = pos.x;
         this.y = pos.y;
+        this.juego.next_turn();
         if (this.juego.map.at(pos.x, pos.y) != 1 && this.juego.map.at(pos.x, pos.y) < 5){
             this.explore(this.juego.map.at(pos.x, pos.y), this.juego);
             return;
         } else if (this.juego.map.at(pos.x, pos.y) == 5){
             this.search_trash(this.x, this.y, this.juego)
         }
+        
     }
     open_trash(x, y){
         ui.change_screen('loot');
@@ -184,30 +193,18 @@ class Player{
     
 
     search_trash(x, y){
-        let already_found = [];
-        let trash_usable = rand_num(1, 3) == 1;
-        this.change_stamina(-.4);
-        if (!trash_usable){
+        let trash = this.juego.map.loot[this.fetch_from()];
+        if (trash == undefined){
+            console.log('trash');
+            return;
+        }
+        this.change_stamina_delta(-.4);
+        if (trash.length == 0){
             ui.log("Nothing usable in trash");
+            delete this.juego.map.loot[this.fetch_from()];
             this.juego.map.is(x, y, 1);
             return;
         }
-        let num_of_items = rand_num(1, Config.max_num_of_items_in_trash);
-        let found = [];    
-        for (let i = 0; i < num_of_items; i ++){            
-            let item = this.juego.generate_item_from_trash();
-            let n = 1;
-            if(already_found.includes(item)){
-                continue;
-            }
-            already_found.push(item);
-            if (item == 'recyclables'){
-                n = rand_num(1, 10);
-            }
-            found.push({ name: item, quantity: n });
-            
-        }
-        this.juego.map.loot[`${this.location_type}-${this.location_id}-${this.x}-${this.y}`] = found;
         this.open_trash(x, y);
         
     }

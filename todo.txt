@@ -2,6 +2,7 @@ TODO
     be able to kill rats 
     be able to make a campfire
     be able to cook meat from rats
+    tooltips for items
 
 BUGS
     less than target exits created

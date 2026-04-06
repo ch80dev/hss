@@ -273,6 +273,7 @@ class Player{
             item.name = 'crate (placed)';
             this.drop_item(id);
             this.juego.map.is(this.x, this.y, 8);
+            return;
         } else if (item.name == 'food' || item.name == 'food (spoiled)'){
             this.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
@@ -283,6 +284,8 @@ class Player{
         if (item.name == 'food (spoiled)'){
             this.change_sickness(rand_num(Config.spoiled_sick_gain[0], Config.spoiled_sick_gain[1]));
         }
+
+        this.inventory.splice(id, 1);
     }
 
 }

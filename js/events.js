@@ -5,7 +5,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 $(document).on('click', '.close', function() {
-    juego.player.looting = false;
+    juego.player.state.looting = false;
     ui.change_screen('map');
     ui.refresh();
 });
@@ -15,19 +15,19 @@ $(document).on('click', '.item', function(e) {
     if (e.target && e.target.closest('button')){
         return;
     }
-    juego.input.move_item(this.id.split('-')[0], this.id.split('-')[1], juego);
+    juego.player.inventory.move_item(this.id.split('-')[0], this.id.split('-')[1], juego.map);
     ui.refresh();
 });
 
 $(document).on('click', '#take_all_loot', function() {
-    juego.player.take_all(juego);
+    juego.player.inventory.take_all(juego.map);
     ui.refresh();
 });
 
 $(document).on('click', '.use', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    juego.player.use_item(this.id.split('-')[1], juego);
+    juego.player.use_item(this.id.split('-')[1], juego.map);
     ui.refresh();
 });
 

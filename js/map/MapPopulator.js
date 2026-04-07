@@ -1,0 +1,59 @@
+class MapPopulator{
+    constructor(map){
+        this.map = map;
+    }
+
+    fill_trash(id, x, y){
+        let already_found = [];
+        let empty_trash = rand_num(1, 2) == 1;
+        let num_of_items = rand_num(1, Config.max_num_of_items_in_trash);
+        if (empty_trash){
+            num_of_items = 0;
+        }
+        let found = [];    
+        for (let i = 0; i < num_of_items; i ++){            
+            let item = this.generate_item_from_trash();
+            let n = 1;
+            if(already_found.includes(item)){
+                continue;
+            }
+            already_found.push(item);
+            if (item == 'recyclables'){
+                n = rand_num(1, 10);
+            }
+            found.push({ name: item, quantity: n });
+            
+        }
+        this.map.loot[`alley-${id}-${x}-${y}`] = found;
+    }
+
+    generate_item_from_trash(){
+		let gen_odds = rand_num(1, 100);
+		for (let item_name in Config.trash_item_odds){
+			let item_odd= Config.trash_item_odds[item_name];
+			if (gen_odds >= item_odd[0] && gen_odds <= item_odd[1] ){
+				return item_name;
+			}
+		}
+	}
+
+     populate_with_humans(location_type){
+        let num_of_humans = rand_num(0, Config.max_num_of_humans[location_type]);
+        for (let i = 0; i < num_of_humans; i ++){
+            let open = this.map.queries.fetch_open();
+            this.map.is(open.x, open.y, 7);
+        }
+    }
+    
+
+    populate_with_trash_cans(id){
+        let size = this.map.queries.fetch_size();
+        let num_of_trash_cans = Math.round(size * .05);
+        for (let i = 0; i < num_of_trash_cans; i ++){
+            let border = this.map.queries.fetch_border_spot();
+            this.map.is(border.x, border.y, 5);
+            this.fill_trash(id, border.x, border.y);
+        }
+        
+    }
+}

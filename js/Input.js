@@ -1,27 +1,21 @@
 class Input {
 
-    move_item(from, id){
-        //console.log(from, id);
-        if (from == 'loot'){
-            juego.player.take_item(id);   
-            return;     
-        }
-        juego.player.drop_item(id);
-    }
+    
     press_key(pressed){
         //console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'i'){
-            juego.player.looting = true;
+            juego.player.state.looting = true;
             ui.change_screen('loot');
-        } else if (pressed == "Escape" && juego.player.looting){
-            juego.player.looting = false;
+        } else if (pressed == "Escape" && juego.player.state.looting){
+            juego.player.state.looting = false;
             ui.change_screen('map');
-        } else if (pressed == " " && juego.player.looting){
-            juego.player.take_all();
-        } else if (!juego.player.looting && directions.includes(pressed.substring(5).toLowerCase())){
-            juego.player.move(pressed.substring(5).toLowerCase());
+        } else if (pressed == " " && juego.player.state.looting){
+            juego.player.inventory.take_all(juego.map);
+        } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
+            juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map);
+            juego.next_turn();
         }
     }
 

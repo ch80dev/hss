@@ -1,0 +1,102 @@
+class MapGenerator {
+
+    constructor(map){
+        this.map = map;
+    }
+    draw(from, to, thickness){
+        let delta = this.map.queries.fetch_delta(to.x, to.y, from.x, from.y);        
+        let start_x = from.x;
+        let start_y = from.y;
+        while(start_x != to.x){
+            start_x += delta.x;
+            this.map.is(start_x, from.y, 1);
+            for (let i = 1; i <= thickness; i ++){
+                this.map.is(start_x, from.y + i, 1);
+                this.map.is(start_x, from.y - i, 1);
+            }
+        }
+        while(start_y != to.y){
+            start_y += delta.y;                        
+            this.map.is(start_x, start_y, 1);
+            for (let i = 1; i <= thickness; i ++){
+                this.map.is(start_x + i, start_y, 1);
+                this.map.is(start_x - i, start_y, 1);
+            }
+        }
+    }
+
+    draw_around(pos_x, pos_y){
+        for (let x = pos_x - 1; x <= pos_x + 1; x ++ ){
+            for (let y = pos_y - 1; y <= pos_y + 1; y ++ ){
+                
+                this.map.is(x, y, 1);
+            }
+        }
+    }
+
+    generate (location_type, entered_from){
+        let divisor = {alley: 4, sewer: 8, street:4}
+        let thickness = { alley: 2, sewer: 1, street: 7};
+        let num_of_exits = rand_num(Config.num_of_exits[location_type][0], Config.num_of_exits[location_type][1]);
+        let exits = this.generate_exits(num_of_exits, Math.round(Config.max_x / 
+            divisor[location_type]), Math.round(Config.max_y / divisor[location_type]));
+        let starting_here = null;
+
+        for (let exit of exits){
+            let farthest = this.map.queries.fetch_farthest(exit, exits);
+            this.draw(exit, farthest, thickness[location_type]);
+        }
+
+        if (location_type == 'street' && rand_num(1, 2) == 1){
+            exits.pop();
+        }
+
+        for (let exit of exits){
+            this.draw_around(exit.x, exit.y);
+        }
+
+        for (let exit of exits){
+            let exit_id = rand_num(Config.exits_to[location_type][0], Config.exits_to[location_type][1]);
+            let exit_type = Config.exit_types[exit_id];
+            if (exit_type == entered_from){
+                starting_here = exit;
+            }
+            this.map.is(exit.x, exit.y, exit_id);
+        }
+
+        if (starting_here == null && entered_from != null){
+            let last_exit = exits[exits.length - 1];
+            starting_here = last_exit;
+            let desired_id = Config.exit_types.indexOf(entered_from);
+            if (desired_id >= 2){
+                this.map.is(last_exit.x, last_exit.y, desired_id);
+            }
+        }
+        if (location_type == 'alley'){
+            this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
+        }
+        return starting_here;
+    }
+
+    generate_exits(num, min_x, min_y){        
+        let exits = [];
+        while (exits.length < num){
+            let bad = false;
+            // rand_num is inclusive; cap at max-1 to stay in-bounds
+            let rand_x = rand_num(0, Config.max_x - 1);
+            let rand_y = rand_num(0, Config.max_y - 1);
+            for (let exit of exits){
+                let x_dist = Math.abs(exit.x - rand_x);
+                let y_dist = Math.abs(exit.y - rand_y);
+                if (x_dist < min_x && y_dist < min_y){
+                    bad = true;
+                }                
+            }
+            if (!bad){
+                exits.push({ x: rand_x, y: rand_y });
+            }
+        }
+        return exits;
+    }
+
+}

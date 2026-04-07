@@ -3,7 +3,7 @@ TODO
     be able to make a campfire
     be able to cook meat from rats
     tooltips for items
-
+    rats should be able to exit if there's no food in the alley
 BUGS
     less than target exits created
 

@@ -1,15 +1,24 @@
 class Config {
+	static cell_class = ['empty', 'filled', 'sewer_exit', 'alley_exit', 'street_exit', 'trash', 'rat', 'human', 'crate'];
 	static default_rat_sense_range = 2;
 	static default_rat_max_health = 10;	
 	static default_rat_max_stamina = 30;
 	static exit_types = [null, null, 'sewer', 'alley', 'street'];
+	static exits_to = {
+		alley: [2, 4], sewer: [2, 3], street: [3, 4],
+	}
 	static food_gain = [10, 30];
 	static loop_interval_timing = 1000;
 	static max_num_of_items_in_trash = 3;
 	static max_sickness = 100;
-	static max_x = 45;
+	static max_x = 25;
 	static max_y = 25;
 	static medicine_gain = [10, 100];
+	static num_of_exits = {
+		alley: [2, 4],
+		sewer: [4, 8],
+		street: [2, 2],
+	}
 	static degradable = ['weapon', 'tool'];
 	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
 	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];

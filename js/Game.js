@@ -21,6 +21,7 @@ class Game{
 		this.populate_with_rats('alley', this.map.locations.alley.length - 1, this.player);
 		
 	}
+
 	fetch_rat(location_type, location_id, x, y){
         for (let rat of this.rats[location_type][location_id]){
 
@@ -33,6 +34,7 @@ class Game{
 
 	
 	next_turn(){
+		console.log('turn');
 		let are_they_sick = rand_num(1, 100) <= this.player.state.sickness;
 		
 		this.player.status.change_stamina();
@@ -56,10 +58,10 @@ class Game{
     }
 
 	rats_move(){		
-		if (this.player.location_type != 'alley'){
+		if (this.player.state.location_type != 'alley'){
 			return;
 		}
-		for (let rat of this.map.rats[this.player.location_type][this.player.location_id]){					
+		for (let rat of this.rats[this.player.state.location_type][this.player.state.location_id]){					
 			rat.move();
 		}
 	}

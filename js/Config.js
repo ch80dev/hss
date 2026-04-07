@@ -1,6 +1,21 @@
 class Config {
-	static cell_class = ['empty', 'filled', 'sewer_exit', 'alley_exit', 'street_exit', 'trash', 'rat', 'human', 'crate'];
-	static default_rat_sense_range = 2;
+	static cell_class = [
+		'empty', 
+		'filled', 'sewer_exit', 
+		'alley_exit', 'street_exit', 
+		'trash', 'rat', 
+		'human', 'crate'];
+	static cell_txt = {
+		crate: '&#9644;',
+		human: 'h',
+		player: '@',
+		rat: 'r',
+		trash: '&#9646;',
+		unused_exit: '&#9673;',
+		used_exit: '&#9678',		
+	};
+
+	static default_rat_sense_range = 10;
 	static default_rat_max_health = 10;	
 	static default_rat_max_stamina = 30;
 	static exit_types = [null, null, 'sewer', 'alley', 'street'];
@@ -22,6 +37,8 @@ class Config {
 	static degradable = ['weapon', 'tool'];
 	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
 	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];
+
+	static rat_movement_cost = .1;
 
 	static spoiled_sick_gain = [1, 50];
 	static max_num_of_humans = {

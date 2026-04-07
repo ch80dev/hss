@@ -81,22 +81,22 @@ class UI{
 				} 
 
 				if (juego.player.movement.at(x, y)){
-					cell_txt = "@";
+					cell_txt = Config.cell_txt['player'];
 					cell_class += " player ";
 				} else if (map_at != null && map_at != 1  
 					&& juego.player.movement.have_they_used_this_exit(juego.player.state.location_type, 
 					juego.player.state.location_id, x, y, juego.map)){
-					cell_txt = '&#9678;';
+					cell_txt = Config.cell_txt['used_exit'];
 				} else if (map_at == 5){
-					cell_txt = '&#9646;';
+					cell_txt = Config.cell_txt['trash'];
 				} else if (map_at == 6){
-					cell_txt = 'r';
+					cell_txt = Config.cell_txt['rat'];
 				} else if (map_at == 7){
-					cell_txt = 'h';
+					cell_txt = Config.cell_txt['human'];
 				} else if (map_at == 8){
-					cell_txt = "&#9644;"
+					cell_txt = Config.cell_txt['crate'];
 				} else if (map_at != null && map_at > 1 && map_at < 5){
-					cell_txt = '&#9673;';
+					cell_txt = Config.cell_txt['unused_exit'];
 				}
 					  
 				

@@ -51,31 +51,7 @@ class MapQueries{
     fetch_distance(from_x, from_y, to_x, to_y){
 	    return Math.sqrt(Math.pow(from_x - to_x, 2) + Math.pow(from_y - to_y, 2))
     }
-
-    fetch_open(){
-        while(true){
-            let rand_x = rand_num (0, Config.max_x - 1);
-            let rand_y = rand_num (0, Config.max_x - 1);
-            if (this.at(rand_x, rand_y) == 1){
-                return {x: rand_x, y: rand_y };
-            }
-        }
-    }
-
     
-
-    fetch_size(){
-        let n = 0;
-        for (let x = 0; x < Config.max_x; x ++){
-            for (let y = 0; y < Config.max_y; y ++){
-                if (this.at(x, y) != null){
-                    n ++;
-                }
-            }
-        }
-        return n;
-    }
-
     fetch_farthest(point, arr){
         let closest = null;
         let closest_id = null;
@@ -91,6 +67,16 @@ class MapQueries{
             }
         }
         return arr[closest_id];
+    }
+
+    fetch_open(){
+        while(true){
+            let rand_x = rand_num (0, Config.max_x - 1);
+            let rand_y = rand_num (0, Config.max_x - 1);
+            if (this.at(rand_x, rand_y) == 1){
+                return {x: rand_x, y: rand_y };
+            }
+        }
     }
 
     fetch_nearest(point, arr){
@@ -109,6 +95,24 @@ class MapQueries{
         }
         return arr[closest_id];
     }
+
+    
+
+    fetch_size(){
+        let n = 0;
+        for (let x = 0; x < Config.max_x; x ++){
+            for (let y = 0; y < Config.max_y; y ++){
+                if (this.at(x, y) != null){
+                    n ++;
+                }
+            }
+        }
+        return n;
+    }
+
+    
+
+    
 
     invert_delta(delta){
         delta.x *= -1;
@@ -152,13 +156,13 @@ class MapQueries{
         return x >= 0 && x < Config.max_x && y >=0 && y < Config.max_y;
     }
 
-    search_for_food(pos_x, pos_y, range, location_type, location_id){
+    search_for_food(pos_x, pos_y, range){
         for (let x = pos_x - range; x <= pos_x + range; x ++){
             for (let y = pos_y - range; y <= pos_y + range; y ++){                
-                if (this.map.loot[`${location_type}-${location_id}-${x}-${y}`] == undefined){
+                if (this.map.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`] == undefined){
                     continue;
                 }                
-                for (let item of this.loot[`${location_type}-${location_id}-${x}-${y}`]){
+                for (let item of this.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`]){
                     if (item.name == 'food' || item.name == 'food (spoiled)'){
                         return this.fetch_delta(x, y, pos_x, pos_y);
                     }

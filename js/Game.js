@@ -23,8 +23,7 @@ class Game{
 	}
 
 	fetch_rat(location_type, location_id, x, y){
-        for (let rat of this.rats[location_type][location_id]){
-
+        for (let rat of this.rats[location_type][location_id]){			
             if (rat.x == x && rat.y == y){
                 return rat;
             }
@@ -59,8 +58,9 @@ class Game{
 		if (this.player.state.location_type != 'alley'){
 			return;
 		}
-		for (let rat of this.rats[this.player.state.location_type][this.player.state.location_id]){					
-			rat.move();
+		for (let id in  this.rats[this.player.state.location_type][this.player.state.location_id]){					
+			let rat = this.rats[this.player.state.location_type][this.player.state.location_id][id];
+			rat.move(id);
 		}
 	}
 }

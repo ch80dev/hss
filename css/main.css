@@ -9,6 +9,11 @@ body{
 body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
+
+#equipped {
+    text-align: center;
+    width: 100%;
+}
 .heading{
     font-weight: bold;
     color: black;

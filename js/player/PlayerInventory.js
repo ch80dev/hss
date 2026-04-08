@@ -25,20 +25,32 @@ class PlayerInventory {
         return Config.usable.includes(name);
     }
     
-    drop_item(id){
+    drop_item(id, map){
         let at = this.player.fetch_from();
         let item = this.player.state.inventory[id];
-        if (Config.stackable.includes(item.name) && map.is_item_here(item.name, at)){
+        
+        if (Config.stackable.includes(item.name) && map.queries.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.player.state.inventory.splice(id, 1)
             return;
         } 
-        
+        console.log(map.loot, at);
         if (map.loot[at] == undefined){
-            map.loot[at] = [];
+            map.loot[at] = { locked: false, searched: false, stuff: []};
         } 
-        map.loot[at].push(this.player.state.inventory.splice(id, 1)[0]);        
+        map.loot[at].stuff.push(this.player.state.inventory.splice(id, 1)[0]);        
                 
+    }
+
+    equip(id){
+        this.player.state.equipped = id;
+    }
+
+    fetch(id){
+        if (this.player.state.inventory[id] == undefined){
+            return null;
+        }
+        return this.player.state.inventory[id];
     }
 
     fetch_weight(name, quantity){
@@ -46,7 +58,18 @@ class PlayerInventory {
         return Config.weights[name] * quantity;
     }
 
-     is_in_inventory(what){
+    is_equipped_with(what){
+        if (this.player.state.equipped == null){
+            return false;
+        }
+        let item = this.fetch(this.player.state.equipped);
+        if (item.name == what){
+            return true;
+        }
+        return false;
+    }
+
+    is_in_inventory(what){
         for (let item of this.player.state.inventory){
             if (item.name == what){
                 return true;
@@ -61,7 +84,7 @@ class PlayerInventory {
             this.take_item(id, map);   
             return;     
         }
-        this.inventory.drop_item(id);
+        this.drop_item(id, map);
     }
 
     stack_item_in_inventory(what, n){
@@ -78,7 +101,8 @@ class PlayerInventory {
         if (map.loot[at] == undefined){
             return;
         }
-        while (map.loot[at] && map.loot[at].length > 0){
+        console.log(map.loot[at].stuff.length, map.loot[at], at);
+        while (map.loot[at] && map.loot[at].stuff.length > 0){
             let status = this.take_item(0, map);
             if (status === false){
                 return;
@@ -90,30 +114,43 @@ class PlayerInventory {
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
         if (map.loot[at] == undefined 
-            || (map.loot[at] != undefined && !this.can_they_take(map.loot[at][id].name, map.loot[at][id].quantity))){
+            || (map.loot[at] != undefined && !this.can_they_take(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity))){
             return false;
         }
-        let weight = this.fetch_weight(map.loot[at][id].name, map.loot[at][id].quantity);
-        let what = map.loot[at][id].name;
+        let weight = this.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
+        let what = map.loot[at].stuff[id].name;
         this.player.state.inventory_weight += weight;
 
         if (Config.stackable.includes(what) && this.is_in_inventory(what)){
-            this.stack_item_in_inventory(what, map.loot[at][id].quantity);
-            map.loot[at].splice(id, 1)
+            this.stack_item_in_inventory(what, map.loot[at].stuff[id].quantity);
+            map.loot[at].stuff.splice(id, 1)
         } else {
-            this.player.state.inventory.push(map.loot[at].splice(id, 1)[0]);        
+            this.player.state.inventory.push(map.loot[at].stuff.splice(id, 1)[0]);        
         }
         
-        if (map.loot[at].length == 0 && map.queries.at(this.player.state.x, this.player.state.y) == 5){
+        if (map.loot[at].stuff.length == 0 && map.queries.at(this.player.state.x, this.player.state.y) == 5){
             map.is(this.player.state.x, this.player.state.y, 1);
         }
-        if (map.loot[at].length == 0){
+        if (map.loot[at].stuff.length == 0){
             delete map.loot[at];
             this.player.state.looting = false;
             ui.change_screen('map');
         }
     }
 
-    
+    use_equipment(usage_cost){
+        console.log('use', this.player.state.equipped);
+        if (this.player.state.equipped == null){
+            return;
+        }
+        console.log(usage_cost);
+        let item = this.fetch(this.player.state.equipped);
+        item.durability -= usage_cost;
+        if (item.durability <= 0){
+            this.player.state.equipped = null;
+            this.player.state.inventory.splice(id, 1);
+        }
+
+    }
 
 }

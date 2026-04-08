@@ -44,6 +44,12 @@
     color: #66ccff;
 }
 
+.player_fighting{
+    color: red;
+    background: #222222;
+    border: 1px red solid;
+}
+
 .rat{
     color: #8b5a2b;
 }

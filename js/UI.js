@@ -30,12 +30,18 @@ class UI{
 		for (let id in items){			
 			
 			let item = items[id].name
+			let durability = '';
+			if (Config.degradable.includes(item)){
+				durability = `(${items[id].durability}%)`;
+			}
+			
 			if (item == 'crate (placed)'){
 				continue;
 			}
 			let n = items[id].quantity;
 			let can_they_take = juego.player.inventory.can_they_take(item, n);
 			let can_take = "";
+			let equipable = "";
 			let usable = "";
 			let where = 'inventory';
 			if (is_loot){
@@ -47,7 +53,12 @@ class UI{
 			if (!is_loot && Config.usable.includes(item)){
 				usable = `<button id='use-${id}' class='use'>use</button>`;
 			}
-			let line = `<div><span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item}${usable}</span></div>`;
+			if (!is_loot && Config.equipable.includes(item) && juego.player.state.equipped != id){
+				equipable = `<button id='equip-${id}' class='equip'>equip</button>`;
+			} else if (!is_loot && Config.equipable.includes(item) && juego.player.state.equipped == id){
+				equipable = " [ equipped ]";
+			}
+			let line = `<div><span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item} ${durability} ${usable} ${equipable} </span></div>`;
 			if (Config.stackable.includes(item)){
 				line = `<div><span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item} (${n})</span>${usable}</div>`;
 			}
@@ -58,8 +69,11 @@ class UI{
 
 	display_loot(){
 		$(".inventory").html(this.display_loot_items(juego.player.state.inventory, false));
+		if (juego.map.loot[juego.player.fetch_from()] == undefined){
+			juego.map.loot[juego.player.fetch_from()] = Config.default_loot;
+		}
 		if (juego.player.state.looting){
-			$("#loot_container").html( this.display_loot_items(juego.map.loot[juego.player.fetch_from()], true));
+			$("#loot_container").html( this.display_loot_items(juego.map.loot[juego.player.fetch_from()].stuff, true));
 		}
 		
 	}
@@ -82,7 +96,7 @@ class UI{
 
 				if (juego.player.movement.at(x, y)){
 					cell_txt = Config.cell_txt['player'];
-					cell_class += " player ";
+					
 				} else if (map_at != null && map_at != 1  
 					&& juego.player.movement.have_they_used_this_exit(juego.player.state.location_type, 
 					juego.player.state.location_id, x, y, juego.map)){
@@ -98,7 +112,12 @@ class UI{
 				} else if (map_at != null && map_at > 1 && map_at < 5){
 					cell_txt = Config.cell_txt['unused_exit'];
 				}
-					  
+				
+				if (juego.player.movement.at(x, y) && !juego.player.state.fighting){
+					cell_class += " player ";
+				} else if (juego.player.movement.at(x, y) && juego.player.state.fighting){
+					cell_class += " player_fighting";
+				} 
 				
 				
 				txt += `<div id='cell-${x}-${y}' class='cell ${cell_class}'>${cell_txt}</div>`
@@ -125,10 +144,7 @@ class UI{
 		$('#stamina').html(`${stamina_cent}%`);
 		$('#stigma').html(`${stigma_cent}%`);
 		$("#status").html(this.status_msg);
-		if (this.status_msg != ""){
-			
-			this.status_msg = "";
-		}
+
 		$(".screen").addClass('hidden');
 		$("#" + this.screen_focused).removeClass('hidden');
 
@@ -136,6 +152,11 @@ class UI{
 		$("#sickness_container").addClass('hidden');
 		if (juego.player.state.sickness > 0){
 			$("#sickness_container").removeClass('hidden');
+		}
+		$("#equipped").html("");
+		if (juego.player.state.equipped != null){
+			let equipped = juego.player.inventory.fetch(juego.player.state.equipped);
+			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
 		}
 
 	}

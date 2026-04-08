@@ -1,4 +1,5 @@
 class GameMap {
+    
     location = { type: 'alley', id: 0 }; 
     exits = {};
     grid = [];   
@@ -25,7 +26,9 @@ class GameMap {
         this.populator.populate_with_humans('alley');
     }
     
-
+    format_at(location_type, location_id, x, y){
+        return `${location_type}-${location_id}-${x}-${y}`;
+    }
 
  
 
@@ -43,7 +46,7 @@ class GameMap {
     }
    
     stack_items(name, n, from){
-        for (let item of this.loot[from]){
+        for (let item of this.loot[from].stuff){
             if (item.name == name){
                 item.quantity += n;
             }

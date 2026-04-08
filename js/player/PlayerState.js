@@ -1,6 +1,8 @@
 class PlayerState{    
+    equipped = null;
+    fighting = false;
     health = 100;    
-    inventory = [];
+    inventory = [{name: 'tool', durability: 100, quantity: 1}];
     inventory_weight =  0;
     is_sick = false;
     location_type = 'alley';

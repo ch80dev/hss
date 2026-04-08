@@ -1,4 +1,6 @@
 class Config {
+	//MAKE EVERYTHING STATIC
+	static attackable = [6, 7];
 	static cell_class = [
 		'empty', 
 		'filled', 'sewer_exit', 
@@ -15,7 +17,9 @@ class Config {
 		used_exit: '&#9678',		
 	};
 
-	static default_rat_sense_range = 10;
+
+	static default_loot = { locked: null, searched: false, stuff: [], durability: null  };
+	static default_rat_sense_range = 5;
 	static default_rat_max_health = 10;	
 	static default_rat_max_stamina = 30;
 	static exit_types = [null, null, 'sewer', 'alley', 'street'];
@@ -34,7 +38,8 @@ class Config {
 		sewer: [4, 8],
 		street: [2, 2],
 	}
-	static degradable = ['weapon', 'tool'];
+	static equipable = ['tool', 'weapon'];
+	static degradable = ['lighter', 'weapon', 'tool'];
 	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
 	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];
 
@@ -50,6 +55,10 @@ class Config {
 		alley: 3, 
 		street: 0, 
 		sewer: 10,
+	}
+
+	static stamina_cost = {
+		attack: -1,
 	}
 	static stigma_effects = {
 		trash: .2,

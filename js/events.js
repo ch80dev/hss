@@ -1,12 +1,22 @@
 document.addEventListener('keydown', (event) => {
    let key_pressed = event.key;
-   juego.input.press_key(key_pressed, juego);
+   juego.input.press_key(key_pressed);
    ui.refresh();
+
+});
+document.addEventListener('keyup', (event) => {
+   let key_pressed = event.key;
+   juego.input.release_key(key_pressed);
 });
 
 $(document).on('click', '.close', function() {
     juego.player.state.looting = false;
     ui.change_screen('map');
+    ui.refresh();
+});
+
+$(document).on('click', '.equip', function(e) {
+    juego.player.inventory.equip(Number(this.id.split('-')[1]));
     ui.refresh();
 });
 

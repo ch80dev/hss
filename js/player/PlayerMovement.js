@@ -46,7 +46,7 @@ class PlayerMovement{
     }
 
 
-     move(where, map){
+     move(where, map, juego){
         let directions = {
             up: { x: 0, y: -1 },
             right: { x: 1, y: 0 },
@@ -54,13 +54,30 @@ class PlayerMovement{
             left: { x: -1, y: 0 },
         };
         let pos = {x : this.player.state.x + directions[where].x, y: this.player.state.y + directions[where].y};        
-        if (map.queries.at(pos.x, pos.y) == null || !map.queries.is_valid(pos.x, pos.y)){
+        if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
             return;
         }  
+        if (Config.attackable.includes(map.queries.at(pos.x, pos.y))){
+            this.player.actions.attack(pos.x, pos.y, juego);
+            return;
+        }
         if (this.player.state.stamina > 0){
             this.player.status.change_stamina_delta(-this.player.state.movement_cost);
         } else if (this.player.state.health > 0){
             this.player.state.health -= this.player.state.movement_cost;
+        }
+        if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('trash') && !this.player.inventory.is_equipped_with('tool')
+            && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`] != undefined 
+            && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`].locked){
+            ui.log('This trash can is locked.');
+            return;
+        }  else if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('trash') 
+            && this.player.inventory.is_equipped_with('tool')
+            && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`] != undefined 
+            && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`].locked){
+                console.log('unlocked');
+            this.player.actions.unlock_trash(pos.x, pos.y, map);
+            return;
         }
         this.player.state.x = pos.x;
         this.player.state.y = pos.y;        
@@ -69,7 +86,9 @@ class PlayerMovement{
             return;
         } else if (map.queries.at(pos.x, pos.y) == 5){
             this.player.actions.search_trash(this.player.state.x, this.player.state.y, map)
+            return;
         }
+        ui.log("");
         
     }
 }

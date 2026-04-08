@@ -124,7 +124,7 @@ class MapQueries{
         if (this.map.loot[from] == undefined){
             return false;
         }
-        for (let item of this.map.loot[from]){
+        for (let item of this.map.loot[from].stuff){
             if (item.name == name){
                 return true;
             }
@@ -162,7 +162,7 @@ class MapQueries{
                 if (this.map.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`] == undefined){
                     continue;
                 }                
-                for (let item of this.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`]){
+                for (let item of this.map.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`].stuff){
                     if (item.name == 'food' || item.name == 'food (spoiled)'){
                         return this.fetch_delta(x, y, pos_x, pos_y);
                     }

@@ -5,7 +5,9 @@ class Input {
         //console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
-        if (pressed == 'i'){
+        if (pressed == 'Shift' && !juego.player.state.fighting){
+            juego.player.state.fighting = true;
+        } else if (pressed == 'i'){
             juego.player.state.looting = true;
             ui.change_screen('loot');
         } else if (pressed == "Escape" && juego.player.state.looting){
@@ -14,8 +16,14 @@ class Input {
         } else if (pressed == " " && juego.player.state.looting){
             juego.player.inventory.take_all(juego.map);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
-            juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map);
+            juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
             juego.next_turn();
+        }
+    }
+
+    release_key(pressed){
+        if (pressed == 'Shift' && juego.player.state.fighting){
+            juego.player.state.fighting = false;
         }
     }
 

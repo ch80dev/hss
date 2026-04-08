@@ -16,6 +16,15 @@ class Rat{
         this.x = x;
         this.y = y;
     }
+
+    get_hit(dmg){
+        this.health -= dmg;
+        if (this.health < 0){
+            this.health = 0;
+        }
+        this.dead = true;
+
+    }
     is_blocked(x, y){
         if (!this.map.queries.is_valid(x, y)){
             return true;

@@ -31,7 +31,7 @@ class PlayerStatus{
         this.player.state.stamina_delta  += Number(n);
     }
     change_stigma(n){
-        this.player.state.stigma +- Number(n);
+        this.player.state.stigma += Number(n);
         if (this.player.state.stigma > this.player.state.max_stigma){
             this.player.state.stigma = this.player.state.max_stigma;            
         } else if (this.player.stigma < 0){

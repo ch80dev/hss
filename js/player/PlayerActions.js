@@ -11,6 +11,7 @@ class PlayerActions {
 
     search_trash(x, y, map){
         let trash = map.loot[this.player.fetch_from()];
+        this.player.status.change_stigma(Config.stigma_effects['trash']);
         if (trash == undefined){
             console.log('trash');
             return;

@@ -51,7 +51,7 @@ class Config {
 		street: 0, 
 		sewer: 10,
 	}
-	stigma_effects = {
+	static stigma_effects = {
 		trash: .2,
 	}
 	

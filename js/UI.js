@@ -118,9 +118,9 @@ class UI{
 
 		let stigma_cent = (juego.player.state.stigma / juego.player.state.max_stigma * 100);
 
-		$("#health_bar").css('width', health_cent + '%');
-		$("#stamina_bar").css('width', stamina_cent + '%');
-		$("#stigma_bar").css('width', stigma_cent + '%');
+		$("#health_bar").css('width', health_cent.toFixed(1) + '%');
+		$("#stamina_bar").css('width', stamina_cent.toFixed(1) + '%');
+		$("#stigma_bar").css('width', stigma_cent.toFixed(1) + '%');
 		$("#health").html(`${health_cent}%`);
 		$('#stamina').html(`${stamina_cent}%`);
 		$('#stigma').html(`${stigma_cent}%`);

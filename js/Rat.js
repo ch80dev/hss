@@ -56,7 +56,7 @@ class Rat{
         let away_from_player = this.map.queries.fetch_delta(this.x, this.y, this.player.state.x, this.player.state.y);
         let searching_for_food = this.map.queries.search_for_food(this.x, this.y, this.sense_range);
         if (!this.hungry && distance_to_player <= this.sense_range){
-            //console.log('away');
+            console.log('away');
             this.delta = this.run_away(this.player.state.x, this.player.state.y);
             
             
@@ -66,9 +66,9 @@ class Rat{
             //console.log('food');
             this.delta = searching_for_food;
         } 
-        //console.log(this.delta, this.x, this.y);
+        console.log(this.delta, this.x, this.y, this.map.queries.at(this.x + this.delta.x, this.y + this.delta.y));
         if ((this.delta.x != 0 || this.delta.y != 0) && this.is_blocked(this.x + this.delta.x, this.y + this.delta.y) && adjacent_open.length > 0){            
-            //console.log('blocked_search');
+            console.log('blocked_search');
             let rand_open = adjacent_open[rand_num(0, adjacent_open.length - 1)];
             this.delta = this.map.queries.fetch_delta(rand_open.x, rand_open.y, this.x, this.y)
         }
@@ -94,8 +94,9 @@ class Rat{
         }
     }
 
-    run_away(x, y){
-        let delta = this.map.queries.fetch_delta(this.x, this.y, x, y);
+    run_away(running_from_x, running_from_y){
+        let delta = this.map.queries.fetch_delta(this.x, this.y, running_from_x, running_from_y);
+        console.log('run_awway', this.x, this.y, delta, running_from_x, running_from_y);
         if ((delta.x != 0 && delta.y == 0 && !this.is_blocked(this.x + delta.x, this.y))
             || (delta.x == 0 && delta.y != 0 && !this.is_blocked(this.x, this.y + delta.y))){
             return delta;
@@ -105,7 +106,23 @@ class Rat{
             return { x: 0, y: delta.y };
 
         }
+        let adjacent_open_arr = this.map.queries.fetch_adjacent(this.x, this.y, 1, false);
+        //console.log(this.x, this.y, adjacent_open_arr);
+        let distance_to_target = 0;
+        let where = null;
+        for (let adjacent_open of adjacent_open_arr){
+            let distance = this.map.queries.fetch_distance(running_from_x, running_from_y, adjacent_open.x, adjacent_open.y);
+            console.log(adjacent_open, distance);
+            if (distance > distance_to_target){
+                distance_to_target = distance;
+                where = adjacent_open;
+            }
 
+        }
+        console.log('chose', where);
+        if (where != null){
+            return this.map.queries.fetch_delta(where.x, where.y, this.x, this.y, );
+        }
         return { x: 0, y: 0 };
     }
 }

@@ -52,7 +52,7 @@ class Config {
 		sewer: 1,
 	}
 	static max_num_of_rats = {
-		alley: 3, 
+		alley: 1, 
 		street: 0, 
 		sewer: 10,
 	}

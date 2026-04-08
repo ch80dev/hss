@@ -10,7 +10,7 @@ class PlayerActions {
     
 
     search_trash(x, y, map){
-        let trash = map.loot[this.fetch_from()];
+        let trash = map.loot[this.player.fetch_from()];
         if (trash == undefined){
             console.log('trash');
             return;

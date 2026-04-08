@@ -15,8 +15,17 @@
 </head>
 <body>
 	<div id='top'>
-		Health: <span id="health"></span>
-		Stamina: <span id="stamina"></span>
+		<div id="health_container" class="status_bar_container">
+			<div id="health_bar" class="status_bar"></div>
+			<div class='status_caption'>Health: <span id="health"></span></div>
+		</div><div id="stamina_container" class="status_bar_container">
+			<div id="stamina_bar" class="status_bar"></div>
+			<div class='status_caption'>Stamina: <span id="stamina"></span></div>
+		</div><div id="stigma_container" class="status_bar_container">
+			<div id="stigma_bar" class="status_bar"></div>
+			<div class='status_caption'>Stigma: <span id="stigma"></span></div>
+		</div>
+
 		<span id="sickness_container" class="hidden">
 			Sickness: <span id="sickness"></span>%
 		</span>

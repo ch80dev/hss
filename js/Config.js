@@ -51,7 +51,9 @@ class Config {
 		street: 0, 
 		sewer: 10,
 	}
-
+	stigma_effects = {
+		trash: .2,
+	}
 	
 	static trash_item_odds = {		
 		recyclables: [1, 40],

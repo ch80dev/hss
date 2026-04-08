@@ -109,7 +109,7 @@ class PlayerInventory {
         }
         if (map.loot[at].length == 0){
             delete map.loot[at];
-            this.looting = false;
+            this.player.state.looting = false;
             ui.change_screen('map');
         }
     }

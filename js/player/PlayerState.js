@@ -9,10 +9,12 @@ class PlayerState{
     max_health = 100;
     max_inventory_weight = 100;
     max_stamina = 100;
+    max_stigma = 100;
     movement_cost = .1;
     slots_in_inventory = 5;
     stamina = 100;
-    stamina_delta = 0;    
+    stamina_delta = 0;
+    stigma = 0;
     sickness = 0;
 
     x = null;

@@ -34,9 +34,7 @@ class Game{
 
 	
 	next_turn(){
-		console.log('turn');
 		let are_they_sick = rand_num(1, 100) <= this.player.state.sickness;
-		
 		this.player.status.change_stamina();
 		this.rats_move();
 		this.player.state.is_sick = are_they_sick

@@ -77,6 +77,46 @@ html, body{
     height: var(--status-bar-height);
     line-height: var(--status-bar-height);
 }
+
+
+#health_bar{
+    background: red;
+}
+
+
+#stamina_bar{
+    background: green;
+}
+
+#stigma_bar{
+    background: yellow;
+    color: black;
+}
+.status_bar_container{
+    height: 40px;
+    text-align: center;
+
+    position: relative;
+    width: 25%;
+    float: left;
+    background: grey;
+    border: 1px black solid;
+}
+
+.status_bar{
+    height: 40px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    position: absolute;
+}
+.status_caption {
+    position: absolute;
+    z-index: 2;
+    font-size: 25px;
+    width: 100%;
+
+}
 #top {
     text-align: center;
     height: var(--top-bar-height);

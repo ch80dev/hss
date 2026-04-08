@@ -30,4 +30,13 @@ class PlayerStatus{
     change_stamina_delta(n){
         this.player.state.stamina_delta  += Number(n);
     }
+    change_stigma(n){
+        this.player.state.stigma +- Number(n);
+        if (this.player.state.stigma > this.player.state.max_stigma){
+            this.player.state.stigma = this.player.state.max_stigma;            
+        } else if (this.player.stigma < 0){
+            this.player.state.stigma = 0;
+        }
+        this.player.state.stigma  = Math.round(this.player.state.stigma  * 10) / 10;
+    }
 }

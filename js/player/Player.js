@@ -2,7 +2,7 @@ class Player{
     
     
     constructor(x, y){
-        this.action = new PlayerActions(this);
+        this.actions = new PlayerActions(this);
         this.inventory = new PlayerInventory(this);
         this.movement = new PlayerMovement(this);
         this.state = new PlayerState(x, y);
@@ -20,6 +20,6 @@ class Player{
     
 
     fetch_from(){
-        return `${this.location_type}-${this.location_id}-${this.x}-${this.y}`;
+        return `${this.state.location_type}-${this.state.location_id}-${this.state.x}-${this.state.y}`;
     }
 }

@@ -23,7 +23,7 @@ class UI{
 		if (!is_loot){
 			txt = `<span class='heading'>Slots</span>: <span class='${max_slots}'>${juego.player.state.inventory.length}/${juego.player.state.slots_in_inventory}</span> <span class='heading'>Weight</span>: <span class='${max_weight}'>${juego.player.state.inventory_weight.toFixed(1)}/${juego.player.state.max_inventory_weight}</span>`;
 		}
-		if (is_loot && juego.map.is_item_here('crate (placed)', juego.player.fetch_from())){
+		if (is_loot && juego.map.queries.is_item_here('crate (placed)', juego.player.fetch_from())){
 			crate_here = ' in_crate ';
 			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
 		}
@@ -34,7 +34,7 @@ class UI{
 				continue;
 			}
 			let n = items[id].quantity;
-			let can_they_take = juego.player.state.inventory.can_they_take(item, n);
+			let can_they_take = juego.player.inventory.can_they_take(item, n);
 			let can_take = "";
 			let usable = "";
 			let where = 'inventory';
@@ -113,8 +113,17 @@ class UI{
 	refresh(){
 		this.display_map();
 		this.display_loot();
-		$("#health").html(`${juego.player.state.health}/${juego.player.state.max_health}`);
-		$('#stamina').html(`${juego.player.state.stamina}/${juego.player.state.max_stamina}`);
+		let health_cent = (juego.player.state.health / juego.player.state.max_health * 100);
+		let stamina_cent = (juego.player.state.stamina / juego.player.state.max_stamina * 100);
+
+		let stigma_cent = (juego.player.state.stigma / juego.player.state.max_stigma * 100);
+
+		$("#health_bar").css('width', health_cent + '%');
+		$("#stamina_bar").css('width', stamina_cent + '%');
+		$("#stigma_bar").css('width', stigma_cent + '%');
+		$("#health").html(`${health_cent}%`);
+		$('#stamina').html(`${stamina_cent}%`);
+		$('#stigma').html(`${stigma_cent}%`);
 		$("#status").html(this.status_msg);
 		if (this.status_msg != ""){
 			

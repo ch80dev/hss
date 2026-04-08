@@ -68,7 +68,7 @@ class PlayerMovement{
             this.explore(map.queries.at(pos.x, pos.y), map);
             return;
         } else if (map.queries.at(pos.x, pos.y) == 5){
-            this.search_trash(this.player.state.x, this.player.state.y, map)
+            this.player.actions.search_trash(this.player.state.x, this.player.state.y, map)
         }
         
     }

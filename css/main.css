@@ -25,6 +25,11 @@ body:has(#loot:not(.hidden)){
     margin-left: 25px;
 }
 
+.interact{
+    font-size: 25px;
+    padding: 10px;
+}
+
 .screen.hidden{
     display: none !important;
 }
@@ -88,6 +93,9 @@ html, body{
     background: red;
 }
 
+#social_context, #social_menu{
+    text-align: center;
+}
 
 #stamina_bar{
     background: green;

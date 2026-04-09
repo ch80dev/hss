@@ -24,6 +24,22 @@ class PlayerInventory {
         }
         return Config.usable.includes(name);
     }
+
+    do_they_have(what, quantity){
+        //console.log(what, quantity);
+        if (!this.is_in_inventory(what)){
+            //console.log("not_in_inventory");
+            return false;
+        }
+        //console.log(this.player.state.inventory);
+        for (let item of this.player.state.inventory){
+            //console.log(item, what, quantity);
+            if (item.name == what && item.quantity >= quantity){
+                return true;
+            }
+        }
+        return false;
+    }
     
     drop_item(id, map){
         let at = this.player.fetch_from();
@@ -95,6 +111,31 @@ class PlayerInventory {
             }
         }
     }
+    take_from_human(name, quantity, human){
+        
+        console.log(name, quantity, human);
+        if (!human.do_they_have(name, quantity)){
+            console.log("error: they don't got this.");
+            return;
+        }
+        let npc_item = human.fetch_item(name);
+        if (npc_item.quantity == quantity){
+            human.delete_item(name);
+        } else {
+            npc_item.quantity -= quantity;
+        }
+
+        if (Config.stackable.includes(name) && this.is_in_inventory(name)){
+            this.stack_item_in_inventory(name, quantity);
+            return;
+        } else if (Config.stackable.includes(name)){
+            this.player.state.inventory.push({ name: name, quantity: quantity, durability: 100 });
+            return;
+        }
+        while(this.player.state.inventory.length < this.player.state.slots_in_inventory){
+            this.player.state.inventory.push({ name: name, quantity: 1, durability: 100});
+        }
+    }
 
     take_all(map){
         let at = this.player.fetch_from();
@@ -151,6 +192,32 @@ class PlayerInventory {
             this.player.state.inventory.splice(id, 1);
         }
 
+    }
+
+    use_item(id, map){
+        let item = this.player.state.inventory[id];
+        let medicine_works = rand_num(1, 10) == 1;
+        if (!this.player.inventory.can_they_use(item.name, map)){
+            return;
+        }
+        if (item.name == 'crate'){
+           
+            item.name = 'crate (placed)';
+            this.player.inventory.drop_item(id);
+            map.is(this.x, this.y, 8);
+            return;
+        } else if (item.name == 'food' || item.name == 'food (spoiled)'){
+            this.player.status.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
+        } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
+            this.player.status.change_sickness(-rand_num(Config.medicine_gain[0], Config.medicine_gain[1]));
+        
+        }
+
+        if (item.name == 'food (spoiled)'){
+            this.player.status.change_sickness(rand_num(Config.spoiled_sick_gain[0], Config.spoiled_sick_gain[1]));
+        }
+
+        this.player.state.inventory.splice(id, 1);
     }
 
 }

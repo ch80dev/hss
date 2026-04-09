@@ -82,12 +82,18 @@ class UI{
 		let txt = "";
 		for (let y = 0; y < Config.max_y; y ++){
 			txt += "<div class='row'>"
-			for (let x = 0; x < Config.max_x; x ++){
+			for (let x = 0; x < Config.max_x; x ++){								
 				let cell_class = ' empty ';
 				let cell_txt = '';
+				let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let map_at = juego.map.queries.at(x, y);
+				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				if (map_at != null){
 					cell_class = Config.cell_class[map_at];
+				} else if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && human.homeless){
+					cell_class = ' human homeless ';
+				} else if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && !human.homeless){
+					cell_class = ' human citizen ';
 				}
 
 				if (map_at == 6 && juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y).hungry){
@@ -126,12 +132,64 @@ class UI{
 		}
 		document.getElementById('map').innerHTML = txt;		
 	}
+
+	display_social(){
+		if (juego.player.state.socializing == null){
+			return;
+		}
+		let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);
+		let context_txt = "";
+		let menu_txt = "";
+		
+		for (let id in human.interactions){			
+			let disabled = '';
+			let interaction = human.interactions[id];
+			//console.log(interaction, juego.player.state.inventory);
+			if ((interaction == 'buy' && !juego.player.inventory.do_they_have('money', human.conversion[id]))
+				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], human.conversion[id]))
+				|| (interaction == 'beg' && human.last_begged != null)){
+				disabled = ' disabled ';
+			
+			}
+			let button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction}</button>`;
+			
+			let resource = "";
+			if (typeof human.resources[id]  == 'object' && interaction == 'trade'){
+				let conversion = human.conversion[id];
+				let first = Object.keys(human.resources[id]);
+				let first_disabled = '';
+				let second = human.resources[id][first];
+				let second_disabled = '';
+				resource = `${conversion[0]} ${first} : ${conversion[1]} ${second}`;
+				if (!juego.player.inventory.do_they_have(first, conversion[0])){
+					first_disabled = ' disabled ';
+				}
+				if (!juego.player.inventory.do_they_have(second, conversion[1])){
+					second_disabled = ' disabled ';
+				}
+				button = `<button id='trade-${id}-0-${human.x}-${human.y}' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1-${human.x}-${human.y}' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
+			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
+				
+				resource = `${human.resources[id]} for $${human.conversion[id]} `;
+			} 
+			
+			
+			context_txt += `<div>${interaction}  ${resource} </div>`;
+			menu_txt += button;
+			
+		}
+		$("#social_context").html(context_txt);
+		$("#social_menu").html(menu_txt);
+	}
 	log(msg){
 		this.status_msg = msg;
 	}
 	refresh(){
 		this.display_map();
 		this.display_loot();
+		
+		this.display_social();
+		
 		let health_cent = (juego.player.state.health / juego.player.state.max_health * 100);
 		let stamina_cent = (juego.player.state.stamina / juego.player.state.max_stamina * 100);
 

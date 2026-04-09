@@ -23,6 +23,24 @@ class PlayerActions {
         }
         ui.log(`You missed them! ${target.health}/${target.max_health}`);
     }
+
+    interact(id, x, y, juego){
+        console.log(id, x, y);
+        let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
+        console.log(human);
+        if (human == null || human.interactions[id] == undefined){
+            console.log('error');
+            return;
+        }
+        let interaction = human.interactions[id];
+        let giving_when_begged = rand_num(1, 5);
+        if (interaction == 'beg' && human.last_begged == null && human.do_they_have('money', giving_when_begged)){
+            human.last_begged = true;
+            this.player.inventory.take_from_human('money', giving_when_begged, human);
+            return;
+        }
+
+    }
     
 
     search_trash(x, y, map){
@@ -43,31 +61,18 @@ class PlayerActions {
         
     }
 
-    use_item(id, map){
-        let item = this.player.state.inventory[id];
-        let medicine_works = rand_num(1, 10) == 1;
-        if (!this.player.inventory.can_they_use(item.name, map)){
+    social(x, y, juego){
+        //console.log('social', x, y, juego);
+        let human = juego.fetch_human(this.player.state.location_type, this.player.state.location_id, x, y);
+        if (human == null){
             return;
         }
-        if (item.name == 'crate'){
-           
-            item.name = 'crate (placed)';
-            this.player.inventory.drop_item(id);
-            map.is(this.x, this.y, 8);
-            return;
-        } else if (item.name == 'food' || item.name == 'food (spoiled)'){
-            this.player.status.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
-        } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
-            this.player.status.change_sickness(-rand_num(Config.medicine_gain[0], Config.medicine_gain[1]));
-        
-        }
+        this.player.state.socializing = {x: x, y: y};
+        ui.change_screen('social');
 
-        if (item.name == 'food (spoiled)'){
-            this.player.status.change_sickness(rand_num(Config.spoiled_sick_gain[0], Config.spoiled_sick_gain[1]));
-        }
-
-        this.player.state.inventory.splice(id, 1);
     }
+
+
 
     unlock_trash(x, y, map){
         let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);

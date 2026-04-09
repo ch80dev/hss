@@ -17,6 +17,9 @@
     border: 1px #111111 solid;
 }
 
+.citizen {
+    color: #a5d6a7;
+}
 
 .crate {
     color: #D4A017;
@@ -32,12 +35,11 @@
     
 }
 
-
-.human{
-    color: #7a8a99;
-
-
+.homeless{
+    color: #5c8ca3;
 }
+
+
 .player{
     border: 1px #66ccff solid;
     background: #222222;

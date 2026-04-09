@@ -1,6 +1,9 @@
 class Config {
 	//MAKE EVERYTHING STATIC
 	static attackable = [6, 7];
+	static interactions = ['buy', 'sell', 'trade', 'beg']; //, 'directions', 'escort', 'favor', 'work'];
+	static num_of_interactions_per_human = 3;
+	static sociable = [7]; // you should be able to tame rats later
 	static cell_class = [
 		'empty', 
 		'filled', 'sewer_exit', 
@@ -17,11 +20,41 @@ class Config {
 		used_exit: '&#9678',		
 	};
 
+	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'recyclables', 'tool', 'weapon', 'lighter'];
+	static prices = {
+		crate: 8,
+		drugs: 50,
+		food: 4, 
+		'food (spoiled)': .5,
+		fuel: 4,
+		lighter: 2, 
+		medicine: 15,
+		'medicine (expired)': 2, 
+		recyclables: .05, 
+		tool: 25, 
+		weapon: 40,
+		
+	}
+	static interactions_for_money = ['sell', 'beg', 'work'];
+	static interactions_for_resources = ['trade', 'buy', 'sell'];
+	static homeless_money = 50;
 
+	static lifeforms = {
+		human: {
+			sense_range: 10,
+			max_health: 100,
+			max_stamina: 100,
+		},
+		rat: {
+			sense_range: 5,
+			max_health: 10,
+			max_stamina: 30,
+		}
+	}
+
+	static human_chance_to_be_cop = 1;
 	static default_loot = { locked: null, searched: false, stuff: [], durability: null  };
-	static default_rat_sense_range = 5;
-	static default_rat_max_health = 10;	
-	static default_rat_max_stamina = 30;
+
 	static exit_types = [null, null, 'sewer', 'alley', 'street'];
 	static exits_to = {
 		alley: [2, 4], sewer: [2, 3], street: [3, 4],
@@ -46,6 +79,12 @@ class Config {
 	static rat_movement_cost = .1;
 
 	static spoiled_sick_gain = [1, 50];
+
+	static homeless_cent = {
+		alley: 60,
+		sewer: 90,
+		street: 10,		
+	}
 	static max_num_of_humans = {
 		alley: 3, 
 		street: 10,

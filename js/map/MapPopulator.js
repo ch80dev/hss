@@ -51,13 +51,7 @@ class MapPopulator{
 		}
 	}
 
-     populate_with_humans(location_type){
-        let num_of_humans = rand_num(0, Config.max_num_of_humans[location_type]);
-        for (let i = 0; i < num_of_humans; i ++){
-            let open = this.map.queries.fetch_open();
-            this.map.is(open.x, open.y, 7);
-        }
-    }
+     
     
 
     populate_with_trash_cans(id){

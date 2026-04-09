@@ -23,7 +23,8 @@ class PlayerMovement{
             return;
         }
         map.wipe();  
-        let start = map.generator.generate(Config.exit_types[exit_id], this.player.state.location_type);        
+        let start = map.generator.generate(Config.exit_types[exit_id], this.player.state.location_type);   
+        juego.populate(Config.exit_types[exit_id]);     
         map.locations[Config.exit_types[exit_id]].push(map.grid);
         let to = `${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
         this.player.state.location_type = Config.exit_types[exit_id];
@@ -57,8 +58,11 @@ class PlayerMovement{
         if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
             return;
         }  
-        if (Config.attackable.includes(map.queries.at(pos.x, pos.y))){
+        if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){
             this.player.actions.attack(pos.x, pos.y, juego);
+            return;
+        } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y))){
+            this.player.actions.social(pos.x, pos.y, juego);
             return;
         }
         if (this.player.state.stamina > 0){

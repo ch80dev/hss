@@ -11,12 +11,17 @@ document.addEventListener('keyup', (event) => {
 
 $(document).on('click', '.close', function() {
     juego.player.state.looting = false;
+    juego.player.state.socializing = null;
     ui.change_screen('map');
     ui.refresh();
 });
 
 $(document).on('click', '.equip', function(e) {
     juego.player.inventory.equip(Number(this.id.split('-')[1]));
+    ui.refresh();
+});
+$(document).on('click', '.interact', function(e) {
+    juego.player.actions.interact(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), Number(this.id.split('-')[3]), juego);
     ui.refresh();
 });
 
@@ -37,7 +42,7 @@ $(document).on('click', '#take_all_loot', function() {
 $(document).on('click', '.use', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    juego.player.use_item(this.id.split('-')[1], juego.map);
+    juego.player.inventory.use_item(this.id.split('-')[1], juego.map);
     ui.refresh();
 });
 

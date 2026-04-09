@@ -27,18 +27,25 @@ class PlayerActions {
     interact(id, x, y, juego){
         console.log(id, x, y);
         let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
-        console.log(human);
+        //console.log(human);
         if (human == null || human.interactions[id] == undefined){
             console.log('error');
             return;
         }
-        let interaction = human.interactions[id];
-        let giving_when_begged = rand_num(1, 5);
-        if (interaction == 'beg' && human.last_begged == null && human.do_they_have('money', giving_when_begged)){
-            human.last_begged = true;
-            this.player.inventory.take_from_human('money', giving_when_begged, human);
-            return;
-        }
+        let interaction = human.interactions[id];        
+        if (interaction == 'beg' && human.last_begged == null){            
+            this.player.state.money += human.give_when_begged;                      
+            ui.log(`They gave you $${human.give_when_begged}.`)
+            human.begged();
+        } else if (interaction == 'buy' && this.player.state.money >= human.conversion[id]){ 
+            this.player.state.money -= human.conversion[id];
+            this.player.inventory.take_from_human(human.resources[id], 1, human);
+            ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
+        } else if (interaction == 'sell' && this.player.inventory.do_they_have(human.resources[id], 1)){ 
+            this.player.inventory.give_to_human(human.resources[id], 1, human);
+            this.player.money += human.conversion[id];
+            ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
+        } 
 
     }
     
@@ -72,7 +79,30 @@ class PlayerActions {
 
     }
 
-
+    trade(interaction_id, conversion_id, x, y, juego){
+         let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
+        console.log(human);
+        if (human == null || human.interactions[interaction_id] == undefined){
+            console.log('error');
+            return;
+        }
+        let interaction = human.interactions[interaction_id];        
+        let player_quantity = human.conversion[conversion_id];
+        let player_resource = human.resources[conversion_id];
+        let other_id = 0;
+        if (conversion_id == 0){
+            other_id = 1;
+        }
+        let human_quantity = human.conversion[other_id];
+        let human_resource = human.resources[other_id];
+        if (!this.player.inventory.do_they_have(player_resource, player_quantity) 
+            || human.do_they_have(human_resource, human_quantity)){
+            return;
+        }
+        this.player.inventory.give_to_human(player_resource, player_quantity, human);
+        this.player.inventory.take_from_human(human_resource, human_quantity, human);
+        ui.log(`You give ${player_quantity} ${player_resource} and receive ${human_quantity} ${human_resource}.`)
+    }
 
     unlock_trash(x, y, map){
         let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);

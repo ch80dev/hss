@@ -145,7 +145,7 @@ class UI{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			//console.log(interaction, juego.player.state.inventory);
-			if ((interaction == 'buy' && !juego.player.inventory.do_they_have('money', human.conversion[id]))
+			if ((interaction == 'buy' && juego.player.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], human.conversion[id]))
 				|| (interaction == 'beg' && human.last_begged != null)){
 				disabled = ' disabled ';
@@ -160,7 +160,7 @@ class UI{
 				let first_disabled = '';
 				let second = human.resources[id][first];
 				let second_disabled = '';
-				resource = `${conversion[0]} ${first} : ${conversion[1]} ${second}`;
+				resource = `${conversion[0]} ${first} [${juego.player.inventory.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.fetch_quantity(second)} / ${human.fetch_quantity(second)}]or vice versa`;
 				if (!juego.player.inventory.do_they_have(first, conversion[0])){
 					first_disabled = ' disabled ';
 				}
@@ -170,7 +170,7 @@ class UI{
 				button = `<button id='trade-${id}-0-${human.x}-${human.y}' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1-${human.x}-${human.y}' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				
-				resource = `${human.resources[id]} for $${human.conversion[id]} `;
+				resource = `${human.resources[id]} [${juego.player.inventory.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 			} 
 			
 			
@@ -216,6 +216,6 @@ class UI{
 			let equipped = juego.player.inventory.fetch(juego.player.state.equipped);
 			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
 		}
-
+		$("#money").html(`$${juego.player.state.money}`);
 	}
 }

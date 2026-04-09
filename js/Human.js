@@ -1,9 +1,11 @@
 class Human extends Lifeform{
     conversion = [];
+    give_when_begged = null;
     homeless = false;
     interactions = {};
     inventory = [];
     last_begged = null;
+    money = 0;
     resources = [];
     stigma_req = null;
     stigma = null; 
@@ -17,8 +19,13 @@ class Human extends Lifeform{
         if (!are_they_homeless){
             this.stigma_req = rand_num(1, 50);
         }
-        
+        this.how_much_to_give_when_begged();        
         this.generate_interactions();
+    }
+    begged(){
+        this.money -= this.give_when_begged;  
+        this.last_begged = true;
+        this.how_much_to_give_when_begged();
     }
 
 
@@ -46,19 +53,21 @@ class Human extends Lifeform{
                 return item;
             }
         }
-        console.log( "nothing to be fetched: " + name);
+        //console.log( "nothing to be fetched: " + name);
         return null;
     }
 
+    fetch_quantity(name){
+        let item = this.fetch_item(name);
+        if (item == null){
+            return 0;
+        }
+        return item.quantity;
+    }
+
     generate_conversion(first, second){
-        let costs = [Config.prices[first], Config.prices[second]];
-        let quantity = rand_num(1, 3);
-        
-        
+        let costs = [Config.prices[first], Config.prices[second]];        
         if (costs[0] <= costs[1]){
-            this.inventory.push({ name: second, quantity: quantity, durability: 100 });
-            this.inventory.push({ name: first, quantity: rand_num(1, quantity * costs[1] / costs[0]), durability: 100 });
-            console.log(this.inventory, quantity, costs, quantity * costs[1] / costs[0]);    
             return [Math.ceil(costs[1] / costs[0]), 1];
         }
         return [1, Math.ceil(costs[0] / costs[1])];
@@ -90,15 +99,22 @@ class Human extends Lifeform{
                 let second = this.generate_rand_item([first]);
                 this.resources[id] = { [first]: second };
                 this.conversion[id] = this.generate_conversion(first, second);
+                this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[first]), durability: 100 });
+                this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[second]), durability: 100 });
+                console.log(this.inventory);
             } else if (Config.interactions_for_resources.includes(interaction)){
                 this.resources[id] = this.generate_rand_item([]);
                 this.conversion[id] = Config.prices[this.resources[id]];
             }
+            if (interaction == 'buy'){                                
+                this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[this.resources[id]]), durability: 100 });
+                console.log(this.inventory);
+            }
         }
         if (n > 0){
-            this.inventory.push({ name: 'money', quantity: n, durability: 100 });
+            this.money = n; 
         }
-        //console.log(this.interactions, this.inventory, this.resources, this.conversion);
+        console.log(this.interactions, this.inventory, this.resources, this.conversion);
         
     }
 
@@ -113,5 +129,25 @@ class Human extends Lifeform{
                 return rand_item;
             }
         }
+    }
+    give(name, quantity){
+        //this creates a bug where all items given to NPC will have a 100 durabiltiy. it's fine though
+        let do_they_have = this.do_they_have(name, quantity); //doing it like this to avoid fetch_item error msg
+        if (!do_they_have){
+            this.inventory.push({ name: name, quantity: quantity, durability: 100 });
+            return;
+        }
+        let item = this.fetch_item(name);
+        item.quantity += quantity;
+    }
+
+    how_much_to_give_when_begged(){        
+        let rand = Number((rand_num(1, 500) / 100).toFixed(2)) ;
+        if (rand > this.money){
+             this.give_when_begged = this.money;
+        }
+            
+        this.give_when_begged = rand;
+        
     }
 }

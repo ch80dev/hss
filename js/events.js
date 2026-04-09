@@ -47,6 +47,12 @@ $(document).on('click', '.use', function(e) {
 });
 
 
+$(document).on('click', '.trade', function(e) {
+    juego.player.actions.interact(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), 
+        Number(this.id.split('-')[3]), Number(this.id.split('-')[4]), juego);
+    ui.refresh();
+});
+
 for (let button of document.querySelectorAll('button')){
 	button.addEventListener('click', function(e){
 		ui.refresh();

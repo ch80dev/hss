@@ -25,6 +25,16 @@ class PlayerInventory {
         return Config.usable.includes(name);
     }
 
+    delete(name){
+        for (let id in this.player.state.inventory){
+            let item = this.player.state.inventory[id];
+            if (item.name == name){
+                this.player.state.inventory.splice(id, 1);
+                return;
+            }
+        }
+    }
+
     do_they_have(what, quantity){
         //console.log(what, quantity);
         if (!this.is_in_inventory(what)){
@@ -69,9 +79,44 @@ class PlayerInventory {
         return this.player.state.inventory[id];
     }
 
+    fetch_by_name(name){
+        for (let item of this.player.state.inventory){
+            if (item.name == name){
+                return item;
+            }
+        }
+        //console.log('error');
+        return null;
+    }
+
+    fetch_quantity(name){
+        let item = this.fetch_by_name(name);
+        if (item == null){
+            return 0;
+        }
+        return item.quantity;
+    }
+
     fetch_weight(name, quantity){
         
         return Config.weights[name] * quantity;
+    }
+
+    give_to_human(name, quantity, human){
+        if (!this.do_they_have(name, quantity)){
+            console.log('error');
+            return;
+        }
+        let item = this.fetch_by_name(name);
+        if (!Config.stackable.includes(name) 
+            || (Config.stackable.includes(name) && !this.do_they_have(name, quantity))){
+            this.delete(name);                        
+        } else if (Config.stackable.includes(name)){            
+            item.quantity -= quantity;        
+        }
+
+
+        human.give(name, quantity);
     }
 
     is_equipped_with(what){
@@ -94,7 +139,7 @@ class PlayerInventory {
         return false;
     }
 
-    move_item(from, id, map){
+    move_item(from, id, map){ //from world
         //console.log(from, id);
         if (from == 'loot'){
             this.take_item(id, map);   

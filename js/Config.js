@@ -73,7 +73,7 @@ class Config {
 	}
 	static equipable = ['tool', 'weapon'];
 	static degradable = ['lighter', 'weapon', 'tool'];
-	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'money'];
+	static stackable = ['recyclables', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs'];
 	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];
 
 	static rat_movement_cost = .1;
@@ -104,21 +104,22 @@ class Config {
 	}
 	
 	static trash_item_odds = {		
-		recyclables: [1, 40],
-		'food (spoiled)': [41, 58],
-		food: [59, 60],
-		fuel: [61, 70],
-		lighter: [71, 80],
-		crate: [81, 90],
-		medicine: [91, 92],
-		'medicine (expired)': [93, 93],
-		weapon: [94, 96],
-		tool: [97, 99],
+		recyclables: [1, 50],
+		'food (spoiled)': [51, 68],
+		food: [69, 70],
+		fuel: [71, 80],
+		
+		crate: [81, 85],
+		medicine: [86, 86],
+		'medicine (expired)': [87, 93],
+		
+		tool: [94, 98],
+		weapon: [99, 99],
 		drugs: [100, 100],		
+		//lighter: [71, 80],
 	}
 
 	static weights = {
-		money: 0,
 		recyclables: .1,
 		food: 1,
 		'food (spoiled)': 1,

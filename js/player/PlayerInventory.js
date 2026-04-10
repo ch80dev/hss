@@ -60,7 +60,6 @@ class PlayerInventory {
             this.player.state.inventory.splice(id, 1)
             return;
         } 
-        console.log(map.loot, at);
         if (map.loot[at] == undefined){
             map.loot[at] = { locked: false, searched: false, stuff: []};
         } 
@@ -187,7 +186,6 @@ class PlayerInventory {
         if (map.loot[at] == undefined){
             return;
         }
-        console.log(map.loot[at].stuff.length, map.loot[at], at);
         while (map.loot[at] && map.loot[at].stuff.length > 0){
             let status = this.take_item(0, map);
             if (status === false){
@@ -225,16 +223,16 @@ class PlayerInventory {
     }
 
     use_equipment(usage_cost){
-        console.log('use', this.player.state.equipped);
+        //console.log('use', this.player.state.equipped);
         if (this.player.state.equipped == null){
             return;
         }
-        console.log(usage_cost);
         let item = this.fetch(this.player.state.equipped);
         item.durability -= usage_cost;
         if (item.durability <= 0){
+            this.player.state.inventory.splice(this.player.state.equipped , 1);
             this.player.state.equipped = null;
-            this.player.state.inventory.splice(id, 1);
+            
         }
 
     }
@@ -242,7 +240,7 @@ class PlayerInventory {
     use_item(id, map){
         let item = this.player.state.inventory[id];
         let medicine_works = rand_num(1, 10) == 1;
-        console.log(id, item);
+        //console.log(id, item);
         if (!this.player.inventory.can_they_use(item.name, map)){
             console.log('cant use');
             return;

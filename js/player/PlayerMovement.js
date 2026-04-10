@@ -81,7 +81,6 @@ class PlayerMovement{
             && this.player.inventory.is_equipped_with('tool')
             && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`].locked){
-                console.log('unlocked');
             this.player.actions.unlock_trash(pos.x, pos.y, map);
             return;
         }

@@ -45,7 +45,7 @@ class Input {
     }
 
     press_key(pressed){
-        console.log(pressed);
+        //console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
          if (pressed == 'Shift' && !juego.player.state.fighting){

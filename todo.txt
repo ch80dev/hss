@@ -9,10 +9,9 @@ LATER
     prune place names if there are more than 3? 4? streets connected to a particular location
     instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
     rats should be able to exit if there's no food in the alley
-
+    if a player equips a crate, they can carry more slots.
     
 BUGS
-    BIG - trade needs interaction_id (I thought it didn't)
     tool going below 0% being used
     used 1 food and it used the whole stack (also spoiled)
 

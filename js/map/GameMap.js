@@ -42,7 +42,6 @@ class GameMap {
             this.last_street = name;
             return;
         }
-        console.log(name);
         this.distance_from_street ++;
         
         if (!name.connecting.includes(this.last_street)){            

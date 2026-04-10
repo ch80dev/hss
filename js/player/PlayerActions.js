@@ -26,7 +26,7 @@ class PlayerActions {
 
     interact(id, human){
         
-        console.log(id, human);
+        //console.log(id, human);
         if (human.interactions[id] == undefined){
             console.log('error');
             return;
@@ -84,12 +84,11 @@ class PlayerActions {
     }
 
     trade(interaction_id, conversion_id, human){
-        console.log(interaction_id, conversion_id, human);        
+        //console.log(interaction_id, conversion_id, human);        
         if (human == null ){
             console.log('error');
             return;
         }                
-        console.log(human.conversion, human.resources[interaction_id]);
         let player_resource = Object.keys(human.resources[interaction_id])[0];
         let player_quantity = human.conversion[interaction_id][0];
         let human_resource = human.resources[interaction_id][player_resource];
@@ -118,7 +117,6 @@ class PlayerActions {
         let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);
         let durability_cost = rand_num(1, 5);
         this.player.inventory.use_equipment(durability_cost);
-        console.log(map.loot[at], at, durability_cost);
         if (map.loot[at] == undefined){
             return;
         }

@@ -2,7 +2,7 @@ class PlayerState{
     equipped = null;
     fighting = false;
     health = Config.lifeforms.human.max_health;    
-    inventory = [];
+    inventory = [ {name: 'tool', quantity: 1, durability: 1 }];
     inventory_weight =  0;
     is_sick = false;
     location_type = 'alley';

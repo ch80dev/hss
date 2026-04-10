@@ -10,7 +10,7 @@ class Human extends Lifeform{
     stigma_req = null;
     stigma = null; 
     constructor(x, y, are_they_homeless, map, player){
-        console.log(are_they_homeless);
+        //console.log(are_they_homeless);
         super('human', x, y, map);
         this.map = map;
         this.player = player;

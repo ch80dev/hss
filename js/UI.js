@@ -169,7 +169,6 @@ class UI{
 		if (juego.player.state.socializing == null){
 			return;
 		}
-		console.log(juego.player.state.socializing);
 		let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);
 		let context_txt = "";
 		let menu_txt = "";
@@ -200,7 +199,7 @@ class UI{
 				if (!juego.player.inventory.do_they_have(second, conversion[1])){
 					second_disabled = ' disabled ';
 				}
-				button = `<button id='trade-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
+				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				
 				resource = `${human.resources[id]} [${juego.player.inventory.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;

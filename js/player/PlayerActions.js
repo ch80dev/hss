@@ -83,22 +83,30 @@ class PlayerActions {
 
     }
 
-    trade(conversion_id, human){
-                 
-        if (human == null || human.interactions[interaction_id] == undefined){
+    trade(interaction_id, conversion_id, human){
+        console.log(interaction_id, conversion_id, human);        
+        if (human == null ){
             console.log('error');
             return;
+        }                
+        console.log(human.conversion, human.resources[interaction_id]);
+        let player_resource = Object.keys(human.resources[interaction_id])[0];
+        let player_quantity = human.conversion[interaction_id][0];
+        let human_resource = human.resources[interaction_id][player_resource];
+        let human_quantity = human.conversion[interaction_id][1];        
+        if (conversion_id == 1){
+            human_resource = Object.keys(human.resources[interaction_id])[0];
+            human_quantity = human.conversion[interaction_id][0]
+            player_resource = human.resources[interaction_id][human_resource];
+            player_quantity = human.conversion[interaction_id][1];
+            
         }
-        let player_quantity = human.conversion[conversion_id];
-        let player_resource = human.resources[conversion_id];
-        let other_id = 0;
-        if (conversion_id == 0){
-            other_id = 1;
-        }
-        let human_quantity = human.conversion[other_id];
-        let human_resource = human.resources[other_id];
+        
+        
+        
         if (!this.player.inventory.do_they_have(player_resource, player_quantity) 
-            || human.do_they_have(human_resource, human_quantity)){
+            || !human.do_they_have(human_resource, human_quantity)){
+            console.log('not enough', player_resource, player_quantity, this.player.inventory.do_they_have(player_resource, player_quantity), human_resource, human_quantity, human.do_they_have(human_resource, human_quantity));
             return;
         }
         this.player.inventory.give_to_human(player_resource, player_quantity, human);

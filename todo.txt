@@ -1,16 +1,20 @@
 TODO
-    be able to press arrow keys to grab certain items in loot
     be able to kill rats 
     be able to make a campfire
     be able to cook meat from rats
     tooltips for items
-    rats should be able to exit if there's no food in the alley
-
+    warn the player when they start running otu of stamina
 
 LATER
     prune place names if there are more than 3? 4? streets connected to a particular location
     instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
+    rats should be able to exit if there's no food in the alley
+
     
 BUGS
-    less than target exits created
+    BIG - trade needs interaction_id (I thought it didn't)
+    tool going below 0% being used
+    used 1 food and it used the whole stack (also spoiled)
+
+    less than target exits created // what does this mean?
 

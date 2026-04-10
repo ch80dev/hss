@@ -14,12 +14,11 @@ class Input {
         if (juego.player.state.socializing == null){ // is this even possible?
             return;
         }
-        console.log(juego.player.state.socializing);
         let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);        
         if (human == null){
             return;
         }
-        let local_interactions = human.interactions;
+        let local_interactions = [...human.interactions];
         
         let trade_at = local_interactions.indexOf('trade'); // Let's say we want to double 'b'
 
@@ -29,21 +28,19 @@ class Input {
         }
         
 
-        interaction = local_interactions[number - 1];
-        
-        console.log(interaction)
+        let interaction = local_interactions[number - 1];        
         if (interaction == undefined){
             return;
         }
+        let interaction_id = human.interactions.indexOf(interaction);
         if (interaction == 'trade' && local_interactions[number] != undefined && local_interactions[number] == 'trade'){
-            juego.player.actions.trade(0, human);
+            juego.player.actions.trade(interaction_id, 0, human);
             return;
         } else if (interaction == 'trade'){
-            juego.player.actions.trade(1, human);
+            juego.player.actions.trade(interaction_id, 1, human);
             return;
-        }
-        
-        juego.player.actions.interact(number - 1, human)
+        }        
+        juego.player.actions.interact(interaction_id, human)
         
     }
 

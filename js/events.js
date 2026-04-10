@@ -52,11 +52,13 @@ $(document).on('click', '.use', function(e) {
 
 
 $(document).on('click', '.trade', function(e) {
-    let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socialzing.y);
+    console.log(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing);
+    let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);
     if (human == null){
         return;
     }
-    juego.player.actions.trade(Number(this.id.split('-')[1]), human);
+    console.log(human);
+    juego.player.actions.trade(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), human);
     ui.refresh();
 });
 

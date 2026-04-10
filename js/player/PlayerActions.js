@@ -83,14 +83,12 @@ class PlayerActions {
 
     }
 
-    trade(interaction_id, conversion_id, x, y, juego){
-         let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
-        console.log(human);
+    trade(conversion_id, human){
+                 
         if (human == null || human.interactions[interaction_id] == undefined){
             console.log('error');
             return;
         }
-        let interaction = human.interactions[interaction_id];        
         let player_quantity = human.conversion[conversion_id];
         let player_resource = human.resources[conversion_id];
         let other_id = 0;

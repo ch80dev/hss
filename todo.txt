@@ -5,6 +5,12 @@ TODO
     be able to cook meat from rats
     tooltips for items
     rats should be able to exit if there's no food in the alley
+
+
+LATER
+    prune place names if there are more than 3? 4? streets connected to a particular location
+    instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
+    
 BUGS
     less than target exits created
 

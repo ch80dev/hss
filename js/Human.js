@@ -76,7 +76,7 @@ class Human extends Lifeform{
     }
 
     generate_interactions(){
-        let interactions = ['trade'];
+        let interactions = [];
         while(interactions.length < Config.num_of_interactions_per_human ){
             let rand = Config.interactions[rand_num(0, Config.interactions.length - 1)];
             if (!interactions.includes(rand)){

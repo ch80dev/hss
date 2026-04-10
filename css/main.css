@@ -123,6 +123,20 @@ html, body{
     z-index: 1;
     position: absolute;
 }
+#status_bar_buffer{
+    width: 12%;
+    position: relative;
+    float: left;
+}
+#location_name {
+    text-align: center;
+
+
+}
+.screen{
+    width: 100%;
+    clear: both;
+}
 .status_caption {
     position: absolute;
     z-index: 2;
@@ -131,6 +145,7 @@ html, body{
 
 }
 #top {
+    width: 100%;
     text-align: center;
     height: var(--top-bar-height);
     line-height: var(--top-bar-height);

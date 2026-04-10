@@ -264,6 +264,13 @@ class PlayerInventory {
             this.player.status.change_sickness(rand_num(Config.spoiled_sick_gain[0], Config.spoiled_sick_gain[1]));
         }
 
+        if (Config.stackable.includes(item.name)){
+            item.quantity --;
+            if (item.quantity > 0){
+                return;
+            }
+        }
+        
         this.player.state.inventory.splice(id, 1);
     }
 

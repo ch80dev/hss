@@ -1,5 +1,5 @@
 class MapGenerator {
-
+    first_location_being_generated = true;
     constructor(map){
         this.map = map;
     }
@@ -38,6 +38,10 @@ class MapGenerator {
         let divisor = {alley: 4, sewer: 8, street:4}
         let thickness = { alley: 2, sewer: 1, street: 7};
         let num_of_exits = rand_num(Config.num_of_exits[location_type][0], Config.num_of_exits[location_type][1]);
+        if (this.first_location_being_generated){
+            num_of_exits = Config.num_of_exits[location_type][1];
+            this.first_location_being_generated = false;
+        }
         let exits = this.generate_exits(num_of_exits, Math.round(Config.max_x / 
             divisor[location_type]), Math.round(Config.max_y / divisor[location_type]));
         let starting_here = null;
@@ -58,6 +62,9 @@ class MapGenerator {
         for (let exit of exits){
             let exit_id = rand_num(Config.exits_to[location_type][0], Config.exits_to[location_type][1]);
             let exit_type = Config.exit_types[exit_id];
+            if (exit_type == 'street'){
+                
+            }
             if (exit_type == entered_from){
                 starting_here = exit;
             }
@@ -97,6 +104,9 @@ class MapGenerator {
             }
         }
         return exits;
+    }
+    generate_street_name(){
+        return Config.street_names[rand_num(0, Config.street_names.length - 1)];
     }
 
 }

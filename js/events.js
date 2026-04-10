@@ -20,8 +20,12 @@ $(document).on('click', '.equip', function(e) {
     juego.player.inventory.equip(Number(this.id.split('-')[1]));
     ui.refresh();
 });
-$(document).on('click', '.interact', function(e) {
-    juego.player.actions.interact(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), Number(this.id.split('-')[3]), juego);
+$(document).on('click', '.interact:not(.trade)', function(e) {
+    let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, Number(this.id.split('-')[2]), Number(this.id.split('-')[3]));
+    if (human == null){
+        return;
+    }
+    juego.player.actions.interact(Number(this.id.split('-')[1]), human);
     ui.refresh();
 });
 
@@ -48,8 +52,11 @@ $(document).on('click', '.use', function(e) {
 
 
 $(document).on('click', '.trade', function(e) {
-    juego.player.actions.interact(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), 
-        Number(this.id.split('-')[3]), Number(this.id.split('-')[4]), juego);
+    let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, Number(this.id.split('-')[3]), Number(this.id.split('-')[4]));
+    if (human == null){
+        return;
+    }
+    juego.player.actions.interact(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), human);
     ui.refresh();
 });
 

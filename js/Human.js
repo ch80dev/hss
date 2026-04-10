@@ -10,10 +10,12 @@ class Human extends Lifeform{
     stigma_req = null;
     stigma = null; 
     constructor(x, y, are_they_homeless, map, player){
+        console.log(are_they_homeless);
         super('human', x, y, map);
         this.map = map;
         this.player = player;
         this.homeless = are_they_homeless;
+
         this.stigma_req = rand_num(50, 100);
         
         if (!are_they_homeless){
@@ -101,20 +103,18 @@ class Human extends Lifeform{
                 this.conversion[id] = this.generate_conversion(first, second);
                 this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[first]), durability: 100 });
                 this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[second]), durability: 100 });
-                console.log(this.inventory);
             } else if (Config.interactions_for_resources.includes(interaction)){
                 this.resources[id] = this.generate_rand_item([]);
                 this.conversion[id] = Config.prices[this.resources[id]];
             }
             if (interaction == 'buy'){                                
                 this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[this.resources[id]]), durability: 100 });
-                console.log(this.inventory);
             }
         }
         if (n > 0){
             this.money = n; 
         }
-        console.log(this.interactions, this.inventory, this.resources, this.conversion);
+        //console.log(this.interactions, this.inventory, this.resources, this.conversion);
         
     }
 

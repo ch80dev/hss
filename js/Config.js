@@ -20,7 +20,7 @@ class Config {
 		used_exit: '&#9678',		
 	};
 
-	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'recyclables', 'tool', 'weapon', 'lighter'];
+	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'recyclables', 'tool', 'weapon'];
 	static prices = {
 		crate: 8,
 		drugs: 50,
@@ -86,8 +86,8 @@ class Config {
 		street: 10,		
 	}
 	static max_num_of_humans = {
-		alley: 3, 
-		street: 10,
+		alley: 2, 
+		street: 5,
 		sewer: 1,
 	}
 	static max_num_of_rats = {
@@ -104,10 +104,9 @@ class Config {
 	}
 	
 	static trash_item_odds = {		
-		recyclables: [1, 50],
-		'food (spoiled)': [51, 68],
-		food: [69, 70],
-		fuel: [71, 80],
+		recyclables: [1, 60],
+		'food (spoiled)': [61, 78],
+		food: [79, 80],
 		
 		crate: [81, 85],
 		medicine: [86, 86],
@@ -120,7 +119,7 @@ class Config {
 	}
 
 	static weights = {
-		recyclables: .1,
+		recyclables: .05,
 		food: 1,
 		'food (spoiled)': 1,
 		fuel: 2,
@@ -133,4 +132,16 @@ class Config {
 		drugs: 2,
 	}
 
+	static street_names = [
+		// Trees
+		"Ash", "Birch", "Cedar", "Dogwood", "Elm", "Fir", "Gum", "Hazel", "Ivy", "Juniper", "Koa", "Larch", "Maple", "Nutmeg", "Oak", "Pine", "Quince", "Redwood", "Spruce", "Teak", "Umbrella", "Vine", "Walnut", "Xylosma", "Yew", "Zelkova",
+		// States/Regions
+		"Alabama", "Brunswick", "Colorado", "Delaware", "East Dakota", "Florida", "Georgia", "Hawaii", "Idaho", "Jersey", "Kansas", "Louisiana", "Montana", "Nebraska", "Oregon", "Pennsylvania", "Quincy", "Rhode", "Savannah", "Texas", "Utah", "Virginia", "Wyoming", "Xavier", "York", "Zion",
+		// Historical/Professional
+		"Adams", "Benton", "Clark", "Douglass", "Edison", "Franklin", "Grant", "Hancock", "Irving", "Jefferson", "Kennedy", "Lincoln", "Marshall", "Newton", "Otis", "Parker", "Quantico", "Reeds", "Sherman", "Tatcher", "Ulysses", "Victor", "Wright", "Xerxes", "Yancy", "Zimmer",
+		// Two-Syllable
+		"Archer", "Baker", "Chapel", "Driver", "Eagle", "Foster", "Grover", "Hunter", "Island", "Jacket", "Kettle", "Logan", "Miller", "Nelson", "Owen", "Porter", "Quarry", "River", "Silver", "Tucker", "Under", "Valley", "Weaver", "Xylon", "Yarrow", "Zenith",
+		// Three-Syllable
+		"Allison", "Bannister", "Covington", "Delaney", "Emerson", "Finnegan", "Galloway", "Harrison", "Indigo", "Jeffries", "Killinger", "Liberty", "Madrigal", "Novinger", "Overton", "Patterson", "Quinnifer", "Rafferty", "Sullivan", "Tennyson", "Unity", "Valencia", "Whittaker", "Xenophon", "Yosemite", "Zimmerman"
+	];
 }

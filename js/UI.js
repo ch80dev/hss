@@ -88,12 +88,13 @@ class UI{
 				let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let map_at = juego.map.queries.at(x, y);
 				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
-				if (map_at != null){
-					cell_class = Config.cell_class[map_at];
-				} else if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && human.homeless){
+				  
+				if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && human.homeless){
 					cell_class = ' human homeless ';
 				} else if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && !human.homeless){
 					cell_class = ' human citizen ';
+				} else if (map_at != null){
+					cell_class = Config.cell_class[map_at];
 				}
 
 				if (map_at == 6 && juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y).hungry){
@@ -133,6 +134,37 @@ class UI{
 		document.getElementById('map').innerHTML = txt;		
 	}
 
+	display_location_name(){
+		let name = juego.map.names[juego.player.state.location_type][juego.player.state.location_id];
+		let txt = "";
+		//console.log(name);
+		if (juego.player.state.location_type == 'street'){			
+			$("#location_name").html(name + " Street");
+			return;
+		} 
+		txt =  "alley behind ";
+		if (juego.player.state.location_type == 'sewer'){
+			txt = " sewer beneath ";
+		}
+		for (let connected_street of name.connecting){
+			txt += `${connected_street}`;
+			if (name.length[connected_street] != null ){
+				txt +=  `[${name.length[connected_street]}]`;
+			}
+			if (name.connecting.length < 2){
+				continue;
+			}
+			if (name.connecting.indexOf(connected_street) == name.connecting.length - 2){
+				txt += " and ";
+			} else {
+				txt += ", ";
+			}
+		}
+			
+		
+		$("#location_name").html(txt);
+	}
+
 	display_social(){
 		if (juego.player.state.socializing == null){
 			return;
@@ -145,7 +177,7 @@ class UI{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			//console.log(interaction, juego.player.state.inventory);
-			if ((interaction == 'buy' && juego.player.money < human.conversion[id])
+			if ((interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], human.conversion[id]))
 				|| (interaction == 'beg' && human.last_begged != null)){
 				disabled = ' disabled ';
@@ -171,6 +203,7 @@ class UI{
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				
 				resource = `${human.resources[id]} [${juego.player.inventory.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
+				button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} 
 			
 			
@@ -185,6 +218,9 @@ class UI{
 		this.status_msg = msg;
 	}
 	refresh(){
+		this.display_location_name();
+		
+		
 		this.display_map();
 		this.display_loot();
 		

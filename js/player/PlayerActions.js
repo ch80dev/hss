@@ -24,11 +24,10 @@ class PlayerActions {
         ui.log(`You missed them! ${target.health}/${target.max_health}`);
     }
 
-    interact(id, x, y, juego){
-        console.log(id, x, y);
-        let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
-        //console.log(human);
-        if (human == null || human.interactions[id] == undefined){
+    interact(id, human){
+        
+        console.log(id, human);
+        if (human.interactions[id] == undefined){
             console.log('error');
             return;
         }
@@ -72,6 +71,11 @@ class PlayerActions {
         //console.log('social', x, y, juego);
         let human = juego.fetch_human(this.player.state.location_type, this.player.state.location_id, x, y);
         if (human == null){
+            return;
+        }
+
+        if (this.player.state.stigma > human.stigma_req){
+            ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }
         this.player.state.socializing = {x: x, y: y};

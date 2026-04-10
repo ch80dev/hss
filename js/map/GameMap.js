@@ -1,9 +1,16 @@
 class GameMap {
-    
+    next_new_street = null;    
+    last_street = null;
+    distance_from_street = null;
     location = { type: 'alley', id: 0 }; 
     exits = {};
     grid = [];   
     locations = {
+        alley: [],
+        sewer: [],
+        street: [],
+    }
+    names = {
         alley: [],
         sewer: [],
         street: [],
@@ -19,8 +26,49 @@ class GameMap {
         this.populator = new MapPopulator(this);
         this.queries = new MapQueries(this);
         this.wipe();        
-        this.generator.generate('alley', null);
+        this.generator.generate('alley', null);        
         this.locations.alley.push(this.grid);
+        this.next_new_street = this.generator.generate_street_name();
+        this.names.alley.push({connecting: [this.next_new_street], length: { [this.next_new_street]: null} });
+        
+        
+    }
+    name_old_location(location_type, location_id){
+        let name = this.names[location_type][location_id];
+        if (this.distance_from_street == null){
+            return;
+        } else if (location_type == 'street'){
+            this.distance_from_street = 0;
+            this.last_street = name;
+            return;
+        }
+        console.log(name);
+        this.distance_from_street ++;
+        
+        if (!name.connecting.includes(this.last_street)){            
+            name.connecting.push(this.last_street);
+        }
+        if (name.length[this.last_street] == undefined || (name.length[this.last_street] != undefined && name.length[this.last_street] == null)){
+            name.length[this.last_street] = this.distance_from_street;
+        }
+    }
+
+
+    name_new_location(location_type, location_id){
+        //no returns in if
+        let name = this.names[location_type][location_id];                
+        if (location_type == 'street'){
+            this.distance_from_street = 0;
+            this.names[location_type][location_id] = this.next_new_street;
+            this.next_new_street = this.generator.generate_street_name();
+            this.last_street = this.names[location_type][location_id];
+        } else if (name == undefined && this.last_street == null){
+            this.names[location_type][location_id] 
+                = { connecting: [this.next_new_street], length: { [this.next_new_street]: null} };
+        } else if (name == undefined && this.last_street != null){
+            this.names[location_type][location_id] 
+                = { connecting: [this.last_street], length: { [this.last_street]: null} };
+        }
         
         
     }

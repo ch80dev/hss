@@ -28,4 +28,16 @@ class PlayerState{
         this.x = x;
         this.y = y;
     }
+    change_money(n){
+        this.money += n;
+        if (this.money < 0){
+            this.money = 0;
+        }
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+        this.money = formatter.format(this.money);
+    }
 }

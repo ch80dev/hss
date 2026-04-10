@@ -18,8 +18,8 @@ class PlayerStatus{
 		}
         let n = Number(this.player.state.stamina_delta );
         this.player.state.stamina  = (Number(this.player.state.stamina ) || 0) + n;
-        if (this.player.state.stamina  > this.max_stamina){
-            this.player.state.stamina  = this.max_stamina;            
+        if (this.player.state.stamina  > this.player.state.max_stamina){
+            this.player.state.stamina  = this.player.state.max_stamina;            
         } else if (this.player.state.stamina  < 0){
             this.player.state.stamina  = 0;
         }

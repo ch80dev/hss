@@ -158,7 +158,7 @@ class PlayerInventory {
     }
     take_from_human(name, quantity, human){
         
-        console.log(name, quantity, human);
+        //console.log(name, quantity, human);
         if (!human.do_they_have(name, quantity)){
             console.log("error: they don't got this.");
             return;
@@ -242,7 +242,9 @@ class PlayerInventory {
     use_item(id, map){
         let item = this.player.state.inventory[id];
         let medicine_works = rand_num(1, 10) == 1;
+        console.log(id, item);
         if (!this.player.inventory.can_they_use(item.name, map)){
+            console.log('cant use');
             return;
         }
         if (item.name == 'crate'){
@@ -252,7 +254,9 @@ class PlayerInventory {
             map.is(this.x, this.y, 8);
             return;
         } else if (item.name == 'food' || item.name == 'food (spoiled)'){
-            this.player.status.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
+            console.log("food");
+            this.player.status.change_stamina_delta(rand_num(Config.food_gain[0], Config.food_gain[1]));
+            this.player.status.change_stamina();
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
             this.player.status.change_sickness(-rand_num(Config.medicine_gain[0], Config.medicine_gain[1]));
         

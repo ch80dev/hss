@@ -20,11 +20,13 @@ class PlayerMovement{
             this.player.state.location_id = parseInt(to_id, 10);
             this.player.state.x = parseInt(to_x, 10);
             this.player.state.y = parseInt(to_y, 10);
+            map.name_old_location(this.player.state.location_type, this.player.state.location_id);
             return;
         }
         map.wipe();  
         let start = map.generator.generate(Config.exit_types[exit_id], this.player.state.location_type);   
         juego.populate(Config.exit_types[exit_id]);     
+        
         map.locations[Config.exit_types[exit_id]].push(map.grid);
         let to = `${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
         this.player.state.location_type = Config.exit_types[exit_id];
@@ -35,7 +37,7 @@ class PlayerMovement{
         this.player.state.y = start.y;
         map.exits[from] = to;
         map.exits[to] = from;
-        
+        map.name_new_location( this.player.state.location_type,  this.player.state.location_id);
         
     }
 

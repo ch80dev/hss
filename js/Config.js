@@ -64,7 +64,7 @@ class Config {
 	static max_num_of_items_in_trash = 3;
 	static max_sickness = 100;
 	static max_x = 25;
-	static max_y = 25;
+	static max_y = 20;
 	static medicine_gain = [10, 100];
 	static num_of_exits = {
 		alley: [2, 4],

@@ -1,6 +1,12 @@
 .alley_exit {
     color: hwb(211 42% 46%);
 }
+
+.blocked {
+    border: 1px #222222 solid;
+    background: #333333;
+}
+
 .cell {
     width: 20px;
     height: 20px;
@@ -8,7 +14,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player){
+.cell:not(.empty):not(.player):not(.blocked){
     background: #222222;
     border: 1px #222222 solid;
 }

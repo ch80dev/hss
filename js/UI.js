@@ -86,6 +86,7 @@ class UI{
 				let cell_class = ' empty ';
 				let cell_txt = '';
 				let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
+				let loot = juego.map.loot[`${juego.player.state.location_type}-${juego.player.state.location_id}-${x}-${y}`];
 				let map_at = juego.map.queries.at(x, y);
 				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				  
@@ -124,7 +125,11 @@ class UI{
 					cell_class += " player ";
 				} else if (juego.player.movement.at(x, y) && juego.player.state.fighting){
 					cell_class += " player_fighting";
-				} 
+				} else if ((Config.cell_class[map_at] == 'trash' && loot != undefined && loot.locked)
+					|| (Config.cell_class[map_at] == 'human' && human != undefined && juego.player.state.stigma > human.max_stigma_tolerance )
+				){
+					cell_class += ' blocked ';
+				}
 				
 				
 				txt += `<div id='cell-${x}-${y}' class='cell ${cell_class}'>${cell_txt}</div>`

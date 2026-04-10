@@ -74,7 +74,7 @@ class PlayerActions {
             return;
         }
 
-        if (this.player.state.stigma > human.stigma_req){
+        if (this.player.state.stigma > human.max_stigma_tolerance){
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }

@@ -58,7 +58,7 @@ class MapPopulator{
         let size = this.map.queries.fetch_size();
         let num_of_trash_cans = Math.round(size * .05);
         for (let i = 0; i < num_of_trash_cans; i ++){
-            let border = this.map.queries.fetch_border_spot();
+            let border = this.map.queries.fetch_border_spot(true);
             this.map.is(border.x, border.y, 5);
             this.fill_trash(id, border.x, border.y);
         }

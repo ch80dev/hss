@@ -24,10 +24,10 @@ class MapQueries{
         return adjacent;
     }
 
-    fetch_border_spot(){
+    fetch_border_spot(orthogonal){
         while(true){
-            let open = this.fetch_open();
-            if (this.is_on_the_border(open.x, open.y)){
+            let open = this.fetch_open();            
+            if (this.is_on_the_border(open.x, open.y, orthogonal)){
                 return open;
             }
         }
@@ -133,13 +133,13 @@ class MapQueries{
 
     }
 
-    is_on_the_border(pos_x, pos_y){
+    is_on_the_border(pos_x, pos_y, orthogonal){
         for (let x = pos_x -1; x <= pos_x + 1; x ++){
             for (let y = pos_y -1; y <= pos_y + 1; y ++){
-                if (!this.is_valid(x, y) || (x == pos_x && y == pos_y)){
+                if (!this.is_valid(x, y) || (x == pos_x && y == pos_y) ){
                     continue;
                 }
-                if (this.at(x, y) == null){
+                if (this.at(x, y) == null && (!orthogonal || (orthogonal && this.is_orthogonal(x, y, pos_x, pos_y)))){
                     return true;
                 }
             }    

@@ -121,7 +121,7 @@ html, body{
     color: black;
 }
 .status_bar_container{
-    height: 40px;
+    height: 30px;
     text-align: center;
 
     position: relative;
@@ -132,7 +132,7 @@ html, body{
 }
 
 .status_bar{
-    height: 40px;
+    height: 30px;
     top: 0;
     left: 0;
     z-index: 1;
@@ -148,6 +148,10 @@ html, body{
 
 
 }
+#sickness_container, #status_bars{
+    width: 100%;
+    clear:both;
+}
 .screen{
     width: 100%;
     clear: both;
@@ -155,14 +159,14 @@ html, body{
 .status_caption {
     position: absolute;
     z-index: 2;
-    font-size: 25px;
+    font-size: 20px;
     width: 100%;
 
 }
 #top {
     width: 100%;
     text-align: center;
-    height: var(--top-bar-height);
+    height: auto;
     line-height: var(--top-bar-height);
     color: white;
 }

@@ -17,7 +17,7 @@ class PlayerInventory {
 
     can_they_use(name, map){
         if ((name == 'lighter' && !this.is_in_inventory('fuel')) 
-            || (name == 'crate' && map.is_item_here('crate (placed)', this.player.fetch_from()))
+            || (name == 'crate' && map.queries.is_item_here('crate (placed)', this.player.fetch_from()))
             || (name == 'crate' && map.queries.at(this.player.state.x, this.player.state.y) != 1)){
             return false;
 
@@ -268,9 +268,8 @@ class PlayerInventory {
             map.is(this.x, this.y, 8);
             return;
         } else if (item.name == 'food' || item.name == 'food (spoiled)'){
-            console.log("food");
-            this.player.status.change_stamina_delta(rand_num(Config.food_gain[0], Config.food_gain[1]));
-            this.player.status.change_stamina();
+            console.log("food");            
+            this.player.status.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
             this.player.status.change_sickness(-rand_num(Config.medicine_gain[0], Config.medicine_gain[1]));
         

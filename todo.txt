@@ -7,6 +7,8 @@ TODO
     directions
     pawn shop
     motel
+    there should only ever be a maximum of one sewer exit in the sewers
+    walking through the sewers should create stigma
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
@@ -19,4 +21,11 @@ LATER
     if a player equips a crate, they can carry more slots.
     interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
 BUGS
-
+    recycling shop generatnig on every street 
+    can buy new items and trade new items even if slots are full
+    accidentally bought 3 tools instead of just one - maybe do a delayi
+    close button doesnt work on loot
+    traded 2 food for a crate and it made food 0 didn't give me a crate (2nd interaction, 2nd convert)
+    accidentally traded 1 tool and it said i didn't have it (2 interaction, 2 convert)
+    checked inv at random location never been to and 0 food was there from some other drop i did in a different location
+    when I tried to use crate (I got error inventory:20)

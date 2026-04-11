@@ -14,7 +14,7 @@ class PlayerActions {
         if (map_at == Config.cell_class.indexOf('rat')){
             target = juego.fetch_rat(this.player.state.location_type, this.player.state.location_id, x, y);
         }
-        this.player.status.change_stamina_delta(Config.stamina_cost['attack']);
+        this.player.status.change_stamina_delta(-Config.stamina_cost['attack']);
         let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
         if (did_they_hit){
             target.get_hit(1);

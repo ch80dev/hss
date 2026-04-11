@@ -12,19 +12,24 @@ class PlayerStatus{
         }
     }
 
-    change_stamina(){
+    change_stamina(immediate_stamina_change){
         if (this.player.state.is_sick ){
 			this.player.state.stamina_delta  *= 2;
 		}
         let n = Number(this.player.state.stamina_delta );
-        this.player.state.stamina  = (Number(this.player.state.stamina ) || 0) + n;
+        if (immediate_stamina_change != null){
+            n = immediate_stamina_change;
+        }
+        this.player.state.stamina  = this.player.state.stamina + n;
         if (this.player.state.stamina  > this.player.state.max_stamina){
             this.player.state.stamina  = this.player.state.max_stamina;            
         } else if (this.player.state.stamina  < 0){
             this.player.state.stamina  = 0;
         }
-        this.player.state.stamina  = Math.round(this.player.state.stamina  * 10) / 10;
-        this.player.state.stamina_delta  = 0;
+        this.player.state.stamina  = Number((this.player.state.stamina).toFixed(2));
+        if (immediate_stamina_change == null){
+            this.player.state.stamina_delta  = 0;
+        }
     }
 
     change_stamina_delta(n){

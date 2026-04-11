@@ -231,17 +231,17 @@ class UI{
 		
 		this.display_social();
 		
-		let health_cent = (juego.player.state.health / juego.player.state.max_health * 100);
-		let stamina_cent = (juego.player.state.stamina / juego.player.state.max_stamina * 100);
-
+		let health_cent = juego.player.state.health / juego.player.state.max_health * 100;
+		let stamina_cent = juego.player.state.stamina / juego.player.state.max_stamina * 100;
+		
 		let stigma_cent = (juego.player.state.stigma / juego.player.state.max_stigma * 100);
 
 		$("#health_bar").css('width', health_cent.toFixed(1) + '%');
 		$("#stamina_bar").css('width', stamina_cent.toFixed(1) + '%');
 		$("#stigma_bar").css('width', stigma_cent.toFixed(1) + '%');
-		$("#health").html(`${health_cent}%`);
-		$('#stamina').html(`${stamina_cent}%`);
-		$('#stigma').html(`${stigma_cent}%`);
+		$("#health").html(`${health_cent.toFixed(1)}%`);
+		$('#stamina').html(`${stamina_cent.toFixed(1)}%`);
+		$('#stigma').html(`${stigma_cent.toFixed(1)}%`);
 		$("#status").html(this.status_msg);
 
 		$(".screen").addClass('hidden');
@@ -252,8 +252,16 @@ class UI{
 		if (juego.player.state.sickness > 0){
 			$("#sickness_container").removeClass('hidden');
 		}
+		if (juego.player.state.is_sick){
+			$("#is_sick").removeClass('hidden');
+			$("#sickness").addClass('hidden');
+
+		} else if (!juego.player.state.is_sick){
+			$("#is_sick").addClass('hidden');
+			$("#sickness").removeClass('hidden');
+		}
+
 		$("#equipped").html("");
-		console.log(juego.player.state.equipped);
 		if (juego.player.state.equipped != null){
 			let equipped = juego.player.inventory.fetch(juego.player.state.equipped);
 			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)

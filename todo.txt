@@ -1,5 +1,5 @@
 TODO
-
+    when humans sell, have the price 5-100% higher than baseline. When human buy, have it be 5-50% lower than baseline. shops are baseline.
     implement shops
     implement sickness
     warn the player when they start running otu of stamina
@@ -13,7 +13,7 @@ LATER
     instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
     rats should be able to exit if there's no food in the alley
     if a player equips a crate, they can carry more slots.
-    
+    interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
 BUGS
 
     less than target exits created // what does this mean?

@@ -14,7 +14,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop){
     background: #222222;
     border: 1px #222222 solid;
 }
@@ -69,6 +69,11 @@
 .sewer_exit {
     color: #b04a4a;
     
+}
+
+.shop{
+    background: #33ff00;
+    color: black;
 }
 
 .street_exit{

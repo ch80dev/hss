@@ -39,6 +39,14 @@ class Game{
         return null;
     }
 
+	fetch_shop(id){
+		let shop = juego.shops[id];
+		if (shop != undefined){
+			return null;
+		}
+		return shop;
+	}
+
 	
 	next_turn(){
 		let are_they_sick = rand_num(1, 100) <= this.player.state.sickness;

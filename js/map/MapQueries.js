@@ -15,7 +15,7 @@ class MapQueries{
                 if (orthogonal && !this.is_orthogonal(x, y, pos_x, pos_y)){
                     continue;
                 }
-                if (this.at(x, y) == null || this.at(x, y) != what){
+                if ((what != null && this.at(x, y) == null) || this.at(x, y) != what){
                     continue;
                 }
                 adjacent.push({ x: x, y: y });

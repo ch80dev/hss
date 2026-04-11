@@ -1,21 +1,25 @@
 class GameMap {
-    next_new_street = null;    
-    last_street = null;
+    
     distance_from_street = null;
-    location = { type: 'alley', id: 0 }; 
     exits = {};
+    first_shop = true;
     grid = [];   
+    last_street = null;
+    location = { type: 'alley', id: 0 }; 
     locations = {
         alley: [],
         sewer: [],
         street: [],
     }
+    loot = {};
     names = {
+
         alley: [],
         sewer: [],
         street: [],
-    }
-    loot = {};
+    }    
+    next_new_street = null;    
+    shops = [];
     
     
 

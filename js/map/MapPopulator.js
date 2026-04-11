@@ -21,7 +21,7 @@ class MapPopulator{
                 continue;
             }
             already_found.push(item);
-            if (item == 'recyclables'){
+            if (Config.recyclables.includes(item)){
                 n = rand_num(1, 10);
             }
             found.push({ name: item, quantity: n, durability: rand_num(1, 100) });

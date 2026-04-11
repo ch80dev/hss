@@ -1,4 +1,5 @@
 class UI{
+	shop = new UIShop();
 	status_msg = "";
 	screen_focused = 'map';
 	constructor(){
@@ -109,16 +110,12 @@ class UI{
 					&& juego.player.movement.have_they_used_this_exit(juego.player.state.location_type, 
 					juego.player.state.location_id, x, y, juego.map)){
 					cell_txt = Config.cell_txt['used_exit'];
-				} else if (map_at == 5){
-					cell_txt = Config.cell_txt['trash'];
-				} else if (map_at == 6){
-					cell_txt = Config.cell_txt['rat'];
-				} else if (map_at == 7){
-					cell_txt = Config.cell_txt['human'];
-				} else if (map_at == 8){
-					cell_txt = Config.cell_txt['crate'];
 				} else if (map_at != null && map_at > 1 && map_at < 5){
-					cell_txt = Config.cell_txt['unused_exit'];
+					cell_txt = Config.cell_txt['unused_exit'];				
+				} else if (Config.cell_txt[Config.cell_class[map_at]] != undefined){
+					cell_txt = Config.cell_txt[Config.cell_class[map_at]];
+				
+				
 				}
 				
 				if (juego.player.movement.at(x, y) && !juego.player.state.fighting){
@@ -223,6 +220,9 @@ class UI{
 		this.status_msg = msg;
 	}
 	refresh(){
+		if (juego.player.state.shopping != null ){
+			this.shop.display(juego.player.state);
+		}
 		this.display_location_name();
 		
 		

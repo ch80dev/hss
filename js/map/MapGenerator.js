@@ -82,6 +82,12 @@ class MapGenerator {
         if (location_type == 'alley'){
             this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
         }
+        if (location_type == 'street' && this.map.first_shop){
+            let shop_pos = this.generate_shop();
+            this.map.shops.push(shop_pos);
+            this.map.is(shop_pos.x, shop_pos.y, Config.cell_class.indexOf('shop'));
+            console.log(shop_pos, this.map.queries.at(shop_pos.x, shop_pos.y));
+        }
         return starting_here;
     }
 
@@ -105,6 +111,19 @@ class MapGenerator {
         }
         return exits;
     }
+
+    generate_shop(){
+        while(true){
+            let rand_x = rand_num(0, Config.max_x - 1);
+            let rand_y = rand_num(0, Config.max_y - 1);
+            let num_of_open = this.map.queries.fetch_adjacent(rand_x, rand_y, 1, false).length;
+            let num_of_null = this.map.queries.fetch_adjacent(rand_x, rand_y, null, false).length;
+            if (num_of_open == 3 && num_of_null == 5){
+                return { x: rand_x, y: rand_y };
+            }
+        }
+    }
+
     generate_street_name(){
         return Config.street_names[rand_num(0, Config.street_names.length - 1)];
     }

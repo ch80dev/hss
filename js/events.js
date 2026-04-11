@@ -10,6 +10,7 @@ document.addEventListener('keyup', (event) => {
 });
 
 $(document).on('click', '.close', function() {
+    console.log("GI");
     juego.player.state.looting = false;
     juego.player.state.socializing = null;
     ui.change_screen('map');

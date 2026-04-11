@@ -209,7 +209,7 @@ class UI{
 				resource = `${human.resources[id]} [${juego.player.inventory.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} else if (interaction == 'beg'){
-				resource = ` min. stigma (${human.min_stigma_beg})`
+				resource = ` (min. stigma: ${human.min_stigma_beg})`;
 			} 
 			
 			

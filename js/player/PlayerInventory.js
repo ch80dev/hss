@@ -276,8 +276,8 @@ class PlayerInventory {
         if (item.name == 'crate'){
            
             item.name = 'crate (placed)';
-            this.player.inventory.drop_item(id);
-            map.is(this.x, this.y, 8);
+            this.player.inventory.drop_item(id, map);
+            map.is(this.player.state.x, this.player.state.y, 8);
             return;
         } else if (item.name == 'food' || item.name == 'food (spoiled)'){
             console.log("food");            

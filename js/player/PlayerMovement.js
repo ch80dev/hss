@@ -9,7 +9,9 @@ class PlayerMovement{
 
     explore(exit_id, map){   
         let from = this.player.fetch_from();
+        
         if (this.have_they_used_this_exit(this.player.state.location_type, this.player.state.location_id, this.player.state.x, this.player.state.y, map)){
+            console.log(`Loading previous location: ${to_type}-${to_id}`);
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
             let to_id = exits_to.split('-')[1];
@@ -26,7 +28,7 @@ class PlayerMovement{
         map.wipe();  
         let start = map.generator.generate(Config.exit_types[exit_id], this.player.state.location_type);   
         juego.populate(Config.exit_types[exit_id]);     
-        
+        console.log(`Exploring to: ${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}`);
         map.locations[Config.exit_types[exit_id]].push(map.grid);
         let to = `${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
         this.player.state.location_type = Config.exit_types[exit_id];

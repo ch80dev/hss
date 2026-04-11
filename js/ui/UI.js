@@ -241,6 +241,10 @@ class UI{
 		$("#stigma_bar").css('width', stigma_cent.toFixed(1) + '%');
 		$("#health").html(`${health_cent.toFixed(1)}%`);
 		$('#stamina').html(`${stamina_cent.toFixed(1)}%`);
+		$("#stamina").removeClass('low_stamina');
+		if (stamina_cent < Config.low_stamina_threshold){
+			$("#stamina").addClass('low_stamina');
+		}
 		$('#stigma').html(`${stigma_cent.toFixed(1)}%`);
 		$("#status").html(this.status_msg);
 

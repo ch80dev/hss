@@ -112,6 +112,9 @@ html, body{
 #shop{
     text-align: center;
 }
+.low_stamina{
+    color: red;
+}
 #stamina_bar{
     background: green;
 }

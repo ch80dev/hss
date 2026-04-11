@@ -30,7 +30,7 @@ class Config {
 	static interactions_for_resources = ['trade', 'buy', 'sell'];
 	static homeless_money = 50;
 	static num_of_interactions_per_human = 3;
-
+	
 
 
 
@@ -147,12 +147,17 @@ class Config {
 	
 
 	//PLAYER
+	static low_stamina_threshold = 25;
 	static max_sickness = 100;
 	static stamina_cost = {
 		attack: -1,
 	}
 	static stigma_effects = {
 		trash: .2,
+		sewer: .1,
+	}
+	static sickness_effects = {
+		sewer: .05,
 	}
 	
 

@@ -1,7 +1,5 @@
 TODO
     
-    implement sickness
-    warn the player when they start running otu of stamina
     when you take all and maxed out slots, take everything in loot that you can.
     begging min stigma
     directions
@@ -20,6 +18,7 @@ LATER
     rats should be able to exit if there's no food in the alley
     if a player equips a crate, they can carry more slots.
     interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
+    when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
 BUGS
     recycling shop generatnig on every street 
     can buy new items and trade new items even if slots are full

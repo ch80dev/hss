@@ -26,10 +26,26 @@ class PlayerInventory {
     }
 
     delete(name){
+        let equipped = { name: null, durability: null };
+        if (this.player.state.equipped != null){
+            let equipment = this.fetch(this.player.state.equipped);
+            equipped.name = equipment.name;
+            equipped.durability = equipment.durability;
+        }
         for (let id in this.player.state.inventory){
             let item = this.player.state.inventory[id];
             if (item.name == name){
                 this.player.state.inventory.splice(id, 1);
+                break;
+            }
+        }
+        if (this.player.state.equipped == null ){
+            return;
+        }
+        for (let id in this.player.state.inventory){
+            let item = this.player.state.inventory[id];
+            if (item.name == equipped.name && item.durability == equipped.durability && this.player.state.equipped != id){
+                this.player.state.equipped = id;
                 return;
             }
         }

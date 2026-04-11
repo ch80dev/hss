@@ -7,6 +7,7 @@ class Human extends Lifeform{
     last_begged = null;
     money = 0;
     resources = [];
+    min_stigma_beg = null;
     max_stigma_tolerance = null;
     stigma = null; 
     constructor(x, y, are_they_homeless, map, player){
@@ -17,7 +18,7 @@ class Human extends Lifeform{
         this.homeless = are_they_homeless;
 
         this.max_stigma_tolerance = rand_num(50, 100);
-        
+        this.min_stigma_beg = rand_num(0, this.max_stigma_tolerance - Math.round(this.max_stigma_tolerance * .1));
         if (!are_they_homeless){
             this.max_stigma_tolerance = rand_num(1, 50);
         }

@@ -43,7 +43,8 @@ class PlayerActions {
             return;
         }
         let interaction = human.interactions[id];        
-        if (interaction == 'beg' && human.last_begged == null){            
+        if (interaction == 'beg' && human.last_begged == null 
+            && this.player.state.stigma >= human.min_stigma_beg){            
             this.player.state.money += human.give_when_begged;                      
             ui.log(`They gave you $${human.give_when_begged}.`)
             human.begged();

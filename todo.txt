@@ -5,8 +5,6 @@ TODO
     directions
     pawn shop
     motel
-    there should only ever be a maximum of one sewer exit in the sewers
-    walking through the sewers should create stigma
     look
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)

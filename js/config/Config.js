@@ -154,7 +154,7 @@ class Config {
 	}
 	static stigma_effects = {
 		trash: .2,
-		sewer: .1,
+		sewer: .5,
 	}
 	static sickness_effects = {
 		sewer: .05,

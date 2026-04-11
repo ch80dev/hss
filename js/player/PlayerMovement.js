@@ -60,14 +60,19 @@ class PlayerMovement{
         if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
             return;
         }  
-        if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('shop')){
+
+        if (this.player.state.location_type == 'sewer'){
+            this.player.status.change_stigma(Config.stigma_effects['sewer']);
+            this.player.status.change_sickness(Config.sickness_effects['sewer']);
+        }
+        if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('shop')){ //ENTER SHOP
             console.log('enter shop');
             this.player.actions.enter_shop(pos.x, pos.y, map);
             return;
-        } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){
+        } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){//ATTACK
             this.player.actions.attack(pos.x, pos.y, juego);
             return;
-        } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y))){
+        } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y))){//SOCIAL
             this.player.actions.social(pos.x, pos.y, juego);
             return;
         }
@@ -76,6 +81,7 @@ class PlayerMovement{
         } else if (this.player.state.health > 0){
             this.player.state.health -= this.player.state.movement_cost;
         }
+        
         if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('trash') && !this.player.inventory.is_equipped_with('tool')
             && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location_type}-${this.player.state.location_id}-${pos.x}-${pos.y}`].locked){
@@ -88,8 +94,10 @@ class PlayerMovement{
             this.player.actions.unlock_trash(pos.x, pos.y, map);
             return;
         }
+        
         this.player.state.x = pos.x;
         this.player.state.y = pos.y;        
+        
         if (map.queries.at(pos.x, pos.y) != 1 && map.queries.at(pos.x, pos.y) < 5){
             this.explore(map.queries.at(pos.x, pos.y), map);
             return;

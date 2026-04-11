@@ -254,7 +254,7 @@ class UI{
 		$(".screen").addClass('hidden');
 		$("#" + this.screen_focused).removeClass('hidden');
 
-		$("#sickness").html(juego.player.state.sickness);
+		$("#sickness").html(juego.player.state.sickness.toFixed(1));
 		$("#sickness_container").addClass('hidden');
 		if (juego.player.state.sickness > 0){
 			$("#sickness_container").removeClass('hidden');

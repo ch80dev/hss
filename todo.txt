@@ -1,9 +1,14 @@
 TODO
-    when humans sell, have the price 5-100% higher than baseline. When human buy, have it be 5-50% lower than baseline. shops are baseline.
+    
     implement sickness
     warn the player when they start running otu of stamina
     when you take all and maxed out slots, take everything in loot that you can.
+    begging min stigma
+    directions
+    pawn shop
+    motel
 LATER
+    center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
     be able to make a campfire
     be able to cook meat from rats
@@ -14,6 +19,4 @@ LATER
     if a player equips a crate, they can carry more slots.
     interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
 BUGS
-    when you player.inventory.delete(id) and have an item equipped, it fucks up that item equip
-    less than target exits created // what does this mean?
 

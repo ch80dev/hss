@@ -105,10 +105,16 @@ class Human extends Lifeform{
                 this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[second]), durability: 100 });
             } else if (Config.interactions_for_resources.includes(interaction)){
                 this.resources[id] = this.generate_rand_item([]);
-                this.conversion[id] = Config.prices[this.resources[id]];
+                
             }
             if (interaction == 'buy'){                                
                 this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[this.resources[id]]), durability: 100 });
+                this.conversion[id] = Number(Config.prices[this.resources[id]]  
+                    +  (Config.prices[this.resources[id]] * rand_num(5, 100) * .01)).toFixed(2); 
+            } else if (interaction == 'sell'){
+                this.conversion[id] = Number(Config.prices[this.resources[id]]  
+                    -  (Config.prices[this.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
+
             }
         }
         if (n > 0){

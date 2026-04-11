@@ -14,12 +14,15 @@ class Game{
         street: [],
     };
 
+	shops = [];
+
 	constructor(){
 		setInterval(this.loop.go(), Config.loop_interval_timing);
 		let open = this.map.queries.fetch_open();
 		this.player = new Player(open.x, open.y);
 		this.populate_with_rats('alley');
 		this.populate_with_humans('alley');
+		this.populate_shops();
 	}
 	fetch_human(location_type, location_id, x, y){
 		for (let human of this.humans[location_type][location_id]){			
@@ -40,11 +43,12 @@ class Game{
     }
 
 	fetch_shop(id){
-		let shop = juego.shops[id];
+		let shop = this.shops[id];
+		console.log(id, shop);		
 		if (shop != undefined){
-			return null;
+			return shop;
 		}
-		return shop;
+		return null;
 	}
 
 	
@@ -58,6 +62,20 @@ class Game{
 	populate(location_type){
 		this.populate_with_humans(location_type);
 		this.populate_with_rats(location_type);
+		this.populate_shops();
+	}
+
+	populate_shops(){
+		for (let id in this.map.shops){
+			let shop = this.map.shops[id];
+			if (this.shops[id] != undefined){
+				continue;
+				
+			}
+			this.shops.push(new Shop(shop.type))
+		}
+
+		console.log(this.shops);
 	}
 
 	populate_with_humans(location_type){

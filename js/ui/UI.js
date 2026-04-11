@@ -221,7 +221,7 @@ class UI{
 	}
 	refresh(){
 		if (juego.player.state.shopping != null ){
-			this.shop.display(juego.player.state);
+			this.shop.display(juego.player);
 		}
 		this.display_location_name();
 		
@@ -253,10 +253,16 @@ class UI{
 			$("#sickness_container").removeClass('hidden');
 		}
 		$("#equipped").html("");
+		console.log(juego.player.state.equipped);
 		if (juego.player.state.equipped != null){
 			let equipped = juego.player.inventory.fetch(juego.player.state.equipped);
 			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
 		}
-		$("#money").html(`$${juego.player.state.money}`);
+		const formatter = new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+		$("#money").html(`$${formatter.format(juego.player.state.money)}`);
 	}
 }

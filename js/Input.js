@@ -56,6 +56,7 @@ class Input {
         } else if (pressed == "Escape" && (juego.player.state.looting || juego.player.state.socializing != null)){
             juego.player.state.looting = false;
             juego.player.state.socializing = null;
+            juego.player.state.shopping = null;
             ui.change_screen('map');
         } else if (pressed == " " && juego.player.state.looting){
             juego.player.inventory.take_all(juego.map);

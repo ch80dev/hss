@@ -2,7 +2,7 @@ class PlayerState{
     equipped = null;
     fighting = false;
     health = Config.lifeforms.human.max_health;    
-    inventory = [ {name: 'tool', quantity: 1, durability: 1 }];
+    inventory = [ ];
     inventory_weight =  0;
     is_sick = false;
     location_type = 'alley';
@@ -18,7 +18,7 @@ class PlayerState{
     slots_in_inventory = 5;
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
-    stigma = 100;
+    stigma = 0;
     sickness = 0;
 
     x = null;
@@ -29,15 +29,12 @@ class PlayerState{
         this.y = y;
     }
     change_money(n){
+        n = Number(n);
         this.money += n;
         if (this.money < 0){
             this.money = 0;
         }
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'decimal',
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        });
-        this.money = formatter.format(this.money);
+        
+       
     }
 }

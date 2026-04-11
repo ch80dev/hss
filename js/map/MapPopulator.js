@@ -24,7 +24,7 @@ class MapPopulator{
             if (Config.recyclables.includes(item)){
                 n = rand_num(1, 10);
             }
-            found.push({ name: item, quantity: n, durability: rand_num(1, 100) });
+            found.push({ name: item, quantity: n, durability: rand_num(10, 100) });
             
         }
         const key = `alley-${id}-${x}-${y}`;

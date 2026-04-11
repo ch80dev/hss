@@ -119,8 +119,8 @@ class MapGenerator {
             let num_of_open = this.map.queries.fetch_adjacent(rand_x, rand_y, 1, false).length;
             let num_of_null = this.map.queries.fetch_adjacent(rand_x, rand_y, null, false).length;
             if (num_of_open == 3 && num_of_null == 5){
-                return { x: rand_x, y: rand_y };
-            }
+                return { id: this.map.locations.street.length, type: 'recycling', x: rand_x, y: rand_y };
+            }            
         }
     }
 

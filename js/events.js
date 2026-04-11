@@ -38,17 +38,24 @@ $(document).on('click', '.item', function(e) {
     ui.refresh();
 });
 
+$(document).on('click', '.sell_to_shop', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.fetch_shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    juego.player.actions.sell_to_shop(this.id.split('-')[1], shop);
+    ui.refresh();
+});
+
 $(document).on('click', '#take_all_loot', function() {
     juego.player.inventory.take_all(juego.map);
     ui.refresh();
 });
 
-$(document).on('click', '.use', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    juego.player.inventory.use_item(this.id.split('-')[1], juego.map);
-    ui.refresh();
-});
+
 
 
 $(document).on('click', '.trade', function(e) {
@@ -57,6 +64,13 @@ $(document).on('click', '.trade', function(e) {
         return;
     }
     juego.player.actions.trade(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), human);
+    ui.refresh();
+});
+
+$(document).on('click', '.use', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    juego.player.inventory.use_item(this.id.split('-')[1], juego.map);
     ui.refresh();
 });
 

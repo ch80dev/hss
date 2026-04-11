@@ -60,7 +60,11 @@ class PlayerMovement{
         if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
             return;
         }  
-        if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){
+        if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('shop')){
+            console.log('enter shop');
+            this.player.actions.enter_shop(pos.x, pos.y, map);
+            return;
+        } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){
             this.player.actions.attack(pos.x, pos.y, juego);
             return;
         } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y))){

@@ -1,5 +1,11 @@
 class Config {
-
+	static audit(){
+		const config_class = new this();
+		const mistakes = Object.getOwnPropertyNames(config_class).filter(p => p !== 'constructor');
+		if (mistakes.length > 0){
+			console.log(mistakes);
+		}		
+	}
 	static lifeforms = {
 		human: {
 			sense_range: 10,
@@ -56,8 +62,8 @@ class Config {
 	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs'];
 	static trash_item_odds = {		
 		'plastic bottle': [1, 20],
-		'glass bottle': [1, 20],
-		'aluminum can': [1, 20],
+		'glass bottle': [21, 40],
+		'aluminum can': [41, 60],
 		'food (spoiled)': [61, 78],
 		food: [79, 80],
 		
@@ -152,16 +158,16 @@ class Config {
 
 
 	///SHOP
-	shop_interactions = {
+	static shop_interactions = {
 		recycling: ['sell'],
 	}
-	shop_names = {
+	static shop_names = {
 		recycling: "Michael's Recycles",
 	}
-	shop_resources = {
+	static shop_resources = {
 		recycling: ['glass bottle', 'aluminum can', 'plastic bottle']
 	}
-	max_stigma_for_shop = {
+	static max_stigma_for_shop = {
 		recycling: 90,
 	}
 	

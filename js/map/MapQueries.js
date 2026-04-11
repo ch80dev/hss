@@ -96,7 +96,15 @@ class MapQueries{
         return arr[closest_id];
     }
 
-    
+    fetch_shop(x, y){
+        for (let id in this.map.shops){
+            let shop = this.map.shops[id];
+            if (shop.x == x && shop.y == y){
+                return shop;
+            }
+        }
+        return null;
+    }
 
     fetch_size(){
         let n = 0;

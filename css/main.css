@@ -34,7 +34,7 @@ body:has(#loot:not(.hidden)){
     margin-left: 25px;
 }
 
-.interact{
+.interact, .sell_to_shop{
     font-size: 25px;
     padding: 10px;
 }
@@ -109,7 +109,9 @@ html, body{
 #money, #social_context, #social_menu{
     text-align: center;
 }
-
+#shop{
+    text-align: center;
+}
 #stamina_bar{
     background: green;
 }

@@ -58,17 +58,18 @@ class MapGenerator {
         for (let exit of exits){
             this.draw_around(exit.x, exit.y);
         }
-
+        let num_of_exit_types = { alley: 0, sewer: 0, street: 0 };
         for (let exit of exits){
             let exit_id = rand_num(Config.exits_to[location_type][0], Config.exits_to[location_type][1]);
-            let exit_type = Config.exit_types[exit_id];
-            if (exit_type == 'street'){
-                
+            if (location_type == 'sewer' &&  num_of_exit_types.sewer > 0){
+                exit_id = Config.cell_class.indexOf('alley_exit');
             }
+            let exit_type = Config.exit_types[exit_id];            
             if (exit_type == entered_from){
                 starting_here = exit;
-            }
+            } 
             this.map.is(exit.x, exit.y, exit_id);
+            num_of_exit_types[exit_type] ++;
         }
 
         if (starting_here == null && entered_from != null){

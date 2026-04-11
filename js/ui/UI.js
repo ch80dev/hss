@@ -179,7 +179,8 @@ class UI{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			//console.log(interaction, juego.player.state.inventory);
-			if ((interaction == 'buy' && juego.player.state.money < human.conversion[id])
+			if ((Config.interactions_for_resources.includes(interaction) && juego.player.inventory.are_they_full())
+				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], human.conversion[id]))
 				|| (interaction == 'beg' && human.last_begged != null)
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)){

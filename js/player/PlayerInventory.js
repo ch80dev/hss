@@ -3,6 +3,11 @@ class PlayerInventory {
         this.player = player;
     }
 
+    are_they_full(){
+        return this.player.state.slots_in_inventory >= this.player.state.inventory.length 
+            || this.player.state.inventory_weight >= this.player.state.max_inventory_weight        
+    }
+
     can_they_take(name, quantity){
         let weight = this.fetch_weight(name, quantity);
         if (weight + this.player.state.inventory_weight >= this.player.state.max_inventory_weight){

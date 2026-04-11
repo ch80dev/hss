@@ -1,7 +1,4 @@
-TODO
-    
-    
-    
+TODO   
     directions
     pawn shop
     motel
@@ -19,8 +16,7 @@ LATER
     interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
 BUGS
-    recycling shop generatnig on every street 
-    can buy new items and trade new items even if slots are full
+    
     accidentally bought 3 tools instead of just one - maybe do a delayi
     close button doesnt work on loot
     traded 2 food for a crate and it made food 0 didn't give me a crate (2nd interaction, 2nd convert)

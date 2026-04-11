@@ -86,6 +86,7 @@ class MapGenerator {
             let shop_pos = this.generate_shop();
             this.map.shops.push(shop_pos);
             this.map.is(shop_pos.x, shop_pos.y, Config.cell_class.indexOf('shop'));
+            this.map.first_shop = false;
             console.log(shop_pos, this.map.queries.at(shop_pos.x, shop_pos.y));
         }
         return starting_here;

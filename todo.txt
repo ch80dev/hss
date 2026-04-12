@@ -1,10 +1,24 @@
 TODO   
-    directions
-    look
     put state.change_money in status
+    be able to mark where you're at with chalk or spray paint
+    put the context above the button in human social menu so they don't have to look through the context and decipher it. 
+    does taking medicine remove is_sick?
+    lower min stigma req for begging to below 50 at least
+    if sell tool in pawn shop rounds to 0, don't let them sell it
+    either make equipped not count towards slots or add one or two more
+    cant sell tool despite having one to humans
+    combat
+    
+    look
+    
     redo map loot and how i handled map data
     refactor player inventory
-    put the context above the button in human social menu so they don't have to look through the context and decipher it. they just look up
+    
+    
+
+    
+    
+    directions
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
@@ -19,9 +33,19 @@ LATER
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
 BUGS
-    
+    you cant control which durability item you're trading so if you have multiple, just the first one goes
+    after placing crate, I can see it anywhere I look
+    in addition to selling, if you use stuff up, it fucks up equipped
+    SICK still shows % of sickness 
+    can still trade even if my inventory is full
     accidentally bought 3 tools instead of just one - maybe do a delayi
     traded 2 food for a crate and it made food 0 didn't give me a crate (2nd interaction, 2nd convert)
     accidentally traded 1 tool and it said i didn't have it (2 interaction, 2 convert)
     checked inv at random location never been to and 0 food was there from some other drop i did in a different location
     when I tried to use crate (I got error inventory:20)
+    trades shouldnt exist that require more unstackable items than slots in inventory
+    when i picked up a placed crate, it removed it apparently but didn't put it in ym inventory
+    sold drugs to human and i got the money (I think) but the quantity went to 0
+DESIGN
+    can't meaningfully keep track of where stuff instead
+        what if you can create chalk marks ? YES

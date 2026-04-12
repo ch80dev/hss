@@ -85,6 +85,7 @@ class MapGenerator {
         }
         let shop_being_generated = rand_num(1, 2) == 1;
         let shop_pos = this.generate_shop();
+        console.log(shop_being_generated, shop_pos);
         if (location_type == 'street' && (shop_being_generated && shop_pos != null)){            
             this.map.shops.push(shop_pos);
             this.map.is(shop_pos.x, shop_pos.y, Config.cell_class.indexOf('shop'));

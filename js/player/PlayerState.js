@@ -14,7 +14,7 @@ class PlayerState{
     max_stamina = Config.lifeforms.human.max_stamina;    ;
     max_stigma = 100;
     minutes_delta = 0;
-    money = 0;
+    money = null;
     movement_cost = .1;
     socializing = null;
     slots_in_inventory = 5;
@@ -26,7 +26,7 @@ class PlayerState{
     x = null;
     y = null;
     constructor(x, y){
-        //this.money = rand_num(0, Config.homeless_money);
+        this.money = rand_num(0, Config.homeless_money);
         this.x = x;
         this.y = y;
     }

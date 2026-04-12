@@ -126,7 +126,7 @@ class MapGenerator {
             let num_of_open = this.map.queries.fetch_adjacent(rand_x, rand_y, 1, false).length;
             let num_of_null = this.map.queries.fetch_adjacent(rand_x, rand_y, null, false).length;
             if (num_of_open == 3 && num_of_null == 5){
-                return { id: this.map.locations.street.length, type: shop_type, x: rand_x, y: rand_y };
+                return { id: this.map.locations.street.length , type: shop_type, x: rand_x, y: rand_y };
             }            
         }
     }
@@ -135,7 +135,6 @@ class MapGenerator {
         if (this.map.shops_generated.length >= Config.shop_types.length){
             return null;
         }
-        return 'pawn';
         while (true){
             let rand_type = Config.shop_types[rand_num(0, Config.shop_types.length - 1)];
             if (!this.map.shops_generated.includes(rand_type)){

@@ -15,7 +15,13 @@ class Game{
     };
 
 	shops = [];
-
+	time = {
+		days: 1,
+		hours: 8,
+		minutes: 0,
+		weeks: 1,
+	}
+	
 	constructor(){
 		setInterval(this.loop.go(), Config.loop_interval_timing);
 		let open = this.map.queries.fetch_open();
@@ -43,12 +49,30 @@ class Game{
     }
 
 	fetch_shop(id){
-		let shop = this.shops[id];
-		console.log(id, shop);		
-		if (shop != undefined){
-			return shop;
-		}
+		
+		for (let shop of this.shops){
+			if (shop.id == id){
+				return shop;
+			}
+		}		
 		return null;
+	}
+	forward_time(hours_delta, minutes_delta){
+		console.log(hours_delta, minutes_delta);
+		this.time.minutes += minutes_delta;
+		if (this.time.minutes > 59){
+			this.time.minutes = 0;
+			this.time.hours ++;
+		}
+		this.time.hours += hours_delta;
+		if (this.time.hours > 23){
+			this.time.hours = 0;
+			this.time.days ++; 			
+		}
+		if (this.time.days > Config.days_of_the_week.length){
+			this.time.days = 1;
+			this.time.weeks ++;
+		}
 	}
 
 	
@@ -57,8 +81,16 @@ class Game{
 		state.sickness;		
 		this.player.status.change_stamina();
 		this.rats_move();
+		
 		if (!this.player.state.is_sick && are_they_sick){
 			this.player.state.is_sick = are_they_sick
+		}
+		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
+			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
+			this.player.state.minutes_delta = 0;
+			this.player.state.hours_delta = 0;	
+		} else {
+			this.forward_time(0, 5);	
 		}
 	}
 
@@ -71,14 +103,13 @@ class Game{
 
 	populate_shops(){
 		console.log(this.shops.length, this.map.shops.length);
-		for (let id in this.map.shops){
-			let shop = this.map.shops[id];
-			console.log(this.shops[id]);
-			if (this.shops[id] != undefined){
+		for (let shop of this.map.shops){
+			console.log(shop, this.map.shops);
+			if (this.shops[shop.id] != undefined){
 				continue;
 				
 			}
-			this.shops.push(new Shop(shop.type))
+			this.shops.push(new Shop(shop.id, shop.type))
 		}
 		console.log(this.shops.length, this.map.shops.length);
 	}

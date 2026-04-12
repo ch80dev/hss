@@ -44,4 +44,26 @@ class PlayerStatus{
         }
         this.player.state.stigma  = Math.round(this.player.state.stigma  * 10) / 10;
     }
+
+    heal(){
+        let rand = Number((rand_num(1, 10) * .1).toFixed(1));
+        if (this.player.state.health >= this.player.state.max_health){ 
+            return;
+        }
+        this.player.state.health += rand;
+        
+        if (this.player.state.health >= this.player.state.max_health){
+            this.player.state.max_health;
+        }
+        console.log(rand, this.player.state.health);
+
+    }
+
+    sleep(indoors, in_a_building){
+        if (in_a_building){
+            this.player.state.stigma = 0;
+        }
+        this.heal();
+        this.player.state.hours_delta += 8;        
+    }
 }

@@ -220,6 +220,23 @@ class UI{
 		$("#social_context").html(context_txt);
 		$("#social_menu").html(menu_txt);
 	}
+
+	display_time(){
+		let minutes = juego.time.minutes;
+		let hours = juego.time.hours;
+		let days = Config.days_of_the_week[juego.time.days - 1];
+		let weeks = juego.time.weeks;
+		//later add years
+		if (hours < 10){
+			hours = "0" + hours;
+		}
+		if (minutes < 10){
+			minutes = "0" + minutes;
+		}
+
+		$("#time").html(`Week #${weeks} ${days} ${hours}:${minutes}`)
+	}
+
 	log(msg){
 		this.status_msg = msg;
 	}
@@ -280,5 +297,6 @@ class UI{
             maximumFractionDigits: 2,
         });
 		$("#money").html(`$${formatter.format(juego.player.state.money)}`);
+		this.display_time();
 	}
 }

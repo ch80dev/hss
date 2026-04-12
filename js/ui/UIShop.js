@@ -14,9 +14,23 @@ class UIShop{
             }
             txt += this.display_buy_unique(player, shop);
             txt += this.display_sell_unique(player, shop);
+        } else if (shop.type == 'motel'){
+            txt += this.display_motel(player, shop);
         }   
         
         $("#shop").html(txt);
+    }
+    display_motel(player, shop){
+        let txt = "<div>Sleeping inside (like at a motel or a homeless shelter) brings your stigma to 0. (in addition to avoiding the healthy penalty for sleeping outside) </div>";
+        if (shop.room_rented_at == null){
+            let disabled = '';
+            if (player.state.money < Config.motel_room_cost){
+                disabled = ' disabled ';
+            }
+            return `${txt} <div><button id='rent_a_room' class='rent_a_room' ${disabled}>rent a room for $${Config.motel_room_cost}</button></div>`
+        }
+
+        return `${txt} <div><button id='sleep_at_shop'>sleep</button> </div>`
     }
 
     display_sell_generic(player, shop){

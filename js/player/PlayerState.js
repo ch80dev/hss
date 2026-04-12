@@ -1,7 +1,8 @@
 class PlayerState{    
     equipped = null;
     fighting = false;
-    health = Config.lifeforms.human.max_health;    
+    health = Config.lifeforms.human.max_health;
+    hours_delta = 0;    
     inventory = [ ];
     inventory_weight =  0;
     is_sick = false;
@@ -12,7 +13,8 @@ class PlayerState{
     max_inventory_weight = 100;
     max_stamina = Config.lifeforms.human.max_stamina;    ;
     max_stigma = 100;
-    money = 100;
+    minutes_delta = 0;
+    money = 0;
     movement_cost = .1;
     socializing = null;
     slots_in_inventory = 5;

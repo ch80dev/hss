@@ -1,14 +1,17 @@
 class Shop{
+    id = null;
     interactions = null;
     inventory = [];
     max_stigma = null;
     prices = [];
     resources = [];    
+    room_rented_at = null;
     selling = 'all';
     type =  null;
     
-    constructor(type){
-        console.log(type, Config.shop_interactions);
+    constructor(id, type){
+        console.log(id, type);
+        this.id = id;
         this.type = type;
         if (type == 'pawn'){
             this.stock_pawn_shop();
@@ -16,6 +19,29 @@ class Shop{
         this.interactions = Config.shop_interactions[type];
         this.resources = Config.shop_resources[type];
         this.max_stigma = Config.max_stigma_for_shop[type];
+    }
+
+    rent_a_room(player){
+        console.log(player.state.money, Config.motel_room_cost, this.room_rented_at);
+        if (player.state.money < Config.motel_room_cost){
+            return;
+        }
+        
+        player.state.change_money(-Config.motel_room_cost);
+        this.room_rented_at = true;
+
+    }
+
+    sleep(player){
+        if(this.type == 'motel' && this.room_rented_at == null){
+            return;
+
+        }
+        if(this.type == 'motel'){            
+            player.status.sleep(true, true);
+            this.room_rented_at == null; // eventually do time
+            return;
+        }
     }
 
     stock_pawn_shop(){

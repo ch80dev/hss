@@ -50,6 +50,18 @@ $(document).on('click', '.item', function(e) {
     ui.refresh();
 });
 
+$(document).on('click', '#rent_a_room', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.fetch_shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    shop.rent_a_room(juego.player);
+    ui.refresh();
+});
+
 $(document).on('click', '.sell_to_shop', function() {
     if (juego.player.state.shopping == null){
         return;
@@ -71,6 +83,19 @@ $(document).on('click', '.sell_unique', function() {
         return;
     }
     juego.player.actions.sell_unique(this.id.split('-')[1], shop);
+    ui.refresh();
+});
+
+$(document).on('click', '#sleep_at_shop', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.fetch_shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    shop.sleep(juego.player);
+    juego.next_turn();
     ui.refresh();
 });
 

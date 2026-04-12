@@ -6,6 +6,8 @@ class Config {
 			console.log(mistakes);
 		}		
 	}
+
+	static days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", 'Friday', "saturday", "Sunday"];
 	static lifeforms = {
 		human: {
 			sense_range: 10,
@@ -168,6 +170,7 @@ class Config {
 		pawn: 75,
 		recycling: 90,
 	}
+	static motel_room_cost = 75;
 	static num_of_items_in_pawn_shop = 4;
 	static shop_interactions = {
 		motel: ['rent room', 'sleep'],

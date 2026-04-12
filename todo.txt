@@ -4,6 +4,7 @@ TODO
     put state.change_money in status
     redo map loot and how i handled map data
     refactor player inventory
+    put the context above the button in human social menu so they don't have to look through the context and decipher it. they just look up
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 

@@ -163,18 +163,30 @@ class Config {
 
 
 	///SHOP
+	static max_stigma_for_shop = {
+		motel: 50,
+		pawn: 75,
+		recycling: 90,
+	}
+	static num_of_items_in_pawn_shop = 4;
 	static shop_interactions = {
+		motel: ['rent room', 'sleep'],
+		pawn: ['buy', 'sell'],
 		recycling: ['sell'],
 	}
 	static shop_names = {
+		motel: 'Motel Hex',
+		pawn: "Polly's Pawn Shop",
 		recycling: "Michael's Recycles",
+		
 	}
 	static shop_resources = {
+		motel: null, 
+		pawn: ['weapon', 'tool'],
 		recycling: ['glass bottle', 'aluminum can', 'plastic bottle']
 	}
-	static max_stigma_for_shop = {
-		recycling: 90,
-	}
+	static shop_types = ['pawn', 'recycling', 'motel'];
+	
 	
 
 

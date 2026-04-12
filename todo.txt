@@ -1,6 +1,5 @@
 TODO   
     directions
-    pawn shop
     motel
     look
 LATER
@@ -15,10 +14,10 @@ LATER
     if a player equips a crate, they can carry more slots.
     interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
+    when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
 BUGS
     
     accidentally bought 3 tools instead of just one - maybe do a delayi
-    close button doesnt work on loot
     traded 2 food for a crate and it made food 0 didn't give me a crate (2nd interaction, 2nd convert)
     accidentally traded 1 tool and it said i didn't have it (2 interaction, 2 convert)
     checked inv at random location never been to and 0 food was there from some other drop i did in a different location

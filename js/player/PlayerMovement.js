@@ -11,10 +11,11 @@ class PlayerMovement{
         let from = this.player.fetch_from();
         
         if (this.have_they_used_this_exit(this.player.state.location_type, this.player.state.location_id, this.player.state.x, this.player.state.y, map)){
-            console.log(`Loading previous location: ${to_type}-${to_id}`);
+            
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
             let to_id = exits_to.split('-')[1];
+            console.log(`Loading previous location: ${to_type}-${to_id}`);
             let to_x = exits_to.split('-')[2];
             let to_y = exits_to.split('-')[3];
             map.load(to_type, to_id);

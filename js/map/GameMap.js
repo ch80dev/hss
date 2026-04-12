@@ -20,6 +20,7 @@ class GameMap {
     }    
     next_new_street = null;    
     shops = [];
+    shops_generated = [];
     
     
 

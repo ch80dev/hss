@@ -9,8 +9,19 @@ document.addEventListener('keyup', (event) => {
    juego.input.release_key(key_pressed);
 });
 
+$(document).on('click', '.buy_unique', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.fetch_shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    juego.player.actions.buy_unique(this.id.split('-')[1], shop);
+    ui.refresh();
+});
+
 $(document).on('click', '.close', function() {
-    console.log("GI");
     juego.player.state.looting = false;
     juego.player.state.socializing = null;
     ui.change_screen('map');
@@ -48,6 +59,18 @@ $(document).on('click', '.sell_to_shop', function() {
         return;
     }
     juego.player.actions.sell_to_shop(this.id.split('-')[1], shop);
+    ui.refresh();
+});
+
+$(document).on('click', '.sell_unique', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.fetch_shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    juego.player.actions.sell_unique(this.id.split('-')[1], shop);
     ui.refresh();
 });
 

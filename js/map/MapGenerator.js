@@ -83,13 +83,14 @@ class MapGenerator {
         if (location_type == 'alley'){
             this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
         }
-        if (location_type == 'street' && this.map.first_shop){
-            let shop_pos = this.generate_shop();
+        let shop_being_generated = rand_num(1, 2) == 1;
+        let shop_pos = this.generate_shop();
+        if (location_type == 'street' && (shop_being_generated && shop_pos != null)){            
             this.map.shops.push(shop_pos);
             this.map.is(shop_pos.x, shop_pos.y, Config.cell_class.indexOf('shop'));
-            this.map.first_shop = false;
-            console.log(shop_pos, this.map.queries.at(shop_pos.x, shop_pos.y));
-        }
+            //this.map.first_shop = false;
+            //console.log(shop_pos, this.map.queries.at(shop_pos.x, shop_pos.y));
+        } 
         return starting_here;
     }
 
@@ -115,14 +116,32 @@ class MapGenerator {
     }
 
     generate_shop(){
+        let shop_type = this.generate_shop_type();
+        if (shop_type == null){
+            return null;
+        }
         while(true){
             let rand_x = rand_num(0, Config.max_x - 1);
             let rand_y = rand_num(0, Config.max_y - 1);
             let num_of_open = this.map.queries.fetch_adjacent(rand_x, rand_y, 1, false).length;
             let num_of_null = this.map.queries.fetch_adjacent(rand_x, rand_y, null, false).length;
             if (num_of_open == 3 && num_of_null == 5){
-                return { id: this.map.locations.street.length, type: 'recycling', x: rand_x, y: rand_y };
+                return { id: this.map.locations.street.length, type: shop_type, x: rand_x, y: rand_y };
             }            
+        }
+    }
+
+    generate_shop_type(){        
+        if (this.map.shops_generated.length >= Config.shop_types.length){
+            return null;
+        }
+        return 'pawn';
+        while (true){
+            let rand_type = Config.shop_types[rand_num(0, Config.shop_types.length - 1)];
+            if (!this.map.shops_generated.includes(rand_type)){
+                this.map.shops_generated.push(rand_type);
+                return rand_type;    
+            }
         }
     }
 

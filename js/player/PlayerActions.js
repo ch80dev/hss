@@ -24,6 +24,17 @@ class PlayerActions {
         ui.log(`You missed them! ${target.health}/${target.max_health}`);
     }
 
+    buy_unique(inventory_id, shop){
+        let item = shop.inventory[inventory_id];
+        if (item == undefined || (item != undefined && this.player.state.money < Config.prices[item.name]) || this.player.inventory.are_they_full()){
+            console.log('error');
+            return;
+        }   
+        this.player.state.inventory.push(shop.inventory.splice(inventory_id, 1)[0]);
+        this.player.state.change_money(-Config.prices[item.name]);
+
+    }
+
     enter_shop(x, y, map){
         
         let shop_on_map = map.queries.fetch_shop(x, y);
@@ -95,8 +106,20 @@ class PlayerActions {
         this.player.state.change_money(quantity * Config.prices[resource]);
         item.quantity -= quantity;
         if (item.quantity < 1){
-            this.player.inventory.delete(resource);
+            this.player.inventory.delete(resource, null);
         }
+    }
+
+    sell_unique(inventory_id, shop){
+        let item = shop.inventory[inventory_id];
+        if (item == undefined){
+            console.log('error');
+            return;
+        }   
+        shop.inventory.push(item);
+        this.player.inventory.delete(null, inventory_id);
+        this.player.state.change_money(Math.round(Config.prices[item.name] * item.durability * .005));
+
     }
 
     social(x, y, juego){

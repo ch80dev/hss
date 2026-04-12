@@ -4,7 +4,7 @@ class PlayerInventory {
     }
 
     are_they_full(){
-        return this.player.state.slots_in_inventory >= this.player.state.inventory.length 
+        return this.player.state.inventory.length >= this.player.state.slots_in_inventory  
             || this.player.state.inventory_weight >= this.player.state.max_inventory_weight        
     }
 
@@ -30,7 +30,7 @@ class PlayerInventory {
         return Config.usable.includes(name);
     }
 
-    delete(name){
+    delete(name, item_id){
         let equipped = { name: null, durability: null };
         if (this.player.state.equipped != null){
             let equipment = this.fetch(this.player.state.equipped);
@@ -39,7 +39,7 @@ class PlayerInventory {
         }
         for (let id in this.player.state.inventory){
             let item = this.player.state.inventory[id];
-            if (item.name == name){
+            if ((name != null && item.name == name) || (item_id != null && id == item_id)){
                 this.player.state.inventory.splice(id, 1);
                 break;
             }
@@ -55,6 +55,8 @@ class PlayerInventory {
             }
         }
     }
+
+
 
     do_they_have(what, quantity){
         //console.log(what, quantity);
@@ -97,6 +99,17 @@ class PlayerInventory {
             return null;
         }
         return this.player.state.inventory[id];
+    }
+
+    fetch_all_items(arr){
+        let id_arr = [];
+        for (let id in this.player.state.inventory){
+            let item = this.player.state.inventory[id];
+            if (arr.includes(item.name)){
+                id_arr.push(id);
+            }
+        }
+        return id_arr;
     }
 
     fetch_by_name(name){

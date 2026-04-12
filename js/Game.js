@@ -63,22 +63,24 @@ class Game{
 	}
 
 	populate(location_type){
+		console.log(location_type);
 		this.populate_with_humans(location_type);
 		this.populate_with_rats(location_type);
 		this.populate_shops();
 	}
 
 	populate_shops(){
+		console.log(this.shops.length, this.map.shops.length);
 		for (let id in this.map.shops){
 			let shop = this.map.shops[id];
+			console.log(this.shops[id]);
 			if (this.shops[id] != undefined){
 				continue;
 				
 			}
 			this.shops.push(new Shop(shop.type))
 		}
-
-		console.log(this.shops);
+		console.log(this.shops.length, this.map.shops.length);
 	}
 
 	populate_with_humans(location_type){

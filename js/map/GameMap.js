@@ -12,6 +12,7 @@ class GameMap {
         street: [],
     }
     loot = {};
+    marks = [];
     names = {
 
         alley: [],
@@ -38,6 +39,36 @@ class GameMap {
         
         
     }
+    
+    
+    format_at(location_type, location_id, x, y){
+        return `${location_type}-${location_id}-${x}-${y}`;
+    }
+
+ 
+
+    is (x, y, what){
+        if (!this.queries.is_valid(x, y)){
+            return;
+        }
+        this.grid[x][y] = what;
+    }
+    
+ 
+
+    load(location_type, id){
+        this.grid = this.locations[location_type][id];
+    }
+
+    mark(at, what){
+        if (what == 'Escape' && this.marks[at] != undefined){
+            console.log('go');
+            delete this.marks[at];
+            return;
+        }
+        this.marks[at] = what;
+    }
+
     name_old_location(location_type, location_id){
         let name = this.names[location_type][location_id];
         if (this.distance_from_street == null){
@@ -75,25 +106,6 @@ class GameMap {
         }
         
         
-    }
-    
-    format_at(location_type, location_id, x, y){
-        return `${location_type}-${location_id}-${x}-${y}`;
-    }
-
- 
-
-    is (x, y, what){
-        if (!this.queries.is_valid(x, y)){
-            return;
-        }
-        this.grid[x][y] = what;
-    }
-    
- 
-
-    load(location_type, id){
-        this.grid = this.locations[location_type][id];
     }
    
     stack_items(name, n, from){

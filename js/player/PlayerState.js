@@ -9,6 +9,7 @@ class PlayerState{
     location_type = 'alley';
     location_id = 0;
     looting = false;
+    marking = false;
     max_health = Config.lifeforms.human.max_health;    
     max_inventory_weight = 100;
     max_stamina = Config.lifeforms.human.max_stamina;    ;

@@ -2,6 +2,8 @@ class Input {
 
     number_key_pressed(number){
         //might need to check if locked
+
+        
         let loot = juego.map.loot[juego.player.fetch_from()].stuff;
         if ((juego.player.state.looting && loot == undefined) 
             && (!juego.player.state.looting && juego.player.state.socializing == null)){
@@ -45,10 +47,13 @@ class Input {
     }
 
     press_key(pressed){
-        //console.log(pressed);
+        console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
-         if (pressed == 'Shift' && !juego.player.state.fighting){
+        if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){
+            //need to put acceptable marks
+            juego.map.mark(juego.player.fetch_from(), pressed);
+        } else if (pressed == 'Shift' && !juego.player.state.fighting){
             juego.player.state.fighting = true;
         } else if (pressed == 'i'){
             juego.player.state.looting = true;
@@ -63,6 +68,9 @@ class Input {
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
             juego.next_turn();
+        } else if (pressed == 'm' && juego.player.state.marking == false){
+            juego.player.state.marking = true;
+            console.log(juego.player.state.marking);
         } else if (pressed >= 0 && pressed <= 10){
             this.number_key_pressed(Number(pressed));
         } 
@@ -72,7 +80,12 @@ class Input {
         //console.log(pressed);
         if (pressed == 'Shift' && juego.player.state.fighting){
             juego.player.state.fighting = false;
+        } else if (pressed == 'm'){
+            juego.player.state.marking = false;
+            console.log(juego.player.state.marking);
+            return;
         }
+        
         ui.refresh();
     }
 

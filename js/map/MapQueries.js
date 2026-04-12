@@ -69,14 +69,13 @@ class MapQueries{
         return arr[closest_id];
     }
 
-    fetch_open(){
-        while(true){
-            let rand_x = rand_num (0, Config.max_x - 1);
-            let rand_y = rand_num (0, Config.max_x - 1);
-            if (this.at(rand_x, rand_y) == 1){
-                return {x: rand_x, y: rand_y };
-            }
+    fetch_mark(location_type, location_id, x, y){
+        let at = this.map.format_at(location_type, location_id, x, y);
+        
+        if (this.map.marks[at] == undefined){
+            return null;
         }
+        return this.map.marks[at];
     }
 
     fetch_nearest(point, arr){
@@ -95,6 +94,18 @@ class MapQueries{
         }
         return arr[closest_id];
     }
+
+    fetch_open(){
+        while(true){
+            let rand_x = rand_num (0, Config.max_x - 1);
+            let rand_y = rand_num (0, Config.max_x - 1);
+            if (this.at(rand_x, rand_y) == 1){
+                return {x: rand_x, y: rand_y };
+            }
+        }
+    }
+
+
 
     fetch_shop(x, y){
         for (let id in this.map.shops){

@@ -89,6 +89,7 @@ class UI{
 				let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let loot = juego.map.loot[`${juego.player.state.location_type}-${juego.player.state.location_id}-${x}-${y}`];
 				let map_at = juego.map.queries.at(x, y);
+				let mark = juego.map.queries.fetch_mark(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				  
 				if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && human.homeless){
@@ -113,9 +114,9 @@ class UI{
 				} else if (map_at != null && map_at > 1 && map_at < 5){
 					cell_txt = Config.cell_txt['unused_exit'];				
 				} else if (Config.cell_txt[Config.cell_class[map_at]] != undefined){
-					cell_txt = Config.cell_txt[Config.cell_class[map_at]];
-				
-				
+					cell_txt = Config.cell_txt[Config.cell_class[map_at]];				
+				} else if (mark != null){
+					cell_txt = mark;
 				}
 				
 				if (juego.player.movement.at(x, y) && !juego.player.state.fighting){

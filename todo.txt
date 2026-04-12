@@ -1,6 +1,6 @@
 TODO   
     
-    be able to mark where you're at with chalk or spray paint
+    
     put the context above the button in human social menu so they don't have to look through the context and decipher it. 
     does taking medicine remove is_sick?
     lower min stigma req for begging to below 50 at least
@@ -33,6 +33,7 @@ LATER
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
 BUGS
+        i think the crate bug being able to ref anywhere is because the reference variable for loot is being viewed by reference maybe
     you cant control which durability item you're trading so if you have multiple, just the first one goes
     after placing crate, I can see it anywhere I look
     in addition to selling, if you use stuff up, it fucks up equipped

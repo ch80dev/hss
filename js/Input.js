@@ -70,7 +70,7 @@ class Input {
             juego.next_turn();
         } else if (pressed == 'm' && juego.player.state.marking == false){
             juego.player.state.marking = true;
-            console.log(juego.player.state.marking);
+            //console.log(juego.player.state.marking);
         } else if (pressed >= 0 && pressed <= 10){
             this.number_key_pressed(Number(pressed));
         } 
@@ -82,7 +82,7 @@ class Input {
             juego.player.state.fighting = false;
         } else if (pressed == 'm'){
             juego.player.state.marking = false;
-            console.log(juego.player.state.marking);
+            //console.log(juego.player.state.marking);
             return;
         }
         

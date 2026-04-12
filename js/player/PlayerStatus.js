@@ -75,7 +75,7 @@ class PlayerStatus{
         if (this.player.state.health >= this.player.state.max_health){
             this.player.state.max_health;
         }
-        console.log(rand, this.player.state.health);
+        //console.log(rand, this.player.state.health);
 
     }
 

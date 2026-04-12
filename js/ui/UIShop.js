@@ -1,7 +1,7 @@
 class UIShop{
     display(player){
         let shop = juego.fetch_shop(player.state.shopping);
-        console.log(shop);
+        //console.log(shop);
         if (shop == null){
             return;
         }

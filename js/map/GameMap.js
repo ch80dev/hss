@@ -62,7 +62,7 @@ class GameMap {
 
     mark(at, what){
         if (what == 'Escape' && this.marks[at] != undefined){
-            console.log('go');
+            //console.log('go');
             delete this.marks[at];
             return;
         }

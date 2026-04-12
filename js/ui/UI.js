@@ -179,7 +179,7 @@ class UI{
 		for (let id in human.interactions){			
 			let disabled = '';
 			let interaction = human.interactions[id];
-			console.log(interaction, juego.player.state.inventory, interaction == 'sell',  juego.player.inventory.do_they_have(human.resources[id], human.conversion[id]), human.resources[id], human.conversion[id]);
+			//console.log(interaction, juego.player.state.inventory, interaction == 'sell',  juego.player.inventory.do_they_have(human.resources[id], human.conversion[id]), human.resources[id], human.conversion[id]);
 			if ((Config.interactions_for_resources.includes(interaction) && juego.player.inventory.are_they_full())
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], 1))
@@ -291,7 +291,7 @@ class UI{
 		if (juego.player.state.equipped != null){
 			
 			let equipped = juego.player.inventory.fetch(juego.player.state.equipped, null);
-			console.log(juego.player.state.equipped, equipped);
+			//console.log(juego.player.state.equipped, equipped);
 			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
 		}
 		const formatter = new Intl.NumberFormat('en-US', {

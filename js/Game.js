@@ -90,7 +90,7 @@ class Game{
 	}
 
 	populate(location_type){
-		console.log(location_type);
+		//console.log(location_type);
 		this.populate_with_humans(location_type);
 		this.populate_with_rats(location_type);
 		this.populate_shops();
@@ -99,7 +99,7 @@ class Game{
 	populate_shops(){
 		//console.log(this.shops.length, this.map.shops.length);
 		for (let shop of this.map.shops){
-			console.log(shop, this.map.shops);
+			//console.log(shop, this.map.shops);
 			if (this.shops[shop.id] != undefined){
 				continue;
 				
@@ -148,9 +148,9 @@ class Game{
 			let human = this.humans[this.player.state.location_type][this.player.state.location_id][id];					
 			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
 			
-			console.log(human.attacking_player, distance < 2);
+			//console.log(human.attacking_player, distance < 2);
 			if (human.attacking_player && distance < 2 ){
-				console.log("go");
+				//console.log("go");
 				human.attack_player(juego.player);
 			}
 		}

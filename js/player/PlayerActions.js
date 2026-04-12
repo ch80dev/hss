@@ -108,7 +108,7 @@ class PlayerActions {
         if (quantity == 'all' || quantity > item.quantity){
             quantity = item.quantity;
         }
-        console.log(resource, quantity, quantity * Config.prices[resource])
+        //console.log(resource, quantity, quantity * Config.prices[resource])
         this.player.status.change_money(quantity * Config.prices[resource]);
         item.quantity -= quantity;
         if (item.quantity < 1){

@@ -69,7 +69,7 @@ class PlayerMovement{
             this.player.status.change_sickness(Config.sickness_effects['sewer']);
         }
         if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('shop')){ //ENTER SHOP
-            console.log('enter shop');
+            //console.log('enter shop');
             this.player.actions.enter_shop(pos.x, pos.y, map);
             return;
         } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){//ATTACK

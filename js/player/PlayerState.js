@@ -1,4 +1,5 @@
-class PlayerState{    
+class PlayerState{
+    dead = false;
     equipped = null;
     fighting = false;
     health = Config.lifeforms.human.max_health;

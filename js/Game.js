@@ -58,7 +58,7 @@ class Game{
 		return null;
 	}
 	forward_time(hours_delta, minutes_delta){
-		console.log(hours_delta, minutes_delta);
+		//console.log(hours_delta, minutes_delta);
 		this.time.minutes += minutes_delta;
 		if (this.time.minutes > 59){
 			this.time.minutes = 0;
@@ -133,12 +133,26 @@ class Game{
     }
 
 	rats_move(){		
-		if (this.player.state.location_type != 'alley'){
-			return;
-		}
+		
 		for (let id in  this.rats[this.player.state.location_type][this.player.state.location_id]){					
 			let rat = this.rats[this.player.state.location_type][this.player.state.location_id][id];
+			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
+			
+
+			if (rat.attacking_player && distance < 2 ){
+				rat.attack_player();
+			}
 			rat.move(id);
+		}
+		for (let id in  this.humans[this.player.state.location_type][this.player.state.location_id]){
+			let human = this.humans[this.player.state.location_type][this.player.state.location_id][id];					
+			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
+			
+			console.log(human.attacking_player, distance < 2);
+			if (human.attacking_player && distance < 2 ){
+				console.log("go");
+				human.attack_player(juego.player);
+			}
 		}
 	}
 }

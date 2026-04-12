@@ -2,11 +2,21 @@ class PlayerStatus{
     constructor(player){
         this.player = player;
     }
+
+    change_health (n){
+        this.player.state.health += n;
+        if (this.player.state.health >= this.player.state.max_health){
+            this.player.state.health = this.player.state.max_health;            
+        } else if (this.player.state.health <= 0 ){
+            this.player.state.health = 0;
+            this.player.state.dead = true;            
+        }
+    }
     change_money(n){
         n = Number(n);
-        this.money += n;
-        if (this.money < 0){
-            this.money = 0;
+        this.player.state.money += n;
+        if (this.player.state.money < 0){
+            this.player.state.money = 0;
         }
         
        

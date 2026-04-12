@@ -2,7 +2,7 @@ TODO
     
     
     cant sell tool despite having one to humans
-    combat
+    
     
     look
     
@@ -12,7 +12,7 @@ TODO
     
 
     
-    
+    combat corpse
     directions
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)

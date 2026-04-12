@@ -47,7 +47,7 @@ class Input {
     }
 
     press_key(pressed){
-        console.log(pressed);
+        //console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
         if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){

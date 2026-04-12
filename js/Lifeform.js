@@ -1,4 +1,6 @@
 class Lifeform {
+    attacking_player = false;
+    damage = 1;
     dead = false;
     delta= {x: 0, y: 0};
     health = null;
@@ -7,10 +9,11 @@ class Lifeform {
     stamina = null;
     max_health = null;
     max_stamina = null;
+    type = null;
     x = null;
     y = null;
 
-    constructor(type, x, y, map){
+    constructor(type, x, y, map, dmg){        
         this.map = map;
         this.x = x;
         this.y = y;
@@ -19,16 +22,36 @@ class Lifeform {
             let value = lifeform[attr];
             this[attr] = value;
         }
+        this.type = type;
         this.health = this.max_health;
         this.stamina = this.max_stamina;
-
-
+        this.damage = 1;
     }
+
+    attack_player(player){
+        let did_they_hit = rand_num(1, 100) <= this.stamina;
+        let distance = this.map.queries.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
+        if (Math.floor(distance) > 1){ //if shooting, do something else
+            return;
+        }
+        if (!did_they_hit){
+            ui.log(`A ${this.type} missed.`);
+            return;
+        }        
+        let dmg = rand_num(1, this.damage);
+        this.player.status.change_health(-dmg);
+        ui.log(`A ${this.type} hit player for  ${dmg} damage. [${player.state.health}]`);
+        
+    }
+
     die(){
         this.dead = true;
     }
 
     get_hit(dmg){
+        if (!this.attacking_player){
+            this.attacking_player = true;
+        }
         this.health -= dmg;
         if (this.health <= 0){
             this.health = 0;

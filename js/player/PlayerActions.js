@@ -13,12 +13,18 @@ class PlayerActions {
         let target = null;
         if (map_at == Config.cell_class.indexOf('rat')){
             target = juego.fetch_rat(this.player.state.location_type, this.player.state.location_id, x, y);
+        } else if (map_at == Config.cell_class.indexOf('human')){
+            target = juego.fetch_human(this.player.state.location_type, this.player.state.location_id, x, y);
         }
         this.player.status.change_stamina_delta(-Config.stamina_cost['attack']);
         let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
         if (did_they_hit){
             target.get_hit(1);
-            ui.log(`You hit them for 1 dmg. They're now at ${target.health}/${target.max_health}`);
+            let dmg_caption = `at ${target.health}/${target.max_health}`;
+            if (target.health < 1){
+                dmg_caption = ' dead.';
+            }
+            ui.log(`You hit them for 1 dmg. They're now ${dmg_caption}`);
             return;
         }
         ui.log(`You missed them! ${target.health}/${target.max_health}`);

@@ -1,11 +1,6 @@
 TODO   
     
     
-    put the context above the button in human social menu so they don't have to look through the context and decipher it. 
-
-    
-    
-    
     cant sell tool despite having one to humans
     combat
     

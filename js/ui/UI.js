@@ -197,7 +197,7 @@ class UI{
 				let first_disabled = '';
 				let second = human.resources[id][first];
 				let second_disabled = '';
-				resource = `${conversion[0]} ${first} [${juego.player.inventory.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.fetch_quantity(second)} / ${human.fetch_quantity(second)}]or vice versa`;
+				resource = `${conversion[0]} ${first} [${juego.player.inventory.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
 				if (!juego.player.inventory.do_they_have(first, conversion[0])){
 					first_disabled = ' disabled ';
 				}
@@ -214,12 +214,12 @@ class UI{
 			} 
 			
 			
-			context_txt += `<div>${interaction}  ${resource} </div>`;
-			menu_txt += button;
+			context_txt += `<div class='interaction_caption'>${interaction}  ${resource} </div><div>${button}</div>`;
+			
 			
 		}
 		$("#social_context").html(context_txt);
-		$("#social_menu").html(menu_txt);
+		//$("#social_menu").html(menu_txt);
 	}
 
 	display_time(){

@@ -52,6 +52,12 @@ html, body{
     margin: 0;
 }
 
+.interaction_caption{
+    font-size: 30px;
+    margin-top: 15px;
+    color: hsl(0, 0%, 100%);
+}
+
 .item{
     margin: 25px;
     cursor: pointer;

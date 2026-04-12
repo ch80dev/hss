@@ -79,7 +79,7 @@ class UIShop{
             if (player.state.equipped != null && player.state.equipped == id){
                 equipped = ' [ EQUIPPED ]';
             }
-            txt += `<div><button id='sell_unique-${id}' class='sell_unique'>sell ${item.name} (${item.durability}%) ${equipped} for $${}</button></div>`;        }
+            txt += `<div><button id='sell_unique-${id}' class='sell_unique'>sell ${item.name} (${item.durability}%) ${equipped} for $ ${price}</button></div>`;        }
         return txt;
     }
 }

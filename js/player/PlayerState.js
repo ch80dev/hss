@@ -18,7 +18,7 @@ class PlayerState{
     money = null;
     movement_cost = .1;
     socializing = null;
-    slots_in_inventory = 5;
+    slots_in_inventory = 7;
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
     stigma = 0;

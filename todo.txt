@@ -5,7 +5,7 @@ TODO
 
     
     
-    either make equipped not count towards slots or add one or two more
+    
     cant sell tool despite having one to humans
     combat
     

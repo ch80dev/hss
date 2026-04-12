@@ -286,18 +286,16 @@ class PlayerInventory {
             console.log('cant use');
             return;
         }
-        if (item.name == 'crate'){
-           
+        if (item.name == 'crate'){           
             item.name = 'crate (placed)';
             this.player.inventory.drop_item(id, map);
             map.is(this.player.state.x, this.player.state.y, 8);
             return;
         } else if (item.name == 'food' || item.name == 'food (spoiled)'){
-            console.log("food");            
             this.player.status.change_stamina(rand_num(Config.food_gain[0], Config.food_gain[1]));
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
             this.player.status.change_sickness(-rand_num(Config.medicine_gain[0], Config.medicine_gain[1]));
-        
+            
         }
 
         if (item.name == 'food (spoiled)'){
@@ -310,8 +308,8 @@ class PlayerInventory {
                 return;
             }
         }
+        this.delete(null, id);
         
-        this.player.state.inventory.splice(id, 1);
     }
 
 }

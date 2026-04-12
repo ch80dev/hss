@@ -278,13 +278,13 @@ class UI{
 		if (juego.player.state.sickness > 0){
 			$("#sickness_container").removeClass('hidden');
 		}
-		if (juego.player.state.is_sick){
+		if (juego.player.state.sickness >= juego.player.state.max_sickness){
 			$("#is_sick").removeClass('hidden');
-			$("#sickness").addClass('hidden');
+			$("#sickness_caption").addClass('hidden');
 
-		} else if (!juego.player.state.is_sick){
+		} else {
 			$("#is_sick").addClass('hidden');
-			$("#sickness").removeClass('hidden');
+			$("#sickness_caption").removeClass('hidden');
 		}
 
 		$("#equipped").html("");

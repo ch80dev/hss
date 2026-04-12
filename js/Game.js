@@ -77,14 +77,9 @@ class Game{
 
 	
 	next_turn(){
-		let are_they_sick = rand_num(1, 100) <= this.player.
-		state.sickness;		
+	
 		this.player.status.change_stamina();
-		this.rats_move();
-		
-		if (!this.player.state.is_sick && are_they_sick){
-			this.player.state.is_sick = are_they_sick
-		}
+		this.rats_move();		
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
 			this.player.state.minutes_delta = 0;

@@ -5,13 +5,13 @@ class PlayerState{
     hours_delta = 0;    
     inventory = [ ];
     inventory_weight =  0;
-    is_sick = false;
     location_type = 'alley';
     location_id = 0;
     looting = false;
     marking = false;
     max_health = Config.lifeforms.human.max_health;    
     max_inventory_weight = 100;
+    max_sickness = Config.max_sickness;
     max_stamina = Config.lifeforms.human.max_stamina;    ;
     max_stigma = 100;
     minutes_delta = 0;

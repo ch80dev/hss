@@ -17,13 +17,13 @@ class PlayerStatus{
         this.player.state.sickness = (Number(this.player.state.sickness ) || 0) + n;
         if (this.player.state.sickness < 0){
             this.player.state.sickness = 0;
-        } else if (this.player.state.sickness > Config.max_sickness){
-            this.player.state.sickness = Config.max_sickness;
+        } else if (this.player.state.sickness > this.player.state.max_sickness){
+            this.player.state.sickness = this.player.state.max_sickness;
         }
     }
 
     change_stamina(immediate_stamina_change){
-        if (this.player.state.is_sick ){
+        if (this.player.state.sickness >= this.player.state.max_sickness ){
 			this.player.state.stamina_delta  *= 2;
 		}
         let n = Number(this.player.state.stamina_delta );

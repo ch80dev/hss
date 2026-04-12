@@ -2,7 +2,7 @@ TODO
     
     
     put the context above the button in human social menu so they don't have to look through the context and decipher it. 
-    does taking medicine remove is_sick?
+
     lower min stigma req for begging to below 50 at least
     if sell tool in pawn shop rounds to 0, don't let them sell it
     either make equipped not count towards slots or add one or two more

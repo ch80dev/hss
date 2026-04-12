@@ -221,14 +221,13 @@ class PlayerInventory {
             return;
         }
         let id = 0;
-        while (map.loot[at] && map.loot[at].stuff.length > 0){
-            let status = this.take_item(id, map);
-            
+        while (map.loot[at].stuff.length > 0){            
+            let status = this.take_item(id, map);            
             if (status === false){
                 id ++;
-                
+                continue;
             }
-            if (id > map.loot[at].length){
+            if (map.loot[at] == undefined || id > map.loot[at].length){
                 return;
             }
             

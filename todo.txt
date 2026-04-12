@@ -1,9 +1,9 @@
 TODO   
     directions
-    motel
     look
-    time system
     put state.change_money in status
+    redo map loot and how i handled map data
+    refactor player inventory
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 

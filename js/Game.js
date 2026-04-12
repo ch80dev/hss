@@ -102,7 +102,7 @@ class Game{
 	}
 
 	populate_shops(){
-		console.log(this.shops.length, this.map.shops.length);
+		//console.log(this.shops.length, this.map.shops.length);
 		for (let shop of this.map.shops){
 			console.log(shop, this.map.shops);
 			if (this.shops[shop.id] != undefined){
@@ -111,7 +111,7 @@ class Game{
 			}
 			this.shops.push(new Shop(shop.id, shop.type))
 		}
-		console.log(this.shops.length, this.map.shops.length);
+		//console.log(this.shops.length, this.map.shops.length);
 	}
 
 	populate_with_humans(location_type){

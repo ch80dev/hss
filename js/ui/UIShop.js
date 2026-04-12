@@ -16,8 +16,7 @@ class UIShop{
             txt += this.display_sell_unique(player, shop);
         } else if (shop.type == 'motel'){
             txt += this.display_motel(player, shop);
-        }   
-        
+        }           
         $("#shop").html(txt);
     }
     display_motel(player, shop){
@@ -29,7 +28,6 @@ class UIShop{
             }
             return `${txt} <div><button id='rent_a_room' class='rent_a_room' ${disabled}>rent a room for $${Config.motel_room_cost}</button></div>`
         }
-
         return `${txt} <div><button id='sleep_at_shop'>sleep</button> </div>`
     }
 
@@ -66,16 +64,22 @@ class UIShop{
     display_sell_unique(player, shop){
         let txt = "";
         let all_sellable_items_in_inventory = player.inventory.fetch_all_items(Config.shop_resources[shop.type]);
+        
+        
         if (all_sellable_items_in_inventory.length > 0){
             txt = "<div>From Your Inventory</div>";
         }
         for (let id of all_sellable_items_in_inventory){
             let item = player.inventory.fetch(id);
             let equipped = '';
+            let price = Math.round(item.durability * Config.prices[item.name] * .005);
+            if (price < 1){
+                continue;
+            }
             if (player.state.equipped != null && player.state.equipped == id){
                 equipped = ' [ EQUIPPED ]';
             }
-            txt += `<div><button id='sell_unique-${id}' class='sell_unique'>sell ${item.name} (${item.durability}%) ${equipped} for $${Math.round(item.durability * Config.prices[item.name] * .005)}</button></div>`;        }
+            txt += `<div><button id='sell_unique-${id}' class='sell_unique'>sell ${item.name} (${item.durability}%) ${equipped} for $${}</button></div>`;        }
         return txt;
     }
 }

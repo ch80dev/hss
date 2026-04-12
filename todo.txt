@@ -1,5 +1,5 @@
 TODO   
-    put state.change_money in status
+    
     be able to mark where you're at with chalk or spray paint
     put the context above the button in human social menu so they don't have to look through the context and decipher it. 
     does taking medicine remove is_sick?

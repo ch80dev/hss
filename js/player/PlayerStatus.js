@@ -2,6 +2,16 @@ class PlayerStatus{
     constructor(player){
         this.player = player;
     }
+    change_money(n){
+        n = Number(n);
+        this.money += n;
+        if (this.money < 0){
+            this.money = 0;
+        }
+        
+       
+    }
+
     change_sickness(n){
         n = Number(n);
         this.player.state.sickness = (Number(this.player.state.sickness ) || 0) + n;

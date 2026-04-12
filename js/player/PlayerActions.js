@@ -31,7 +31,7 @@ class PlayerActions {
             return;
         }   
         this.player.state.inventory.push(shop.inventory.splice(inventory_id, 1)[0]);
-        this.player.state.change_money(-Config.prices[item.name]);
+        this.player.status.change_money(-Config.prices[item.name]);
 
     }
 
@@ -103,7 +103,7 @@ class PlayerActions {
             quantity = item.quantity;
         }
         console.log(resource, quantity, quantity * Config.prices[resource])
-        this.player.state.change_money(quantity * Config.prices[resource]);
+        this.player.status.change_money(quantity * Config.prices[resource]);
         item.quantity -= quantity;
         if (item.quantity < 1){
             this.player.inventory.delete(resource, null);
@@ -118,7 +118,7 @@ class PlayerActions {
         }   
         shop.inventory.push(item);
         this.player.inventory.delete(null, inventory_id);
-        this.player.state.change_money(Math.round(Config.prices[item.name] * item.durability * .005));
+        this.player.status.change_money(Math.round(Config.prices[item.name] * item.durability * .005));
 
     }
 

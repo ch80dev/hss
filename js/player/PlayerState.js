@@ -30,13 +30,5 @@ class PlayerState{
         this.x = x;
         this.y = y;
     }
-    change_money(n){
-        n = Number(n);
-        this.money += n;
-        if (this.money < 0){
-            this.money = 0;
-        }
-        
-       
-    }
+    
 }

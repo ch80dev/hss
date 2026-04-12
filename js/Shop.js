@@ -27,7 +27,7 @@ class Shop{
             return;
         }
         
-        player.state.change_money(-Config.motel_room_cost);
+        player.status.change_money(-Config.motel_room_cost);
         this.room_rented_at = true;
 
     }

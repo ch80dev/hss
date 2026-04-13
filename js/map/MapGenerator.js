@@ -84,8 +84,10 @@ class MapGenerator {
             this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
         }
         let shop_being_generated = rand_num(1, 2) == 1;
-        let shop_pos = this.generate_shop();
-        //console.log(shop_being_generated, shop_pos);
+        let shop_pos = null;
+        if (location_type == 'street'){
+            shop_pos = this.generate_shop();
+        }
         if (location_type == 'street' && (shop_being_generated && shop_pos != null)){            
             this.map.shops.push(shop_pos);
             this.map.is(shop_pos.x, shop_pos.y, Config.cell_class.indexOf('shop'));
@@ -132,7 +134,7 @@ class MapGenerator {
         }
     }
 
-    generate_shop_type(){        
+    generate_shop_type(){     
         if (this.map.shops_generated.length >= Config.shop_types.length){
             return null;
         }

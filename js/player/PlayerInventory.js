@@ -141,14 +141,14 @@ class PlayerInventory {
             return;
         }
         let item = this.fetch_by_name(name);
-        if (!Config.stackable.includes(name) 
-            || (Config.stackable.includes(name) && !this.do_they_have(name, quantity))){
-            this.delete(name);                        
-        } else if (Config.stackable.includes(name)){            
+       if (Config.stackable.includes(name)){            
             item.quantity -= quantity;        
         }
 
-
+         if (!Config.stackable.includes(name) 
+            || (Config.stackable.includes(name) && item.quantity < 1)){
+            this.delete(name, null);                        
+        } 
         human.give(name, quantity);
     }
 
@@ -227,9 +227,11 @@ class PlayerInventory {
                 id ++;
                 continue;
             }
-            if (map.loot[at] == undefined || id > map.loot[at].length){
+            console.log(id, map.loot[at]);
+            if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
                 return;
             }
+            console.log(map.loot[at].stuff);
             
         }
     }
@@ -237,7 +239,7 @@ class PlayerInventory {
     take_item(id, map){
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
-        //console.log(id, map.loot[at].stuff)
+        console.log(id, map.loot[at].stuff)
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined && !this.can_they_take(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity))){
             return false;
@@ -271,7 +273,7 @@ class PlayerInventory {
         let item = this.fetch(this.player.state.equipped);
         item.durability -= usage_cost;
         if (item.durability <= 0){
-            this.player.state.inventory.splice(this.player.state.equipped , 1);
+            this.delete(null, this.player.state.equipped);            
             this.player.state.equipped = null;
             
         }

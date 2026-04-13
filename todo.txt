@@ -1,19 +1,13 @@
 TODO   
-    
-    
-    cant sell tool despite having one to humans
-    
-    
+    no way to uneqip
+    and when you drop an item equipped, its still registered as equipped    
+    cant sell tool despite having one to humans    
     look
-    
     redo map loot and how i handled map data
     refactor player inventory
-    
-    
-
-    
     combat corpse
     directions
+    when you trade for
 LATER
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
@@ -27,8 +21,10 @@ LATER
     interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
+    when you lose health, (or any lifeform) there's a random chance to lose consciousness if (1, 100) > health
 BUGS
         i think the crate bug being able to ref anywhere is because the reference variable for loot is being viewed by reference maybe
+    HUGE - exited to street and kept looping
     you cant control which durability item you're trading so if you have multiple, just the first one goes
     after placing crate, I can see it anywhere I look
     in addition to selling, if you use stuff up, it fucks up equipped

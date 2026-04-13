@@ -71,7 +71,7 @@ class UI{
 	display_loot(){
 		$(".inventory").html(this.display_loot_items(juego.player.state.inventory, false));
 		if (juego.map.loot[juego.player.fetch_from()] == undefined){
-			juego.map.loot[juego.player.fetch_from()] = Config.default_loot;
+			juego.map.loot[juego.player.fetch_from()] = { locked: null, searched: false, stuff: [], durability: null };
 		}
 		if (juego.player.state.looting){
 			$("#loot_container").html( this.display_loot_items(juego.map.loot[juego.player.fetch_from()].stuff, true));
@@ -182,7 +182,7 @@ class UI{
 			
 			if ((interaction == 'buy' && juego.player.inventory.are_they_full() 
 					&& ((Config.stackable.includes(human.resources[id]) 
-					&& !juego.player.inventory._is_in_inventory(human.resources[id])) 
+					&& !juego.player.inventory.is_in_inventory(human.resources[id])) 
 					|| !Config.stackable.includes(human.resources[id]) ))
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], 1))

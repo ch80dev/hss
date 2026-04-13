@@ -117,6 +117,7 @@ class PlayerActions {
     }
 
     sell_unique(inventory_id, shop){
+        console.log('bug: ', inventory_id, shop);
         let item = shop.inventory[inventory_id];
         if (item == undefined){
             console.log('error');

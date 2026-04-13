@@ -22,6 +22,14 @@ LATER
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
     when you lose health, (or any lifeform) there's a random chance to lose consciousness if (1, 100) > health
+    alcohol - negates stigma req for humans
+    stimulants - negates stam drain to health when stam is 0
+    crystal meth - stops stam drain temporarily
+    cigarettes/caffeine - stops stamina drain for moving around
+    pcp - deferred damage
+    cocaine / crack - prevents losing consciousness (crack cheaper but causes max_health reduction)
+        weed / heroin?
+    
 BUGS
         i think the crate bug being able to ref anywhere is because the reference variable for loot is being viewed by reference maybe
     HUGE - exited to street and kept looping

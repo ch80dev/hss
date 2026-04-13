@@ -110,7 +110,7 @@ class Game{
 	}
 
 	populate_with_humans(location_type){
-        let num_of_humans = rand_num(0, Config.max_num_of_humans[location_type]);
+        let num_of_humans = rand_num(Config.min_num_of_humans[location_type], Config.max_num_of_humans[location_type]);
 		let id = this.humans[location_type].length;
 		this.humans[location_type][id] = [];
         for (let i = 0; i < num_of_humans; i ++){

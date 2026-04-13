@@ -225,7 +225,6 @@ class PlayerInventory {
             let status = this.take_item(id, map);            
             if (status === false){
                 id ++;
-                continue;
             }
             console.log(id, map.loot[at]);
             if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){

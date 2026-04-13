@@ -175,13 +175,15 @@ class UI{
 		let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);
 		let context_txt = "";
 		let menu_txt = "";
-		console.log(juego.player.inventory.are_they_full());
 		for (let id in human.interactions){			
 			let disabled = '';
 			let interaction = human.interactions[id];
 			//console.log(interaction, juego.player.state.money,  human.resources[id], human.conversion[id]);
 			
-			if ((Config.interactions_for_resources.includes(interaction) && juego.player.inventory.are_they_full())
+			if ((interaction == 'buy' && juego.player.inventory.are_they_full() 
+					&& ((Config.stackable.includes(human.resources[id]) 
+					&& !juego.player.inventory._is_in_inventory(human.resources[id])) 
+					|| !Config.stackable.includes(human.resources[id]) ))
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], 1))
 				|| (interaction == 'beg' && human.last_begged != null)
@@ -198,7 +200,7 @@ class UI{
 				let second = human.resources[id][first];
 				let second_disabled = '';
 				resource = `${conversion[0]} ${first} [${juego.player.inventory.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
-				if (!juego.player.inventory.do_they_have(first, conversion[0])){
+				if (!juego.player.inventory.do_they_have(first, conversion[0]) || human.){
 					first_disabled = ' disabled ';
 				}
 				if (!juego.player.inventory.do_they_have(second, conversion[1])){

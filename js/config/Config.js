@@ -139,6 +139,11 @@ class Config {
 	}	
 	static max_x = 25;
 	static max_y = 20;
+	static min_num_of_humans = {
+		alley: 0,
+		street: 1,
+		sewer: 0,
+	}
 	static num_of_exits = {
 		alley: [2, 4],
 		sewer: [4, 8],

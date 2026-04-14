@@ -114,12 +114,12 @@ class UI{
 			let interaction = human.interactions[id];
 			//console.log(interaction, juego.player.state.money,  human.resources[id], human.conversion[id]);
 			
-			if ((interaction == 'buy' && juego.player.inventory.are_they_full() 
+			if ((interaction == 'buy' && juego.player.inventory.query.are_they_full() 
 					&& ((Config.stackable.includes(human.resources[id]) 
-					&& !juego.player.inventory.is_in_inventory(human.resources[id])) 
+					&& !juego.player.inventory.query.is_in_inventory(human.resources[id])) 
 					|| !Config.stackable.includes(human.resources[id]) ))
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
-				|| (interaction == 'sell' && !juego.player.inventory.do_they_have(human.resources[id], 1))
+				|| (interaction == 'sell' && !juego.player.inventory.query.do_they_have(human.resources[id], 1))
 				|| (interaction == 'beg' && human.last_begged != null)
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)){
 				disabled = ' disabled ';			
@@ -133,17 +133,17 @@ class UI{
 				let first_disabled = '';
 				let second = human.resources[id][first];
 				let second_disabled = '';
-				resource = `${conversion[0]} ${first} [${juego.player.inventory.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
-				if (!juego.player.inventory.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1])){
+				resource = `${conversion[0]} ${first} [${juego.player.inventory.query.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.query.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
+				if (!juego.player.inventory.query.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1])){
 					first_disabled = ' disabled ';
 				}
-				if (!juego.player.inventory.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0])){
+				if (!juego.player.inventory.query.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0])){
 					second_disabled = ' disabled ';
 				}
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				
-				resource = `${human.resources[id]} [${juego.player.inventory.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
+				resource = `${human.resources[id]} [${juego.player.inventory.query.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
@@ -226,7 +226,7 @@ class UI{
 		$("#equipped").html("");
 		if (juego.player.state.equipped != null){
 			
-			let equipped = juego.player.inventory.fetch(juego.player.state.equipped, null);
+			let equipped = juego.player.inventory.fetch.by_id(juego.player.state.equipped, null);
 			//console.log(juego.player.state.equipped, equipped);
 			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
 		}

@@ -10,7 +10,7 @@ class Input {
             return;
         }
         if (juego.player.state.looting && loot[number - 1] != undefined){
-            juego.player.inventory.take_item(number - 1, juego.map);
+            juego.player.inventory.take.item(number - 1, juego.map);
             return;
         }
         if (juego.player.state.socializing == null){ // is this even possible?
@@ -64,7 +64,7 @@ class Input {
             juego.player.state.shopping = null;
             ui.change_screen('map');
         } else if (pressed == " " && juego.player.state.looting){
-            juego.player.inventory.take_all(juego.map);
+            juego.player.inventory.take.all(juego.map);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
             juego.next_turn();

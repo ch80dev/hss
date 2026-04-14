@@ -29,7 +29,7 @@ class PlayerActions {
 
     buy_unique(inventory_id, shop){
         let item = shop.inventory[inventory_id];
-        if (item == undefined || (item != undefined && this.player.state.money < Config.prices[item.name]) || this.player.inventory.are_they_full()){
+        if (item == undefined || (item != undefined && this.player.state.money < Config.prices[item.name]) || this.player.inventory.query.are_they_full()){
             console.log('error');
             return;
         }   
@@ -64,10 +64,10 @@ class PlayerActions {
             human.begged();
         } else if (interaction == 'buy' && this.player.state.money >= human.conversion[id]){ 
             this.player.state.money -= human.conversion[id];
-            this.player.inventory.take_from_human(human.resources[id], 1, human);
+            this.player.inventory.take.from_human(human.resources[id], 1, human);
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
-        } else if (interaction == 'sell' && this.player.inventory.do_they_have(human.resources[id], 1)){ 
-            this.player.inventory.give_to_human(human.resources[id], 1, human);
+        } else if (interaction == 'sell' && this.player.inventory.query.do_they_have(human.resources[id], 1)){ 
+            this.player.inventory.move.give_to_human(human.resources[id], 1, human);
             this.player.money += human.conversion[id];
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
         } 
@@ -77,7 +77,7 @@ class PlayerActions {
 
     open_trash(map){
         
-        let taken_arr = this.player.inventory.take_all(map);        
+        let taken_arr = this.player.inventory.take.all(map);        
         let txt = `You looted:  ${taken_arr.join(", ")} [${this.player.state.inventory.length}/${this.player.state.slots_in_inventory}]`;
         if (this.player.state.auto_loot){
             ui.log(txt);
@@ -113,11 +113,11 @@ class PlayerActions {
     sell_to_shop(resource_id, shop){
         
         let resource = shop.resources[resource_id];
-        if (resource == undefined || (resource != undefined && !this.player.inventory.is_in_inventory(resource))){
+        if (resource == undefined || (resource != undefined && !this.player.inventory.query.is_in_inventory(resource))){
             console.log('error');
             return;
         }
-        let item = this.player.inventory.fetch_by_name(resource);
+        let item = this.player.inventory.fetch.by_name(resource);
         let quantity = shop.selling;
         if (quantity == 'all' || quantity > item.quantity){
             quantity = item.quantity;
@@ -126,7 +126,7 @@ class PlayerActions {
         this.player.status.change_money(quantity * Config.prices[resource]);
         item.quantity -= quantity;
         if (item.quantity < 1){
-            this.player.inventory.delete(resource, null);
+            this.player.inventory.move.delete(resource, null);
         }
     }
 
@@ -138,7 +138,7 @@ class PlayerActions {
             return;
         }   
         shop.inventory.push(item);
-        this.player.inventory.delete(null, inventory_id);
+        this.player.inventory.move.delete(null, inventory_id);
         this.player.status.change_money(Math.round(Config.prices[item.name] * item.durability * .005));
 
     }
@@ -179,20 +179,20 @@ class PlayerActions {
         
         
         
-        if (!this.player.inventory.do_they_have(player_resource, player_quantity) 
+        if (!this.player.inventory.query.do_they_have(player_resource, player_quantity) 
             || !human.do_they_have(human_resource, human_quantity)){
-            console.log('not enough', player_resource, player_quantity, this.player.inventory.do_they_have(player_resource, player_quantity), human_resource, human_quantity, human.do_they_have(human_resource, human_quantity));
+            console.log('not enough', player_resource, player_quantity, this.player.inventory.query.do_they_have(player_resource, player_quantity), human_resource, human_quantity, human.do_they_have(human_resource, human_quantity));
             return;
         }
-        this.player.inventory.give_to_human(player_resource, player_quantity, human);
-        this.player.inventory.take_from_human(human_resource, human_quantity, human);
+        this.player.inventory.move.give_to_human(player_resource, player_quantity, human);
+        this.player.inventory.take.from_human(human_resource, human_quantity, human);
         ui.log(`You give ${player_quantity} ${player_resource} and receive ${human_quantity} ${human_resource}.`)
     }
 
     unlock_trash(x, y, map){
         let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);
         let durability_cost = rand_num(1, 5);
-        this.player.inventory.use_equipment(durability_cost);
+        this.player.inventory.use.equipment(durability_cost);
         if (map.loot[at] == undefined){
             return;
         }

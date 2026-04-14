@@ -40,7 +40,7 @@ class UIShop{
                 min_quantity = 1;
             }
             let resource = Config.shop_resources[shop.type][id];
-            if (!player.inventory.do_they_have(resource, min_quantity)){
+            if (!player.inventory.query.do_they_have(resource, min_quantity)){
                 disabled = ' disabled ';
             }
             txt += `<button id='sell_to_shop-${id}' class='sell_to_shop' ${disabled}> sell ${shop.selling} ${resource}</button>`
@@ -53,7 +53,7 @@ class UIShop{
             let item = shop.inventory[id];
             let disabled = "";
             let price = Config.prices[item.name];
-            if (player.state.money < Config.prices[item.name] || player.inventory.are_they_full()){
+            if (player.state.money < Config.prices[item.name] || player.inventory.query.are_they_full()){
                 disabled = ' disabled ';
             }
             txt += `<button id='buy_unique-${id}' class='buy_unique' ${disabled}>buy ${item.name} (${item.durability}%)</button>`
@@ -63,14 +63,14 @@ class UIShop{
 
     display_sell_unique(player, shop){
         let txt = "";
-        let all_sellable_items_in_inventory = player.inventory.fetch_all_items(Config.shop_resources[shop.type]);
+        let all_sellable_items_in_inventory = player.inventory.fetch.all_items(Config.shop_resources[shop.type]);
         
         
         if (all_sellable_items_in_inventory.length > 0){
             txt = "<div>From Your Inventory</div>";
         }
         for (let id of all_sellable_items_in_inventory){
-            let item = player.inventory.fetch(id);
+            let item = player.inventory.fetch.by_id(id);
             let equipped = '';
             let price = Math.round(item.durability * Config.prices[item.name] * .005);
             if (price < 1){

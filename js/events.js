@@ -35,7 +35,7 @@ $(document).on('click', '.close', function() {
 });
 
 $(document).on('click', '.equip', function(e) {
-    juego.player.inventory.equip(Number(this.id.split('-')[1]));
+    juego.player.inventory.use.equip(Number(this.id.split('-')[1]));
     ui.refresh();
 });
 $(document).on('click', '.interact:not(.trade)', function(e) {
@@ -52,7 +52,7 @@ $(document).on('click', '.item', function(e) {
     if (e.target && e.target.closest('button')){
         return;
     }
-    juego.player.inventory.move_item(this.id.split('-')[0], this.id.split('-')[1], juego.map);
+    juego.player.inventory.move.item(this.id.split('-')[0], this.id.split('-')[1], juego.map);
     ui.refresh();
 });
 
@@ -106,7 +106,7 @@ $(document).on('click', '#sleep_at_shop', function() {
 });
 
 $(document).on('click', '#take_all_loot', function() {
-    juego.player.inventory.take_all(juego.map);
+    juego.player.inventory.take.all(juego.map);
     ui.refresh();
 });
 
@@ -130,7 +130,7 @@ $(document).on('click', '#unequip', function(e) {
 $(document).on('click', '.use', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    juego.player.inventory.use_item(this.id.split('-')[1], juego.map);
+    juego.player.inventory.use.item(this.id.split('-')[1], juego.map);
     ui.refresh();
 });
 

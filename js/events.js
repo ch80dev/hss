@@ -122,6 +122,11 @@ $(document).on('click', '.trade', function(e) {
     ui.refresh();
 });
 
+$(document).on('click', '#unequip', function(e) {
+    juego.player.state.equipped = null;
+    ui.refresh();
+});
+
 $(document).on('click', '.use', function(e) {
     e.preventDefault();
     e.stopPropagation();

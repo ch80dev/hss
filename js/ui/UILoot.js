@@ -59,7 +59,7 @@ class UILoot{
 			if (!is_loot && Config.equipable.includes(item) && juego.player.state.equipped != id){
 				equipable = `<button id='equip-${id}' class='equip'>equip</button>`;
 			} else if (!is_loot && Config.equipable.includes(item) && juego.player.state.equipped == id){
-				equipable = " [ equipped ]";
+				equipable = `<button id='unequip'>unequip</button>`;
 			}
             
 			let line = `<div class='item_container'>${auto_loot}<span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item} ${durability} ${usable} ${equipable} </span></div>`;

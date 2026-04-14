@@ -74,6 +74,35 @@ class PlayerActions {
 
     }
     
+    look (x, y, map){
+        let simple = ["rat", 'human'];
+        if (this.player.state.looking_at != null && this.player.state.looking_at.x == x && this.player.state.looking_at.y == y){
+            this.player.looking_at = null;
+            return;
+        }
+        this.player.state.looking_at = { x: x, y: y };
+        let map_at = map.queries.at(x, y);
+        let msg = "There is nothing here.";
+        if (map_at == null){
+            return;
+        }
+        let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);
+        let cell_class = Config.cell_class[map_at];
+        let trash = map.loot[at];
+        if (cell_class.split('_').length > 0 && cell_class.split("_")[1] == 'exit'){
+            msg = `There is a ${cell_class.split("_")[0]} ${cell_class.split("_")[1]} here.`;
+        } else if (simple.includes(cell_class)){
+            msg = `There is a ${cell_class} here.`; // later show health and show if homeless
+        } else if (cell_class == 'crate'){
+            msg = `You placed a crate here for your stuff.`;
+        } else if (cell_class == 'trash' && trash != null && trash.locked){
+            msg = "There is a locked trash can here. (need a tool to open)";
+        } else if (cell_class == 'trash' && trash != null && !trash.locked){
+            msg = "There is a trash can here.";
+        }
+        
+        ui.log(msg);
+    }
 
     open_trash(map){
         

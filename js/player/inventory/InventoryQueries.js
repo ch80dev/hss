@@ -1,7 +1,6 @@
 class InventoryQueries{
     constructor(player){
         this.player = player;
-        console.log(player, this.player);
     }
     are_they_full(){
         return this.player.state.inventory.length >= this.player.state.slots_in_inventory  

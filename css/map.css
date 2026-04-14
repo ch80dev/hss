@@ -14,7 +14,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at){
     background: #222222;
     border: 1px #222222 solid;
 }
@@ -39,6 +39,10 @@
     
     
     
+}
+.looking_at{
+    background: #222222;
+    border: 1px grey solid;
 }
 
 .homeless{

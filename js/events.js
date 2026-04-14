@@ -9,6 +9,12 @@ document.addEventListener('keyup', (event) => {
    juego.input.release_key(key_pressed);
 });
 
+$(document).on('click', '.cell:not(.empty)', function() {
+    juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
+    ui.refresh();
+});
+
+
 $(document).on('click', '#auto_loot', function() {
     juego.player.state.auto_loot = $("#auto_loot").prop('checked');
     console.log(juego.player.state.auto_loot);

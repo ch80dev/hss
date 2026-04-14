@@ -8,8 +8,22 @@ TODO
     combat corpse
     directions
     inventory weight doesn't appear to be getting decremented when stuff is removed
-    auto loot - don't even press space or a button to have to take all - just automatically take all items until you denote that it shouldn't be taken
 LATER
+        tools
+            screw driver $5 5%  2dmg
+            wrench $12 2.5% 3dmg
+            crowbar $60 .33% 5dmg
+            Bolt Cutters $120 .125% 4dmg
+
+
+        weapons 
+            fists - 1 point of damage
+            bat 2dmg 1%     $10                      15%trash
+            pipe 3dmg .5%   $2(buy @ home repair only) 80%t
+            knife 5dmg  2%  $15                         5%t
+            hatchet 6dm 1.5% $25
+            machete 8dmg 1%     $40
+
     light and darkness - map gets dark and you need light to traverse - (ESPECIALLY SEWER)
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 

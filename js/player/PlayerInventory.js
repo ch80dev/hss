@@ -218,21 +218,27 @@ class PlayerInventory {
     take_all(map){
         let at = this.player.fetch_from();
         if (map.loot[at] == undefined){
-            return;
+            return null;
         }
         let id = 0;
+        let taken = [];
         while (map.loot[at].stuff.length > 0){            
             let status = this.take_item(id, map);            
+            if (status != false){
+                taken.push(status);
+            }
             if (status === false){
                 id ++;
             }
             //console.log(id, map.loot[at]);
             if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
-                return;
+                break;
             }
             //console.log(map.loot[at].stuff);
             
         }
+        return taken;
+        
     }
 
     take_item(id, map){
@@ -243,8 +249,10 @@ class PlayerInventory {
             || (map.loot[at] != undefined && !this.can_they_take(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity))){
             return false;
         }
+        let txt = `${map.loot[at].stuff[id].quantity} ${map.loot[at].stuff[id].name}`;
         let weight = this.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
         let what = map.loot[at].stuff[id].name;
+    
         this.player.state.inventory_weight += weight;
 
         if (Config.stackable.includes(what) && this.is_in_inventory(what)){
@@ -262,6 +270,7 @@ class PlayerInventory {
             this.player.state.looting = false;
             ui.change_screen('map');
         }
+        return txt;
     }
 
     use_equipment(usage_cost){

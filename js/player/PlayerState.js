@@ -1,4 +1,6 @@
 class PlayerState{
+    auto_loot = true;
+    auto_loot_preferences = {};
     dead = false;
     equipped = null;
     fighting = false;
@@ -31,6 +33,9 @@ class PlayerState{
         this.money = rand_num(0, Config.homeless_money);
         this.x = x;
         this.y = y;
+        for (let item_name of Object.keys(Config.prices)){
+            this.auto_loot_preferences[item_name] = true;
+        }
     }
     
 }

@@ -2,10 +2,7 @@ class PlayerActions {
     constructor(player){
         this.player = player
     }
-     open_trash(x, y){
-        ui.change_screen('loot');
-        this.player.state.looting = true;
-    }
+     
 
 
     attack(x, y, juego){
@@ -78,6 +75,23 @@ class PlayerActions {
     }
     
 
+    open_trash(map){
+        
+        let taken_arr = this.player.inventory.take_all(map);        
+        let txt = `You looted:  ${taken_arr.join(", ")} [${this.player.state.inventory.length}/${this.player.state.slots_in_inventory}]`;
+        if (this.player.state.auto_loot){
+            ui.log(txt);
+        }
+        let at = this.player.fetch_from();
+        if (!this.player.state.auto_loot || map.loot[at] != undefined && map.loot[at].stuff.length > 0){
+            ui.change_screen('loot');
+            this.player.state.looting = true;            
+            return;
+        }
+       
+        
+    }
+
     search_trash(x, y, map){
         let trash = map.loot[this.player.fetch_from()];
         this.player.status.change_stigma(Config.stigma_effects['trash']);
@@ -92,7 +106,7 @@ class PlayerActions {
             map.is(x, y, 1);
             return;
         }
-        this.open_trash(x, y);
+        this.open_trash(map);
         
     }
 

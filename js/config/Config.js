@@ -51,10 +51,9 @@ class Config {
 		fuel: 4,
 		'glass bottle': .05,
 		lighter: 2, 
-		medicine: 15,
-		'plastic bottle': .05,
+		medicine: 15,		
 		'medicine (expired)': 2, 
-		 
+		'plastic bottle': .05,
 		tool: 25, 
 		weapon: 40,
 		

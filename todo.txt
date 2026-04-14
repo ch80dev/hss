@@ -1,6 +1,7 @@
 TODO   
     
-    and when you drop an item equipped, its still registered as equipped    
+    
+    
     cant sell tool despite having one to humans    
     look
     redo map loot and how i handled map data

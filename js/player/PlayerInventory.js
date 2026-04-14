@@ -80,14 +80,15 @@ class PlayerInventory {
         
         if (Config.stackable.includes(item.name) && map.queries.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
+            this.delete(null, id);
             this.player.state.inventory.splice(id, 1)
             return;
         } 
         if (map.loot[at] == undefined){
             map.loot[at] = { locked: false, searched: false, stuff: []};
         } 
-        map.loot[at].stuff.push(this.player.state.inventory.splice(id, 1)[0]);        
-                
+        map.loot[at].stuff.push(item);        
+        this.delete(null, id);
     }
 
     equip(id){

@@ -30,6 +30,7 @@ class Game{
 		this.populate_with_humans('alley');
 		this.populate_shops();
 	}
+	
 	fetch_human(location_type, location_id, x, y){
 		for (let human of this.humans[location_type][location_id]){			
             if (human.x == x && human.y == y){
@@ -47,6 +48,16 @@ class Game{
         }
         return null;
     }
+
+	fetch_target(location_type, location_id, x, y){
+		let target = this.fetch_human(location_type, location_id, x, y);
+		if (target != null){
+			return target;
+		}
+		target = this.fetch_rat(location_type, location_id, x, y);
+		return target;
+
+	}
 
 	fetch_shop(id){
 		
@@ -137,7 +148,9 @@ class Game{
 		for (let id in  this.rats[this.player.state.location_type][this.player.state.location_id]){					
 			let rat = this.rats[this.player.state.location_type][this.player.state.location_id][id];
 			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
-			
+			if (rat.dead){
+				continue;
+			}
 
 			if (rat.attacking_player && distance < 2 ){
 				rat.attack_player();
@@ -147,7 +160,10 @@ class Game{
 		for (let id in  this.humans[this.player.state.location_type][this.player.state.location_id]){
 			let human = this.humans[this.player.state.location_type][this.player.state.location_id][id];					
 			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
-			
+			if (human.dead){
+				continue;
+			}
+		
 			//console.log(human.attacking_player, distance < 2);
 			if (human.attacking_player && distance < 2 ){
 				//console.log("go");

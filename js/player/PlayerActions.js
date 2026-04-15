@@ -13,7 +13,7 @@ class PlayerActions {
         } else if (map_at == Config.cell_class.indexOf('human')){
             target = juego.fetch_human(this.player.state.location_type, this.player.state.location_id, x, y);
         }
-        this.player.status.change_stamina_delta(-Config.stamina_cost['attack']);
+        this.player.status.change_stamina_delta(Config.stamina_cost['attack']);
         let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
         let max_dmg = 1;
         let weapon_equipped =  null;
@@ -25,11 +25,17 @@ class PlayerActions {
         let dmg = rand_num(1, max_dmg);
         if (did_they_hit){
             target.get_hit(dmg);
-            let dmg_caption = `at ${target.health}/${target.max_health}`;
-            if (target.health < 1){
-                dmg_caption = ' dead.';
+            let money_caption = '';
+            if (target.money > 0 && target.health < 1){
+                money_caption = ` You took $${target.money} from them. `;
             }
-            ui.log(`You hit them for ${dmg} dmg. They're now ${dmg_caption}`);
+            if (target.health < 1){                                
+                juego.map.loot[juego.map.format_at(this.player.state.location_type, this.player.state.location_id, x, y)] = { stuff: null };
+                juego.map.loot[juego.map.format_at(this.player.state.location_type, this.player.state.location_id, x, y)].stuff = target.inventory;
+                this.player.state.money += target.money;
+                target.money = 0;
+            }
+            ui.log(`You hit them for ${dmg} dmg. [${target.health}] ${money_caption}`);
             return;
         }
         ui.log(`You missed them! ${target.health}/${target.max_health}`);
@@ -110,6 +116,17 @@ class PlayerActions {
         }
         
         ui.log(msg);
+    }
+
+    loot_corpse(map, juego){
+
+        let target = juego.fetch_target(this.player.state.location_type, this.player.state.location_id, this.player.state.x, this.player.state.y);
+        if (target == null){
+            return;
+        }
+        ui.change_screen('loot');
+        this.player.state.looting = true;
+
     }
 
     open_trash(map){

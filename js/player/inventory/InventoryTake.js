@@ -74,8 +74,8 @@ class InventoryTake {
         } else {
             this.player.state.inventory.push(map.loot[at].stuff.splice(id, 1)[0]);        
         }
-        
-        if (map.loot[at].stuff.length == 0 && map.queries.at(this.player.state.x, this.player.state.y) == 5){
+        let map_at = map.queries.at(this.player.state.x, this.player.state.y);
+        if (map.loot[at].stuff.length == 0 && (map_at == 5 || Config.attackable.includes(map_at)) ){
             map.is(this.player.state.x, this.player.state.y, 1);
         }
         if (map.loot[at].stuff.length == 0){

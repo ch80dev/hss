@@ -4,7 +4,6 @@ TODO
     
     cant sell tool despite having one to humans    
     redo map loot and how i handled map data
-    combat corpse
     directions
     inventory weight doesn't appear to be getting decremented when stuff is removed
 LATER

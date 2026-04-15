@@ -41,6 +41,10 @@ class Config {
 	static equipable = ['pipe', 'bat', 'knife', 'hatchet', 'machete', 'tool'];
 	static food_gain = [10, 30];
 	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'aluminum can', 'glass bottle', 'plastic bottle', 'tool', 'bat', 'knife', 'hatchet', 'machete'];
+	static meat = {
+		human: 100,
+		rat: 1,
+	}
 	static medicine_gain = [10, 100];	
 	static prices = {
 		'aluminum can': .05,
@@ -64,7 +68,7 @@ class Config {
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
 	static spoiled_sick_gain = [1, 50];
-	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs'];
+	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'raw meat (human)', 'raw meat (rat)'];
 	static trash_item_odds = {		
 		'plastic bottle': [1, 20],
 		'glass bottle': [21, 40],
@@ -74,8 +78,7 @@ class Config {
 		
 		crate: [81, 85],
 		medicine: [86, 86],
-		'medicine (expired)': [87, 93],
-		
+		'medicine (expired)': [87, 93],		
 		tool: [94, 98],
 		pipe: [99, 99],
 		drugs: [100, 100],		
@@ -83,11 +86,11 @@ class Config {
 	}	
 	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];		
 	static weapon_dmgs = {
-		bat: 2, 
-		knife: 5, 
-		hatchet: 6, 
-		machete: 8,
-		pipe: 3,
+		bat: 4, 
+		knife: 10, 
+		hatchet: 12, 
+		machete: 16,
+		pipe: 6,
 	};
 	static weapon_durability_uses = {
 		bat: 1, 
@@ -114,6 +117,8 @@ class Config {
 		hatchet: 3, 
 		machete: 2,
 		pipe: 3,
+		'raw meat (human)': .5,
+		'raw meat (rat)': .5,
 	}
 
 	

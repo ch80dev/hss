@@ -3,9 +3,7 @@ class Human extends Lifeform{
     give_when_begged = null;
     homeless = false;
     interactions = {};
-    inventory = [];
     last_begged = null;
-    money = 0;
     resources = [];
     min_stigma_beg = null;
     max_stigma_tolerance = null;

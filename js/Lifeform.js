@@ -5,6 +5,8 @@ class Lifeform {
     delta= {x: 0, y: 0};
     health = null;
     hungry = false;
+    inventory = [];
+    money = 0;
     sense_range = null;
     stamina = null;
     max_health = null;
@@ -17,6 +19,7 @@ class Lifeform {
         this.map = map;
         this.x = x;
         this.y = y;
+        this.inventory.push({ name: `raw meat (${type})`, quantity: Config.meat[type], durability: 100 })
         let lifeform = Config.lifeforms[type]
         for (let attr in lifeform){
             let value = lifeform[attr];
@@ -29,6 +32,7 @@ class Lifeform {
     }
 
     attack_player(player){
+        this.stamina += Config.stamina_cost.attack;
         let did_they_hit = rand_num(1, 100) <= this.stamina;
         let distance = this.map.queries.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
         if (Math.floor(distance) > 1){ //if shooting, do something else

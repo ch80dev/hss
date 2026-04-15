@@ -1,12 +1,15 @@
 class PlayerState{
     auto_loot = true;
-    auto_loot_preferences = {};
+    auto_loot_preferences = {
+        'raw meat (human)': true,
+        'raw meat (rat)': true,
+    };
     dead = false;
     equipped = null;
     fighting = false;
     health = Config.lifeforms.human.max_health;
     hours_delta = 0;    
-    inventory = [{ name: 'pipe', quantity: 1, durability: 100}];
+    inventory = [];
     inventory_weight =  0;
     location_type = 'alley';
     location_id = 0;

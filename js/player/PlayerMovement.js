@@ -59,11 +59,12 @@ class PlayerMovement{
             down: { x: 0, y: 1 },
             left: { x: -1, y: 0 },
         };
-        let pos = {x : this.player.state.x + directions[where].x, y: this.player.state.y + directions[where].y};        
+        let pos = {x : this.player.state.x + directions[where].x, y: this.player.state.y + directions[where].y};
+        let target = juego.fetch_target(this.player.state.location_type, this.player.state.location_id, pos.x, pos.y);
+
         if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
             return;
         }  
-
         if (this.player.state.location_type == 'sewer'){
             this.player.status.change_stigma(Config.stigma_effects['sewer']);
             this.player.status.change_sickness(Config.sickness_effects['sewer']);
@@ -72,10 +73,10 @@ class PlayerMovement{
             //console.log('enter shop');
             this.player.actions.enter_shop(pos.x, pos.y, map);
             return;
-        } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y))){//ATTACK
+        } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
             this.player.actions.attack(pos.x, pos.y, juego);
             return;
-        } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y))){//SOCIAL
+        } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y)) && target != null && !target.dead){//SOCIAL
             this.player.actions.social(pos.x, pos.y, juego);
             return;
         }
@@ -100,13 +101,16 @@ class PlayerMovement{
         
         this.player.state.x = pos.x;
         this.player.state.y = pos.y;        
-        
         if (map.queries.at(pos.x, pos.y) != 1 && map.queries.at(pos.x, pos.y) < 5){
             this.explore(map.queries.at(pos.x, pos.y), map);
             return;
         } else if (map.queries.at(pos.x, pos.y) == 5){
             this.player.actions.search_trash(this.player.state.x, this.player.state.y, map)
             return;
+         } else if (Config.attackable.includes(map.queries.at(pos.x, pos.y)) 
+            && target != null && target.dead){
+                console.log('d');
+            this.player.actions.loot_corpse(map, juego);
         }
         ui.log("");
         

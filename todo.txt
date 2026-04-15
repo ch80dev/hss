@@ -1,7 +1,4 @@
 TODO   
-    
-    
-    
     cant sell tool despite having one to humans    
     redo map loot and how i handled map data
     directions

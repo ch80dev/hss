@@ -8,7 +8,11 @@ class InventoryTake {
         if (!human.do_they_have(name, quantity)){
             console.log("error: they don't got this.");
             return;
+        } else if (!this.player.inventory.query.can_they_take(name, quantity)){
+            console.log('error');
+            return;
         }
+        this.player.inventory.move.change_weight(this.player.inventory.query.fetch_weight(name, quantity));
         let npc_item = human.fetch_item(name);
         if (npc_item.quantity == quantity){
             human.delete_item(name);
@@ -65,8 +69,8 @@ class InventoryTake {
         let txt = `${map.loot[at].stuff[id].quantity} ${map.loot[at].stuff[id].name}`;
         let weight = this.player.inventory.query.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
         let what = map.loot[at].stuff[id].name;
-    
-        this.player.state.inventory_weight += weight;
+        this.player.inventory.move.change_weight(weight);
+        
 
         if (Config.stackable.includes(what) && this.player.inventory.query.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, map.loot[at].stuff[id].quantity);

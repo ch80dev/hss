@@ -1,8 +1,11 @@
 .alley_exit {
     color: hwb(211 42% 46%);
 }
-
-.blocked {
+.human.blocked {
+    background: #222222;
+    border: 1px yellow solid;
+}
+.trash.blocked {
     border: 1px #222222 solid;
     background: #333333;
 }

@@ -2,6 +2,10 @@ class InventoryMove{
     constructor(player){
         this.player = player;
     }
+
+    change_weight(delta){
+        this.player.state.inventory_weight += delta;
+    }
     delete(name, item_id){
         let equipped = { name: null, durability: null };
         if (this.player.state.equipped != null){
@@ -35,7 +39,7 @@ class InventoryMove{
     drop_item(id, map){
         let at = this.player.fetch_from();
         let item = this.player.state.inventory[id];
-        
+        this.change_weight(-this.player.inventory.query.fetch_weight(item.name, 1));
         if (Config.stackable.includes(item.name) && map.queries.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.delete(null, id);
@@ -55,6 +59,7 @@ class InventoryMove{
             return;
         }
         let item = this.fetch.by_name(name);
+        this.change_weight(-this.player.inventory.query.fetch_weight(name, quantity));
        if (Config.stackable.includes(name)){            
             item.quantity -= quantity;        
         }

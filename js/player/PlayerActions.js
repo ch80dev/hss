@@ -76,7 +76,9 @@ class PlayerActions {
             this.player.state.money += human.give_when_begged;                      
             ui.log(`They gave you $${human.give_when_begged}.`)
             human.begged();
-        } else if (interaction == 'buy' && this.player.state.money >= human.conversion[id]){ 
+        } else if (interaction == 'buy' 
+            && this.player.state.money >= human.conversion[id] 
+            && this.player.inventory.query.can_they_take(human.resources[id], 1)){ 
             this.player.state.money -= human.conversion[id];
             this.player.inventory.take.from_human(human.resources[id], 1, human);
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)

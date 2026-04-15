@@ -6,7 +6,7 @@ class PlayerState{
     fighting = false;
     health = Config.lifeforms.human.max_health;
     hours_delta = 0;    
-    inventory = [ ];
+    inventory = [{ name: 'pipe', quantity: 1, durability: 100}];
     inventory_weight =  0;
     location_type = 'alley';
     location_id = 0;

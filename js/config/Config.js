@@ -37,10 +37,10 @@ class Config {
 
 
 	//ITEM
-	static degradable = ['lighter', 'weapon', 'tool'];
-	static equipable = ['tool', 'weapon'];
+	static degradable = ['pipe', 'bat', 'knife', 'hatchet', 'machete','lighter',  'tool'];
+	static equipable = ['pipe', 'bat', 'knife', 'hatchet', 'machete', 'tool'];
 	static food_gain = [10, 30];
-	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'aluminum can', 'glass bottle', 'plastic bottle', 'tool', 'weapon'];
+	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'aluminum can', 'glass bottle', 'plastic bottle', 'tool', 'bat', 'knife', 'hatchet', 'machete'];
 	static medicine_gain = [10, 100];	
 	static prices = {
 		'aluminum can': .05,
@@ -54,8 +54,12 @@ class Config {
 		medicine: 15,		
 		'medicine (expired)': 2, 
 		'plastic bottle': .05,
+		pipe: 2, //not sold
 		tool: 25, 
-		weapon: 40,
+		bat: 10, 
+		knife: 15, 
+		hatchet: 25, 
+		machete: 40,
 		
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
@@ -73,11 +77,25 @@ class Config {
 		'medicine (expired)': [87, 93],
 		
 		tool: [94, 98],
-		weapon: [99, 99],
+		pipe: [99, 99],
 		drugs: [100, 100],		
 		//lighter: [71, 80],
 	}	
 	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];		
+	static weapon_dmgs = {
+		bat: 2, 
+		knife: 5, 
+		hatchet: 6, 
+		machete: 8,
+		pipe: 3,
+	};
+	static weapon_durability_uses = {
+		bat: 1, 
+		knife: 2, 
+		hatchet: 1.5, 
+		machete: 1,
+		pipe: .5,
+	}
 	static weights = {
 		'aluminum can': .03,
 		'glass bottle': .5,
@@ -88,10 +106,14 @@ class Config {
 		lighter: .1,
 		crate: 10,
 		medicine: 1,
-		'medicine (expired)': 1,
-		weapon: 5,
+		'medicine (expired)': 1,		
 		tool: 5,
 		drugs: 2,
+		bat: 2.5, 
+		knife: .5, 
+		hatchet: 3, 
+		machete: 2,
+		pipe: 3,
 	}
 
 	
@@ -189,7 +211,7 @@ class Config {
 	}
 	static shop_resources = {
 		motel: null, 
-		pawn: ['weapon', 'tool'],
+		pawn: ['bat', 'knife', 'hatchet', 'machete', 'tool'],
 		recycling: ['glass bottle', 'aluminum can', 'plastic bottle']
 	}
 	static shop_types = ['pawn', 'recycling', 'motel'];

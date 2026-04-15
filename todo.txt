@@ -3,7 +3,6 @@ TODO
     
     
     cant sell tool despite having one to humans    
-    look
     redo map loot and how i handled map data
     combat corpse
     directions
@@ -18,11 +17,11 @@ LATER
 
         weapons 
             fists - 1 point of damage
-            bat 2dmg 1%     $10                      15%trash
+            bat 2dmg 1%     $10                      15%trash   pawn
             pipe 3dmg .5%   $2(buy @ home repair only) 80%t
-            knife 5dmg  2%  $15                         5%t
-            hatchet 6dm 1.5% $25
-            machete 8dmg 1%     $40
+            knife 5dmg  2%  $15                         5%t     pawn
+            hatchet 6dm 1.5% $25                                pawn
+            machete 8dmg 1%     $40                             pawn
 
     light and darkness - map gets dark and you need light to traverse - (ESPECIALLY SEWER)
     center location in map (sometimes its generated to the left of the screen or top of screen)

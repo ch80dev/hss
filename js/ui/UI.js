@@ -87,7 +87,6 @@ class UI{
 				}
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
-				
 				resource = `${human.resources[id]} [${juego.player.inventory.query.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} else if (interaction == 'beg'){
@@ -120,7 +119,7 @@ class UI{
 	}
 
 	log(msg){		
-		this.status_msg = msg;
+		this.status_msg += " " + msg;
 	}
 	refresh(){
 		if (juego.player.state.shopping != null ){
@@ -149,7 +148,11 @@ class UI{
 			$("#stamina").addClass('low_stamina');
 		}
 		$('#stigma').html(`${stigma_cent.toFixed(1)}%`);
-		$("#status").html(this.status_msg);
+		if (this.status_msg != ''){
+			$("#status").html(this.status_msg);
+		}
+		
+		this.status_msg = '';
 
 		$(".screen").addClass('hidden');
 		$("#" + this.screen_focused).removeClass('hidden');

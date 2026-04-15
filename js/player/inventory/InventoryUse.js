@@ -56,4 +56,24 @@ class InventoryUse{
         this.player.inventory.move.delete(null, id);
         
     }
+    weapon(){
+
+        if (this.player.state.equipped == null 
+            || (this.player.state.equipped != null 
+            && (this.player.state.inventory[this.player.state.equipped] == undefined 
+                || (this.player.state.inventory[this.player.state.equipped] != undefined 
+                && !Object.keys(Config.weapon_dmgs).includes(this.player.state.inventory[this.player.state.equipped].name))) )){
+            console.log('error')
+            return;            
+        }
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
+        let durability_hit_per_use = Config.weapon_durability_uses[this.player.inventory.fetch.by_id(this.player.state.equipped).name];
+        item.durability -= durability_hit_per_use;
+        if (item.durability < 1){
+            ui.log(`You broke your ${item.name}.`);
+            this.player.inventory.move.delete(null, this.player.state.equipped);
+            this.player.state.equipped = null;
+            
+        }
+    }
 }

@@ -46,7 +46,7 @@ class InventoryQueries{
     }
 
     fetch_quantity(name){
-        let item = this.fetch.by_name(name);
+        let item = this.player.inventory.fetch.by_name(name);
         if (item == null){
             return 0;
         }

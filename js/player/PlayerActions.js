@@ -15,13 +15,21 @@ class PlayerActions {
         }
         this.player.status.change_stamina_delta(-Config.stamina_cost['attack']);
         let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
+        let max_dmg = 1;
+        let weapon_equipped =  null;
+        if (this.player.state.equipped != null){
+            weapon_equipped = this.player.state.inventory[this.player.state.equipped].name;
+            max_dmg = Config.weapon_dmgs[weapon_equipped];
+            this.player.inventory.use.weapon();
+        }
+        let dmg = rand_num(1, max_dmg);
         if (did_they_hit){
-            target.get_hit(1);
+            target.get_hit(dmg);
             let dmg_caption = `at ${target.health}/${target.max_health}`;
             if (target.health < 1){
                 dmg_caption = ' dead.';
             }
-            ui.log(`You hit them for 1 dmg. They're now ${dmg_caption}`);
+            ui.log(`You hit them for ${dmg} dmg. They're now ${dmg_caption}`);
             return;
         }
         ui.log(`You missed them! ${target.health}/${target.max_health}`);

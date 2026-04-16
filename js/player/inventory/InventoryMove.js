@@ -4,8 +4,8 @@ class InventoryMove{
     }
 
     change_weight(delta){
-        console.log('change_weight: NaN bug', delta);
-        this.player.state.inventory_weight += delta;
+        console.log('change_weight: bug', delta, this.player.state.inventory_weight);
+        this.player.state.inventory_weight += Number(delta);
     }
     delete(name, item_id){
         let equipped = { name: null, durability: null };

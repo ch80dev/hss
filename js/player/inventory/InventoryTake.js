@@ -69,6 +69,7 @@ class InventoryTake {
         let txt = `${map.loot[at].stuff[id].quantity} ${map.loot[at].stuff[id].name}`;
         let weight = this.player.inventory.query.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
         let what = map.loot[at].stuff[id].name;
+        console.log(weight);
         this.player.inventory.move.change_weight(weight);
         
 

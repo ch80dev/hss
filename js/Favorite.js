@@ -63,12 +63,13 @@ class Favorite{
 		for (let entity of Object.keys(this.set)){
 			let favorite = this.set[entity];
 			for (let id in favorite){
-				if (favorite[id].location.type == location_type 
+				if ((favorite[id].location.type == location_type 
 					&& favorite[id].location.id == location_id 
-					&& favorite[id].x == x && favorite[id].y == y){
+					&& favorite[id].x == x && favorite[id].y == y) 
+					|| favorite[id].past_locations.includes(at)){
 					return true;
 				}
-				for (let from in favorite[id].path){
+				for (let from in favorite[id].path){					
 					let to = favorite[id].path[from];
 					if (at == from || at == to){
 						return true;
@@ -80,7 +81,6 @@ class Favorite{
 	}
 
     process(from, to){
-		return;
 		console.log("PROCESS", from, to, this.set);
 		/*
 			i mark a favorite. I can see which human that is now clearly marked out
@@ -90,19 +90,14 @@ class Favorite{
 			for (let favorite_id in this.set[entity]){ 
 				let favorite = this.set[entity][favorite_id];
 				let where = `${from.split('-')[0]}-${from.split('-')[1]}`;
-				console.log(where, favorite.past_locations, !favorite.past_locations.includes(where));	
-				
-				if (!favorite.past_locations.includes(where)){
-					console.log("GO");
-					favorite.path[to] = where;
-					favorite.past_locations.push(where);
+				console.log('ding', to, favorite.past_locations, !favorite.past_locations.includes(to));	
+				if (favorite.past_locations.includes(from)){
+					delete favorite.past_locations[from];
+				} else if (!favorite.past_locations.includes(to)){
+					console.log("ADD");
+					favorite.past_locations.push(to);
 					continue;
-				}
-				console.log('DELETE');
-				delete favorite.path[to]; 
-				console.log(favorite.path[to]);
-				
-				
+				} 
 			}
 		}
 

@@ -50,7 +50,11 @@ class Input {
         //console.log(pressed);
         
         let directions = ['right', 'left', 'down', 'up'];
-        if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){
+        if (pressed == 'f' && juego.player.state.socializing != null){
+
+        } else if (pressed == 'f' && juego.player.state.shopping != null){
+
+        } else if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){
             //need to put acceptable marks
             juego.map.mark(juego.player.fetch_from(), pressed);
         } else if (pressed == 'Shift' && !juego.player.state.fighting){
@@ -86,7 +90,7 @@ class Input {
             return;
         }
         
-        ui.refresh();
+        ui.refresh.go();
     }
 
 }

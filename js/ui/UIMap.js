@@ -50,7 +50,14 @@ class UIMap {
 				}
 
                 if (juego.player.state.looking_at != null && juego.player.state.looking_at.x == x && juego.player.state.looking_at.y == y){
-                    cell_class += " looking_at ";
+                    cell_class += " looking_at ";					
+				} 
+				if (((map_at != null && map_at > 1 && map_at < 5) 
+					|| (map_at == Config.cell_class.indexOf('human') 
+					|| map_at == Config.cell_class.indexOf('shop')))
+					&&   juego.favorites.is_here(juego.map.format_at(juego.player.state.location_type, juego.player.state.location_id, x, y))){					
+								
+					cell_class += " favorite ";
                 }
 				
 				
@@ -58,6 +65,7 @@ class UIMap {
 			}
 			txt += "</div>"
 		}
-		document.getElementById('map_grid').innerHTML = txt;		
+		document.getElementById('map_grid').innerHTML = txt;
+			
 	}
 }

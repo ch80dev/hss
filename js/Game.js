@@ -1,4 +1,5 @@
 class Game{
+	favorites = new Favorite();
 	 humans = {
         alley: [],
         sewer: [],
@@ -40,6 +41,15 @@ class Game{
         return null;
 	}
 
+	fetch_human_by_id(id){
+		for (let human of this.humans[this.player.state.location_type][this.player.state.location_id]){			
+            if (human.id == id){
+                return human;
+            }
+        }
+        return null;
+	}
+
 	fetch_rat(location_type, location_id, x, y){
         for (let rat of this.rats[location_type][location_id]){			
             if (rat.x == x && rat.y == y){
@@ -48,6 +58,8 @@ class Game{
         }
         return null;
     }
+
+	
 
 	fetch_target(location_type, location_id, x, y){
 		let target = this.fetch_human(location_type, location_id, x, y);
@@ -87,6 +99,7 @@ class Game{
 	}
 
 	
+
 	next_turn(){
 	
 		this.player.status.change_stamina();
@@ -128,7 +141,7 @@ class Game{
             let open = this.map.queries.fetch_open();
             this.map.is(open.x, open.y, 7);
 			let are_they_homeless = rand_num(1, 100) <= Config.homeless_cent[location_type];
-			this.humans[location_type][id].push(new Human(open.x, open.y, are_they_homeless, this.map, this.player))
+			this.humans[location_type][id].push(new Human(id, open.x, open.y, are_they_homeless, this.map, this.player))
         }
     }
 
@@ -142,6 +155,8 @@ class Game{
             this.rats[location_type][id].push(new Rat(this.map, this.player, open.x, open.y))			
         }
     }
+
+	
 
 	rats_move(){		
 		
@@ -171,4 +186,6 @@ class Game{
 			}
 		}
 	}
+
+	
 }

@@ -34,7 +34,7 @@ class PlayerState{
     x = null;
     y = null;
     constructor(x, y){
-        this.money = rand_num(0, Config.homeless_money);
+        this.money = rand_num(0, HumanConfig.homeless_money);
         this.x = x;
         this.y = y;
         for (let item_name of Object.keys(Config.prices)){

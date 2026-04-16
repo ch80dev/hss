@@ -5,7 +5,11 @@ class UIShop{
         if (shop == null){
             return;
         }
-        let txt = `<div>${Config.shop_names[shop.type]}</div>`;
+        let favorite_symbol = `&#x2606;`;
+        if (juego.favorites.set.shop[shop.id] != undefined){
+            favorite_symbol = `&#x2605;`;
+        }
+        let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${Config.shop_names[shop.type]}</div>`
         if (shop.type == 'recycling'){
             txt += this.display_sell_generic(player, shop);
         } else if (shop.type == 'pawn'){

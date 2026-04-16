@@ -7,10 +7,15 @@ class Human extends Lifeform{
     resources = [];
     min_stigma_beg = null;
     max_stigma_tolerance = null;
+    name = null;
     stigma = null; 
-    constructor(x, y, are_they_homeless, map, player){
+    surname = null;
+
+    constructor(id, x, y, are_they_homeless, map, player){
+       
         //console.log(are_they_homeless);
         super('human', x, y, map);
+         this.id = id;
         this.map = map;
         this.player = player;
         this.homeless = are_they_homeless;
@@ -26,6 +31,8 @@ class Human extends Lifeform{
         }
         this.how_much_to_give_when_begged();        
         this.generate_interactions();
+        this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
+        this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
     }
     begged(){
         this.money -= this.give_when_begged;  
@@ -80,8 +87,8 @@ class Human extends Lifeform{
 
     generate_interactions(){
         let interactions = [];
-        while(interactions.length < Config.num_of_interactions_per_human ){
-            let rand = Config.interactions[rand_num(0, Config.interactions.length - 1)];
+        while(interactions.length < HumanConfig.num_of_interactions_per_human ){
+            let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
             if (!interactions.includes(rand)){
                 interactions.push(rand);
             }
@@ -90,8 +97,8 @@ class Human extends Lifeform{
         let n = 0;
         for (let id in  interactions){
             let interaction = interactions[id];
-            if (Config.interactions_for_money.includes(interaction)){
-                let inc = rand_num(1, Config.homeless_money);
+            if (HumanConfig.interactions_for_money.includes(interaction)){
+                let inc = rand_num(1, HumanConfig.homeless_money);
                 if (!this.homeless){
                     inc *= 10;
                 }
@@ -99,19 +106,19 @@ class Human extends Lifeform{
             }
             this.conversion[id] = null;
             this.resources[id] = null;
-            if (Config.interactions_for_resources.includes(interaction) && interaction == 'trade'){
+            if (HumanConfig.interactions_for_resources.includes(interaction) && interaction == 'trade'){
                 let first = this.generate_rand_item([]);
                 let second = this.generate_rand_item([first]);
                 this.resources[id] = { [first]: second };
                 this.conversion[id] = this.generate_conversion(first, second);
-                this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[first]), durability: 100 });
-                this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[second]), durability: 100 });
-            } else if (Config.interactions_for_resources.includes(interaction)){
+                this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / Config.prices[first]), durability: 100 });
+                this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / Config.prices[second]), durability: 100 });
+            } else if (HumanConfig.interactions_for_resources.includes(interaction)){
                 this.resources[id] = this.generate_rand_item([]);
                 
             }
             if (interaction == 'buy'){                                
-                this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, Config.homeless_money) / Config.prices[this.resources[id]]), durability: 100 });
+                this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / Config.prices[this.resources[id]]), durability: 100 });
                 this.conversion[id] = Number(Config.prices[this.resources[id]]  
                     +  (Config.prices[this.resources[id]] * rand_num(5, 100) * .01)).toFixed(2); 
             } else if (interaction == 'sell'){

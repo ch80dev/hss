@@ -2,7 +2,7 @@ TODO
     cant sell tool despite having one to humans    
     redo map loot and how i handled map data
     directions
-    inventory weight doesn't appear to be getting decremented when stuff is removed
+     be able to press f to set favorite
 LATER
         tools
             screw driver $5 5%  2dmg

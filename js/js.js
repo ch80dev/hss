@@ -1,6 +1,6 @@
 juego = new Game()
 ui = new UI()
-ui.refresh()
+ui.refresh.go()
 
 Config.audit();
 

@@ -17,7 +17,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite){
     background: #222222;
     border: 1px #222222 solid;
 }
@@ -89,4 +89,8 @@
 
 .trash{
     color: #8b5a2b;
+}
+
+.favorite:not(button) {
+    border: 1px #ff00ff solid;
 }

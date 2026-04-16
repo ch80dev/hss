@@ -16,7 +16,7 @@ class Input {
         if (juego.player.state.socializing == null){ // is this even possible?
             return;
         }
-        let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);        
+        let human = juego.fetch_human(juego.player.state.socializing);        
         if (human == null){
             return;
         }
@@ -51,9 +51,9 @@ class Input {
         
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){
-
+            juego.favorites.add('human', juego.player.state.socializing, juego);
         } else if (pressed == 'f' && juego.player.state.shopping != null){
-
+            juego.favorites.add('shop', juego.player.state.shopping, juego);
         } else if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){
             //need to put acceptable marks
             juego.map.mark(juego.player.fetch_from(), pressed);

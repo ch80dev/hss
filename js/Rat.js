@@ -1,8 +1,9 @@
 class Rat extends Lifeform{
     
 
-    constructor(map, player, x, y){
-        super('rat', x, y, map);
+    constructor(id, x, y, location_type, location_id, map, player){
+        super('rat', x, y, location_type, location_id, map);
+        this.id = id;
         this.map = map;
         this.player = player;
         let open = map.queries.fetch_adjacent(x, y, 1, true)[0];

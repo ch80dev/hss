@@ -6,6 +6,11 @@ class Lifeform {
     health = null;
     hungry = false;
     inventory = [];
+    location = {
+        id: null,
+        type: null,
+
+    }
     money = 0;
     sense_range = null;
     stamina = null;
@@ -15,7 +20,9 @@ class Lifeform {
     x = null;
     y = null;
 
-    constructor(type, x, y, map, dmg){        
+    constructor(type, x, y, location_type, location_id, map){        
+        this.location.type = location_type;
+        this.location.id = location_id;
         this.map = map;
         this.x = x;
         this.y = y;

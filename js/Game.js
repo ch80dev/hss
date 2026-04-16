@@ -1,19 +1,11 @@
 class Game{
 	favorites = new Favorite();
-	 humans = {
-        alley: [],
-        sewer: [],
-        street: [],
-    };
+	 humans = [];
 	input = new Input();
 	loop = new Loop();
 	player = null; // needs to before map;
 	map = new GameMap (Config.max_x, Config.max_y);
-	rats = {
-        alley: [],
-        sewer: [],
-        street: [],
-    };
+	rats = [];
 
 	shops = [];
 	time = {
@@ -27,23 +19,26 @@ class Game{
 		setInterval(this.loop.go(), Config.loop_interval_timing);
 		let open = this.map.queries.fetch_open();
 		this.player = new Player(open.x, open.y);
-		this.populate_with_rats('alley');
-		this.populate_with_humans('alley');
+		this.populate_with_rats('alley', 0);
+		this.populate_with_humans('alley', 0);
 		this.populate_shops();
 	}
 	
-	fetch_human(location_type, location_id, x, y){
-		for (let human of this.humans[location_type][location_id]){			
-            if (human.x == x && human.y == y){
+	fetch_human_by_loc(location_type, location_id, x, y){
+		for (let human of this.humans){			
+            if (human.location.type == location_type && human.location.id == location_id 
+				&& human.x == x && human.y == y){
                 return human;
             }
         }
         return null;
 	}
 
-	fetch_human_by_id(id){
-		for (let human of this.humans[this.player.state.location_type][this.player.state.location_id]){			
+	fetch_human(id){
+		console.log(id);
+		for (let human of this.humans){			
             if (human.id == id){
+				console.log(human.id, id);
                 return human;
             }
         }
@@ -51,8 +46,11 @@ class Game{
 	}
 
 	fetch_rat(location_type, location_id, x, y){
-        for (let rat of this.rats[location_type][location_id]){			
-            if (rat.x == x && rat.y == y){
+		//console.log(location_type, location_id, x, y);
+        for (let rat of this.rats){
+			//console.log(rat.location, rat.x, rat.y);
+            if (rat.location.type == location_type && rat.location.id == location_id 
+				&& rat.x == x && rat.y == y){
                 return rat;
             }
         }
@@ -62,7 +60,7 @@ class Game{
 	
 
 	fetch_target(location_type, location_id, x, y){
-		let target = this.fetch_human(location_type, location_id, x, y);
+		let target = this.fetch_human_by_loc(location_type, location_id, x, y);
 		if (target != null){
 			return target;
 		}
@@ -113,10 +111,9 @@ class Game{
 		}
 	}
 
-	populate(location_type){
-		//console.log(location_type);
-		this.populate_with_humans(location_type);
-		this.populate_with_rats(location_type);
+	populate(location_type, location_id){
+		this.populate_with_humans(location_type, location_id);
+		this.populate_with_rats(location_type, location_id);
 		this.populate_shops();
 	}
 
@@ -133,26 +130,24 @@ class Game{
 		//console.log(this.shops.length, this.map.shops.length);
 	}
 
-	populate_with_humans(location_type){
+	populate_with_humans(location_type, location_id){
         let num_of_humans = rand_num(Config.min_num_of_humans[location_type], Config.max_num_of_humans[location_type]);
-		let id = this.humans[location_type].length;
-		this.humans[location_type][id] = [];
+		let id = this.humans.length;		
         for (let i = 0; i < num_of_humans; i ++){
             let open = this.map.queries.fetch_open();
             this.map.is(open.x, open.y, 7);
 			let are_they_homeless = rand_num(1, 100) <= Config.homeless_cent[location_type];
-			this.humans[location_type][id].push(new Human(id, open.x, open.y, are_they_homeless, this.map, this.player))
+			this.humans.push(new Human(id, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player))
         }
     }
 
-	populate_with_rats(location_type){        
+	populate_with_rats(location_type, location_id){        
         let num_of_rats = rand_num(1, Config.max_num_of_rats[location_type]);        
-		let id = this.rats[location_type].length;
-		this.rats[location_type][id] = [];		
+		let id = this.rats.length;		
         for (let i = 0; i < num_of_rats; i ++){
             let open = this.map.queries.fetch_open();
             this.map.is(open.x, open.y, 6);			
-            this.rats[location_type][id].push(new Rat(this.map, this.player, open.x, open.y))			
+            this.rats.push(new Rat(id, open.x, open.y, location_type, location_id, this.map, this.player))			
         }
     }
 
@@ -160,8 +155,8 @@ class Game{
 
 	rats_move(){		
 		
-		for (let id in  this.rats[this.player.state.location_type][this.player.state.location_id]){					
-			let rat = this.rats[this.player.state.location_type][this.player.state.location_id][id];
+		for (let id in  this.rats){					
+			let rat = this.rats[id];
 			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
 			if (rat.dead){
 				continue;
@@ -172,8 +167,8 @@ class Game{
 			}
 			rat.move(id);
 		}
-		for (let id in  this.humans[this.player.state.location_type][this.player.state.location_id]){
-			let human = this.humans[this.player.state.location_type][this.player.state.location_id][id];					
+		for (let id in  this.humans){
+			let human = this.humans[id];					
 			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
 			if (human.dead){
 				continue;

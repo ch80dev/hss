@@ -11,10 +11,10 @@ class Human extends Lifeform{
     stigma = null; 
     surname = null;
 
-    constructor(id, x, y, are_they_homeless, map, player){
+    constructor(id, x, y, are_they_homeless, location_type, location_id, map, player){
        
         //console.log(are_they_homeless);
-        super('human', x, y, map);
+        super('human', x, y, location_type, location_id, map);
          this.id = id;
         this.map = map;
         this.player = player;

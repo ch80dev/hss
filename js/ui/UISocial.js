@@ -3,7 +3,8 @@ class UISocial{
 		if (juego.player.state.socializing == null){
 			return;
 		}
-		let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);
+		let human = juego.fetch_human(juego.player.state.socializing);
+		console.log(human);
 		let favorite_symbol = `&#x2606;`;
         if (juego.favorites.set.human[human.id] != undefined){
             favorite_symbol = `&#x2605;`;
@@ -24,7 +25,7 @@ class UISocial{
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)){
 				disabled = ' disabled ';			
 			}
-			let button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction}</button>`;
+			let button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction}</button>`;
 			
 			let resource = "";
 			if (typeof human.resources[id]  == 'object' && interaction == 'trade'){
@@ -43,7 +44,7 @@ class UISocial{
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				resource = `${human.resources[id]} [${juego.player.inventory.query.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
-				button = `<button id='interact-${id}-${human.x}-${human.y}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
+				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
 			} 

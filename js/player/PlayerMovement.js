@@ -30,7 +30,7 @@ class PlayerMovement{
         }
         map.wipe();  
         let start = map.generator.generate(Config.exit_types[exit_id], this.player.state.location_type);   
-        juego.populate(Config.exit_types[exit_id]);     
+        
         console.log(`Exploring to: ${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}`);
         map.locations[Config.exit_types[exit_id]].push(map.grid);
         let to = `${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
@@ -38,7 +38,7 @@ class PlayerMovement{
         map.location.type = this.player.state.location_type;
         this.player.state.location_id = map.locations[Config.exit_types[exit_id]].length - 1;
         map.location.id = this.player.state.location_id
-        
+        juego.populate(this.player.state.location_type, this.player.state.location_id);     
         this.player.state.x = start.x;
         this.player.state.y = start.y;
         
@@ -67,7 +67,6 @@ class PlayerMovement{
         };
         let pos = {x : this.player.state.x + directions[where].x, y: this.player.state.y + directions[where].y};
         let target = juego.fetch_target(this.player.state.location_type, this.player.state.location_id, pos.x, pos.y);
-
         if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
             return;
         }  

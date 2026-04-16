@@ -6,7 +6,7 @@ class UIMap {
 			for (let x = 0; x < Config.max_x; x ++){								
 				let cell_class = ' empty ';
 				let cell_txt = '';
-				let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, x, y);
+				let human = juego.fetch_human_by_loc(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let loot = juego.map.loot[`${juego.player.state.location_type}-${juego.player.state.location_id}-${x}-${y}`];
 				let map_at = juego.map.queries.at(x, y);
 				let mark = juego.map.queries.fetch_mark(juego.player.state.location_type, juego.player.state.location_id, x, y);
@@ -20,7 +20,7 @@ class UIMap {
 					cell_class = Config.cell_class[map_at];
 				}
 
-				if (map_at == 6 && juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y).hungry){
+				if (map_at == 6 && rat != null && rat.hungry){
 					cell_class = ' rat hungry';
 				} 
 

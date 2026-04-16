@@ -5,8 +5,8 @@ class Favorite{
 	} 
 
     add(type, id, juego){
-		//console.log(type, id, juego);
-		let favorite_target = juego.fetch_human_by_id(id);
+		console.log(type, id, juego);
+		let favorite_target = juego.fetch_human(id);
 		if (type == 'shop'){
 			favorite_target = juego.fetch_shop(id);
 		}
@@ -19,7 +19,6 @@ class Favorite{
 	}
 
     fetch_relevant(from, to){
-		console.log('relevant', from, to);
         let locations = [
             { type: from.split('-')[0], id: from.split('-')[1] },
             { type: to.split('-')[0], id: to.split('-')[1] },
@@ -41,7 +40,6 @@ class Favorite{
 				for (let to in favorite[id].path){
 					
                     for (let spot of favorite[id].path[to]){ 
-						console.log(spot, locations);
                         if ((spot.split('-')[0] == locations[0].type  && spot.split('-')[1] == locations[0].id)
                         || (spot.split('-')[0] == locations[1].type  && spot.split('-')[1] == locations[1].id)){
 						id_arr[entity].push([id, to]);
@@ -81,59 +79,19 @@ class Favorite{
 	}
 
     process(from, to){
-		console.log("PROCESS", from, to, this.set);
-		/*
-			i mark a favorite. I can see which human that is now clearly marked out
-			When I use an exit, that should be marked
-		*/
+		//console.log("PROCESS", from, to, this.set);		
 		for (let entity of Object.keys(this.set)){
 			for (let favorite_id in this.set[entity]){ 
 				let favorite = this.set[entity][favorite_id];
 				let where = `${from.split('-')[0]}-${from.split('-')[1]}`;
-				console.log('ding', to, favorite.past_locations, !favorite.past_locations.includes(to));	
 				if (favorite.past_locations.includes(from)){
 					delete favorite.past_locations[from];
 				} else if (!favorite.past_locations.includes(to)){
-					console.log("ADD");
 					favorite.past_locations.push(to);
 					continue;
 				} 
 			}
 		}
-
-				
-				
-		return;
-
-
-		
-		let relevant_favorites = this.fetch_relevant(from, to);
-        let removing = false;
-		console.log(relevant_favorites);
-		for (let entity of Object.keys(relevant_favorites)){
-			for (let  relevant of relevant_favorites[entity]){
-
-				let favorite_id = relevant[0];
-				let favorite = this.set[entity][favorite_id];
-				let spot_id = relevant[1];
-                console.log(this.is_here(to), this.is_here(from), spot_id, favorite.path[to]);
-                if (this.is_here(to) && this.is_here(from)){
-					console.log('removing');
-                    this.remove(from, to);		
-					removing = true;			
-                } else if (!removing && (spot_id == null || favorite.path[to] == undefined)){
-					console.log('add new');
-					favorite.path[to] = [`${from.split('-')[0]}-${from.split('-')[1]}`];					
-                } else if (!removing && (favorite.path[to] != undefined)){
-					console.log('add push');
-                    favorite.path[to].push(`${from.split('-')[0]}-${from.split('-')[1]}`);
-				}
-                //if favorite path to happens more than once it overwrites it
-				console.log(favorite_id, spot_id);
-				
-			}
-		}
-		console.log(this.set);
 	}
 
     remove(from, to){

@@ -54,7 +54,7 @@ $(document).on('click', '.favorite', function() {
 });
 
 $(document).on('click', '.interact:not(.trade)', function(e) {
-    let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, Number(this.id.split('-')[2]), Number(this.id.split('-')[3]));
+    let human = juego.fetch_human(Number(this.id.split('-')[1]));
     if (human == null){
         return;
     }
@@ -129,7 +129,7 @@ $(document).on('click', '#take_all_loot', function() {
 
 
 $(document).on('click', '.trade', function(e) {
-    let human = juego.fetch_human(juego.player.state.location_type, juego.player.state.location_id, juego.player.state.socializing.x, juego.player.state.socializing.y);
+    let human = juego.fetch_human(Number(this.id.split('-')[1]));
     if (human == null){
         return;
     }

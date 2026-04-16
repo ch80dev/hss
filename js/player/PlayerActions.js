@@ -11,7 +11,7 @@ class PlayerActions {
         if (map_at == Config.cell_class.indexOf('rat')){
             target = juego.fetch_rat(this.player.state.location_type, this.player.state.location_id, x, y);
         } else if (map_at == Config.cell_class.indexOf('human')){
-            target = juego.fetch_human(this.player.state.location_type, this.player.state.location_id, x, y);
+            target = juego.fetch_human_by_loc(this.player.state.location_type, this.player.state.location_id, x, y);
         }
         this.player.status.change_stamina_delta(Config.stamina_cost['attack']);
         let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
@@ -201,7 +201,7 @@ class PlayerActions {
 
     social(x, y, juego){
         //console.log('social', x, y, juego);
-        let human = juego.fetch_human(this.player.state.location_type, this.player.state.location_id, x, y);
+        let human = juego.fetch_human_by_loc(this.player.state.location_type, this.player.state.location_id, x, y);
         if (human == null){
             return;
         }
@@ -210,7 +210,7 @@ class PlayerActions {
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }
-        this.player.state.socializing = {x: x, y: y};
+        this.player.state.socializing = human.id;
         ui.change_screen('social');
 
     }

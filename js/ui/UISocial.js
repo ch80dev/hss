@@ -4,7 +4,7 @@ class UISocial{
 			return;
 		}
 		let human = juego.fetch_human(juego.player.state.socializing);
-		console.log(human);
+		//console.log(human);
 		let favorite_symbol = `&#x2606;`;
         if (juego.favorites.set.human[human.id] != undefined){
             favorite_symbol = `&#x2605;`;

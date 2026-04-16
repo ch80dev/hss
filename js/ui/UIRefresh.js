@@ -13,7 +13,7 @@ class UIRefresh {
 		this.ui.loot.display();
 		
 		this.ui.social.display();
-		
+		this.ui.display_favorites();
 		let health_cent = juego.player.state.health / juego.player.state.max_health * 100;
 		let stamina_cent = juego.player.state.stamina / juego.player.state.max_stamina * 100;
 		

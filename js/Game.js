@@ -1,6 +1,6 @@
 class Game{
 	favorites = new Favorite();
-	 humans = [];
+	humans = [];
 	input = new Input();
 	loop = new Loop();
 	player = null; // needs to before map;
@@ -35,10 +35,10 @@ class Game{
 	}
 
 	fetch_human(id){
-		console.log(id);
+		//console.log(id);
 		for (let human of this.humans){			
             if (human.id == id){
-				console.log(human.id, id);
+				//console.log(human.id, id);
                 return human;
             }
         }

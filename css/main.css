@@ -29,6 +29,17 @@ body:has(#loot:not(.hidden)){
     text-align: center;
     width: 100%;
 }
+
+.favorite_entry{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 15px;
+}
+.favorite_context{
+    
+    margin-left: 50px;
+}
 .heading{
     font-weight: bold;
     color: black;

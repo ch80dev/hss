@@ -47,13 +47,17 @@ class Input {
     }
 
     press_key(pressed){
-        //console.log(pressed);
+        console.log(pressed, ui.screen_focused);
         
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){
             juego.favorites.add('human', juego.player.state.socializing, juego);
         } else if (pressed == 'f' && juego.player.state.shopping != null){
-            juego.favorites.add('shop', juego.player.state.shopping, juego);
+            juego.favorites.add('shop', juego.player.state.shopping, juego);    
+        } else if (pressed == 'f'){
+            ui.change_screen('favorites');  
+        } else if (pressed == 'Escape' && ui.screen_focused == 'favorites'){
+            ui.change_screen('map');        
         } else if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){
             //need to put acceptable marks
             juego.map.mark(juego.player.fetch_from(), pressed);

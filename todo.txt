@@ -3,6 +3,11 @@ TODO
     redo map loot and how i handled map data
     directions
      be able to press f to set favorite
+     begging resets the next day
+     when your inventory is full, explain that's why you can't buy.
+     show prices for recycling on recylcing screen just to let player know
+     enable numbers for recycling buttons
+     make the list of items alphabetical in inventory
 LATER
         tools
             screw driver $5 5%  2dmg
@@ -63,3 +68,4 @@ BUGS
 DESIGN
     can't meaningfully keep track of where stuff instead
         what if you can create chalk marks ? YES
+    with marking, I can keep track of stuff but it still feels very overwhelming. like i feel like there's a good trade route somewhere but I can't meaningfully keep track in any way

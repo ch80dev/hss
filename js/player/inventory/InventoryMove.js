@@ -4,6 +4,7 @@ class InventoryMove{
     }
 
     change_weight(delta){
+        console.log('change_weight: NaN bug', delta);
         this.player.state.inventory_weight += delta;
     }
     delete(name, item_id){
@@ -58,7 +59,7 @@ class InventoryMove{
             console.log('error');
             return;
         }
-        let item = this.fetch.by_name(name);
+        let item = this.player.inventory.fetch.by_name(name);
         this.change_weight(-this.player.inventory.query.fetch_weight(name, quantity));
        if (Config.stackable.includes(name)){            
             item.quantity -= quantity;        

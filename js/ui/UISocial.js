@@ -13,7 +13,6 @@ class UISocial{
 		for (let id in human.interactions){			
 			let disabled = '';
 			let interaction = human.interactions[id];
-			//console.log(interaction, juego.player.state.money,  human.resources[id], human.conversion[id]);
 			
 			if ((interaction == 'buy' && juego.player.inventory.query.are_they_full() 
 					&& ((Config.stackable.includes(human.resources[id]) 
@@ -21,8 +20,9 @@ class UISocial{
 					|| !Config.stackable.includes(human.resources[id]) ))
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && !juego.player.inventory.query.do_they_have(human.resources[id], 1))
-				|| (interaction == 'beg' && human.last_begged != null)
-				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)){
+				|| (interaction == 'beg' && human.begging_unlocked !== true)
+				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
+				|| (interaction == 'beg' && human.begging_unlocked !== true)){
 				disabled = ' disabled ';			
 			}
 			let button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction}</button>`;

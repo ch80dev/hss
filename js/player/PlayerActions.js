@@ -63,19 +63,18 @@ class PlayerActions {
         ui.change_screen('shop');
     }
 
-    interact(id, human){
-        
-        //console.log(id, human);
+    interact(id, human, time){
+        //console.log(id, human, time);
         if (human.interactions[id] == undefined){
             console.log('error');
             return;
         }
-        let interaction = human.interactions[id];        
-        if (interaction == 'beg' && human.last_begged == null 
+        let interaction = human.interactions[id];       
+        if (interaction == 'beg' && human.begging_unlocked == true 
             && this.player.state.stigma >= human.min_stigma_beg){            
             this.player.state.money += human.give_when_begged;                      
             ui.log(`They gave you $${human.give_when_begged}.`)
-            human.begged();
+            human.begged(time);
         } else if (interaction == 'buy' 
             && this.player.state.money >= human.conversion[id] 
             && this.player.inventory.query.can_they_take(human.resources[id], 1)){ 

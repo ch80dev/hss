@@ -19,7 +19,6 @@ $(document).on('click', '.cell:not(.empty)', function() {
 
 $(document).on('click', '#auto_loot', function() {
     juego.player.state.auto_loot = $("#auto_loot").prop('checked');
-    console.log(juego.player.state.auto_loot);
     ui.refresh.go();
 });
 
@@ -54,11 +53,11 @@ $(document).on('click', '.favorite', function() {
 });
 
 $(document).on('click', '.interact:not(.trade)', function(e) {
-    let human = juego.fetch_human(Number(this.id.split('-')[1]));
+    let human = juego.fetch_human(juego.player.state.socializing);
     if (human == null){
         return;
     }
-    juego.player.actions.interact(Number(this.id.split('-')[1]), human);
+    juego.player.actions.interact(Number(this.id.split('-')[1]), human, juego.time);
     ui.refresh.go();
 });
 
@@ -129,7 +128,7 @@ $(document).on('click', '#take_all_loot', function() {
 
 
 $(document).on('click', '.trade', function(e) {
-    let human = juego.fetch_human(Number(this.id.split('-')[1]));
+    let human = juego.fetch_human(juego.player.state.socializing);
     if (human == null){
         return;
     }

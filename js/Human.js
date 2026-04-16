@@ -3,7 +3,7 @@ class Human extends Lifeform{
     give_when_begged = null;
     homeless = false;
     interactions = {};
-    last_begged = null;
+    begging_unlocked = true;
     resources = [];
     min_stigma_beg = null;
     max_stigma_tolerance = null;
@@ -16,6 +16,7 @@ class Human extends Lifeform{
         //console.log(are_they_homeless);
         super('human', x, y, location_type, location_id, map);
          this.id = id;
+         console.log(id);
         this.map = map;
         this.player = player;
         this.homeless = are_they_homeless;
@@ -34,9 +35,12 @@ class Human extends Lifeform{
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
     }
-    begged(){
+    begged(time){
+        console.log(time, this.give_when_begged);
+
         this.money -= this.give_when_begged;  
-        this.last_begged = true;
+        this.begging_unlocked = { days: time.days + 1, hours: time.hours};
+        console.log(this.begging_unlocked);
         this.how_much_to_give_when_begged();
     }
 

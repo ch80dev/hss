@@ -137,7 +137,7 @@ class Game{
             let open = this.map.queries.fetch_open();
             this.map.is(open.x, open.y, 7);
 			let are_they_homeless = rand_num(1, 100) <= Config.homeless_cent[location_type];
-			this.humans.push(new Human(id, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player))
+			this.humans.push(new Human(id + i, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player))
         }
     }
 
@@ -178,6 +178,9 @@ class Game{
 			if (human.attacking_player && distance < 2 ){
 				//console.log("go");
 				human.attack_player(juego.player);
+			}
+			if (human.begging_unlocked.days >= this.time.days && human.begging_unlocked.hours >= this.time.hours){
+				human.begging_unlocked = true;
 			}
 		}
 	}

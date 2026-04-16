@@ -47,7 +47,7 @@ class Input {
     }
 
     press_key(pressed){
-        console.log(pressed, ui.screen_focused);
+        //console.log(pressed, ui.screen_focused);
         
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){

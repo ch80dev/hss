@@ -11,6 +11,7 @@ class UIShop{
         }
         let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${Config.shop_names[shop.type]}</div>`
         if (shop.type == 'recycling'){
+            txt += this.display_recycling();
             txt += this.display_sell_generic(player, shop);
         } else if (shop.type == 'pawn'){
             for (let resource of Config.shop_resources[shop.type]){
@@ -33,6 +34,14 @@ class UIShop{
             return `${txt} <div><button id='rent_a_room' class='rent_a_room' ${disabled}>rent a room for $${Config.motel_room_cost}</button></div>`
         }
         return `${txt} <div><button id='sleep_at_shop'>sleep</button> </div>`
+    }
+
+    display_recycling(){
+        let txt = "";
+        for (let item of Config.shop_resources.recycling){
+            txt += `<div>${item} $${Config.prices[item]}</div>`;
+        }
+        return txt;
     }
 
     display_sell_generic(player, shop){

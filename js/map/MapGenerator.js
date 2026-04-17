@@ -138,6 +138,7 @@ class MapGenerator {
         if (this.map.shops_generated.length >= Config.shop_types.length){
             return null;
         }
+        return 'recycling';
         while (true){
             let rand_type = Config.shop_types[rand_num(0, Config.shop_types.length - 1)];
             if (!this.map.shops_generated.includes(rand_type)){

@@ -4,7 +4,6 @@ TODO
     directions
     
     when your inventory is full, explain that's why you can't buy.
-    show prices for recycling on recylcing screen just to let player know
     enable numbers for recycling buttons
     make the list of items alphabetical in inventory
     rats_move error now

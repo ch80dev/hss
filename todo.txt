@@ -1,8 +1,7 @@
 TODO   
     cant sell tool despite having one to humans    
     redo map loot and how i handled map data
-    directions
-    
+    directions    
     when your inventory is full, explain that's why you can't buy.
     enable numbers for recycling buttons
     make the list of items alphabetical in inventory

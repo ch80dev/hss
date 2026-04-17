@@ -6,11 +6,16 @@ class UIMap {
 			for (let x = 0; x < Config.max_x; x ++){								
 				let cell_class = ' empty ';
 				let cell_txt = '';
+				let distance_from_player = juego.map.queries.fetch_distance(x, y, juego.player.state.x, juego.player.state.y);
 				let human = juego.fetch_human_by_loc(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let loot = juego.map.loot[`${juego.player.state.location_type}-${juego.player.state.location_id}-${x}-${y}`];
 				let map_at = juego.map.queries.at(x, y);
 				let mark = juego.map.queries.fetch_mark(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
+				if (juego.darkness && distance_from_player >= 2){
+					txt += `<div id='cell-${x}-${y}' class='cell ${cell_class}'>${cell_txt}</div>`
+					continue;
+				}
 				  
 				if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && human.homeless){
 					cell_class = ' human homeless ';

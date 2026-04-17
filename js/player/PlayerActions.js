@@ -165,11 +165,20 @@ class PlayerActions {
         
     }
 
+    sell_all_recycling(shop){
+        if (shop == null){
+            return;
+        }
+        for (let resource_id in shop.resources){
+            this.sell_to_shop(resource_id, shop);
+        }
+    }
+
     sell_to_shop(resource_id, shop){
         
         let resource = shop.resources[resource_id];
         if (resource == undefined || (resource != undefined && !this.player.inventory.queries.is_in_inventory(resource))){
-            console.log('error');
+            console.log('error: this is okay if you did sell_all_recycling');
             return;
         }
         let item = this.player.inventory.fetch.by_name(resource);

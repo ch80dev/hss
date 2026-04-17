@@ -81,6 +81,17 @@ $(document).on('click', '#rent_a_room', function() {
     shop.rent_a_room(juego.player);
     ui.refresh.go();
 });
+$(document).on('click', '#sell_all_recycling', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.fetch_shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    juego.player.actions.sell_all_recycling(shop);
+    ui.refresh.go();
+});
 
 $(document).on('click', '.sell_to_shop', function() {
     if (juego.player.state.shopping == null){

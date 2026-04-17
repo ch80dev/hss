@@ -1,6 +1,5 @@
 TODO       
     directions        
-    enable numbers for recycling buttons
     make the list of items alphabetical in inventory
     
     

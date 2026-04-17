@@ -18,13 +18,17 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite){
-    background: #222222;
-    border: 1px #222222 solid;
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark){
+    background: #444444;
+    border: 1px #444444 solid;
+}
+.dark {
+    background: #000000;
+    border: 1px #000000 solid;
 }
 .cell.empty{
-    background: #111111;
-    border: 1px #111111 solid;
+    background: #222222;
+    border: 1px #222222 solid;
 }
 
 .citizen {

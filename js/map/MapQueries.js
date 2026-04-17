@@ -104,6 +104,18 @@ class MapQueries{
             }
         }
     }
+    
+    fetch_open_with_distance(x, y, target_distance){
+        
+        while(true){
+            let open = this.fetch_open()
+            let distance = this.fetch_distance(x, y, open.x, open.y );
+            if (distance == target_distance ){
+                return open;
+            }
+        }
+        
+    }
 
 
 
@@ -140,7 +152,10 @@ class MapQueries{
     }
 
     is_in_the_light(location_type, location_id, x, y){
-        console.log(this.map.lights);
+        //console.log(location_type, location_id, x, y);
+        if (location_type == 'sewer'){
+            return false;
+        }
         for (let light of this.map.lights[location_type][location_id]){
             let distance = this.fetch_distance(x, y, light.x, light.y );
             if (distance >= 2 ){

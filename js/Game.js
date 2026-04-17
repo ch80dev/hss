@@ -111,6 +111,14 @@ class Game{
 		} else {
 			this.forward_time(0, 5);	
 		}
+		console.log(this.night, this.time.hours);
+		if (!this.night && this.time.hours >= Config.night_time[0]){
+			ui.log("It's night time now.")
+			this.night = true;
+		}else if (this.night && this.time.hours <= Config.night_time[1]){
+			ui.log("It's day time now.")
+			this.night = false;
+		}
 	}
 
 	populate(location_type, location_id){

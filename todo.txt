@@ -6,6 +6,7 @@ TODO
     enable numbers for recycling buttons
     make the list of items alphabetical in inventory
     rats_move error now
+    make inventory query into inventories queries
 LATER
         tools
             screw driver $5 5%  2dmg

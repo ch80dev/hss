@@ -8,6 +8,7 @@ class Config {
 	}
 
 	static days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", 'Friday', "saturday", "Sunday"];
+	static night_time = [20, 6]
 	static lifeforms = {
 		human: {
 			sense_range: 10,

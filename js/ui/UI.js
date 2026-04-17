@@ -68,7 +68,7 @@ class UI{
 	display_location_name(){
 		let name = juego.map.names[juego.player.state.location_type][juego.player.state.location_id];
 		let txt = "";
-		//console.log(name);
+		//console.log("BUG", name, juego.player.state.location_type, juego.player.state.location_id);
 		if (juego.player.state.location_type == 'street'){			
 			$("#location_name").html(name + " Street");
 			return;
@@ -77,6 +77,7 @@ class UI{
 		if (juego.player.state.location_type == 'sewer'){
 			txt = " sewer beneath ";
 		}
+		
 		for (let connected_street of name.connecting){
 			txt += `${connected_street}`;
 			if (name.length[connected_street] != null ){

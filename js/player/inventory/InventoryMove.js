@@ -83,6 +83,13 @@ class InventoryMove{
         this.drop_item(id, map);
     }
 
+    sort(){
+        this.player.state.inventory = this.player.state.inventory.sort((a, b) => {
+            // localeCompare returns -1, 0, or 1 depending on the alphabetical order
+            return a.name.localeCompare(b.name);
+        });
+    }
+
     stack_item_in_inventory(what, n){
         for (let item of this.player.state.inventory){
             if (item.name == what){
@@ -91,4 +98,5 @@ class InventoryMove{
             }
         }
     }
+
 }

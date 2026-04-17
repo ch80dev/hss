@@ -1,6 +1,7 @@
 class PlayerInventory {
     
     constructor(player){
+        this.id = 0;
         this.player = player;
         this.fetch = new InventoryFetch(this.player);    
         this.move = new InventoryMove(this.player);
@@ -10,7 +11,10 @@ class PlayerInventory {
 
     }
 
-    
+    next_id(){
+        this.id ++;
+        return this.id;
+    }
 
     
 

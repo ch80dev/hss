@@ -3,10 +3,12 @@ class InventoryFetch{
         this.player = player;
     }
     by_id(id){
-        if (this.player.state.inventory[id] == undefined){
-            return null;
+        for (let item of this.player.state.inventory){
+            if (item.id == id){
+                return item;
+            }
         }
-        return this.player.state.inventory[id];
+        return null;
     }
 
     all_items(arr){

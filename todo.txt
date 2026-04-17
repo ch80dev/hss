@@ -1,6 +1,5 @@
 TODO       
     directions        
-    make the list of items alphabetical in inventory
     
     
 ABANDONED

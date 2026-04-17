@@ -47,7 +47,10 @@ class PlayerActions {
             console.log('error');
             return;
         }   
-        this.player.state.inventory.push(shop.inventory.splice(inventory_id, 1)[0]);
+        let new_item = shop.inventory.splice(inventory_id, 1)[0];
+        new_item.id = this.player.inventory.next_id();
+        this.player.state.inventory.push(new_item);
+        this.player.inventory.move.sort();
         this.player.status.change_money(-Config.prices[item.name]);
 
     }

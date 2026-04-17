@@ -24,12 +24,14 @@ class InventoryTake {
             this.player.inventory.move.stack_item_in_inventory(name, quantity);
             return;
         } else if (Config.stackable.includes(name)){
-            this.player.state.inventory.push({ name: name, quantity: quantity, durability: 100 });
+            this.player.state.inventory.push({ name: name, quantity: quantity, durability: 100, id: this.player.inventory.next_id()});
+            this.player.inventory.move.sort();
             return;
         }
         while(this.player.state.inventory.length < this.player.state.slots_in_inventory){
-            this.player.state.inventory.push({ name: name, quantity: 1, durability: 100});
+            this.player.state.inventory.push({ name: name, quantity: 1, durability: 100, id: this.player.inventory.next_id()});
         }
+        this.player.inventory.move.sort();
     }
 
     all(map){
@@ -77,8 +79,11 @@ class InventoryTake {
             this.player.inventory.move.stack_item_in_inventory(what, map.loot[at].stuff[id].quantity);
             map.loot[at].stuff.splice(id, 1)
         } else {
-            this.player.state.inventory.push(map.loot[at].stuff.splice(id, 1)[0]);        
+            let item = map.loot[at].stuff.splice(id, 1)[0];
+            item.id = this.player.inventory.next_id();
+            this.player.state.inventory.push(item);        
         }
+        this.player.inventory.move.sort();
         let map_at = map.queries.at(this.player.state.x, this.player.state.y);
         if (map.loot[at].stuff.length == 0 && (map_at == 5 || Config.attackable.includes(map_at)) ){
             map.is(this.player.state.x, this.player.state.y, 1);

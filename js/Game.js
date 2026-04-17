@@ -1,5 +1,6 @@
 class Game{
-	darkness = true;
+	facing = 'up';
+	night = true;
 	favorites = new Favorite();
 	humans = [];
 	input = new Input();

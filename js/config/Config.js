@@ -31,10 +31,10 @@ class Config {
 
 
 	//ITEM
-	static degradable = ['pipe', 'bat', 'knife', 'hatchet', 'machete','lighter',  'tool'];
-	static equipable = ['pipe', 'bat', 'knife', 'hatchet', 'machete', 'tool'];
+	static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  'tool'];
+	static equipable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'tool'];
 	static food_gain = [10, 30];
-	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'aluminum can', 'glass bottle', 'plastic bottle', 'tool', 'bat', 'knife', 'hatchet', 'machete'];
+	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'tool', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
 	static meat = {
 		human: 100,
 		rat: 1,
@@ -45,9 +45,11 @@ class Config {
 		crate: 8,
 		drugs: 50,
 		food: 4, 
+		flashlight: 5,
 		'food (spoiled)': .5,
 		fuel: 4,
 		'glass bottle': .05,
+		lantern: 15,
 		lighter: 2, 
 		medicine: 15,		
 		'medicine (expired)': 2, 

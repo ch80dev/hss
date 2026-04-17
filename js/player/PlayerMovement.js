@@ -59,6 +59,7 @@ class PlayerMovement{
 
 
      move(where, map, juego){
+        juego.facing = where;
         let directions = {
             up: { x: 0, y: -1 },
             right: { x: 1, y: 0 },

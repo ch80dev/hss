@@ -12,10 +12,35 @@ class UIMap {
 				let map_at = juego.map.queries.at(x, y);
 				let mark = juego.map.queries.fetch_mark(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
-				if (juego.darkness && distance_from_player >= 2){
-					txt += `<div id='cell-${x}-${y}' class='cell ${cell_class}'>${cell_txt}</div>`
+				let is_lit = false;
+				let has_flashlight = juego.player.inventory.query.is_equipped_with('flashlight');
+				let has_lantern = juego.player.inventory.query.is_equipped_with('lantern');
+
+				// 1. Base Vision & Lantern (Circular)
+				if (distance_from_player < 2 || (has_lantern && distance_from_player < 4)) {
+					is_lit = true;
+				}
+
+				// 2. Flashlight (Cone)
+				if (!is_lit && has_flashlight && distance_from_player < 6) {
+					let dx = x - juego.player.state.x;
+					let dy = y - juego.player.state.y;
+
+					if (juego.facing == 'up'    && dy < 0 && Math.abs(dx) <= Math.abs(dy)) is_lit = true;
+					if (juego.facing == 'down'  && dy > 0 && Math.abs(dx) <= Math.abs(dy)) is_lit = true;
+					if (juego.facing == 'left'  && dx < 0 && Math.abs(dy) <= Math.abs(dx)) is_lit = true;
+					if (juego.facing == 'right' && dx > 0 && Math.abs(dy) <= Math.abs(dx)) is_lit = true;
+				}
+
+				// 3. The "Darkness" Skip
+				if (juego.night && !is_lit) {
+					// We draw the ID so the DOM stays consistent, but the content is blank
+					txt += `<div id='cell-${x}-${y}' class='cell empty'></div>`;
 					continue;
 				}
+
+
+				
 				  
 				if (map_at != null && map_at == Config.cell_class.indexOf('human') && human != null && human.homeless){
 					cell_class = ' human homeless ';

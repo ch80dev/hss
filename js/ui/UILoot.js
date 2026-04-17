@@ -36,7 +36,7 @@ class UILoot{
             let auto_loot = "";
             
            
-			let can_they_take = juego.player.inventory.query.can_they_take(item, n);
+			let can_they_take = juego.player.inventory.queries.can_they_take(item, n);
 			let can_take = "";
 			let equipable = "";
 			let usable = "";

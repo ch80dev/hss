@@ -40,7 +40,7 @@ class InventoryMove{
     drop_item(id, map){
         let at = this.player.fetch_from();
         let item = this.player.state.inventory[id];
-        this.change_weight(-this.player.inventory.query.fetch_weight(item.name, 1));
+        this.change_weight(-this.player.inventory.queries.fetch_weight(item.name, 1));
         if (Config.stackable.includes(item.name) && map.queries.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.delete(null, id);
@@ -55,12 +55,12 @@ class InventoryMove{
     }
 
      give_to_human(name, quantity, human){
-        if (!this.player.inventory.query.do_they_have(name, quantity)){
+        if (!this.player.inventory.queries.do_they_have(name, quantity)){
             console.log('error');
             return;
         }
         let item = this.player.inventory.fetch.by_name(name);
-        this.change_weight(-this.player.inventory.query.fetch_weight(name, quantity));
+        this.change_weight(-this.player.inventory.queries.fetch_weight(name, quantity));
        if (Config.stackable.includes(name)){            
             item.quantity -= quantity;        
         }

@@ -8,11 +8,11 @@ class InventoryTake {
         if (!human.do_they_have(name, quantity)){
             console.log("error: they don't got this.");
             return;
-        } else if (!this.player.inventory.query.can_they_take(name, quantity)){
+        } else if (!this.player.inventory.queries.can_they_take(name, quantity)){
             console.log('error');
             return;
         }
-        this.player.inventory.move.change_weight(this.player.inventory.query.fetch_weight(name, quantity));
+        this.player.inventory.move.change_weight(this.player.inventory.queries.fetch_weight(name, quantity));
         let npc_item = human.fetch_item(name);
         if (npc_item.quantity == quantity){
             human.delete_item(name);
@@ -20,7 +20,7 @@ class InventoryTake {
             npc_item.quantity -= quantity;
         }
 
-        if (Config.stackable.includes(name) && this.player.inventory.query.is_in_inventory(name)){
+        if (Config.stackable.includes(name) && this.player.inventory.queries.is_in_inventory(name)){
             this.player.inventory.move.stack_item_in_inventory(name, quantity);
             return;
         } else if (Config.stackable.includes(name)){
@@ -63,17 +63,17 @@ class InventoryTake {
         let at = this.player.fetch_from();
         //console.log(id, map.loot[at].stuff)
         if (map.loot[at] == undefined 
-            || (map.loot[at] != undefined && !this.player.inventory.query.can_they_take(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity))){
+            || (map.loot[at] != undefined && !this.player.inventory.queries.can_they_take(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity))){
             return false;
         }
         let txt = `${map.loot[at].stuff[id].quantity} ${map.loot[at].stuff[id].name}`;
-        let weight = this.player.inventory.query.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
+        let weight = this.player.inventory.queries.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
         let what = map.loot[at].stuff[id].name;
         //console.log(weight);
         this.player.inventory.move.change_weight(weight);
         
 
-        if (Config.stackable.includes(what) && this.player.inventory.query.is_in_inventory(what)){
+        if (Config.stackable.includes(what) && this.player.inventory.queries.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, map.loot[at].stuff[id].quantity);
             map.loot[at].stuff.splice(id, 1)
         } else {

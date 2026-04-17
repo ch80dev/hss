@@ -27,7 +27,7 @@ class InventoryUse{
         let item = this.player.state.inventory[id];
         let medicine_works = rand_num(1, 10) == 1;
         //console.log(id, item);
-        if (!this.player.inventory.query.can_they_use(item.name, map)){
+        if (!this.player.inventory.queries.can_they_use(item.name, map)){
             console.log('cant use');
             return;
         }

@@ -43,7 +43,7 @@ class PlayerActions {
 
     buy_unique(inventory_id, shop){
         let item = shop.inventory[inventory_id];
-        if (item == undefined || (item != undefined && this.player.state.money < Config.prices[item.name]) || this.player.inventory.query.are_they_full()){
+        if (item == undefined || (item != undefined && this.player.state.money < Config.prices[item.name]) || this.player.inventory.queries.are_they_full()){
             console.log('error');
             return;
         }   
@@ -77,11 +77,11 @@ class PlayerActions {
             human.begged(time);
         } else if (interaction == 'buy' 
             && this.player.state.money >= human.conversion[id] 
-            && this.player.inventory.query.can_they_take(human.resources[id], 1)){ 
+            && this.player.inventory.queries.can_they_take(human.resources[id], 1)){ 
             this.player.state.money -= human.conversion[id];
             this.player.inventory.take.from_human(human.resources[id], 1, human);
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
-        } else if (interaction == 'sell' && this.player.inventory.query.do_they_have(human.resources[id], 1)){ 
+        } else if (interaction == 'sell' && this.player.inventory.queries.do_they_have(human.resources[id], 1)){ 
             this.player.inventory.move.give_to_human(human.resources[id], 1, human);
             this.player.money += human.conversion[id];
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
@@ -168,7 +168,7 @@ class PlayerActions {
     sell_to_shop(resource_id, shop){
         
         let resource = shop.resources[resource_id];
-        if (resource == undefined || (resource != undefined && !this.player.inventory.query.is_in_inventory(resource))){
+        if (resource == undefined || (resource != undefined && !this.player.inventory.queries.is_in_inventory(resource))){
             console.log('error');
             return;
         }
@@ -234,9 +234,9 @@ class PlayerActions {
         
         
         
-        if (!this.player.inventory.query.do_they_have(player_resource, player_quantity) 
+        if (!this.player.inventory.queries.do_they_have(player_resource, player_quantity) 
             || !human.do_they_have(human_resource, human_quantity)){
-            console.log('not enough', player_resource, player_quantity, this.player.inventory.query.do_they_have(player_resource, player_quantity), human_resource, human_quantity, human.do_they_have(human_resource, human_quantity));
+            console.log('not enough', player_resource, player_quantity, this.player.inventory.queries.do_they_have(player_resource, player_quantity), human_resource, human_quantity, human.do_they_have(human_resource, human_quantity));
             return;
         }
         this.player.inventory.move.give_to_human(player_resource, player_quantity, human);

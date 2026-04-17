@@ -53,7 +53,7 @@ class UIShop{
                 min_quantity = 1;
             }
             let resource = Config.shop_resources[shop.type][id];
-            if (!player.inventory.query.do_they_have(resource, min_quantity)){
+            if (!player.inventory.queries.do_they_have(resource, min_quantity)){
                 disabled = ' disabled ';
             }
             txt += `<button id='sell_to_shop-${id}' class='sell_to_shop' ${disabled}> sell ${shop.selling} ${resource}</button>`
@@ -66,7 +66,7 @@ class UIShop{
             let item = shop.inventory[id];
             let disabled = "";
             let price = Config.prices[item.name];
-            if (player.state.money < Config.prices[item.name] || player.inventory.query.are_they_full()){
+            if (player.state.money < Config.prices[item.name] || player.inventory.queries.are_they_full()){
                 disabled = ' disabled ';
             }
             txt += `<button id='buy_unique-${id}' class='buy_unique' ${disabled}>buy ${item.name} (${item.durability}%)</button>`

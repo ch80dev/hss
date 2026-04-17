@@ -13,8 +13,8 @@ class UIMap {
 				let mark = juego.map.queries.fetch_mark(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let rat = juego.fetch_rat(juego.player.state.location_type, juego.player.state.location_id, x, y);
 				let is_lit = false;
-				let has_flashlight = juego.player.inventory.query.is_equipped_with('flashlight');
-				let has_lantern = juego.player.inventory.query.is_equipped_with('lantern');
+				let has_flashlight = juego.player.inventory.queries.is_equipped_with('flashlight');
+				let has_lantern = juego.player.inventory.queries.is_equipped_with('lantern');
 
 				// 1. Base Vision & Lantern (Circular)
 				if (distance_from_player < 2 || (has_lantern && distance_from_player < 4)) {

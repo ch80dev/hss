@@ -5,6 +5,10 @@ class GameMap {
     first_shop = true;
     grid = [];   
     last_street = null;
+    lights = {
+        alley: [],
+        street: [],
+    }
     location = { type: 'alley', id: 0 }; 
     locations = {
         alley: [],
@@ -36,7 +40,7 @@ class GameMap {
         this.locations.alley.push(this.grid);
         this.next_new_street = this.generator.generate_street_name();
         this.names.alley.push({connecting: [this.next_new_street], length: { [this.next_new_street]: null} });
-        
+        this.generator.generate_lights();
         
     }
     

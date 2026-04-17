@@ -38,7 +38,8 @@ class PlayerMovement{
         map.location.type = this.player.state.location_type;
         this.player.state.location_id = map.locations[Config.exit_types[exit_id]].length - 1;
         map.location.id = this.player.state.location_id
-        juego.populate(this.player.state.location_type, this.player.state.location_id);     
+        juego.populate(this.player.state.location_type, this.player.state.location_id);
+        map.generator.generate_lights();     
         this.player.state.x = start.x;
         this.player.state.y = start.y;
         

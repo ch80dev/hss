@@ -94,6 +94,7 @@ class MapGenerator {
             //this.map.first_shop = false;
             //console.log(shop_pos, this.map.queries.at(shop_pos.x, shop_pos.y));
         } 
+        
         return starting_here;
     }
 
@@ -116,6 +117,14 @@ class MapGenerator {
             }
         }
         return exits;
+    }
+
+    generate_lights(){
+        let border = this.map.queries.fetch_border_spot(true);
+        //console.log(this.map.location);
+        //console.log(this.map.lights[this.map.location.type]);
+        this.map.lights[this.map.location.type][this.map.location.id] = [];
+        this.map.lights[this.map.location.type][this.map.location.id].push(border);
     }
 
     generate_shop(){

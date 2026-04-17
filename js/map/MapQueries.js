@@ -139,6 +139,18 @@ class MapQueries{
         return delta;
     }
 
+    is_in_the_light(location_type, location_id, x, y){
+        console.log(this.map.lights);
+        for (let light of this.map.lights[location_type][location_id]){
+            let distance = this.fetch_distance(x, y, light.x, light.y );
+            if (distance >= 2 ){
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
+
     is_item_here(name, from){
         if (this.map.loot[from] == undefined){
             return false;

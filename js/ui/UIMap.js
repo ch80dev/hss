@@ -33,7 +33,7 @@ class UIMap {
 				}
 
 				// 3. The "Darkness" Skip
-				if (juego.night && !is_lit) {
+				if (juego.night && !is_lit && !juego.map.queries.is_in_the_light(juego.player.state.location_type, juego.player.state.location_id, x, y)) {
 					// We draw the ID so the DOM stays consistent, but the content is blank
 					txt += `<div id='cell-${x}-${y}' class='cell empty'></div>`;
 					continue;

@@ -54,7 +54,7 @@ class InventoryQueries{
     }
 
     fetch_weight(name, quantity){
-        console.log(name, quantity, Config.weights[name]);
+        //console.log(name, quantity, Config.weights[name]);
         return Config.weights[name] * quantity;
     }
 

@@ -42,7 +42,7 @@ class Input {
             juego.player.actions.trade(interaction_id, 1, human);
             return;
         }        
-        juego.player.actions.interact(interaction_id, human)
+        juego.player.actions.interact(interaction_id, human, juego.time)
         
     }
 

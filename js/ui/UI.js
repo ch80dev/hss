@@ -21,11 +21,11 @@ class UI{
 			for (let id in juego.favorites.set[entity]){
 				let favorite = juego.favorites.set[entity][id];
 				let context = ''; 
-				let target = null;
+				let target = juego.fetch_shop(id);
 				if (entity == 'human'){
 					context = this.display_favorites_for_human(id);
 					target = juego.fetch_human(id);
-				}
+				} 
 				let favorite_symbol = `&#x2606;`;
 				let name = target.name;
 				if (entity == 'human'){

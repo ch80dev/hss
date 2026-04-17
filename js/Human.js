@@ -16,7 +16,6 @@ class Human extends Lifeform{
         //console.log(are_they_homeless);
         super('human', x, y, location_type, location_id, map);
          this.id = id;
-         console.log(id);
         this.map = map;
         this.player = player;
         this.homeless = are_they_homeless;

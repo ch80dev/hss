@@ -5,11 +5,11 @@ class PlayerState{
         'raw meat (rat)': true,
     };
     dead = false;
-    equipped = 0;
+    equipped = null;
     fighting = false;
     health = Config.lifeforms.human.max_health;
     hours_delta = 0;    
-    inventory = [{ name: 'flashlight', quantity: 1, durability: 100 }];
+    inventory = [];
     inventory_weight =  0;
     location_type = 'alley';
     location_id = 0;

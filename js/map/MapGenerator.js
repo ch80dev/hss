@@ -119,7 +119,7 @@ class MapGenerator {
         return exits;
     }
     generate_lights(){
-        console.log('lights generating', this.map.location.type);
+        //console.log('lights generating', this.map.location.type);
         if (this.map.location.type == 'sewer' ){
             return;
         }

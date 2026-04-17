@@ -205,10 +205,10 @@ class MapQueries{
     search_for_food(pos_x, pos_y, range){
         for (let x = pos_x - range; x <= pos_x + range; x ++){
             for (let y = pos_y - range; y <= pos_y + range; y ++){                
-                if (this.map.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`] == undefined){
+                if (this.map.loot[`${this.map.location.type}-${this.map.location.id}-${x}-${y}`] == undefined){
                     continue;
                 }                
-                for (let item of this.map.loot[`${this.map.location_type}-${this.map.location_id}-${x}-${y}`].stuff){
+                for (let item of this.map.loot[`${this.map.location.type}-${this.map.location.id}-${x}-${y}`].stuff){
                     if (item.name == 'food' || item.name == 'food (spoiled)'){
                         return this.fetch_delta(x, y, pos_x, pos_y);
                     }

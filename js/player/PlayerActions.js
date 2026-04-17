@@ -9,9 +9,9 @@ class PlayerActions {
         let map_at = juego.map.queries.at(x, y);
         let target = null;
         if (map_at == Config.cell_class.indexOf('rat')){
-            target = juego.fetch_rat(this.player.state.location_type, this.player.state.location_id, x, y);
+            target = juego.fetch_rat(this.player.state.location.type, this.player.state.location.id, x, y);
         } else if (map_at == Config.cell_class.indexOf('human')){
-            target = juego.fetch_human_by_loc(this.player.state.location_type, this.player.state.location_id, x, y);
+            target = juego.fetch_human_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
         }
         this.player.status.change_stamina_delta(Config.stamina_cost['attack']);
         let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
@@ -30,8 +30,8 @@ class PlayerActions {
                 money_caption = ` You took $${target.money} from them. `;
             }
             if (target.health < 1){                                
-                juego.map.loot[juego.map.format_at(this.player.state.location_type, this.player.state.location_id, x, y)] = { stuff: null };
-                juego.map.loot[juego.map.format_at(this.player.state.location_type, this.player.state.location_id, x, y)].stuff = target.inventory;
+                juego.map.loot[juego.map.format_at(this.player.state.location.type, this.player.state.location.id, x, y)] = { stuff: null };
+                juego.map.loot[juego.map.format_at(this.player.state.location.type, this.player.state.location.id, x, y)].stuff = target.inventory;
                 this.player.state.money += target.money;
                 target.money = 0;
             }
@@ -101,7 +101,7 @@ class PlayerActions {
         if (map_at == null){
             return;
         }
-        let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);
+        let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
         let cell_class = Config.cell_class[map_at];
         let trash = map.loot[at];
         if (cell_class.split('_').length > 0 && cell_class.split("_")[1] == 'exit'){
@@ -121,7 +121,7 @@ class PlayerActions {
 
     loot_corpse(map, juego){
 
-        let target = juego.fetch_target(this.player.state.location_type, this.player.state.location_id, this.player.state.x, this.player.state.y);
+        let target = juego.fetch_target(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y);
         if (target == null){
             return;
         }
@@ -200,7 +200,7 @@ class PlayerActions {
 
     social(x, y, juego){
         //console.log('social', x, y, juego);
-        let human = juego.fetch_human_by_loc(this.player.state.location_type, this.player.state.location_id, x, y);
+        let human = juego.fetch_human_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
         if (human == null){
             return;
         }
@@ -245,7 +245,7 @@ class PlayerActions {
     }
 
     unlock_trash(x, y, map){
-        let at = map.format_at(this.player.state.location_type, this.player.state.location_id, x, y);
+        let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
         let durability_cost = rand_num(1, 5);
         this.player.inventory.use.equipment(durability_cost);
         if (map.loot[at] == undefined){

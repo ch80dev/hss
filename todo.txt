@@ -2,7 +2,7 @@ TODO
     directions        
     enable numbers for recycling buttons
     make the list of items alphabetical in inventory
-    rats_move error now
+    
     
 ABANDONED
     redo map loot and how i handled map data

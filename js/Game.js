@@ -103,7 +103,7 @@ class Game{
 	next_turn(){
 	
 		this.player.status.change_stamina();
-		this.rats_move();		
+		this.lifeforms_move();		
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
 			this.player.state.minutes_delta = 0;
@@ -111,7 +111,6 @@ class Game{
 		} else {
 			this.forward_time(0, 5);	
 		}
-		console.log(this.night, this.time.hours);
 		if (!this.night && this.time.hours >= Config.night_time[0]){
 			ui.log("It's night time now.")
 			this.night = true;
@@ -163,12 +162,12 @@ class Game{
 
 	
 
-	rats_move(){		
+	lifeforms_move(){		
 		
 		for (let id in  this.rats){					
 			let rat = this.rats[id];
 			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
-			if (rat.dead){
+			if (rat.dead || rat.location.type != this.player.state.location.type || rat.location.id != this.player.state.location.id){
 				continue;
 			}
 

@@ -11,8 +11,10 @@ class PlayerState{
     hours_delta = 0;    
     inventory = [];
     inventory_weight =  0;
-    location_type = 'alley';
-    location_id = 0;
+    location = {
+        id: 0,
+        type: 'alley',
+    }
     looting = false;
     looking_at = null;
     marking = false;

@@ -50,7 +50,7 @@ class Rat extends Lifeform{
         //console.log(this.delta);
         let pos_x = this.x + this.delta.x;
         let pos_y = this.y + this.delta.y;
-        
+        //console.log(pos_x, pos_y, Config.rat_movement_cost);
         this.go(pos_x, pos_y, 6, Config.rat_movement_cost);
       
         

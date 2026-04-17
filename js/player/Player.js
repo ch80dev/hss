@@ -8,6 +8,6 @@ class Player{
     }
 
     fetch_from(){
-        return `${this.state.location_type}-${this.state.location_id}-${this.state.x}-${this.state.y}`;
+        return `${this.state.location.type}-${this.state.location.id}-${this.state.x}-${this.state.y}`;
     }
 }

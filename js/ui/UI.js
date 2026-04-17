@@ -66,15 +66,15 @@ class UI{
 
 
 	display_location_name(){
-		let name = juego.map.names[juego.player.state.location_type][juego.player.state.location_id];
+		let name = juego.map.names[juego.player.state.location.type][juego.player.state.location.id];
 		let txt = "";
-		//console.log("BUG", name, juego.player.state.location_type, juego.player.state.location_id);
-		if (juego.player.state.location_type == 'street'){			
+		//console.log("BUG", name, juego.player.state.location.type, juego.player.state.location.id);
+		if (juego.player.state.location.type == 'street'){			
 			$("#location_name").html(name + " Street");
 			return;
 		} 
 		txt =  "alley behind ";
-		if (juego.player.state.location_type == 'sewer'){
+		if (juego.player.state.location.type == 'sewer'){
 			txt = " sewer beneath ";
 		}
 		

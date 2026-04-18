@@ -160,6 +160,7 @@ class PlayerActions {
             return;
         }
         this.player.status.change_stamina_delta(-.4);
+        this.player.status.add_time(0, 5);
         if (trash.stuff.length == 0){
             ui.log("Nothing usable in trash");
             delete map.loot[this.player.fetch_from()];

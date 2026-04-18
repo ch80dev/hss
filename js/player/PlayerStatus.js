@@ -2,6 +2,10 @@ class PlayerStatus{
     constructor(player){
         this.player = player;
     }
+    add_time(hours, minutes){
+        this.player.state.hours_delta += hours;
+        this.player.state.minutes_delta += minutes;
+    }
 
     change_health (n){
         this.player.state.health += n;

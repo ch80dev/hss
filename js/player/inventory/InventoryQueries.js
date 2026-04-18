@@ -53,6 +53,8 @@ class InventoryQueries{
         return item.quantity;
     }
 
+
+
     fetch_weight(name, quantity){
         //console.log(name, quantity, Config.weights[name]);
         return Config.weights[name] * quantity;
@@ -63,7 +65,7 @@ class InventoryQueries{
             return false;
         }
         let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
-        if (item.name == what){
+        if (item != null && item.name == what){
             return true;
         }
         return false;

@@ -6,9 +6,10 @@ class Config {
 			console.log(mistakes);
 		}		
 	}
-
+	
 	static days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", 'Friday', "saturday", "Sunday"];
-	static night_time = [20, 6]
+	static day_time = 6;
+	static night_time = 20;
 	static lifeforms = {
 		human: {
 			sense_range: 10,

@@ -37,19 +37,21 @@ class UIShop{
     }
 
     display_recycling(player, shop){
-        let txt = "";
         let disabled = '';
         let item_in_inventory = false;
         for (let item of Config.recyclables){
-            if (player.inventory.is_in_inventory(item)){
+            if (player.inventory.queries.is_in_inventory(item)){
                 item_in_inventory = true;
             }
         }
         if (!item_in_inventory){
             disabled = " disabled ";
         }
+        let txt = `<div><button id='sell_all_recycling' ${disabled}>sell all</button></div>`;
+        
+        
         for (let item of Config.shop_resources.recycling){
-            txt += `<div>${item} $${Config.prices[item]}</div><div><button id='sell_all_recycling-${shop.id}' ${disabled}>sell all</button></div>`;
+            txt += `<div>${item} $${Config.prices[item]}</div>`;
         }
         return txt;
     }

@@ -42,7 +42,8 @@ class InventoryTake {
         let id = 0;
         let taken = [];
         while (map.loot[at].stuff.length > 0){            
-            let status = this.item(id, map);            
+            let item = map.loot[at].stuff[id];
+            let status = this.item(item.id, map);            
             if (status != false){
                 taken.push(status);
             }
@@ -64,19 +65,23 @@ class InventoryTake {
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
         //console.log(id, map.loot[at].stuff)
+
+
         if (map.loot[at] == undefined 
-            || (map.loot[at] != undefined && !this.player.inventory.queries.can_they_take(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity))){
+            || (map.loot[at] != undefined 
+            && !this.player.inventory.queries.can_they_take(map.queries.fetch_loot(at, id).name, map.queries.fetch_loot(at, id).quantity))){
             return false;
         }
-        let txt = `${map.loot[at].stuff[id].quantity} ${map.loot[at].stuff[id].name}`;
-        let weight = this.player.inventory.queries.fetch_weight(map.loot[at].stuff[id].name, map.loot[at].stuff[id].quantity);
-        let what = map.loot[at].stuff[id].name;
+        let loot = map.queries.fetch_loot(at, id);
+        let txt = `${loot.quantity} ${loot.name}`;
+        let weight = this.player.inventory.queries.fetch_weight(loot.name, loot.quantity);
+        let what = loot.name;
         //console.log(weight);
         this.player.inventory.move.change_weight(weight);
         
 
         if (Config.stackable.includes(what) && this.player.inventory.queries.is_in_inventory(what)){
-            this.player.inventory.move.stack_item_in_inventory(what, map.loot[at].stuff[id].quantity);
+            this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
             map.loot[at].stuff.splice(id, 1)
         } else {
             let item = map.loot[at].stuff.splice(id, 1)[0];

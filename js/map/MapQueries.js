@@ -260,6 +260,19 @@ class MapQueries{
         return this.extend_path(new_path);
     }
 
+    fetch_loot(at, id){
+        console.log(at, id);
+        console.log(this.map.loot[at]);
+        for (let item of this.map.loot[at].stuff){
+            console.log(item, id);
+            if (item.id == id){
+                return item;
+            }
+        }
+        console.log('error');
+        return null;
+    }
+
     find_path_old(start, end){
         let available_exits1 = this.fetch_all_exits_here(start);
         let available_exits2 = this.fetch_all_exits_here(end);

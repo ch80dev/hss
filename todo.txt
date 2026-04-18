@@ -29,7 +29,10 @@ TODO
             If an NPC gives directions to a shop but the current map has no unexplored exits:
 
             The "Backtrack" Logic: The directions must point the player back through the exit they came from toward the nearest hub (Street) that does have unexplored connections.
-    
+    begging disables when used but refreshes if you go back
+    put characters behind shops
+    put capital letters as humans
+    streets are too common
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

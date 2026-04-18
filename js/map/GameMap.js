@@ -1,5 +1,5 @@
 class GameMap {
-    
+    item_id = 0;
     distance_from_street = null;
     exits = {};
     first_shop = true;
@@ -110,6 +110,10 @@ class GameMap {
         }
         
         
+    }
+    next_id(){
+        this.item_id ++;
+        return `l${this.item_id}`;
     }
    
     stack_items(name, n, from){

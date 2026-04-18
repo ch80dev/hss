@@ -24,7 +24,7 @@ class MapPopulator{
             if (Config.recyclables.includes(item)){
                 n = rand_num(1, 10);
             }
-            found.push({ name: item, quantity: n, durability: rand_num(10, 100) });
+            found.push({ name: item, quantity: n, durability: rand_num(10, 100), id: this.map.next_id() });
             
         }
         const key = `alley-${id}-${x}-${y}`;
@@ -33,7 +33,8 @@ class MapPopulator{
             locked: null,
             searched: false,
             stuff: [],
-            durability: null
+            durability: null,
+            
         };
         this.map.loot[key].locked = is_it_locked;
         this.map.loot[key].stuff = found;

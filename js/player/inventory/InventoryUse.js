@@ -24,7 +24,7 @@ class InventoryUse{
     }
 
     item(id, map){
-        let item = this.player.state.inventory[id];
+        let item = this.player.inventory.fetch.by_id(id);
         let medicine_works = rand_num(1, 10) == 1;
         //console.log(id, item);
         if (!this.player.inventory.queries.can_they_use(item.name, map)){
@@ -60,9 +60,9 @@ class InventoryUse{
 
         if (this.player.state.equipped == null 
             || (this.player.state.equipped != null 
-            && (this.player.state.inventory[this.player.state.equipped] == undefined 
-                || (this.player.state.inventory[this.player.state.equipped] != undefined 
-                && !Object.keys(Config.weapon_dmgs).includes(this.player.state.inventory[this.player.state.equipped].name))) )){
+            && (this.player.inventory.fetch.by_id(this.player.state.equipped) == undefined 
+                || (this.player.inventory.fetch.by_id(this.player.state.equipped) != undefined 
+                && !Object.keys(Config.weapon_dmgs).includes(this.player.inventory.fetch.by_id(this.player.state.equipped).name))) )){
             console.log('error')
             return;            
         }

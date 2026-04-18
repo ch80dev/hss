@@ -15,8 +15,8 @@ class InventoryMove{
             equipped.durability = equipment.durability;
         }
         for (let id in this.player.state.inventory){
-            let item = this.player.state.inventory[id];
-            if ((name != null && item.name == name) || (item_id != null && id == item_id)){
+            let item = this.player.state.inventory[id]; // need this for 21
+            if ((name != null && item.name == name) || (item_id != null && item.id == item_id)){
                 this.player.state.inventory.splice(id, 1);
                 break;
             }
@@ -25,7 +25,7 @@ class InventoryMove{
             return;
         }
         for (let id in this.player.state.inventory){
-            let item = this.player.state.inventory[id];
+            let item = this.player.inventory.fetch.by_id(id);
             if (item.name == equipped.name && item.durability == equipped.durability && this.player.state.equipped != id){
                 this.player.state.equipped = id;
                 return;
@@ -39,12 +39,11 @@ class InventoryMove{
     
     drop_item(id, map){
         let at = this.player.fetch_from();
-        let item = this.player.state.inventory[id];
+        let item = this.player.inventory.fetch.by_id(id);
         this.change_weight(-this.player.inventory.queries.fetch_weight(item.name, 1));
         if (Config.stackable.includes(item.name) && map.queries.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
-            this.delete(null, id);
-            this.player.state.inventory.splice(id, 1)
+            this.delete(null, item.id);
             return;
         } 
         if (map.loot[at] == undefined){

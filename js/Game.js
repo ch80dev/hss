@@ -130,10 +130,10 @@ class Game{
 		} else {
 			this.forward_time(0, 1);	
 		}
-		if (!this.night && this.time.hours >= Config.night_time[0]){
+		if (!this.night && this.time.hours >= Config.night_time){
 			ui.log("It's night time now.")
 			this.night = true;
-		}else if (this.night && this.time.hours >= Config.night_time[1]){
+		}else if (this.night && this.time.hours >= Config.day_time && this.time.hours < Config.night_time){
 			ui.log("It's day time now.")
 			this.night = false;
 		}

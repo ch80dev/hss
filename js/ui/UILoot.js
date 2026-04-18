@@ -21,22 +21,19 @@ class UILoot{
 			crate_here = ' in_crate ';
 			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
 		}
-		for (let id in items){			
-			
-			let item = items[id].name
+		for (let item of items){			
 			let durability = '';
-			if (Config.degradable.includes(item)){
-				durability = `(${items[id].durability}%)`;
+			if (Config.degradable.includes(item.name)){
+				durability = `(${item.durability}%)`;
 			}
-			
-			if (item == 'crate (placed)'){
+			if (item.name == 'crate (placed)'){
 				continue;
 			}
-			let n = items[id].quantity;
+			let n = item.quantity;
             let auto_loot = "";
             
            
-			let can_they_take = juego.player.inventory.queries.can_they_take(item, n);
+			let can_they_take = juego.player.inventory.queries.can_they_take(item.name, n);
 			let can_take = "";
 			let equipable = "";
 			let usable = "";
@@ -45,26 +42,25 @@ class UILoot{
 				where = 'loot';
 			}
             if (juego.player.state.auto_loot && juego.player.state.auto_loot_preferences[item]){
-                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${id} class='auto_loot_item' checked>`;
-            } else if (juego.player.state.auto_loot && !juego.player.state.auto_loot_preferences[item]){
-                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${id} class='auto_loot_item'>`;
+                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id} class='auto_loot_item' checked>`;
+            } else if (juego.player.state.auto_loot && !juego.player.state.auto_loot_preferences[item.name]){
+                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id} class='auto_loot_item'>`;
             }
             
 			if (can_they_take){
 				can_take = " can_take ";
 			} 
-			if (!is_loot && Config.usable.includes(item)){
-				usable = `<button id='use-${id}' class='use'>use</button>`;
+			if (!is_loot && Config.usable.includes(item.name)){
+				usable = `<button id='use-${item.id}' class='use'>use</button>`;
 			}
-			if (!is_loot && Config.equipable.includes(item) && juego.player.state.equipped != id){
-				equipable = `<button id='equip-${id}' class='equip'>equip</button>`;
-			} else if (!is_loot && Config.equipable.includes(item) && juego.player.state.equipped == id){
+			if (!is_loot && Config.equipable.includes(item.name) && juego.player.state.equipped != item.id){
+				equipable = `<button id='equip-${item.id}' class='equip'>equip</button>`;
+			} else if (!is_loot && Config.equipable.includes(item.name) && juego.player.state.equipped == item.id){
 				equipable = `<button id='unequip'>unequip</button>`;
 			}
-            
-			let line = `<div class='item_container'>${auto_loot}<span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item} ${durability} ${usable} ${equipable} </span></div>`;
-			if (Config.stackable.includes(item)){
-				line = `<div class='item_container'>${auto_loot}<span id='${where}-${id}' class='item ${crate_here} ${can_take}'>${item} (${n})</span>${usable}</div>`;
+			let line = `<div class='item_container'>${auto_loot}<span id='${where}-${item.id}' class='item ${crate_here} ${can_take}'>${item.name} ${durability} ${usable} ${equipable} </span></div>`;
+			if (Config.stackable.includes(item.name)){
+				line = `<div class='item_container'>${auto_loot}<span id='${where}-${item.id}' class='item ${crate_here} ${can_take}'>${item.name} (${n})</span>${usable}</div>`;
 			}
 			txt += line;
 		}

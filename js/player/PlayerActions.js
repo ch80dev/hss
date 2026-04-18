@@ -18,7 +18,7 @@ class PlayerActions {
         let max_dmg = 1;
         let weapon_equipped =  null;
         if (this.player.state.equipped != null){
-            weapon_equipped = this.player.state.inventory[this.player.state.equipped].name;
+            weapon_equipped = this.player.inventory.fetch.by_id(this.player.state.equipped).name;
             max_dmg = Config.weapon_dmgs[weapon_equipped];
             this.player.inventory.use.weapon();
         }

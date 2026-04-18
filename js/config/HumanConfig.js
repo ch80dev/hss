@@ -1,11 +1,12 @@
 class HumanConfig{
     	//HUMAN
 	static human_chance_to_be_cop = 1;
-	static interactions = ['buy', 'sell', 'trade', 'beg']; //, 'directions', 'escort', 'favor', 'work'];
+	static interactions = ['buy', 'sell', 'trade', 'beg', 'directions'];//, 'escort', 'favor', 'work'];
 	static interactions_for_money = ['sell', 'beg', 'work'];
 	static interactions_for_resources = ['trade', 'buy', 'sell'];
 	static homeless_money = 50;
 	static num_of_interactions_per_human = 3;
+    
     static names = [
     "James", "Mary", "Robert", "Patricia", "John", "Jennifer", "Michael", "Linda", "William", "Elizabeth",
     "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen",

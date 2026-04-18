@@ -24,6 +24,34 @@ class MapQueries{
         return adjacent;
     }
 
+    fetch_all_exits_here(location){
+        let exits = [];
+        for (let exit in this.map.exits){
+            let location_type = exit.split("-")[0];
+            let location_id = Number(exit.split("-")[1]);
+            if (exits.includes(exit)){
+                console.log('how?');
+            } else if (location_type == location.type && location_id == location.id){
+                exits.push(exit);
+            }
+        }
+        return exits;
+    }
+
+    fetch_all_locations_leading_here(location){
+        //console.log(location);
+        let locations = [location];
+        for (let exit in this.map.exits){
+            let to_exit = this.map.exits[exit];
+            let location_type = exit.split("-")[0];
+            let location_id = exit.split("-")[1];
+            if (location_type == location.type && location_id == location.id){
+                locations.push({ type: to_exit.split('-')[0], id: Number(to_exit.split('-')[1]) });
+            }
+        }
+        return locations;
+    }
+
     fetch_border_spot(orthogonal){
         while(true){
             let open = this.fetch_open();            
@@ -141,7 +169,163 @@ class MapQueries{
         return n;
     }
 
+
+    find_midway(location1, location2, searching){
+        //console.log('find midway', location1, location2, searching);
+        let available_locations1 = this.fetch_all_locations_leading_here(location1)
+        let available_locations2 = this.fetch_all_locations_leading_here(location2)
+        let found = false;
+        //console.log(available_locations1, available_locations2);
+        for (let here of available_locations1){
+            for (let there of available_locations2){
+                if (here.type == there.type && here.id == there.id){
+                    found = here;
+                }
+            }
+        }
+        
+        if (found !== false){
+            return found;
+        }
+        
+        let this_search = [...available_locations1, ...available_locations2];
+        //console.log('no midway found', searching, this_search, available_locations1.length, available_locations2.length);
+        if (searching != null){
+            for (let here of searching){
+                for (let there of this_search){
+                    if (here.type == there.type && here.id == there.id){
+                        found = here;
+                    }
+                }
+            }
+        }
+        if (found !== false){
+            return found;
+        }
+
+        if (searching != null){
+            searching = [...searching, ...this_search];
+        } else {
+            searching = this_search;
+        }
+        
+        return this.find_midway(location1, location2, searching);
+
+
+        
+
+    }
+    extend_path(path){
+        let adding = [];
+        let adding_from = {};
+        console.log('PATH:', path);
+        for (let id in path){
+            let first = {type: path[id].split('-')[0], id: path[id].split('-')[1] };
+            if (Number(id) + 1 >= path.length){
+                break;
+            }
+            let second = { type: path[Number(id) + 1].split('-')[0], id: path[Number(id) + 1].split('-')[1] };
+
+            //console.log(first, second);
+            let midway = this.find_midway(first, second, null);            
+            let midway_grep = `${midway.type}-${midway.id}`;
+            //console.log(midway_grep, path, adding);
+            if (!path.includes(midway_grep) && !adding.includes(midway_grep)){
+                console.log(path[id], midway_grep, path, path.includes(midway_grep), adding, adding.includes(midway_grep));
+                adding.push(midway_grep);
+                adding_from[path[id]] = midway_grep;
+            }
+
+        }
+        console.log("ADDING", adding_from, "TO", path);
+        //console.log('BREAK?', adding, adding_from, path);
+        if (adding.length == 0){
+            return path;
+        }
+        let processed = [];
+        let new_path = path;
+        for (let id in  path){
+            new_path.push(path[id]);
+            for (let after_this_item in adding_from){
+                console.log('splice', path[id] == after_this_item, id, path[id], after_this_item,  adding_from[after_this_item], processed);
+                if (path[id] == after_this_item && !processed.includes(after_this_item)){
+                    new_path.push(adding_from[after_this_item]);
+                    processed.push(after_this_item);
+                }
+            }
+
+        }
+        //console.log('rETURN?', adding, path);
+        //path = [...path, ...adding];
+        return this.extend_path(new_path);
+    }
+
+    find_path_old(start, end){
+        let available_exits1 = this.fetch_all_exits_here(start);
+        let available_exits2 = this.fetch_all_exits_here(end);
+        let midway = this.find_midway(start, end, null);
+        if (midway === false ){
+            console.log('error');
+            return;
+        }
+        //console.log(start, midway, end);
+        let path = [
+            `${start.type}-${start.id}`, 
+            `${midway.type}-${midway.id}`, 
+            `${end.type}-${end.id}`];
+        console.log(this.extend_path(path));
+    }
+
+    find_path(start, end) {
+        const startStr = `${start.type}-${start.id}`;
+        const endStr = `${end.type}-${end.id}`;
+
+        let queue = [start];
+        let came_from = {};
+        came_from[startStr] = null;
+
+        while (queue.length > 0) {
+            let current = queue.shift();
+            let currentStr = `${current.type}-${current.id}`;
+
+            // Did we find the destination?
+            if (currentStr === endStr) {
+                return this.reconstruct_path(came_from, endStr);
+            }
+
+            // Get all neighbors (locations leading from here)
+            let neighbors = this.fetch_all_locations_leading_here(current);
+
+            for (let next of neighbors) {
+                let nextStr = `${next.type}-${next.id}`;
+
+                // If we haven't visited this spot yet, log it and add to queue
+                if (!(nextStr in came_from)) {
+                    queue.push(next);
+                    came_from[nextStr] = currentStr;
+                }
+            }
+        }
+
+        return null; // No path found
+    }
+
+    reconstruct_path(came_from, endStr) {
+        let current = endStr;
+        let path = [];
+        
+        while (current !== null) {
+            path.push(current);
+            current = came_from[current];
+        }
+        
+        return path.reverse(); // Flip it so it goes Start -> End
+    }
     
+    have_they_used_this_exit(location_type, location_id, x, y, map){
+        let from = this.map.format_at(location_type, location_id, x, y, map);
+        return (map.exits[from] != undefined);
+    }
 
     
 

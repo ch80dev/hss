@@ -2,16 +2,22 @@ class Shop{
     id = null;
     interactions = null;
     inventory = [];
+    location = {
+        id: null,
+        type: null,
+    }
     max_stigma = null;
     prices = [];
     resources = [];    
     room_rented_at = null;
     selling = 'all';
     type =  null;
-    
-    constructor(id, type){
+    x = null;
+    y = null;
+    constructor(id, type, location){
         //console.log(id, type);
         this.id = id;
+        this.location = location;
         this.type = type;
         if (type == 'pawn'){
             this.stock_pawn_shop();

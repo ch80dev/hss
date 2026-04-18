@@ -41,6 +41,12 @@ $(document).on('click', '.close', function() {
     ui.refresh.go();
 });
 
+$(document).on('change', '#directions_to', function() {
+    let selected_value = $(this).val();    
+    juego.input.selecting_directions(selected_value);
+    ui.refresh.go();
+});
+
 $(document).on('click', '.equip', function(e) {
     juego.player.inventory.use.equip(Number(this.id.split('-')[1]));
     ui.refresh.go();

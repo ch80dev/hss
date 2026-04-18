@@ -80,6 +80,25 @@ class Game{
 		}		
 		return null;
 	}
+
+	get_directions(human, what){
+		console.log(human, what);
+		//STILL NEED BUTTON WIRED IN
+		let human_location = human.location;
+		let shop_location = null;
+		for (let shop of this.shops){
+			if (shop.type == what){
+				shop_location = shop.location;
+				break;
+			}
+		}
+		if (shop_location != null){
+			console.log(human_location, shop_location);
+			console.log(this.map.queries.find_path(human_location, shop_location));
+		}
+	}
+
+
 	forward_time(hours_delta, minutes_delta){
 		//console.log(hours_delta, minutes_delta);
 		this.time.minutes += minutes_delta;
@@ -123,7 +142,7 @@ class Game{
 	populate(location_type, location_id){
 		this.populate_with_humans(location_type, location_id);
 		this.populate_with_rats(location_type, location_id);
-		this.populate_shops();
+		this.populate_shops(location_type, location_id);
 	}
 
 	populate_shops(){
@@ -134,7 +153,8 @@ class Game{
 				continue;
 				
 			}
-			this.shops.push(new Shop(shop.id, shop.type))
+			
+			this.shops.push(new Shop(shop.id, shop.type, shop.location))
 		}
 		//console.log(this.shops.length, this.map.shops.length);
 	}

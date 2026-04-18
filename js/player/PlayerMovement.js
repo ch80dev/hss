@@ -10,7 +10,7 @@ class PlayerMovement{
     explore(exit_id, map, juego){   
         let from = this.player.fetch_from();
         let coming_from = { type: this.player.state.location.type, id: this.player.state.location.id };
-        if (this.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y, map)){
+        if (map.queries.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y, map)){
             
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
@@ -26,6 +26,7 @@ class PlayerMovement{
             this.player.state.y = parseInt(to_y, 10);
             juego.favorites.process(from, this.player.fetch_from());
             map.name_old_location(this.player.state.location.type, this.player.state.location.id);
+            //map.queries.find_path({ type: this.player.state.location.type, id: this.player.state.location.id });
             return;
         }
         map.wipe();  
@@ -51,13 +52,7 @@ class PlayerMovement{
         
     }
 
-    have_they_used_this_exit(location_type, location_id, x, y, map){
-        let from = `${location_type}-${location_id}-${x}-${y}`;
-        return (map.exits[from] != undefined);
-
-        
-    }
-
+    
 
      move(where, map, juego){
         juego.facing = where;

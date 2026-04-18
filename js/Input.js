@@ -1,5 +1,5 @@
 class Input {
-
+    
     number_key_pressed(number){
         //might need to check if locked
 
@@ -95,6 +95,18 @@ class Input {
         }
         
         ui.refresh.go();
+    }
+
+    selecting_directions(id){
+        
+        if (id == ""){
+            ui.social.directions_selected = null;
+            return;
+        } else if (Object.keys(Config.shop_names).includes(id)){
+            ui.social.directions_selected = id;
+        }   
+
+        
     }
 
 }

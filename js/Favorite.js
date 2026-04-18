@@ -12,10 +12,13 @@ class Favorite{
 		}
 		
 		if (this.set[type][id] == undefined){
-			this.set[type][id] = { location: { type: juego.player.state.location.type, id: juego.player.state.location.id }, x: favorite_target.x, y: favorite_target.y, path: {}, past_locations: [] }
+			this.set[type][id] = { directions: false, location: { type: juego.player.state.location.type, id: juego.player.state.location.id }, x: favorite_target.x, y: favorite_target.y, path: {}, past_locations: [] }
 		} else if (this.set[type][id] != undefined){
 			delete this.set[type][id];
 		}
+	}
+	add_favorite_for_directions(location, x, y, path){
+		this.set[location.type][location.id] = { directions: true, location: location, x: x, y: y, path: {}, past_locations: [] }
 	}
 
     fetch_relevant(from, to){

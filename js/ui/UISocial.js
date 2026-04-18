@@ -1,4 +1,5 @@
 class UISocial{
+	directions_selected = 'motel';
     display(){
 		if (juego.player.state.socializing == null){
 			return;
@@ -22,7 +23,9 @@ class UISocial{
 				|| (interaction == 'sell' && !juego.player.inventory.queries.do_they_have(human.resources[id], 1))
 				|| (interaction == 'beg' && human.begging_unlocked !== true)
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
-				|| (interaction == 'beg' && human.begging_unlocked !== true)){
+				|| (interaction == 'beg' && human.begging_unlocked !== true)
+				|| (interaction == 'directions' && this.directions_selected == null)
+				){
 				disabled = ' disabled ';			
 			}
 			let button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction}</button>`;
@@ -47,6 +50,23 @@ class UISocial{
 				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
+			} else if (interaction == 'directions'){
+				let selected = '';
+				if (this.directions_selected == null){
+					selected = " selected ";
+				}
+				resource = `<select id='directions_to'><option ${selected}></option>`;
+				for (let id in Config.shop_names ){
+					let shop_name = Config.shop_names[id];
+					selected = '';
+					if (this.directions_selected == id){
+						selected = " selected ";
+					}	
+					resource += `<option value='${id}'  ${selected}>${shop_name}</option>`;
+					
+
+				}
+				resource += "</select>";
 			} 
 			
 			

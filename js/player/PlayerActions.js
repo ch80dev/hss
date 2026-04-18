@@ -88,6 +88,8 @@ class PlayerActions {
             this.player.inventory.move.give_to_human(human.resources[id], 1, human);
             this.player.money += human.conversion[id];
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
+        } else if (interaction == 'directions' && ui.social.directions_selected != null){
+            juego.get_directions(human, ui.social.directions_selected);
         } 
 
     }

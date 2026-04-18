@@ -36,7 +36,7 @@ class UI{
         		if (juego.favorites.set[entity][id] != undefined){
             		favorite_symbol = `&#x2605;`;
         		}
-				txt += `<div class='favorite_entry'><button id='favorite-${entity}-${id}' class='favorite'>${favorite_symbol}</button>${name} (${favorite.x}, ${favorite.y}) ${favorite.past_locations.length} locations away</div>`;
+				txt += `<div class='favorite_entry'><button id='favorite-${entity}-${id}' class='favorite'>${favorite_symbol}</button>${name} (${favorite.x}, ${favorite.y}) ${favorite.path.length} locations away</div>`;
 				txt += `<div class='favorite_context'>${context}</div>`;
 			}
 		}
@@ -94,7 +94,7 @@ class UI{
 		}
 			
 		
-		$("#location_name").html(txt);
+		$("#location_name").html(`${txt} [${juego.player.state.location.type}-${juego.player.state.location.id}]`);
 	}
 
 

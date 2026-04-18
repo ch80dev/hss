@@ -54,7 +54,7 @@ $(document).on('click', '.equip', function(e) {
 
 
 $(document).on('click', '.favorite', function() {
-    juego.favorites.add(this.id.split('-')[1], Number(this.id.split('-')[2]), juego);
+    juego.favorites.add_by_type(this.id.split('-')[1], Number(this.id.split('-')[2]), juego);
     ui.refresh.go();
 });
 

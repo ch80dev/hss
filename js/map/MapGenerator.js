@@ -83,7 +83,7 @@ class MapGenerator {
         if (location_type == 'alley'){
             this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
         }
-        let shop_being_generated = rand_num(1, 2) == 1;
+        let shop_being_generated = true; //rand_num(1, 2) == 1;
         let shop_pos = null;
         if (location_type == 'street'){
             shop_pos = this.generate_shop(location_type);
@@ -220,7 +220,7 @@ class MapGenerator {
         if (this.map.shops_generated.length >= Config.shop_types.length){
             return null;
         }
-        //return 'motel';
+        return 'motel';
         while (true){
             let rand_type = Config.shop_types[rand_num(0, Config.shop_types.length - 1)];
             if (!this.map.shops_generated.includes(rand_type)){

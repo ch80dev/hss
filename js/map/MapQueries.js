@@ -79,7 +79,28 @@ class MapQueries{
     fetch_distance(from_x, from_y, to_x, to_y){
 	    return Math.sqrt(Math.pow(from_x - to_x, 2) + Math.pow(from_y - to_y, 2))
     }
-    
+    fetch_exits_for_path(path){
+        let exits = [];
+        for (let id in  path){
+            let from_here = path[id];
+            let to_there = path[Number(id) + 1];
+            exits.push(this.fetch_exit(from_here, to_there));
+        }
+        return exits;
+    }
+
+    fetch_exit(from, to){
+        
+        for (let enter in this.map.exits){
+            let exit = this.map.exits[enter];
+            if (from == `${enter.split("-")[0]}-${enter.split('-')[1]}` 
+                && to == `${exit.split("-")[0]}-${exit.split('-')[1]}`){
+                return enter;
+            }
+
+        }
+        return null;
+    }
     fetch_farthest(point, arr){
         let closest = null;
         let closest_id = null;
@@ -261,10 +282,7 @@ class MapQueries{
     }
 
     fetch_loot(at, id){
-        console.log(at, id);
-        console.log(this.map.loot[at]);
         for (let item of this.map.loot[at].stuff){
-            console.log(item, id);
             if (item.id == id){
                 return item;
             }

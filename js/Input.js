@@ -51,9 +51,9 @@ class Input {
         
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){
-            juego.favorites.add('human', juego.player.state.socializing, juego);
+            juego.favorites.add_by_type('human', juego.player.state.socializing, juego);
         } else if (pressed == 'f' && juego.player.state.shopping != null){
-            juego.favorites.add('shop', juego.player.state.shopping, juego);    
+            juego.favorites.add_by_type('shop', juego.player.state.shopping, juego);    
         } else if (pressed == 'f'){
             ui.change_screen('favorites');  
         } else if (pressed == 'Escape' && ui.screen_focused == 'favorites'){

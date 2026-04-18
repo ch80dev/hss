@@ -14,10 +14,12 @@ class Shop{
     type =  null;
     x = null;
     y = null;
-    constructor(id, type, location){
+    constructor(id, type, location, x, y){
         //console.log(id, type);
         this.id = id;
         this.location = location;
+        this.x = x;
+        this.y = y;
         this.type = type;
         if (type == 'pawn'){
             this.stock_pawn_shop();

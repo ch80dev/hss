@@ -79,6 +79,7 @@ LATER
     SKILL tREE
         see humans that are able to be successfully begged Human.js:42 Uncaught TypeError: Cannot read properties of undefined (reading 'days')
 BUGS
+    Going into a street causes a crash. Most likely it's an error trying to find a place to look for a shop.
     
         i think the crate bug being able to ref anywhere is because the reference variable for loot is being viewed by reference maybe
     HUGE - exited to street and kept looping

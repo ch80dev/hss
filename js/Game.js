@@ -82,19 +82,21 @@ class Game{
 	}
 
 	get_directions(human, what){
-		console.log(human, what);
+		//console.log(human, what);
 		//STILL NEED BUTTON WIRED IN
-		let human_location = human.location;
-		let shop_location = null;
+		let target_shop = null;
 		for (let shop of this.shops){
 			if (shop.type == what){
-				shop_location = shop.location;
+				target_shop = shop;
 				break;
 			}
 		}
-		if (shop_location != null){
-			console.log(human_location, shop_location);
-			console.log(this.map.queries.find_path(human_location, shop_location));
+		if (target_shop.location != null){
+			let path = this.map.queries.find_path(human.location, target_shop.location);
+			let exits = this.map.queries.fetch_exits_for_path(path);
+			this.favorites.add_for_directions(target_shop.id, target_shop.location, target_shop.x, target_shop.y, exits);			
+			ui.log("They give you directions to " + target_shop.type);
+			
 		}
 	}
 
@@ -153,8 +155,7 @@ class Game{
 				continue;
 				
 			}
-			
-			this.shops.push(new Shop(shop.id, shop.type, shop.location))
+			this.shops.push(new Shop(shop.id, shop.type, shop.location, shop.x, shop.y))
 		}
 		//console.log(this.shops.length, this.map.shops.length);
 	}

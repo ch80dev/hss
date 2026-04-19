@@ -14,6 +14,7 @@ TODO
     fade status instead of overwriting it when not in use
     favorites - directions null for 
     when take_all, even though it can stack, it's not doing it
+    auto_loot_settings not loading
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

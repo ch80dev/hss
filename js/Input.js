@@ -10,7 +10,7 @@ class Input {
             return;
         }
         if (juego.player.state.looting && loot.stuff[number - 1] != undefined){
-            juego.player.inventory.take.item(number - 1, juego.map);
+            juego.player.inventory.take.item(number - 1, juego.map); //3rd parameter added for null
             return;
         }
             */

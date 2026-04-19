@@ -41,9 +41,11 @@ class InventoryTake {
         }
         let id = 0;
         let taken = [];
+        console.log(at, map.loot[at].stuff);
         while (map.loot[at].stuff.length > 0){            
             let item = map.loot[at].stuff[id];
-            let status = this.item(item.id, map);            
+            console.log(item.id, at, map.loot[at], id);
+            let status = this.item( structuredClone(item.id), map, id);            
             if (status != false){
                 taken.push(status);
             }
@@ -61,29 +63,35 @@ class InventoryTake {
         
     }
 
-    item(id, map){
+    item(id, map, take_all_id){
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
-        //console.log(id, map.loot[at].stuff)
+        console.log(id, map.loot[at].stuff)
 
-
+        
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
             && !this.player.inventory.queries.can_they_take(map.queries.fetch_loot(at, id).name, map.queries.fetch_loot(at, id).quantity))){
             return false;
         }
         let loot = map.queries.fetch_loot(at, id);
+        console.log(loot.id);
         let txt = `${loot.quantity} ${loot.name}`;
         let weight = this.player.inventory.queries.fetch_weight(loot.name, loot.quantity);
         let what = loot.name;
         //console.log(weight);
         this.player.inventory.move.change_weight(weight);
         
-
+        console.log(what, Config.stackable.includes(what), this.player.inventory.queries.is_in_inventory(what));
         if (Config.stackable.includes(what) && this.player.inventory.queries.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
-            map.loot[at].stuff.splice(id, 1)
+            if (take_all_id == null){
+                map.loot[at].stuff.splice(id, 1);
+            } else {
+                map.loot[at].stuff.splice(take_all_id, 1);
+            }
         } else {
+            console.log('unstackable??', what);
             let item = map.loot[at].stuff.splice(id, 1)[0];
             item.id = this.player.inventory.next_id();
             this.player.state.inventory.push(item);        

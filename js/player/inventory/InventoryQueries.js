@@ -15,7 +15,7 @@ class InventoryQueries{
         } else if (Config.stackable.includes(name) && this.is_in_inventory(name)){
             return true;
         } else if (this.player.state.inventory.length >= this.player.state.slots_in_inventory ){
-            console.log('c');
+            console.log(name, quantity, Config.stackable.includes(name), this.is_in_inventory(name));
             return false;
         }
         return true;
@@ -75,6 +75,7 @@ class InventoryQueries{
 
     is_in_inventory(what){
         for (let item of this.player.state.inventory){
+            //console.log(what, item.name);
             if (item.name == what){
                 return true;
             }

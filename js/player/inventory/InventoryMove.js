@@ -77,7 +77,7 @@ class InventoryMove{
     item(from, id, map){ //from world
         //console.log(from, id);
         if (from == 'loot'){
-            this.player.inventory.take.item(id, map);   
+            this.player.inventory.take.item(id, map, null);   
             return;     
         }
         this.drop_item(id, map);

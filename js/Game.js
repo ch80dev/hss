@@ -242,7 +242,6 @@ class Game{
 				//console.log("go");
 				human.attack_player(juego.player);
 			}
-			console.log(human.begging_unlocked, this.time);
 			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
 				console.log('beggining reset');
 				human.begging_unlocked = true;

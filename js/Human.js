@@ -89,7 +89,7 @@ class Human extends Lifeform{
     }
 
     generate_interactions(){
-        let interactions = ['directions'];
+        let interactions = [];
         while(interactions.length < HumanConfig.num_of_interactions_per_human ){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
             if (!interactions.includes(rand)){
@@ -141,10 +141,14 @@ class Human extends Lifeform{
 
     generate_rand_item(not_arr){
         //console.log(not_arr);
+        let items_drawn_from = Config.human_items;
+        if (this.homeless){
+            items_drawn_from = Object.keys(Config.trash_item_odds);
+        }
         while(true){
-            let rand = rand_num(0, Config.human_items.length - 1);
+            let rand = rand_num(0, items_drawn_from.length - 1);
             //console.log(rand, Config.human_items);
-            let rand_item = Config.human_items[rand];
+            let rand_item = items_drawn_from[rand];
             
             if (!not_arr.includes(rand_item)){
                 return rand_item;

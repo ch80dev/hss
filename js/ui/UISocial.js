@@ -1,5 +1,5 @@
 class UISocial{
-	directions_selected = 'motel';
+	directions_selected = null;
     display(){
 		if (juego.player.state.socializing == null){
 			return;

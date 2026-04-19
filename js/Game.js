@@ -17,6 +17,7 @@ class Game{
 		weeks: 1,
 	}
 	
+	
 	constructor(){
 		setInterval(this.loop.go(), Config.loop_interval_timing);
 		let open = this.map.queries.fetch_open();
@@ -83,7 +84,6 @@ class Game{
 
 	get_directions(human, what){
 		//console.log(human, what);
-		//STILL NEED BUTTON WIRED IN
 		let target_shop = null;
 		for (let shop of this.shops){
 			if (shop.type == what){
@@ -91,13 +91,34 @@ class Game{
 				break;
 			}
 		}
-		if (target_shop.location != null){
+		if (target_shop != null && target_shop.location != null){
 			let path = this.map.queries.find_path(human.location, target_shop.location);
 			let exits = this.map.queries.fetch_exits_for_path(path);
-			this.favorites.add_for_directions(target_shop.id, target_shop.location, target_shop.x, target_shop.y, exits);			
-			ui.log("They give you directions to " + target_shop.type);
-			
+			this.favorites.add_shop_not_here(target_shop, exits);			
+			ui.log("They give you directions to " + target_shop.name);
+			return;
 		}
+		this.map.generator.shop_queue.push(what);
+		if (this.map.unused_exits.street > 0){
+			let nearest = this.map.queries.find_nearest('street', human.location);
+			let exits = this.map.queries.fetch_exits_for_path(nearest.path);
+			let last_loc = nearest.path[nearest.path.length - 1];
+			exits.push(nearest.exit);
+			this.favorites.add_for_directions(exits, []);
+			ui.log("They give you directions to " + what);
+			return;
+			//let path = this.map.queries.find_path(human.location, this.map.queries.find_nearest('street', human.location);
+			
+			//console.log(path, exits);
+		}
+		//this makes an assumption that the starting alley has another alley that you can go to
+		this.map.generator.exit_queue.push('street');
+		let nearest = this.map.queries.find_nearest('alley', human.location);
+		let exits = this.map.queries.fetch_exits_for_path(nearest.path);
+		let last_loc = nearest.path[nearest.path.length - 1];
+		exits.push(nearest.exit);
+		this.favorites.add_for_directions(exits, ['street']);
+		
 	}
 
 
@@ -155,6 +176,19 @@ class Game{
 				continue;
 				
 			}
+			let favorite = null;
+			if (this.map.generator.shop_queue_used){
+				let favorite = this.favorites.set.directions.splice(0, 1)[0]; // amke this into a buffer
+				this.map.generator.shop_queue_used = false;		
+				favorite.location = shop.location;		
+				favorite.type = shop.type;
+				favorite.x = shop.x;
+				favorite.y = shop.y;
+				this.favorites.set.shop[shop.id] = favorite;
+				console.log(this.favorites.set.shop);
+			}
+			
+			
 			this.shops.push(new Shop(shop.id, shop.type, shop.location, shop.x, shop.y))
 		}
 		//console.log(this.shops.length, this.map.shops.length);

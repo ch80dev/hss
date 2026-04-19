@@ -26,7 +26,11 @@ class GameMap {
     next_new_street = null;    
     shops = [];
     shops_generated = [];
-    
+    unused_exits = {
+		alley: 0,
+		sewer: 0,
+		street: 0, 
+	}
     
 
     constructor(max_x, max_y){

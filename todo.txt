@@ -1,34 +1,4 @@
-TODO       
-    directions        
-        Scenario A: Shop Already Exists
-            Logic: Bi-directional Breadth-First Search (BFS) using Exits as the bridge.
-
-            Map Out: Start a search from NPC_Location and Shop_Location simultaneously.
-
-            Node Connection: Treat each Location as a container and Exits as the links.
-
-            The "Handshake": When the search from the NPC finds an exit that leads to a location already "touched" by the Shop's search, you have your path.
-
-            Favorite Injection: Iterate through that path and add the .favorite class to the specific exit coordinates in every intermediate map.
-        Scenario B: Shop Does Not Exist
-            Logic: "Manifested Destination." You aren't finding a shop; you are rigging the dice for the next generation.
-
-            The "Next-Street" Target: Identify the nearest Unexplored Exit.
-
-            The Promise: Set a global flag: pending_direction_shop = true.
-
-            Forced Generation: When the player uses that specific unexplored exit:
-
-            The generator must include a shop tile on the new map.
-
-            The generator must include at least one Street Exit if the player is currently in a Sewer/Alley (to avoid the dead-end edge case).
-
-            Favorite Connection: Mark the current exit as a .favorite immediately. Once the new map spawns, the Shop tile is automatically marked.
-
-            Edge Case: The "No Exit" Loop
-            If an NPC gives directions to a shop but the current map has no unexplored exits:
-
-            The "Backtrack" Logic: The directions must point the player back through the exit they came from toward the nearest hub (Street) that does have unexplored connections.
+TODO           
     begging disables when used but refreshes if you go back
     put characters behind shops
     put capital letters as humans

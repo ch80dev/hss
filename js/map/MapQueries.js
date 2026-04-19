@@ -24,18 +24,27 @@ class MapQueries{
         return adjacent;
     }
 
-    fetch_all_exits_here(location){
+    fetch_unused_exit(target_location_type, location){
         let exits = [];
-        for (let exit in this.map.exits){
-            let location_type = exit.split("-")[0];
-            let location_id = Number(exit.split("-")[1]);
-            if (exits.includes(exit)){
-                console.log('how?');
-            } else if (location_type == location.type && location_id == location.id){
-                exits.push(exit);
+        for (let x = 0; x < Config.max_x; x ++){
+            for (let y = 0; y < Config.max_y; y ++){
+                let at = this.map.locations[location.type][location.id][x][y];
+                if (at != null){
+                   // console.log(location_type, location_id, this.at(x, y), Config.cell_class.indexOf(location_type + "_exit"), this.have_they_used_this_exit(location_type, location_id, x, y));
+                }
+                
+                if (at == Config.cell_class.indexOf(target_location_type + "_exit")                    
+                    && !this.have_they_used_this_exit(location.type, location.id, x, y)){
+                    
+                    exits.push({ x: x, y: y});
+                }
             }
         }
-        return exits;
+        if (exits.length < 1){
+            return null;
+        }
+        return exits[rand_num(0, exits.length - 1)];
+        
     }
 
     fetch_all_locations_leading_here(location){
@@ -84,7 +93,10 @@ class MapQueries{
         for (let id in  path){
             let from_here = path[id];
             let to_there = path[Number(id) + 1];
-            exits.push(this.fetch_exit(from_here, to_there));
+            let exit = this.fetch_exit(from_here, to_there);
+            if (exit != null){
+                exits.push(exit);
+            }
         }
         return exits;
     }
@@ -236,6 +248,8 @@ class MapQueries{
         
 
     }
+
+    
     extend_path(path){
         let adding = [];
         let adding_from = {};
@@ -289,6 +303,39 @@ class MapQueries{
         }
         console.log('error');
         return null;
+    }
+
+    find_nearest(target_location_type, start ){
+        const startStr = `${start.type}-${start.id}`;
+
+        let queue = [start];
+        let came_from = {};
+        came_from[startStr] = null;
+
+        while (queue.length > 0) {
+            let current = queue.shift();
+            let currentStr = `${current.type}-${current.id}`;
+
+            let exit = this.fetch_unused_exit(target_location_type, current);
+            if (exit !== null) {
+                
+                return {exit: `${current.type}-${current.id}-${exit.x}-${exit.y}`, path: this.reconstruct_path(came_from, currentStr)};
+            }
+
+            // Get all neighbors (locations leading from here)
+            let neighbors = this.fetch_all_locations_leading_here(current);
+            for (let next of neighbors) {
+                let nextStr = `${next.type}-${next.id}`;
+
+                // If we haven't visited this spot yet, log it and add to queue
+                if (!(nextStr in came_from)) {
+                    queue.push(next);
+                    came_from[nextStr] = currentStr;
+                }
+            }
+        }
+
+        return null; // No path found
     }
 
     find_path_old(start, end){
@@ -353,9 +400,9 @@ class MapQueries{
         return path.reverse(); // Flip it so it goes Start -> End
     }
     
-    have_they_used_this_exit(location_type, location_id, x, y, map){
-        let from = this.map.format_at(location_type, location_id, x, y, map);
-        return (map.exits[from] != undefined);
+    have_they_used_this_exit(location_type, location_id, x, y){        
+        let from = this.map.format_at(location_type, location_id, x, y);
+        return (this.map.exits[from] != undefined);
     }
 
     

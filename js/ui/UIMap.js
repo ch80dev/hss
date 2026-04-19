@@ -59,7 +59,7 @@ class UIMap {
 					
 				} else if (map_at != null && map_at != 1  
 					&& juego.map.queries.have_they_used_this_exit(juego.player.state.location.type, 
-					juego.player.state.location.id, x, y, juego.map)){
+					juego.player.state.location.id, x, y)){
 					cell_txt = Config.cell_txt['used_exit'];
 				} else if (map_at != null && map_at > 1 && map_at < 5){
 					cell_txt = Config.cell_txt['unused_exit'];				

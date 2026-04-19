@@ -66,12 +66,13 @@ class PlayerActions {
         ui.change_screen('shop');
     }
 
-    interact(id, human, time){
+    interact(id, human, time, ui){
         //console.log(id, human, time);
         if (human.interactions[id] == undefined){
             console.log('error');
             return;
         }
+        console.log(human.begging_unlocked);
         let interaction = human.interactions[id];       
         if (interaction == 'beg' && human.begging_unlocked == true 
             && this.player.state.stigma >= human.min_stigma_beg){            
@@ -90,6 +91,8 @@ class PlayerActions {
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'directions' && ui.social.directions_selected != null){
             juego.get_directions(human, ui.social.directions_selected);
+            ui.change_screen('map');
+            this.player.state.socializing = null;
         } 
 
     }

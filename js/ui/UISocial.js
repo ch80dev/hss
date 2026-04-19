@@ -23,8 +23,8 @@ class UISocial{
 				|| (interaction == 'sell' && !juego.player.inventory.queries.do_they_have(human.resources[id], 1))
 				|| (interaction == 'beg' && human.begging_unlocked !== true)
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
-				|| (interaction == 'beg' && human.begging_unlocked !== true)
 				|| (interaction == 'directions' && this.directions_selected == null)
+				|| (interaction == 'directions' && juego.favorites.set.directions.length > 0)
 				){
 				disabled = ' disabled ';			
 			}

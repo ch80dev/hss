@@ -1,5 +1,10 @@
 class MapGenerator {
     first_location_being_generated = true;
+    exit_queue = [];
+    shop_queue_used = false;
+    shop_queue = [];
+    next_exit_needed = [];
+
     constructor(map){
         this.map = map;
     }
@@ -35,6 +40,7 @@ class MapGenerator {
     }
 
     generate (location_type, entered_from){
+        
         let divisor = {alley: 4, sewer: 8, street:4}
         let thickness = { alley: 2, sewer: 1, street: 7};
         let num_of_exits = rand_num(Config.num_of_exits[location_type][0], Config.num_of_exits[location_type][1]);
@@ -44,6 +50,7 @@ class MapGenerator {
         }
         let exits = this.generate_exits(num_of_exits, Math.round(Config.max_x / 
             divisor[location_type]), Math.round(Config.max_y / divisor[location_type]));
+        
         let starting_here = null;
 
         for (let exit of exits){
@@ -61,6 +68,9 @@ class MapGenerator {
         let num_of_exit_types = { alley: 0, sewer: 0, street: 0 };
         for (let exit of exits){
             let exit_id = rand_num(Config.exits_to[location_type][0], Config.exits_to[location_type][1]);
+            if (this.exit_queue.length > 0){
+                exit_id = Config.cell_class.indexOf(this.exit_queue.shift() + '_exit');
+            }
             if (location_type == 'sewer' &&  num_of_exit_types.sewer > 0){
                 exit_id = Config.cell_class.indexOf('alley_exit');
             }
@@ -71,19 +81,31 @@ class MapGenerator {
             this.map.is(exit.x, exit.y, exit_id);
             num_of_exit_types[exit_type] ++;
         }
-
         if (starting_here == null && entered_from != null){
             let last_exit = exits[exits.length - 1];
             starting_here = last_exit;
             let desired_id = Config.exit_types.indexOf(entered_from);
-            if (desired_id >= 2){
+            if (desired_id >= 2){      
+                num_of_exit_types[Config.exit_types[this.map.queries.at(last_exit.x, last_exit.y)]]--;       
+                if (entered_from != null){
+                    num_of_exit_types[entered_from] ++;
+                }         
+                
                 this.map.is(last_exit.x, last_exit.y, desired_id);
             }
+        }
+        if (entered_from != null){
+            num_of_exit_types[entered_from] --;
+        }
+        
+        for (let type in num_of_exit_types){
+            this.map.unused_exits[type] 
+                += num_of_exit_types[type];
         }
         if (location_type == 'alley'){
             this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
         }
-        let shop_being_generated = true; //rand_num(1, 2) == 1;
+        let shop_being_generated = this.shop_queue.length > 0 || rand_num(1, 2) == 1;
         let shop_pos = null;
         if (location_type == 'street'){
             shop_pos = this.generate_shop(location_type);
@@ -94,7 +116,7 @@ class MapGenerator {
             //this.map.first_shop = false;
             //console.log(shop_pos, this.map.queries.at(shop_pos.x, shop_pos.y));
         } 
-        
+        //console.log(this.map.unused_exits);
         return starting_here;
     }
 
@@ -220,7 +242,11 @@ class MapGenerator {
         if (this.map.shops_generated.length >= Config.shop_types.length){
             return null;
         }
-        return 'motel';
+        if (this.shop_queue.length > 0){
+            this.shop_queue_used = true;
+            return this.shop_queue.shift();
+
+        }
         while (true){
             let rand_type = Config.shop_types[rand_num(0, Config.shop_types.length - 1)];
             if (!this.map.shops_generated.includes(rand_type)){

@@ -10,7 +10,7 @@ class PlayerMovement{
     explore(exit_id, map, juego){   
         let from = this.player.fetch_from();
         let coming_from = { type: this.player.state.location.type, id: this.player.state.location.id };
-        if (map.queries.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y, map)){
+        if (map.queries.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
             
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
@@ -24,7 +24,7 @@ class PlayerMovement{
             this.player.state.location.id = parseInt(to_id, 10);
             this.player.state.x = parseInt(to_x, 10);
             this.player.state.y = parseInt(to_y, 10);
-            juego.favorites.process(from, this.player.fetch_from());
+            juego.favorites.process(from, this.player.fetch_from(), map);
             map.name_old_location(this.player.state.location.type, this.player.state.location.id);
             //map.queries.find_path({ type: this.player.state.location.type, id: this.player.state.location.id });
             return;
@@ -46,8 +46,7 @@ class PlayerMovement{
         
         map.exits[from] = to;
         map.exits[to] = from;
-       // console.log(this.player.state.location.type, this.player.state.location.id, from, to);
-        juego.favorites.process(from, to);
+        juego.favorites.process(from, to, map);
         map.name_new_location( this.player.state.location.type,  this.player.state.location.id);
         
     }

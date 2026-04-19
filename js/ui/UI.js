@@ -17,11 +17,16 @@ class UI{
 	display_favorites(){
 		let txt = "";
 		for (let entity in juego.favorites.set){
-			
+			if (entity == 'directions'){
+				continue;
+			}
 			for (let id in juego.favorites.set[entity]){
+				
 				let favorite = juego.favorites.set[entity][id];
+			
 				let context = ''; 
 				let target = juego.fetch_shop(id);
+				console.log(target);
 				if (entity == 'human'){
 					context = this.display_favorites_for_human(id);
 					target = juego.fetch_human(id);
@@ -31,7 +36,7 @@ class UI{
 				if (entity == 'human'){
 					name += " " + target.surname;
 				} else {
-
+					name = Config.shop_names[target.type];
 				}					
         		if (juego.favorites.set[entity][id] != undefined){
             		favorite_symbol = `&#x2605;`;
@@ -70,7 +75,7 @@ class UI{
 		let txt = "";
 		//console.log("BUG", name, juego.player.state.location.type, juego.player.state.location.id);
 		if (juego.player.state.location.type == 'street'){			
-			$("#location_name").html(name + " Street");
+			$("#location_name").html(`${name} Street  [${juego.player.state.location.type}-${juego.player.state.location.id}]`);
 			return;
 		} 
 		txt =  "alley behind ";
@@ -93,7 +98,6 @@ class UI{
 			}
 		}
 			
-		
 		$("#location_name").html(`${txt} [${juego.player.state.location.type}-${juego.player.state.location.id}]`);
 	}
 

@@ -63,7 +63,7 @@ $(document).on('click', '.interact:not(.trade)', function(e) {
     if (human == null){
         return;
     }
-    juego.player.actions.interact(Number(this.id.split('-')[1]), human, juego.time);
+    juego.player.actions.interact(Number(this.id.split('-')[1]), human, juego.time, ui);
     ui.refresh.go();
 });
 

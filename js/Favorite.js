@@ -1,30 +1,52 @@
-class Favorite{
+class Favorite{	
     set = {
+		directions: [],
 		human: [],
 		shop: [],
 	} 
-	add(set_type, set_id, directions, location, x, y, path){
+	add(set_type, set_id, directions, location, x, y, path, need){	
+		if (directions)	{
+			set_type = 'directions';
+			set_id = 0;
+		}
 		if (this.set[set_type][set_id] == undefined){
-			this.set[set_type][set_id] = { directions: directions, location: location, x:x, y:y, path: path, }
+			this.set[set_type][set_id] = { location: location, x:x, y:y, path: path, need: need}
 		} else if (this.set[set_type][set_id] != undefined){
 			delete this.set[set_type][set_id];
 		}
-		console.log(this.set);
+		//console.log(this.set);
 	}
-
+	add_shop_not_here(shop, path ){
+		this.add('shop', shop.id, false, shop.location, shop.x, shop.y, path, []);
+	}
     add_by_type(type, id, juego){
 		let favorite_target = juego.fetch_human(id);
 		if (type == 'shop'){
 			favorite_target = juego.fetch_shop(id);
 		}
-		this.add(type, id, false, { type: juego.player.state.location.type, id: juego.player.state.location.id }, favorite_target.x, favorite_target.y, []);
+		this.add(type, id, false, { type: juego.player.state.location.type, id: juego.player.state.location.id }, favorite_target.x, favorite_target.y, [], []);
 		
 	}
 
-	add_for_directions(set_id, location, x, y, path){
-		console.log(set_id, location, x, y, path);
-		this.add('shop', set_id, true, location, x, y, path);
+	add_for_directions(path, need){
+		//console.log(set_id, location, x, y, path);
+		this.add('shop', null, true, {type: null, id: null}, null, null, path, need);
 		
+	}
+
+	fetch_incomplete(x, y){
+		//console.log(x, y, this.set)
+		for (let entity in this.set){
+			//console.log(entity, this.set);
+			for (let id in this.set[entity]){
+				let favorite = this.set[entity][id];
+				//console.log(favorite);
+				if (favorite.x == x && favorite.y == y){
+					return favorite; 
+				}
+			}
+		}
+		return null;
 	}
 /*
     fetch_relevant(from, to){
@@ -89,20 +111,43 @@ class Favorite{
 		return false;
 	}
 
-    process(from, to){
+    process(from, to, map){
 		//console.log("PROCESS", from, to, this.set);		
 		for (let entity of Object.keys(this.set)){
 			for (let favorite_id in this.set[entity]){ 
 				let favorite = this.set[entity][favorite_id];
 				let where = `${from.split('-')[0]}-${from.split('-')[1]}`;
+				//console.log(favorite.path, favorite.path.includes(from))
 				if (favorite.path.includes(from)){
-					delete favorite.path[from];
+					//console.log('delete');
+					                    let index = favorite.path.indexOf(from);
+                    if (index > -1) {
+                        favorite.path.splice(index, 1);
+                    }
 				} else if (!favorite.path.includes(to)){
 					favorite.path.push(to);
 					continue;
 				} 
+				//console.log(favorite.path, favorite.path.includes(from))
 			}
 		}
+		let directions = null;
+		//console.log(this.set.directions.length);
+		if (this.set.directions.length > 0 ){
+			directions = this.set.directions[0];
+		}
+		//console.log(directions);
+		if (directions == null || (directions != null && directions.path.length > 0)){
+			return;
+		}
+		let location = {type: to.split('-')[0], id: Number(to.split('-')[1]) };
+		let next_location_type = directions.need.shift();
+		let unused_exit = map.queries.fetch_unused_exit(next_location_type, location);
+		
+		directions.path.push(map.format_at(location.type, location.id, unused_exit.x, unused_exit.y));
+		//console.log(directions);
+
+		
 	}
 /*
     remove(from, to){

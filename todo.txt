@@ -3,6 +3,17 @@ TODO
     put characters behind shops
     put capital letters as humans
     streets are too common
+    add favorite directions to favorites so you can unfavorite it
+    more shops 
+        sporting good stores
+        homeless shelter
+        food
+        hardware store
+    trash
+    sleep
+    fade status instead of overwriting it when not in use
+    favorites - directions null for 
+    when take_all, even though it can stack, it's not doing it
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    
@@ -44,10 +55,13 @@ LATER
     pcp - deferred damage
     cocaine / crack - prevents losing consciousness (crack cheaper but causes max_health reduction)
         weed / heroin?
-    
+    homeless people in sewers should attack you
 
     SKILL tREE
         see humans that are able to be successfully begged Human.js:42 Uncaught TypeError: Cannot read properties of undefined (reading 'days')
+    shopping cart
+    bags
+
 BUGS
     Going into a street causes a crash. Most likely it's an error trying to find a place to look for a shop.
     

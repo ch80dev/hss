@@ -25,9 +25,10 @@ class InventoryMove{
             return;
         }
         for (let id in this.player.state.inventory){
-            let item = this.player.inventory.fetch.by_id(id);
-            if (item.name == equipped.name && item.durability == equipped.durability && this.player.state.equipped != id){
-                this.player.state.equipped = id;
+            let item = this.player.state.inventory[id];
+            console.log(id, item);
+            if (item.name == equipped.name && item.durability == equipped.durability && this.player.state.equipped != item.id){
+                this.player.state.equipped = item.id;
                 return;
             }
         }

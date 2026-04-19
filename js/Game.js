@@ -95,7 +95,7 @@ class Game{
 			let path = this.map.queries.find_path(human.location, target_shop.location);
 			let exits = this.map.queries.fetch_exits_for_path(path);
 			this.favorites.add_shop_not_here(target_shop, exits);			
-			ui.log("They give you directions to " + target_shop.name);
+			ui.log("They give you directions to " + what);
 			return;
 		}
 		this.map.generator.shop_queue.push(what);
@@ -118,7 +118,7 @@ class Game{
 		let last_loc = nearest.path[nearest.path.length - 1];
 		exits.push(nearest.exit);
 		this.favorites.add_for_directions(exits, ['street']);
-		
+		ui.log("They give you directions to " + what);
 	}
 
 
@@ -185,7 +185,6 @@ class Game{
 				favorite.x = shop.x;
 				favorite.y = shop.y;
 				this.favorites.set.shop[shop.id] = favorite;
-				console.log(this.favorites.set.shop);
 			}
 			
 			
@@ -243,7 +242,9 @@ class Game{
 				//console.log("go");
 				human.attack_player(juego.player);
 			}
-			if (human.begging_unlocked.days >= this.time.days && human.begging_unlocked.hours >= this.time.hours){
+			console.log(human.begging_unlocked, this.time);
+			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
+				console.log('beggining reset');
 				human.begging_unlocked = true;
 			}
 		}

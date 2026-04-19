@@ -35,8 +35,7 @@ class Human extends Lifeform{
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
     }
     begged(time){
-        console.log(time, this.give_when_begged);
-
+        console.log(time, this.begging_unlocked);
         this.money -= this.give_when_begged;  
         this.begging_unlocked = { days: time.days + 1, hours: time.hours};
         console.log(this.begging_unlocked);

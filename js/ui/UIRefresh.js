@@ -5,12 +5,14 @@ class UIRefresh {
     go(){
 		if (juego.player.state.shopping != null ){
 			this.ui.shop.display(juego.player);
+		} else if (juego.player.state.looting){
+			this.ui.loot.display();
 		}
 		this.ui.display_location_name();
 		
 		
 		this.ui.map.display();
-		this.ui.loot.display();
+		
 		
 		this.ui.social.display();
 		this.ui.display_favorites();

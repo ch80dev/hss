@@ -227,7 +227,8 @@ class MapGenerator {
         if (shop_type == null){
             return null;
         }
-        while(true){
+        let n = 0;
+        while(n < 100){
             let rand_x = rand_num(0, Config.max_x - 1);
             let rand_y = rand_num(0, Config.max_y - 1);
             let num_of_open = this.map.queries.fetch_adjacent(rand_x, rand_y, 1, false).length;
@@ -235,7 +236,9 @@ class MapGenerator {
             if (num_of_open == 3 && num_of_null == 5){
                 return { id: this.map.locations.street.length , location: {type: location_type, id: this.map.locations[location_type].length }, type: shop_type, x: rand_x, y: rand_y };
             }            
+            n ++;
         }
+        return null;
     }
 
     generate_shop_type(){     

@@ -26,7 +26,6 @@ class UI{
 			
 				let context = ''; 
 				let target = juego.fetch_shop(id);
-				console.log(target);
 				if (entity == 'human'){
 					context = this.display_favorites_for_human(id);
 					target = juego.fetch_human(id);

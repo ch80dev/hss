@@ -3,16 +3,17 @@ class Input {
     number_key_pressed(number){
         //might need to check if locked
 
-        
-        let loot = juego.map.loot[juego.player.fetch_from()].stuff;
+        /*
+        let loot = juego.map.loot[juego.player.fetch_from()];
         if ((juego.player.state.looting && loot == undefined) 
             && (!juego.player.state.looting && juego.player.state.socializing == null)){
             return;
         }
-        if (juego.player.state.looting && loot[number - 1] != undefined){
+        if (juego.player.state.looting && loot.stuff[number - 1] != undefined){
             juego.player.inventory.take.item(number - 1, juego.map);
             return;
         }
+            */
         if (juego.player.state.socializing == null){ // is this even possible?
             return;
         }

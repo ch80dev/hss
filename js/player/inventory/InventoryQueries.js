@@ -10,10 +10,12 @@ class InventoryQueries{
     can_they_take(name, quantity){
         let weight = this.fetch_weight(name, quantity);
         if (weight + this.player.state.inventory_weight >= this.player.state.max_inventory_weight){
+            console.log('a');
             return false;
         } else if (Config.stackable.includes(name) && this.is_in_inventory(name)){
             return true;
         } else if (this.player.state.inventory.length >= this.player.state.slots_in_inventory ){
+            console.log('c');
             return false;
         }
         return true;

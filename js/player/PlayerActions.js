@@ -89,7 +89,7 @@ class PlayerActions {
             this.player.inventory.move.give_to_human(human.resources[id], 1, human);
             this.player.money += human.conversion[id];
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
-        } else if (interaction == 'directions' && ui.social.directions_selected != null){
+        } else if (interaction == 'directions' && ui.social.directions_selected != null && juego.favorites.set.directions.length < 1){
             juego.get_directions(human, ui.social.directions_selected);
             ui.change_screen('map');
             this.player.state.socializing = null;

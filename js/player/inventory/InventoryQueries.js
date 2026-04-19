@@ -12,10 +12,10 @@ class InventoryQueries{
         if (weight + this.player.state.inventory_weight >= this.player.state.max_inventory_weight){
             console.log('a');
             return false;
-        } else if (Config.stackable.includes(name) && this.is_in_inventory(name)){
+        } else if (ItemConfig.stackable.includes(name) && this.is_in_inventory(name)){
             return true;
         } else if (this.player.state.inventory.length >= this.player.state.slots_in_inventory ){
-            console.log(name, quantity, Config.stackable.includes(name), this.is_in_inventory(name));
+            console.log(name, quantity, ItemConfig.stackable.includes(name), this.is_in_inventory(name));
             return false;
         }
         return true;
@@ -23,12 +23,12 @@ class InventoryQueries{
 
     can_they_use(name, map){
         if ((name == 'lighter' && !this.is_in_inventory('fuel')) 
-            || (name == 'crate' && map.queries.is_item_here('crate (placed)', this.player.fetch_from()))
-            || (name == 'crate' && map.queries.at(this.player.state.x, this.player.state.y) != 1)){
+            || (name == 'crate' && map.get.inspector.is_item_here('crate (placed)', this.player.fetch_from()))
+            || (name == 'crate' && map.get.at(this.player.state.x, this.player.state.y) != 1)){
             return false;
 
         }
-        return Config.usable.includes(name);
+        return ItemConfig.usable.includes(name);
     }
     
     do_they_have(what, quantity){
@@ -58,8 +58,8 @@ class InventoryQueries{
 
 
     fetch_weight(name, quantity){
-        //console.log(name, quantity, Config.weights[name]);
-        return Config.weights[name] * quantity;
+        //console.log(name, quantity, ItemConfig.weights[name]);
+        return ItemConfig.weights[name] * quantity;
     }
 
     is_equipped_with(what){

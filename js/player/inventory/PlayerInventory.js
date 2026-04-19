@@ -5,7 +5,7 @@ class PlayerInventory {
         this.player = player;
         this.fetch = new InventoryFetch(this.player);    
         this.move = new InventoryMove(this.player);
-        this.queries = new InventoryQueries(this.player);
+        this.get = new InventoryQueries(this.player);
         this.take = new InventoryTake(this.player);
         this.use = new InventoryUse(this.player);
 

@@ -35,7 +35,7 @@ LATER
             hatchet 6dm 1.5% $25                                pawn
             machete 8dmg 1%     $40                             pawn
 
-    light and darkness - map gets dark and you need light to traverse - (ESPECIALLY SEWER)
+        light and darkness - map gets dark and you need light to traverse - (ESPECIALLY SEWER)
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
     be able to make a campfire
@@ -45,7 +45,7 @@ LATER
     instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
     rats should be able to exit if there's no food in the alley
     if a player equips a crate, they can carry more slots.
-    interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
+        interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
     when you lose health, (or any lifeform) there's a random chance to lose consciousness if (1, 100) > health
@@ -64,20 +64,11 @@ LATER
     bags
 
 BUGS
-    Going into a street causes a crash. Most likely it's an error trying to find a place to look for a shop.
-    
-        i think the crate bug being able to ref anywhere is because the reference variable for loot is being viewed by reference maybe
-    HUGE - exited to street and kept looping
+
     you cant control which durability item you're trading so if you have multiple, just the first one goes
     after placing crate, I can see it anywhere I look
-    in addition to selling, if you use stuff up, it fucks up equipped
     SICK still shows % of sickness 
-    can still trade even if my inventory is full
     accidentally bought 3 tools instead of just one - maybe do a delayi
-    traded 2 food for a crate and it made food 0 didn't give me a crate (2nd interaction, 2nd convert)
-    accidentally traded 1 tool and it said i didn't have it (2 interaction, 2 convert)
-    checked inv at random location never been to and 0 food was there from some other drop i did in a different location
-    when I tried to use crate (I got error inventory:20)
     trades shouldnt exist that require more unstackable items than slots in inventory
     when i picked up a placed crate, it removed it apparently but didn't put it in ym inventory
     sold drugs to human and i got the money (I think) but the quantity went to 0

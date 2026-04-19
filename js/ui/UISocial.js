@@ -4,7 +4,7 @@ class UISocial{
 		if (juego.player.state.socializing == null){
 			return;
 		}
-		let human = juego.fetch_human(juego.player.state.socializing);
+		let human = juego.get.human(juego.player.state.socializing);
 		//console.log(human);
 		let favorite_symbol = `&#x2606;`;
         if (juego.favorites.set.human[human.id] != undefined){
@@ -15,12 +15,12 @@ class UISocial{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			
-			if ((interaction == 'buy' && juego.player.inventory.queries.are_they_full() 
-					&& ((Config.stackable.includes(human.resources[id]) 
-					&& !juego.player.inventory.queries.is_in_inventory(human.resources[id])) 
-					|| !Config.stackable.includes(human.resources[id]) ))
+			if ((interaction == 'buy' && juego.player.inventory.get.are_they_full() 
+					&& ((ItemConfig.stackable.includes(human.resources[id]) 
+					&& !juego.player.inventory.get.is_in_inventory(human.resources[id])) 
+					|| !ItemConfig.stackable.includes(human.resources[id]) ))
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
-				|| (interaction == 'sell' && !juego.player.inventory.queries.do_they_have(human.resources[id], 1))
+				|| (interaction == 'sell' && !juego.player.inventory.get.do_they_have(human.resources[id], 1))
 				|| (interaction == 'beg' && human.begging_unlocked !== true)
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
 				|| (interaction == 'directions' && this.directions_selected == null)
@@ -37,16 +37,16 @@ class UISocial{
 				let first_disabled = '';
 				let second = human.resources[id][first];
 				let second_disabled = '';
-				resource = `${conversion[0]} ${first} [${juego.player.inventory.queries.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.queries.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
-				if (!juego.player.inventory.queries.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1])){
+				resource = `${conversion[0]} ${first} [${juego.player.inventory.get.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.get.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
+				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1])){
 					first_disabled = ' disabled ';
 				}
-				if (!juego.player.inventory.queries.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0])){
+				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0])){
 					second_disabled = ' disabled ';
 				}
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
-				resource = `${human.resources[id]} [${juego.player.inventory.queries.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
+				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
@@ -56,8 +56,8 @@ class UISocial{
 					selected = " selected ";
 				}
 				resource = `<select id='directions_to'><option ${selected}></option>`;
-				for (let id in Config.shop_names ){
-					let shop_name = Config.shop_names[id];
+				for (let id in ShopConfig.names ){
+					let shop_name = ShopConfig.names[id];
 					selected = '';
 					if (this.directions_selected == id){
 						selected = " selected ";

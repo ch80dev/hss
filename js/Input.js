@@ -17,7 +17,7 @@ class Input {
         if (juego.player.state.socializing == null){ // is this even possible?
             return;
         }
-        let human = juego.fetch_human(juego.player.state.socializing);        
+        let human = juego.get.human(juego.player.state.socializing);        
         if (human == null){
             return;
         }
@@ -37,13 +37,13 @@ class Input {
         }
         let interaction_id = human.interactions.indexOf(interaction);
         if (interaction == 'trade' && local_interactions[number] != undefined && local_interactions[number] == 'trade'){
-            juego.player.actions.trade(interaction_id, 0, human);
+            juego.player.actions.human.trade(interaction_id, 0, human);
             return;
         } else if (interaction == 'trade'){
-            juego.player.actions.trade(interaction_id, 1, human);
+            juego.player.actions.human.trade(interaction_id, 1, human);
             return;
         }        
-        juego.player.actions.interact(interaction_id, human, juego.time, ui)
+        juego.player.actions.human.interact(interaction_id, human, juego.time, ui)
         
     }
 
@@ -76,7 +76,7 @@ class Input {
             juego.player.inventory.take.all(juego.map);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
-            juego.next_turn();
+            juego.turn.next(juego.human, juego.map, juego.night, juego.rats);
         } else if (pressed == 'm' && juego.player.state.marking == false){
             juego.player.state.marking = true;
             //console.log(juego.player.state.marking);
@@ -103,7 +103,7 @@ class Input {
         if (id == ""){
             ui.social.directions_selected = null;
             return;
-        } else if (Object.keys(Config.shop_names).includes(id)){
+        } else if (Object.keys(ShopConfig.names).includes(id)){
             ui.social.directions_selected = id;
         }   
 

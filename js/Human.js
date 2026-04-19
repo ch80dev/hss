@@ -78,7 +78,7 @@ class Human extends Lifeform{
     }
 
     generate_conversion(first, second){
-        let costs = [Config.prices[first], Config.prices[second]];        
+        let costs = [ItemConfig.prices[first], ItemConfig.prices[second]];        
         if (costs[0] <= costs[1]){
             return [Math.ceil(costs[1] / costs[0]), 1];
         }
@@ -111,19 +111,19 @@ class Human extends Lifeform{
                 let second = this.generate_rand_item([first]);
                 this.resources[id] = { [first]: second };
                 this.conversion[id] = this.generate_conversion(first, second);
-                this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / Config.prices[first]), durability: 100 });
-                this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / Config.prices[second]), durability: 100 });
+                this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[first]), durability: 100 });
+                this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[second]), durability: 100 });
             } else if (HumanConfig.interactions_for_resources.includes(interaction)){
                 this.resources[id] = this.generate_rand_item([]);
                 
             }
             if (interaction == 'buy'){                                
-                this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / Config.prices[this.resources[id]]), durability: 100 });
-                this.conversion[id] = Number(Config.prices[this.resources[id]]  
-                    +  (Config.prices[this.resources[id]] * rand_num(5, 100) * .01)).toFixed(2); 
+                this.inventory.push({ name: this.resources[id], quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[this.resources[id]]), durability: 100 });
+                this.conversion[id] = Number(ItemConfig.prices[this.resources[id]]  
+                    +  (ItemConfig.prices[this.resources[id]] * rand_num(5, 100) * .01)).toFixed(2); 
             } else if (interaction == 'sell'){
-                this.conversion[id] = Number(Config.prices[this.resources[id]]  
-                    -  (Config.prices[this.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
+                this.conversion[id] = Number(ItemConfig.prices[this.resources[id]]  
+                    -  (ItemConfig.prices[this.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
 
             }
         }
@@ -138,13 +138,13 @@ class Human extends Lifeform{
 
     generate_rand_item(not_arr){
         //console.log(not_arr);
-        let items_drawn_from = Config.human_items;
+        let items_drawn_from = ItemConfig.human_items;
         if (this.homeless){
-            items_drawn_from = Object.keys(Config.trash_item_odds);
+            items_drawn_from = Object.keys(ItemConfig.trash_item_odds);
         }
         while(true){
             let rand = rand_num(0, items_drawn_from.length - 1);
-            //console.log(rand, Config.human_items);
+            //console.log(rand, ItemConfig.human_items);
             let rand_item = items_drawn_from[rand];
             
             if (!not_arr.includes(rand_item)){

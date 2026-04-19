@@ -1,6 +1,6 @@
 class UIShop{
     display(player){
-        let shop = juego.fetch_shop(player.state.shopping);
+        let shop = juego.get.shop(player.state.shopping);
         //console.log(shop);
         if (shop == null){
             return;
@@ -9,13 +9,13 @@ class UIShop{
         if (juego.favorites.set.shop[shop.id] != undefined){
             favorite_symbol = `&#x2605;`;
         }
-        let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${Config.shop_names[shop.type]}</div>`
+        let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${ShopConfig.names[shop.type]}</div>`
         if (shop.type == 'recycling'){
             txt += this.display_recycling(player, shop);
             txt += this.display_sell_generic(player, shop);
         } else if (shop.type == 'pawn'){
-            for (let resource of Config.shop_resources[shop.type]){
-                txt += `<div>${resource}: $${Config.prices[resource]}</div>`;
+            for (let resource of ShopConfig.resources[shop.type]){
+                txt += `<div>${resource}: $${ItemConfig.prices[resource]}</div>`;
             }
             txt += this.display_buy_unique(player, shop);
             txt += this.display_sell_unique(player, shop);
@@ -28,10 +28,10 @@ class UIShop{
         let txt = "<div>Sleeping inside (like at a motel or a homeless shelter) brings your stigma to 0. (in addition to avoiding the healthy penalty for sleeping outside) </div>";
         if (shop.room_rented_at == null){
             let disabled = '';
-            if (player.state.money < Config.motel_room_cost){
+            if (player.state.money < ShopConfig.motel_room_cost){
                 disabled = ' disabled ';
             }
-            return `${txt} <div><button id='rent_a_room' class='rent_a_room' ${disabled}>rent a room for $${Config.motel_room_cost}</button></div>`
+            return `${txt} <div><button id='rent_a_room' class='rent_a_room' ${disabled}>rent a room for $${ShopConfig.motel_room_cost}</button></div>`
         }
         return `${txt} <div><button id='sleep_at_shop'>sleep</button> </div>`
     }
@@ -39,8 +39,8 @@ class UIShop{
     display_recycling(player, shop){
         let disabled = '';
         let item_in_inventory = false;
-        for (let item of Config.recyclables){
-            if (player.inventory.queries.is_in_inventory(item)){
+        for (let item of ItemConfig.recyclables){
+            if (player.inventory.get.is_in_inventory(item)){
                 item_in_inventory = true;
             }
         }
@@ -50,22 +50,22 @@ class UIShop{
         let txt = `<div><button id='sell_all_recycling' ${disabled}>sell all</button></div>`;
         
         
-        for (let item of Config.shop_resources.recycling){
-            txt += `<div>${item} $${Config.prices[item]}</div>`;
+        for (let item of ShopConfig.resources.recycling){
+            txt += `<div>${item} $${ItemConfig.prices[item]}</div>`;
         }
         return txt;
     }
 
     display_sell_generic(player, shop){
         let txt = "";
-        for (let id in Config.shop_resources[shop.type]){
+        for (let id in ShopConfig.resources[shop.type]){
             let disabled = '';
             let min_quantity = shop.selling;
             if (min_quantity == 'all'){
                 min_quantity = 1;
             }
-            let resource = Config.shop_resources[shop.type][id];
-            if (!player.inventory.queries.do_they_have(resource, min_quantity)){
+            let resource = ShopConfig.resources[shop.type][id];
+            if (!player.inventory.get.do_they_have(resource, min_quantity)){
                 disabled = ' disabled ';
             }
             txt += `<button id='sell_to_shop-${id}' class='sell_to_shop' ${disabled}> sell ${shop.selling} ${resource}</button>`
@@ -77,8 +77,8 @@ class UIShop{
         for (let id in shop.inventory){
             let item = shop.inventory[id];
             let disabled = "";
-            let price = Config.prices[item.name];
-            if (player.state.money < Config.prices[item.name] || player.inventory.queries.are_they_full()){
+            let price = ItemConfig.prices[item.name];
+            if (player.state.money < ItemConfig.prices[item.name] || player.inventory.get.are_they_full()){
                 disabled = ' disabled ';
             }
             txt += `<button id='buy_unique-${id}' class='buy_unique' ${disabled}>buy ${item.name} (${item.durability}%)</button>`
@@ -88,7 +88,7 @@ class UIShop{
 
     display_sell_unique(player, shop){
         let txt = "";
-        let all_sellable_items_in_inventory = player.inventory.fetch.all_items(Config.shop_resources[shop.type]);
+        let all_sellable_items_in_inventory = player.inventory.fetch.all_items(ShopConfig.resources[shop.type]);
         
         
         if (all_sellable_items_in_inventory.length > 0){
@@ -97,7 +97,7 @@ class UIShop{
         for (let id of all_sellable_items_in_inventory){
             let item = player.inventory.fetch.by_id(id);
             let equipped = '';
-            let price = Math.round(item.durability * Config.prices[item.name] * .005);
+            let price = Math.round(item.durability * ItemConfig.prices[item.name] * .005);
             if (price < 1){
                 continue;
             }

@@ -39,7 +39,7 @@ class PlayerState{
         this.money = rand_num(0, HumanConfig.homeless_money);
         this.x = x;
         this.y = y;
-        for (let item_name of Object.keys(Config.prices)){
+        for (let item_name of Object.keys(ItemConfig.prices)){
             this.auto_loot_preferences[item_name] = true;
         }
     }

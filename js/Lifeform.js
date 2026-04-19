@@ -26,7 +26,7 @@ class Lifeform {
         this.map = map;
         this.x = x;
         this.y = y;
-        this.inventory.push({ name: `raw meat (${type})`, quantity: Config.meat[type], durability: 100 })
+        this.inventory.push({ name: `raw meat (${type})`, quantity: ItemConfig.meat[type], durability: 100 })
         let lifeform = Config.lifeforms[type]
         for (let attr in lifeform){
             let value = lifeform[attr];
@@ -41,7 +41,7 @@ class Lifeform {
     attack_player(player){
         this.stamina += Config.stamina_cost.attack;
         let did_they_hit = rand_num(1, 100) <= this.stamina;
-        let distance = this.map.queries.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
+        let distance = this.map.get.geometry.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
         if (Math.floor(distance) > 1){ //if shooting, do something else
             return;
         }
@@ -78,10 +78,10 @@ class Lifeform {
         } else if(this.health > 0){
             this.health -= movement_cost;
         }
-        if (this.map.queries.at(this.x, this.y) == map_id){
+        if (this.map.get.at(this.x, this.y) == map_id){
             this.map.is(this.x, this.y, 1);
         }
-        if (this.map.queries.at(x, y) == 1){
+        if (this.map.get.at(x, y) == 1){
             this.map.is(x, y, map_id);
         }
         if (this.health < 1){
@@ -92,10 +92,10 @@ class Lifeform {
     }
 
     is_blocked(x, y){
-        if (!this.map.queries.is_valid(x, y)){
+        if (!this.map.get.geometry.is_valid(x, y)){
             return true;
         }
-        if (this.map.queries.at(x, y) == 1 || this.map.queries.at(x, y) == 5){
+        if (this.map.get.at(x, y) == 1 || this.map.get.at(x, y) == 5){
             return false;
         }
         return true;

@@ -1,12 +1,14 @@
 class Game{
 	facing = 'up';
+	get = null;
 	night = false;
 	favorites = new Favorite();
 	humans = [];
 	input = new Input();
 	loop = new Loop();
 	player = null; // needs to before map;
-	map = new GameMap (Config.max_x, Config.max_y);
+	populate = null;
+	map = new GameMap (MapConfig.max_x, MapConfig.max_y);
 	rats = [];
 
 	shops = [];
@@ -16,238 +18,26 @@ class Game{
 		minutes: 0,
 		weeks: 1,
 	}
+	turn = null;
 	
 	
 	constructor(){
 		setInterval(this.loop.go(), Config.loop_interval_timing);
-		let open = this.map.queries.fetch_open();
+		this.get = new Queries(this.humans, this.rats, this.shops);
+		let open = this.map.get.inspector.fetch_open();
 		this.player = new Player(open.x, open.y);
-		this.populate_with_rats('alley', 0);
-		this.populate_with_humans('alley', 0);
-		this.populate_shops();
+		this.populate = new Populator(this.map, this.player);
+		this.turn = new Turn(this.player, this.time);
+		this.populate.with_rats('alley', 0, this.rats);
+		this.populate.with_humans('alley', 0, this.humans);
+		this.populate.with_shops(this.favorites, this.shops);
 	}
 	
-	fetch_human_by_loc(location_type, location_id, x, y){
-		for (let human of this.humans){			
-            if (human.location.type == location_type && human.location.id == location_id 
-				&& human.x == x && human.y == y){
-                return human;
-            }
-        }
-        return null;
-	}
-
-	fetch_human(id){
-		//console.log(id);
-		for (let human of this.humans){			
-            if (human.id == id){
-				//console.log(human.id, id);
-                return human;
-            }
-        }
-        return null;
-	}
-
-	fetch_rat(location_type, location_id, x, y){
-		//console.log(location_type, location_id, x, y);
-        for (let rat of this.rats){
-			//console.log(rat.location, rat.x, rat.y);
-            if (rat.location.type == location_type && rat.location.id == location_id 
-				&& rat.x == x && rat.y == y){
-                return rat;
-            }
-        }
-        return null;
-    }
-
 	
-
-	fetch_target(location_type, location_id, x, y){
-		let target = this.fetch_human_by_loc(location_type, location_id, x, y);
-		if (target != null){
-			return target;
-		}
-		target = this.fetch_rat(location_type, location_id, x, y);
-		return target;
-
-	}
-
-	fetch_shop(id){
-		
-		for (let shop of this.shops){
-			if (shop.id == id){
-				return shop;
-			}
-		}		
-		return null;
-	}
-
-	get_directions(human, what){
-		//console.log(human, what);
-		let target_shop = null;
-		for (let shop of this.shops){
-			if (shop.type == what){
-				target_shop = shop;
-				break;
-			}
-		}
-		if (target_shop != null && target_shop.location != null){
-			let path = this.map.queries.find_path(human.location, target_shop.location);
-			let exits = this.map.queries.fetch_exits_for_path(path);
-			this.favorites.add_shop_not_here(target_shop, exits);			
-			ui.log("They give you directions to " + what);
-			return;
-		}
-		this.map.generator.shop_queue.push(what);
-		if (this.map.unused_exits.street > 0){
-			let nearest = this.map.queries.find_nearest('street', human.location);
-			let exits = this.map.queries.fetch_exits_for_path(nearest.path);
-			let last_loc = nearest.path[nearest.path.length - 1];
-			exits.push(nearest.exit);
-			this.favorites.add_for_directions(exits, []);
-			ui.log("They give you directions to " + what);
-			return;
-			//let path = this.map.queries.find_path(human.location, this.map.queries.find_nearest('street', human.location);
-			
-			//console.log(path, exits);
-		}
-		//this makes an assumption that the starting alley has another alley that you can go to
-		this.map.generator.exit_queue.push('street');
-		let nearest = this.map.queries.find_nearest('alley', human.location);
-		let exits = this.map.queries.fetch_exits_for_path(nearest.path);
-		let last_loc = nearest.path[nearest.path.length - 1];
-		exits.push(nearest.exit);
-		this.favorites.add_for_directions(exits, ['street']);
-		ui.log("They give you directions to " + what);
-	}
-
-
-	forward_time(hours_delta, minutes_delta){
-		//console.log(hours_delta, minutes_delta);
-		this.time.minutes += minutes_delta;
-		if (this.time.minutes > 59){
-			this.time.minutes = 0;
-			this.time.hours ++;
-		}
-		this.time.hours += hours_delta;
-		if (this.time.hours > 23){
-			this.time.hours = 0;
-			this.time.days ++; 			
-		}
-		if (this.time.days > Config.days_of_the_week.length){
-			this.time.days = 1;
-			this.time.weeks ++;
-		}
-	}
-
-	
-
-	next_turn(){
-	
-		this.player.status.change_stamina();
-		this.lifeforms_move();		
-		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
-			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
-			this.player.state.minutes_delta = 0;
-			this.player.state.hours_delta = 0;	
-		} else {
-			this.forward_time(0, 1);	
-		}
-		if (!this.night && this.time.hours >= Config.night_time){
-			ui.log("It's night time now.")
-			this.night = true;
-		}else if (this.night && this.time.hours >= Config.day_time && this.time.hours < Config.night_time){
-			ui.log("It's day time now.")
-			this.night = false;
-		}
-	}
 
 	populate(location_type, location_id){
-		this.populate_with_humans(location_type, location_id);
-		this.populate_with_rats(location_type, location_id);
-		this.populate_shops(location_type, location_id);
+		this.populate.with_humans(location_type, location_id, this.humans);
+		this.populate.with_rats(location_type, location_id, this.rats);
+		this.populate.with_shops(this.favorites, this.shops);
 	}
-
-	populate_shops(){
-		//console.log(this.shops.length, this.map.shops.length);
-		for (let shop of this.map.shops){
-			//console.log(shop, this.map.shops);
-			if (this.shops[shop.id] != undefined){
-				continue;
-				
-			}
-			let favorite = null;
-			if (this.map.generator.shop_queue_used){
-				let favorite = this.favorites.set.directions.splice(0, 1)[0]; // amke this into a buffer
-				this.map.generator.shop_queue_used = false;		
-				favorite.location = shop.location;		
-				favorite.type = shop.type;
-				favorite.x = shop.x;
-				favorite.y = shop.y;
-				this.favorites.set.shop[shop.id] = favorite;
-			}
-			
-			
-			this.shops.push(new Shop(shop.id, shop.type, shop.location, shop.x, shop.y))
-		}
-		//console.log(this.shops.length, this.map.shops.length);
-	}
-
-	populate_with_humans(location_type, location_id){
-        let num_of_humans = rand_num(Config.min_num_of_humans[location_type], Config.max_num_of_humans[location_type]);
-		let id = this.humans.length;		
-        for (let i = 0; i < num_of_humans; i ++){
-            let open = this.map.queries.fetch_open();
-            this.map.is(open.x, open.y, 7);
-			let are_they_homeless = rand_num(1, 100) <= Config.homeless_cent[location_type];
-			this.humans.push(new Human(id + i, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player))
-        }
-    }
-
-	populate_with_rats(location_type, location_id){        
-        let num_of_rats = rand_num(1, Config.max_num_of_rats[location_type]);        
-		let id = this.rats.length;		
-        for (let i = 0; i < num_of_rats; i ++){
-            let open = this.map.queries.fetch_open();
-            this.map.is(open.x, open.y, 6);			
-            this.rats.push(new Rat(id, open.x, open.y, location_type, location_id, this.map, this.player))			
-        }
-    }
-
-	
-
-	lifeforms_move(){		
-		
-		for (let id in  this.rats){					
-			let rat = this.rats[id];
-			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
-			if (rat.dead || rat.location.type != this.player.state.location.type || rat.location.id != this.player.state.location.id){
-				continue;
-			}
-
-			if (rat.attacking_player && distance < 2 ){
-				rat.attack_player();
-			}
-			rat.move(id);
-		}
-		for (let id in  this.humans){
-			let human = this.humans[id];					
-			let distance = this.map.queries.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
-			if (human.dead){
-				continue;
-			}
-		
-			//console.log(human.attacking_player, distance < 2);
-			if (human.attacking_player && distance < 2 ){
-				//console.log("go");
-				human.attack_player(juego.player);
-			}
-			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
-				console.log('beggining reset');
-				human.begging_unlocked = true;
-			}
-		}
-	}
-
-	
 }

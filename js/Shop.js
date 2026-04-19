@@ -24,18 +24,17 @@ class Shop{
         if (type == 'pawn'){
             this.stock_pawn_shop();
         }
-        this.interactions = Config.shop_interactions[type];
-        this.resources = Config.shop_resources[type];
-        this.max_stigma = Config.max_stigma_for_shop[type];
+        this.interactions = ShopConfig.interactions[type];
+        this.resources = ShopConfig.resources[type];
+        this.max_stigma = ShopConfig.max_stigma[type];
     }
 
     rent_a_room(player){
-        //console.log(player.state.money, Config.motel_room_cost, this.room_rented_at);
-        if (player.state.money < Config.motel_room_cost){
+        if (player.state.money < ShopConfig.motel_room_cost){
             return;
         }
         
-        player.status.change_money(-Config.motel_room_cost);
+        player.status.change_money(-ShopConfig.motel_room_cost);
         this.room_rented_at = true;
 
     }
@@ -54,8 +53,8 @@ class Shop{
 
     stock_pawn_shop(){
         
-        while (this.inventory.length < Config.num_of_items_in_pawn_shop){
-            let item_name = Config.shop_resources['pawn'][rand_num(0, Config.shop_resources['pawn'].length - 1)];
+        while (this.inventory.length < ShopConfig.num_of_items_in_pawn_shop){
+            let item_name = ShopConfig.resources['pawn'][rand_num(0, ShopConfig.resources['pawn'].length - 1)];
             let durability = rand_num(50, 95);
             //console.log(item_name, durability);
             this.inventory.push( { name: item_name, quantity: 1, durability: durability });            

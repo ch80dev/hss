@@ -10,7 +10,7 @@ class PlayerMovement{
     explore(exit_id, map, juego){   
         let from = this.player.fetch_from();
         let coming_from = { type: this.player.state.location.type, id: this.player.state.location.id };
-        if (map.queries.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
+        if (map.get.inspector.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
             
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
@@ -26,21 +26,20 @@ class PlayerMovement{
             this.player.state.y = parseInt(to_y, 10);
             juego.favorites.process(from, this.player.fetch_from(), map);
             map.name_old_location(this.player.state.location.type, this.player.state.location.id);
-            //map.queries.find_path({ type: this.player.state.location.type, id: this.player.state.location.id });
             return;
         }
         map.wipe();  
-        let start = map.generator.generate(Config.exit_types[exit_id], this.player.state.location.type);   
+        let start = map.generator.location.generate(MapConfig.exit_types[exit_id], this.player.state.location.type);   
         
-        console.log(`Exploring to: ${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}`);
-        map.locations[Config.exit_types[exit_id]].push(map.grid);
-        let to = `${Config.exit_types[exit_id]}-${map.locations[Config.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
-        this.player.state.location.type = Config.exit_types[exit_id];
+        console.log(`Exploring to: ${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}`);
+        map.locations[MapConfig.exit_types[exit_id]].push(map.grid);
+        let to = `${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
+        this.player.state.location.type = MapConfig.exit_types[exit_id];
         map.location.type = this.player.state.location.type;
-        this.player.state.location.id = map.locations[Config.exit_types[exit_id]].length - 1;
+        this.player.state.location.id = map.locations[MapConfig.exit_types[exit_id]].length - 1;
         map.location.id = this.player.state.location.id
         juego.populate(this.player.state.location.type, this.player.state.location.id);
-        map.generator.generate_lights();     
+        map.generator.lights.generate();     
         this.player.state.x = start.x;
         this.player.state.y = start.y;
         
@@ -62,23 +61,23 @@ class PlayerMovement{
             left: { x: -1, y: 0 },
         };
         let pos = {x : this.player.state.x + directions[where].x, y: this.player.state.y + directions[where].y};
-        let target = juego.fetch_target(this.player.state.location.type, this.player.state.location.id, pos.x, pos.y);
-        if (!map.queries.is_valid(pos.x, pos.y) || map.queries.at(pos.x, pos.y) == null ){
+        let target = juego.get.target(this.player.state.location.type, this.player.state.location.id, pos.x, pos.y);
+        if (!map.get.geometry.is_valid(pos.x, pos.y) || map.get.at(pos.x, pos.y) == null ){
             return;
         }  
         if (this.player.state.location.type == 'sewer'){
             this.player.status.change_stigma(Config.stigma_effects['sewer']);
             this.player.status.change_sickness(Config.sickness_effects['sewer']);
         }
-        if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('shop')){ //ENTER SHOP
+        if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('shop')){ //ENTER SHOP
             //console.log('enter shop');
             this.player.actions.enter_shop(pos.x, pos.y, map);
             return;
-        } else if (this.player.state.fighting && Config.attackable.includes(map.queries.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
+        } else if (this.player.state.fighting && MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
             this.player.actions.attack(pos.x, pos.y, juego);
             return;
-        } else if (!this.player.state.fighting && Config.sociable.includes(map.queries.at(pos.x, pos.y)) && target != null && !target.dead){//SOCIAL
-            this.player.actions.social(pos.x, pos.y, juego);
+        } else if (!this.player.state.fighting && MapConfig.sociable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//SOCIAL
+            this.player.actions.human.social(pos.x, pos.y, juego);
             return;
         }
         if (this.player.state.stamina > 0){
@@ -87,28 +86,28 @@ class PlayerMovement{
             this.player.state.health -= this.player.state.movement_cost;
         }
         
-        if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('trash') && !this.player.inventory.queries.is_equipped_with('tool')
+        if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.is_equipped_with('tool')
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
             ui.log('This trash can is locked.');
             return;
-        }  else if (map.queries.at(pos.x, pos.y) == Config.cell_class.indexOf('trash') 
-            && this.player.inventory.queries.is_equipped_with('tool')
+        }  else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') 
+            && this.player.inventory.get.is_equipped_with('tool')
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
-            this.player.actions.unlock_trash(pos.x, pos.y, map);
+            this.player.actions.trash.unlock(pos.x, pos.y, map);
             return;
         }
         
         this.player.state.x = pos.x;
         this.player.state.y = pos.y;        
-        if (map.queries.at(pos.x, pos.y) != 1 && map.queries.at(pos.x, pos.y) < 5){
-            this.explore(map.queries.at(pos.x, pos.y), map, juego);
+        if (map.get.at(pos.x, pos.y) != 1 && map.get.at(pos.x, pos.y) < 5){
+            this.explore(map.get.at(pos.x, pos.y), map, juego);
             return;
-        } else if (map.queries.at(pos.x, pos.y) == 5){
-            this.player.actions.search_trash(this.player.state.x, this.player.state.y, map)
+        } else if (map.get.at(pos.x, pos.y) == 5){
+            this.player.actions.trash.search(this.player.state.x, this.player.state.y, map)
             return;
-         } else if (Config.attackable.includes(map.queries.at(pos.x, pos.y)) 
+         } else if (MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) 
             && target != null && target.dead){
                 console.log('d');
             this.player.actions.loot_corpse(map, juego);

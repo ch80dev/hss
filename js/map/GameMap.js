@@ -36,16 +36,17 @@ class GameMap {
     constructor(max_x, max_y){
         this.max_x = max_x;
         this.max_y = max_y;
+        this.get = new MapQueries(this);
+
         this.generator = new MapGenerator(this);
         this.populator = new MapPopulator(this);
-        this.queries = new MapQueries(this);
+
         this.wipe();        
-        this.generator.generate('alley', null);        
+        this.generator.location.generate('alley', null);        
         this.locations.alley.push(this.grid);
         this.next_new_street = this.generator.generate_street_name();
         this.names.alley.push({connecting: [this.next_new_street], length: { [this.next_new_street]: null} });
-        this.generator.generate_lights_for_alley();
-        
+        this.generator.lights.generate_for_alley();
     }
     
     
@@ -53,16 +54,12 @@ class GameMap {
         return `${location_type}-${location_id}-${x}-${y}`;
     }
 
- 
-
     is (x, y, what){
-        if (!this.queries.is_valid(x, y)){
+        if (!this.get.geometry.is_valid(x, y)){
             return;
         }
         this.grid[x][y] = what;
     }
-    
- 
 
     load(location_type, id){
         this.grid = this.locations[location_type][id];
@@ -103,7 +100,7 @@ class GameMap {
         if (location_type == 'street'){
             this.distance_from_street = 0;
             this.names[location_type][location_id] = this.next_new_street;
-            this.next_new_street = this.generator.generate_street_name();
+            this.next_new_street = this.generator.location.generate_street_name();
             this.last_street = this.names[location_type][location_id];
         } else if (name == undefined && this.last_street == null){
             this.names[location_type][location_id] 

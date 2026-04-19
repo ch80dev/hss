@@ -25,17 +25,17 @@ class UI{
 				let favorite = juego.favorites.set[entity][id];
 			
 				let context = ''; 
-				let target = juego.fetch_shop(id);
+				let target = juego.get.shop(id);
 				if (entity == 'human'){
 					context = this.display_favorites_for_human(id);
-					target = juego.fetch_human(id);
+					target = juego.get.human(id);
 				} 
 				let favorite_symbol = `&#x2606;`;
 				let name = target.name;
 				if (entity == 'human'){
 					name += " " + target.surname;
 				} else {
-					name = Config.shop_names[target.type];
+					name = ShopConfig.names[target.type];
 				}					
         		if (juego.favorites.set[entity][id] != undefined){
             		favorite_symbol = `&#x2605;`;
@@ -48,7 +48,7 @@ class UI{
 	}
 
 	display_favorites_for_human(id){
-		let human = juego.fetch_human(id);
+		let human = juego.get.human(id);
 		let txt = "";
 		if (human == null){
 			return;

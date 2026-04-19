@@ -1,4 +1,11 @@
 class HumanConfig{
+    static audit(){
+		const config_class = new this();
+		const mistakes = Object.getOwnPropertyNames(config_class).filter(p => p !== 'constructor');
+		if (mistakes.length > 0){
+			console.log(mistakes);
+		}		
+	}
     	//HUMAN
 	static human_chance_to_be_cop = 1;
 	static interactions = ['buy', 'sell', 'trade', 'beg', 'directions'];//, 'escort', 'favor', 'work'];

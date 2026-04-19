@@ -8,11 +8,11 @@ class InventoryTake {
         if (!human.do_they_have(name, quantity)){
             console.log("error: they don't got this.");
             return;
-        } else if (!this.player.inventory.queries.can_they_take(name, quantity)){
+        } else if (!this.player.inventory.get.can_they_take(name, quantity)){
             console.log('error');
             return;
         }
-        this.player.inventory.move.change_weight(this.player.inventory.queries.fetch_weight(name, quantity));
+        this.player.inventory.move.change_weight(this.player.inventory.get.fetch_weight(name, quantity));
         let npc_item = human.fetch_item(name);
         if (npc_item.quantity == quantity){
             human.delete_item(name);
@@ -20,10 +20,10 @@ class InventoryTake {
             npc_item.quantity -= quantity;
         }
 
-        if (Config.stackable.includes(name) && this.player.inventory.queries.is_in_inventory(name)){
+        if (ItemConfig.stackable.includes(name) && this.player.inventory.get.is_in_inventory(name)){
             this.player.inventory.move.stack_item_in_inventory(name, quantity);
             return;
-        } else if (Config.stackable.includes(name)){
+        } else if (ItemConfig.stackable.includes(name)){
             this.player.state.inventory.push({ name: name, quantity: quantity, durability: 100, id: this.player.inventory.next_id()});
             this.player.inventory.move.sort();
             return;
@@ -41,10 +41,8 @@ class InventoryTake {
         }
         let id = 0;
         let taken = [];
-        console.log(at, map.loot[at].stuff);
         while (map.loot[at].stuff.length > 0){            
             let item = map.loot[at].stuff[id];
-            console.log(item.id, at, map.loot[at], id);
             let status = this.item( structuredClone(item.id), map, id);            
             if (status != false){
                 taken.push(status);
@@ -52,11 +50,9 @@ class InventoryTake {
             if (status === false){
                 id ++;
             }
-            //console.log(id, map.loot[at]);
             if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
                 break;
             }
-            //console.log(map.loot[at].stuff);
             
         }
         return taken;
@@ -66,24 +62,20 @@ class InventoryTake {
     item(id, map, take_all_id){
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
-        console.log(id, map.loot[at].stuff)
 
         
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
-            && !this.player.inventory.queries.can_they_take(map.queries.fetch_loot(at, id).name, map.queries.fetch_loot(at, id).quantity))){
+            && !this.player.inventory.get.can_they_take(map.get.inspector.fetch_loot(at, id).name, map.get.inspector.fetch_loot(at, id).quantity))){
             return false;
         }
-        let loot = map.queries.fetch_loot(at, id);
-        console.log(loot.id);
+        let loot = map.get.inspector.fetch_loot(at, id);
         let txt = `${loot.quantity} ${loot.name}`;
-        let weight = this.player.inventory.queries.fetch_weight(loot.name, loot.quantity);
+        let weight = this.player.inventory.get.fetch_weight(loot.name, loot.quantity);
         let what = loot.name;
-        //console.log(weight);
         this.player.inventory.move.change_weight(weight);
         
-        console.log(what, Config.stackable.includes(what), this.player.inventory.queries.is_in_inventory(what));
-        if (Config.stackable.includes(what) && this.player.inventory.queries.is_in_inventory(what)){
+        if (ItemConfig.stackable.includes(what) && this.player.inventory.get.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
             if (take_all_id == null){
                 map.loot[at].stuff.splice(id, 1);
@@ -91,14 +83,13 @@ class InventoryTake {
                 map.loot[at].stuff.splice(take_all_id, 1);
             }
         } else {
-            console.log('unstackable??', what);
             let item = map.loot[at].stuff.splice(id, 1)[0];
             item.id = this.player.inventory.next_id();
             this.player.state.inventory.push(item);        
         }
         this.player.inventory.move.sort();
-        let map_at = map.queries.at(this.player.state.x, this.player.state.y);
-        if (map.loot[at].stuff.length == 0 && (map_at == 5 || Config.attackable.includes(map_at)) ){
+        let map_at = map.get.at(this.player.state.x, this.player.state.y);
+        if (map.loot[at].stuff.length == 0 && (map_at == 5 || MapConfig.attackable.includes(map_at)) ){
             map.is(this.player.state.x, this.player.state.y, 1);
         }
         if (map.loot[at].stuff.length == 0){

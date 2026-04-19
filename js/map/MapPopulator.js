@@ -7,7 +7,7 @@ class MapPopulator{
         let already_found = [];
         
         let empty_trash = rand_num(1, 2) == 1;
-        let num_of_items = rand_num(1, Config.max_num_of_items_in_trash);
+        let num_of_items = rand_num(1, MapConfig.max_num_of_items_in_trash);
         
         if (empty_trash){
             num_of_items = 0;
@@ -21,7 +21,7 @@ class MapPopulator{
                 continue;
             }
             already_found.push(item);
-            if (Config.recyclables.includes(item)){
+            if (ItemConfig.recyclables.includes(item)){
                 n = rand_num(1, 10);
             }
             found.push({ name: item, quantity: n, durability: rand_num(10, 100), id: this.map.next_id() });
@@ -44,8 +44,8 @@ class MapPopulator{
 
     generate_item_from_trash(){
 		let gen_odds = rand_num(1, 100);
-		for (let item_name in Config.trash_item_odds){
-			let item_odd= Config.trash_item_odds[item_name];
+		for (let item_name in ItemConfig.trash_item_odds){
+			let item_odd= ItemConfig.trash_item_odds[item_name];
 			if (gen_odds >= item_odd[0] && gen_odds <= item_odd[1] ){
 				return item_name;
 			}
@@ -56,10 +56,10 @@ class MapPopulator{
     
 
     populate_with_trash_cans(id){
-        let size = this.map.queries.fetch_size();
+        let size = this.map.get.geometry.fetch_size();
         let num_of_trash_cans = rand_num(1, Math.round(size * .1));
         for (let i = 0; i < num_of_trash_cans; i ++){
-            let border = this.map.queries.fetch_border_spot(true);
+            let border = this.map.get.inspector.fetch_border_spot(true);
             this.map.is(border.x, border.y, 5);
             this.fill_trash(id, border.x, border.y);
         }

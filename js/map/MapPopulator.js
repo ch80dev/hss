@@ -53,8 +53,10 @@ class MapPopulator{
 	}
 
      
-    populate_with_marks(){
-        
+    populate_with_marks(location_type, location_id, x, y){
+        let behind = this.map.get.inspector.fetch_behind_shop(x, y);
+        let shop = this.map.get.inspector.fetch_shop(x, y);
+        this.map.mark(this.map.format_at(location_type, location_id, behind.x, behind.y ), shop.type.substring(0, 1));
     }
 
     populate_with_trash_cans(id){

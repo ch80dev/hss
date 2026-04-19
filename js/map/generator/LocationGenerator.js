@@ -131,9 +131,12 @@ class LocationGenerator {
         if (location_type == 'street'){
             shop_pos = this.map.generator.shop.generate(location_type);
         }
-        if (location_type == 'street' && (shop_being_generated && shop_pos != null)){            
+        if (location_type == 'street' && (shop_being_generated && shop_pos != null)){
+
             this.map.shops.push(shop_pos);
             this.map.is(shop_pos.x, shop_pos.y, MapConfig.cell_class.indexOf('shop'));
+            this.map.populator.populate_with_marks('street', this.map.locations.street.length, shop_pos.x, shop_pos.y);           
+
         } 
         return starting_here;
     }

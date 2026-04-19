@@ -22,6 +22,13 @@ class MapInspector{
         return adjacent;
     }
 
+    fetch_behind_shop(pos_x, pos_y){
+        let open = this.fetch_adjacent(pos_x, pos_y, 1, true)[0];
+        let delta = this.map.get.geometry.fetch_delta( pos_x, pos_y, open.x, open.y,);
+        let center_delta = this.map.get.geometry.fetch_delta( Math.round(MapConfig.max_x / 2), Math.round(MapConfig.max_y / 2), pos_x, pos_y);
+        let spot = { x: pos_x + delta.x, y: pos_y + delta.y };
+        return spot;        
+    }
 
     fetch_border_spot(orthogonal){
         while(true){
@@ -73,15 +80,7 @@ class MapInspector{
         return null;
     }
 
-    fetch_shop(x, y){
-        for (let id in this.map.shops){
-            let shop = this.map.shops[id];
-            if (shop.x == x && shop.y == y){
-                return shop;
-            }
-        }
-        return null;
-    }
+
 
     fetch_mark(location_type, location_id, x, y){
         let at = this.map.format_at(location_type, location_id, x, y);
@@ -112,6 +111,17 @@ class MapInspector{
             }
         }
         
+    }
+
+    fetch_shop(x, y){
+        //this needs location data
+        for (let id in this.map.shops){
+            let shop = this.map.shops[id];
+            if (shop.x == x && shop.y == y){
+                return shop;
+            }
+        }
+        return null;
     }
 
     fetch_unused_exit(target_location_type, location){

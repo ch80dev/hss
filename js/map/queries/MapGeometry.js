@@ -40,6 +40,12 @@ class MapGeometry{
         return (x1 == x2 && y1 != y2) || (x1 != x2 && y1 == y2);
     }
 
+    invert_delta(delta){
+        delta.x *= -1;
+        delta.y *= -1;
+        return delta;
+    }
+
     is_valid(x, y){
         return x >= 0 && x < MapConfig.max_x && y >=0 && y < MapConfig.max_y;
     }

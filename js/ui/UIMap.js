@@ -63,11 +63,12 @@ class UIMap {
 					cell_txt = MapConfig.cell_txt['used_exit'];
 				} else if (map_at != null && map_at > 1 && map_at < 5){
 					cell_txt = MapConfig.cell_txt['unused_exit'];	
+
+				}	else if (mark != null){
+					cell_txt = mark;
 				} else if (MapConfig.cell_txt[MapConfig.cell_class[map_at]] != undefined){
 					cell_txt = MapConfig.cell_txt[MapConfig.cell_class[map_at]];				
-				} else if (mark != null){
-					cell_txt = mark;
-				}
+				} 
 				
 				if (juego.player.movement.at(x, y) && !juego.player.state.fighting){
 					cell_class += " player ";

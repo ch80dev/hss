@@ -1,9 +1,7 @@
 TODO           
-    begging disables when used but refreshes if you go back
     put characters behind shops
-    put capital letters as humans
     streets are too common
-    add favorite directions to favorites so you can unfavorite it
+    add favorites.set[directions] to favorites so you can unfavorite it
     more shops 
         sporting good stores
         homeless shelter

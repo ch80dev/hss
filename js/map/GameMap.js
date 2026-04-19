@@ -100,7 +100,7 @@ class GameMap {
         if (location_type == 'street'){
             this.distance_from_street = 0;
             this.names[location_type][location_id] = this.next_new_street;
-            this.next_new_street = this.generator.location.generate_street_name();
+            this.next_new_street = this.generator.generate_street_name();
             this.last_street = this.names[location_type][location_id];
         } else if (name == undefined && this.last_street == null){
             this.names[location_type][location_id] 

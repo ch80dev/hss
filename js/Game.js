@@ -35,7 +35,7 @@ class Game{
 	
 	
 
-	populate(location_type, location_id){
+	do_populate(location_type, location_id){
 		this.populate.with_humans(location_type, location_id, this.humans);
 		this.populate.with_rats(location_type, location_id, this.rats);
 		this.populate.with_shops(this.favorites, this.shops);

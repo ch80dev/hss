@@ -53,7 +53,9 @@ class MapPopulator{
 	}
 
      
-    
+    populate_with_marks(){
+        
+    }
 
     populate_with_trash_cans(id){
         let size = this.map.get.geometry.fetch_size();

@@ -1,7 +1,10 @@
 class ShopGenerator {
     queue_used = false;
     queue = [];
-     generate_shop(location_type){
+    constructor(map){
+        this.map = map;
+    }
+     generate(location_type){
         let shop_type = this.generate_shop_type();
         if (shop_type == null){
             return null;
@@ -24,9 +27,9 @@ class ShopGenerator {
         if (this.map.shops_generated.length >= ShopConfig.types.length){
             return null;
         }
-        if (this.shop.queue.length > 0){
-            this.shop.queue_used = true;
-            return this.shop.queue.shift();
+        if (this.queue.length > 0){
+            this.queue_used = true;
+            return this.queue.shift();
 
         }
         while (true){

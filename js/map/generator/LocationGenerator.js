@@ -92,8 +92,10 @@ class LocationGenerator {
             if (this.exit_queue.length > 0){
                 exit_id = MapConfig.cell_class.indexOf(this.exit_queue.shift() + '_exit');
             }
-            if (location_type == 'sewer' &&  num_of_exit_types.sewer > 0){
+            if (location_type == 'sewer' &&  num_of_exit_types.sewer >= 2){
                 exit_id = MapConfig.cell_class.indexOf('alley_exit');
+            } else if (location_type == 'alley' && num_of_exit_types.street > 0){
+                exit_id = rand_num(2, 3);
             }
             let exit_type = MapConfig.exit_types[exit_id];            
             if (exit_type == entered_from){

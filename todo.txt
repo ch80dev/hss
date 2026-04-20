@@ -1,5 +1,4 @@
 TODO           
-    put characters behind shops
     streets are too common
     add favorites.set[directions] to favorites so you can unfavorite it
     more shops 

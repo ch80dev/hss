@@ -5,6 +5,11 @@ class ItemConfig {
 		if (mistakes.length > 0){
 			console.log(mistakes);
 		}		
+		for (let item of Object.keys(this.prices)){
+			if (this.weights[item] == undefined){
+				console.log(item);
+			}
+		}
 	}
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters'];
@@ -135,13 +140,14 @@ class ItemConfig {
 		'medicine (expired)': 1,		
 		drugs: 2,
 		bat: 2.5, 
+		flashlight: 2,
 		knife: .5, 
 		hatchet: 3, 
 		machete: 2,
 		pipe: 3,
 		'raw meat (human)': .5,
 		'raw meat (rat)': .5,
-
+		lantern: 3,
 		'screw driver': .5,
 		wrench: 1.5,
 		'crow bar': 5,

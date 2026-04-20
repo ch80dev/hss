@@ -26,10 +26,10 @@ class UILoot{
 			let is_food = Object.keys(ItemConfig.food_gain).includes(item.name); 
 			if (ItemConfig.degradable.includes(item.name)){
 				durability = `(${item.durability}%)`;
-			} else if (is_food && durability < 1){
+			} else if (is_food && item.durability < 1){
 				durability = '(spoiled)';		
-			} else if (is_food && durability > 0){		
-				durability = `(${this.fetch_spoil_time(durability)})`;
+			} else if (is_food && item.durability > 0){		
+				durability = `(${this.fetch_spoil_time(item.durability)})`;
 			}
 			if (item.name == 'crate (placed)'){
 				continue;
@@ -84,6 +84,7 @@ class UILoot{
 	}
 
 	fetch_spoil_time(hours){
+		console.log(hours);
 		if (hours < 24){
 			return `${hours}h`;
 		}

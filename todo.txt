@@ -2,10 +2,8 @@ TODO
     more shops 
         homeless shelter
 
-    update ui.log trash scav to show if food is spoiled
     sleep
     when take_all, even though it can stack, it's not doing it
-    loot_all msg should stack on to each other instead of overwriting
     use and equip should be aligned right
     need a visual equip and use button
     space in recylcing shop to sell all

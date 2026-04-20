@@ -71,6 +71,9 @@ class InventoryTake {
         }
         let loot = map.get.inspector.fetch_loot(at, id);
         let txt = `${loot.quantity} ${loot.name}`;
+        if (Object.keys(ItemConfig.food_gain).includes(loot.name) && loot.durability < 1){
+            txt += " (spoiled)";
+        }
         let weight = this.player.inventory.get.fetch_weight(loot.name, loot.quantity);
         let what = loot.name;
         this.player.inventory.move.change_weight(weight);

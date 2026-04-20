@@ -1,4 +1,5 @@
 class UIRefresh {
+	show_ui_auto_loot = false;
     constructor(ui){
         this.ui = ui;
     }
@@ -31,12 +32,30 @@ class UIRefresh {
 			$("#stamina").addClass('low_stamina');
 		}
 		$('#stigma').html(`${stigma_cent.toFixed(1)}%`);
+		let txt  = '';
+		if (Object.keys(this.ui.auto_loot_inv).length > 0){
+			txt = 'You looted: ';					
+		} 
+		for (let name in this.ui.auto_loot_inv){
+			txt += `${this.ui.auto_loot_inv[name]} ${name}, `
+		}
+		txt = txt.slice(0, -2) + " ";
 		if (this.ui.status_msg != ''){
-			$("#status").css('opacity', 1);
-			$("#status").html(this.ui.status_msg);
+			this.ui.auto_loot_inv = {};
+			txt += this.ui.status_msg;
+		}
+		console.log(Object.keys(this.ui.auto_loot_inv).length, $("#status").css('opacity'))
+		if (Number($("#status").css('opacity')) <= 0){
+			this.ui.auto_loot_inv = {};
+		}
+		if (this.show_ui_auto_loot || this.ui.status_msg != ''){
+			this.ui.status_msg = '';
+			this.show_ui_auto_loot = false;
+			$("#status").css('opacity', 1);			
+			$("#status").html(txt);
 		}
 		
-		this.ui.status_msg = '';
+		
 
 		$(".screen").addClass('hidden');
 		$("#" + this.ui.screen_focused).removeClass('hidden');

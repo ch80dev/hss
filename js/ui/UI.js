@@ -1,4 +1,5 @@
 class UI{
+	auto_loot_inv = {};
 	fade_opacity_delta = .1;
 	favorites = new UIFavorite();
 	loot = new UILoot();
@@ -16,7 +17,23 @@ class UI{
 		this.screen_focused = what;
 	}
 
-	
+	update_auto_loot(arr){
+		if (arr.length > 0){
+			this.refresh.show_ui_auto_loot = true;
+		}
+		for (let i of arr){
+			let item_str_arr = i.split(' ');
+			let quantity = Number(item_str_arr[0]);
+			item_str_arr.shift();
+			let name = item_str_arr.join(' ');
+			if (this.auto_loot_inv[name] == undefined){
+				this.auto_loot_inv[name] = quantity;
+			} else {
+				this.auto_loot_inv[name] += quantity;
+			}
+		}
+
+	}
 
 
 	display_location_name(){
@@ -79,7 +96,7 @@ class UI{
 	}
 
 	log(msg){	
-		
+		console.log(msg);
 		this.status_msg += " " + msg;
 	}
 	

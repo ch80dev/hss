@@ -2,6 +2,19 @@ class PlayerShop{
     constructor(player){
         this.player = player;
     }
+
+    buy_from_shop(resource_id, shop){
+        
+        let item = shop.resources[resource_id];
+        let cost = ItemConfig.prices[item];
+        if (item == undefined || this.player.state.money < ItemConfig.prices[item] 
+            || !this.player.inventory.get.can_they_take(item, 1)){
+            return null;
+        }
+        this.player.status.change_money(-cost);
+        this.player.state.inventory.push({id: this.player.inventory.next_id(), name: item, quantity: 1, durability: 100 });
+        ui.log(`You spent $${cost} [${this.player.state.money}] to buy a ${item}.`);
+    }
     buy_unique(inventory_id, shop){
         let item = shop.inventory[inventory_id];
         if (item == undefined || (item != undefined && this.player.state.money < ItemConfig.prices[item.name]) || this.player.inventory.get.are_they_full()){
@@ -13,7 +26,7 @@ class PlayerShop{
         this.player.state.inventory.push(new_item);
         this.player.inventory.move.sort();
         this.player.status.change_money(-ItemConfig.prices[item.name]);
-
+        
     }
 
 

@@ -15,6 +15,18 @@ $(document).on('click', '.cell:not(.empty)', function() {
 });
 
 
+$(document).on('click', '.buy_from_shop', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.get.shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    juego.player.actions.shop.buy_from_shop(this.id.split('-')[1], shop);
+    ui.refresh.go();
+});
+
 
 
 $(document).on('click', '#auto_loot', function() {

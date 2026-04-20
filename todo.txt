@@ -18,6 +18,7 @@ TODO
     maybe we can do a list of locations - specifically to show unexplored exist
     NaN bug in weight
     when you drop an equipped item, it doesn't reset state.equipped
+    sickness doesn't max out at max_sickness - it goes higher and the stamina penalty is added for every 100 of sickness you have and medicine still onyl removes within that scale (not a percentage of the sickness but points)
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

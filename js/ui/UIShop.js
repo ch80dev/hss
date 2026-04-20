@@ -10,7 +10,9 @@ class UIShop{
             favorite_symbol = `&#x2605;`;
         }
         let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${ShopConfig.names[shop.type]}</div>`
-        if (shop.type == 'recycling'){
+        if (shop.type == 'hardware' || shop.type == 'sports'){
+            txt += this.display_buy_generic(player, shop);
+        } else if (shop.type == 'recycling'){
             txt += this.display_recycling(player, shop);
             txt += this.display_sell_generic(player, shop);
         } else if (shop.type == 'pawn'){
@@ -55,7 +57,20 @@ class UIShop{
         }
         return txt;
     }
+    display_buy_generic(player, shop){
+        let txt = "";
+        for (let id in ShopConfig.resources[shop.type]){
+            let disabled = '';
 
+            let resource = ShopConfig.resources[shop.type][id];
+            if (player.state.money < ItemConfig.prices[resource] 
+                || !player.inventory.get.can_they_take(resource, 1)){
+                disabled = ' disabled ';
+            }
+            txt += `<button id='buy_from_shop-${id}' class='buy_from_shop' ${disabled}> buy ${resource} [$${ItemConfig.prices[resource]}]</button>`
+        }
+        return txt;
+    }
     display_sell_generic(player, shop){
         let txt = "";
         for (let id in ShopConfig.resources[shop.type]){

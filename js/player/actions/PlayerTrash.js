@@ -40,7 +40,8 @@ class PlayerTrash {
 
     unlock(x, y, map){
         let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
-        let durability_cost = rand_num(1, 5);
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
+        let durability_cost = ItemConfig.tool_durability_uses[item.name];
         this.player.inventory.use.equipment(durability_cost);
         if (map.loot[at] == undefined){
             return;

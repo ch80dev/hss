@@ -8,6 +8,7 @@ class ShopConfig {
 	}
     	///SHOP
 	static max_stigma = {
+		hardware: 75,
 		motel: 50,
 		pawn: 75,
 		recycling: 90,
@@ -15,20 +16,25 @@ class ShopConfig {
 	static motel_room_cost = 75;
 	static num_of_items_in_pawn_shop = 4;
 	static interactions = {
+		hardware: ['buy'],
 		motel: ['rent room', 'sleep'],
 		pawn: ['buy', 'sell'],
 		recycling: ['sell'],
+		sports: ['buy'],
 	}
 	static names = {
+		hardware: 'Hootie & The Hardware Store',
 		motel: 'Motel Hex',
 		pawn: "Polly's Pawn Shop",
 		recycling: "Michael's Recycles",
-		
+		sports: 'Sports, Sports, Sports!',
 	}
 	static resources = {
+		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete', 'pipe'],
 		motel: null, 
 		pawn: ['bat', 'knife', 'hatchet', 'machete', 'tool'],
-		recycling: ['glass bottle', 'aluminum can', 'plastic bottle']
+		recycling: ['glass bottle', 'aluminum can', 'plastic bottle'],
+		sports: ['bat', 'knife', 'machete', 'lantern', 'flashlight']
 	}
-	static types = ['pawn', 'recycling', 'motel'];
+	static types = ['hardware', 'pawn', 'recycling', 'motel'];
 }

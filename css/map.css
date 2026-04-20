@@ -5,9 +5,9 @@
     background: #222222;
     border: 1px yellow solid;
 }
-.trash.blocked {
-    border: 1px #222222 solid;
-    background: #333333;
+.dumpster.blocked, .recycling.blocked, .trash.blocked {
+    border: 1px #333333 solid;
+    background: #444444;
 }
 
 .cell {
@@ -37,6 +37,9 @@
 
 .crate {
     color: #D4A017;
+}
+.dumpster{
+    font-size: 20px; 
 }
 .row{
     clear:both;
@@ -78,6 +81,10 @@
     color: red;
 }
 
+.recycling {
+    color: #0072CE;
+}
+
 .sewer_exit {
     color: #b04a4a;
     
@@ -92,7 +99,7 @@
     color: #4caf50;
 }
 
-.trash{
+.dumpster, .trash{
     color: #8b5a2b;
 }
 

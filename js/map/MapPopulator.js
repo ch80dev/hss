@@ -5,17 +5,25 @@ class MapPopulator{
 
     fill_trash(id, x, y){
         let already_found = [];
-        
-        let empty_trash = rand_num(1, 2) == 1;
-        let num_of_items = rand_num(1, MapConfig.max_num_of_items_in_trash);
-        
-        if (empty_trash){
-            num_of_items = 0;
+        let type = 'trash';
+        let rand_for_type = rand_num(1, 10);
+        let rand_for_locked = rand_num(1, 10);
+        let num_of_items = rand_num(1, MapConfig.max_num_of_items_in_trash);            
+        let is_it_locked = rand_for_locked < 4;
+        if (rand_for_type <= 2){
+            is_it_locked <= 1;
+            type = 'recycling';
+        } else if (rand_for_type >= 8){
+            num_of_items *= 2;
+            is_it_locked <= 7;
+            type = 'dumpster';
         }
-        let is_it_locked = rand_num(1, 3) == 1 && num_of_items > 0;
+        
+        
         let found = [];    
+        
         for (let i = 0; i < num_of_items; i ++){            
-            let item = this.generate_item_from_trash();
+            let item = this.generate_item_from_trash(type == 'recycling');
             let n = 1;
             if(already_found.includes(item)){
                 continue;
@@ -24,16 +32,22 @@ class MapPopulator{
             if (ItemConfig.recyclables.includes(item)){
                 n = rand_num(1, 10);
             }
+            if (type == 'dumpster'){
+                n *= rand_num(1, 2);
+            } else if (type == 'recycling'){
+                n *= rand_num(2, 3);
+            }
             found.push({ name: item, quantity: n, durability: rand_num(10, 100), id: this.map.next_id() });
             
         }
         const key = `alley-${id}-${x}-${y}`;
         // Create a fresh loot object per trash can to avoid shared state.
         this.map.loot[key] = {
+            durability: null,
             locked: null,
             searched: false,
-            stuff: [],
-            durability: null,
+            stuff: [],            
+            type: type,
             
         };
         this.map.loot[key].locked = is_it_locked;
@@ -42,7 +56,10 @@ class MapPopulator{
         
     }
 
-    generate_item_from_trash(){
+    generate_item_from_trash(recycling_only){
+        if (recycling_only){
+            return ItemConfig.recyclables[rand_num(0, ItemConfig.recyclables.length - 1)];
+        }
 		let gen_odds = rand_num(1, 100);
 		for (let item_name in ItemConfig.trash_item_odds){
 			let item_odd= ItemConfig.trash_item_odds[item_name];

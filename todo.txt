@@ -1,11 +1,9 @@
 TODO           
-    add favorites.set[directions] to favorites so you can unfavorite it
     more shops 
         sporting good stores
         homeless shelter
         food
         hardware store
-    trash
     sleep
     fade status instead of overwriting it when not in use
     favorites - directions null for 

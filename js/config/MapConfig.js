@@ -16,9 +16,11 @@ class MapConfig {
 		'shop'];
 	static cell_txt = {
 		crate: '&#9644;',
+		dumpster: '&#9644;',
 		human: 'h',
 		player: '@',
 		rat: 'r',
+		recycling: '&#9646;',
 		shop: '$',
 		trash: '&#9646;',
 		unused_exit: '&#9673;',
@@ -58,4 +60,5 @@ class MapConfig {
 		street: [2, 2],
 	}
 	static sociable = [7]; // you should be able to tame rats later
+	
 }

@@ -10,7 +10,7 @@ class UIShop{
             favorite_symbol = `&#x2605;`;
         }
         let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${ShopConfig.names[shop.type]}</div>`
-        if (shop.type == 'hardware' || shop.type == 'sports'){
+        if (ShopConfig.just_buying.includes(shop.type)){
             txt += this.display_buy_generic(player, shop);
         } else if (shop.type == 'recycling'){
             txt += this.display_recycling(player, shop);

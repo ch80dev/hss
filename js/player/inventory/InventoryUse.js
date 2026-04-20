@@ -36,14 +36,14 @@ class InventoryUse{
             this.player.inventory.move.drop_item(id, map);
             map.is(this.player.state.x, this.player.state.y, 8);
             return;
-        } else if (item.name == 'food' || item.name == 'food (spoiled)'){
-            this.player.status.change_stamina(rand_num(ItemConfig.food_gain[0], ItemConfig.food_gain[1]));
+        } else if (Object.keys(ItemConfig.food_gain).includes(item.name)){
+            this.player.status.change_stamina(ItemConfig.food_gain[item.name]);
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
             this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], ItemConfig.medicine_gain[1]));
             
         }
 
-        if (item.name == 'food (spoiled)'){
+        if (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability == 0){
             this.player.status.change_sickness(rand_num(ItemConfig.spoiled_sick_gain[0], ItemConfig.spoiled_sick_gain[1]));
         }
 

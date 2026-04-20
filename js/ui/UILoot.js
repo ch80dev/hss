@@ -23,8 +23,13 @@ class UILoot{
 		}
 		for (let item of items){			
 			let durability = '';
+			let is_food = Object.keys(ItemConfig.food_gain).includes(item.name); 
 			if (ItemConfig.degradable.includes(item.name)){
 				durability = `(${item.durability}%)`;
+			} else if (is_food && durability < 1){
+				durability = '(spoiled)';		
+			} else if (is_food && durability > 0){		
+				durability = `(${this.fetch_spoil_time(durability)})`;
 			}
 			if (item.name == 'crate (placed)'){
 				continue;
@@ -76,5 +81,12 @@ class UILoot{
 			$("#loot_container").html( this.display_loot_items(juego.map.loot[juego.player.fetch_from()].stuff, true));
 		}
 		
+	}
+
+	fetch_spoil_time(hours){
+		if (hours < 24){
+			return `${hours}h`;
+		}
+		return `${(hours/24).toFixed(1)}d`;
 	}
 }

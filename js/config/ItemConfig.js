@@ -9,8 +9,31 @@ class ItemConfig {
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters'];
 	static equipable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
-	static food_gain = [10, 30];
-	static human_items = ['crate', 'drugs',  'food', 'food (spoiled)',  'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
+	static food_in_trash = ['chips', 'sandwich', 'cookie', 'candy'];
+	static food_gain = {
+		burger: 21,
+		burrito: 30,
+		candy: 6,
+		chips: 11,
+		cookie: 6,
+		fries: 15,
+		pizza: 13,
+		sandwich: 17,
+		taco: 9,
+	}
+	static food_spoilage = {
+		burger: 25,
+		burrito: 25,
+		candy: 100,
+		chips: 100,
+		cookie: 100,
+		fries: 25,
+		pizza: 45,
+		sandwich: 50,
+		taco: 40,
+		
+	}
+	static human_items = ['crate', 'drugs', 'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
 	static meat = {
 		human: 100,
 		rat: 1,
@@ -19,11 +42,17 @@ class ItemConfig {
 	static prices = {
 		'aluminum can': .05,
 		bat: 10, 
+		'bolt cutters': 120,
+		burger: 5,
+		burrito: 6,
+		candy: 2,
+		chips: 1,
+		cookie: 1,
 		crate: 8,
-		drugs: 50,
-		food: 4, 
-		flashlight: 5,
-		'food (spoiled)': .5,
+		'crow bar': 60,
+		drugs: 50,		
+		flashlight: 5,		
+		fries: 3,
 		fuel: 4,
 		'glass bottle': .05,
 		hatchet: 25, 
@@ -33,19 +62,22 @@ class ItemConfig {
 		machete: 40,
 		medicine: 15,		
 		'medicine (expired)': 2, 
+		pizza: 4,
 		'plastic bottle': .05,
 		pipe: 2, //cant sell only buy
+		sandwich: 4,
 		'screw driver': 5,
+		taco: 2,
 		wrench: 12,
-		'crow bar': 60,
-		'bolt cutters': 120,
+		
+		
 		
 		
 		
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
 	static spoiled_sick_gain = [1, 50];
-	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'food', 'food (spoiled)', 'fuel', 'medicine', 'medicine (expired)', 'drugs', 'raw meat (human)', 'raw meat (rat)'];
+	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle',  'fuel', 'medicine', 'medicine (expired)', 'drugs', 'raw meat (human)', 'raw meat (rat)'];
 	static tool_durability_uses = {
 		'screw driver': 5,
 		wrench: 2.5,
@@ -56,7 +88,7 @@ class ItemConfig {
 		'plastic bottle': [1, 20],
 		'glass bottle': [21, 40],
 		'aluminum can': [41, 60],
-		'food (spoiled)': [61, 78],
+		'food-spoiled': [61, 78],
 		food: [79, 80],
 		
 		crate: [81, 85],
@@ -69,7 +101,7 @@ class ItemConfig {
 		drugs: [100, 100],		
 		//lighter: [71, 80],
 	}	
-	static usable = ['crate', 'food', 'food (spoiled)', 'medicine', 'medicine (expired)'];		
+	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco",];		
 	static weapon_dmgs = {
 		bat: 4, 
 		knife: 10, 
@@ -95,9 +127,7 @@ class ItemConfig {
 	static weights = {
 		'aluminum can': .03,
 		'glass bottle': .5,
-		'plastic bottle': .05,
-		food: 1,
-		'food (spoiled)': 1,
+		'plastic bottle': .05,		
 		fuel: 2,
 		lighter: .1,
 		crate: 10,
@@ -116,5 +146,14 @@ class ItemConfig {
 		wrench: 1.5,
 		'crow bar': 5,
 		'bolt cutters': 7,
+		burger: 1,
+		burrito: 1,
+		candy: .25,
+		chips: .25,
+		cookie: .25,
+		fries: .25,
+		pizza: .5,
+		sandwich: .5,
+		taco: .5,
 	}    
 }

@@ -23,7 +23,15 @@ class MapPopulator{
         let found = [];    
         
         for (let i = 0; i < num_of_items; i ++){            
+            let durability = rand_num(10, 100);
             let item = this.generate_item_from_trash(type == 'recycling');
+            if (item == 'food'){
+                item = ItemConfig.food_in_trash[rand_num(0, ItemConfig.food_in_trash.length - 1)];
+                durability = rand_num(5, ItemConfig.food_spoilage[item]);
+            }else if (item == 'food-spoiled'){
+                durability = 0;
+                item = Object.keys(ItemConfig.food_gain)[rand_num(0, Object.keys(ItemConfig.food_gain).length - 1)];
+            }
             let n = 1;
             if(already_found.includes(item)){
                 continue;
@@ -37,7 +45,7 @@ class MapPopulator{
             } else if (type == 'recycling' && ItemConfig.stackable.includes(item)){
                 n *= rand_num(2, 3);
             }
-            found.push({ name: item, quantity: n, durability: rand_num(10, 100), id: this.map.next_id() });
+            found.push({ name: item, quantity: n, durability: durability, id: this.map.next_id() });
             
         }
         const key = `alley-${id}-${x}-${y}`;

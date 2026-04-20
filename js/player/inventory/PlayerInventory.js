@@ -11,6 +11,17 @@ class PlayerInventory {
 
     }
 
+    food_spoils(){
+        for (let item of this.player.state.inventory){
+            if (!Object.keys(ItemConfig.food_gain).includes(item.name) ){
+                continue;
+            }
+            if (item.durability < 1){
+                continue;
+            }
+            item.durability --;
+        }
+    }
     next_id(){
         this.id ++;
         return this.id;

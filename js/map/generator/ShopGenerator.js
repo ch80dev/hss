@@ -27,7 +27,7 @@ class ShopGenerator {
         if (this.map.shops_generated.length >= ShopConfig.types.length){
             return null;
         }
-        return 'sports';
+        return 'food';
         if (this.queue.length > 0){
             this.queue_used = true;
             return this.queue.shift();

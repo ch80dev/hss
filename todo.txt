@@ -1,9 +1,9 @@
 TODO           
     more shops 
-        sporting good stores
         homeless shelter
-        food
-        hardware store
+
+    update ui.log trash scav to show if food is spoiled
+    BUG bought food and it was expired
     sleep
     when take_all, even though it can stack, it's not doing it
     loot_all msg should stack on to each other instead of overwriting

@@ -9,6 +9,7 @@ class Turn{
 		if (this.time.minutes > 59){
 			this.time.minutes = 0;
 			this.time.hours ++;
+			this.player.inventory.food_spoils();
 		}
 		this.time.hours += hours_delta;
 		if (this.time.hours > 23){

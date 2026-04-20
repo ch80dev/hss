@@ -6,16 +6,19 @@ class ShopConfig {
 			console.log(mistakes);
 		}		
 	}
+	static just_buying = ['food', 'grocery', 'hardware', 'sports'];
     	///SHOP
 	static max_stigma = {
 		hardware: 75,
 		motel: 50,
 		pawn: 75,
 		recycling: 90,
-	}
+	}	
 	static motel_room_cost = 75;
 	static num_of_items_in_pawn_shop = 4;
 	static interactions = {
+		food: ['buy'],
+		grocery: ['buy'],
 		hardware: ['buy'],
 		motel: ['rent room', 'sleep'],
 		pawn: ['buy', 'sell'],
@@ -23,6 +26,8 @@ class ShopConfig {
 		sports: ['buy'],
 	}
 	static names = {
+		food: ["Demici's!"],
+		grocery: ['Hughes Market'],
 		hardware: 'Hootie & The Hardware Store',
 		motel: 'Motel Hex',
 		pawn: "Polly's Pawn Shop",
@@ -30,6 +35,8 @@ class ShopConfig {
 		sports: 'Sports, Sports, Sports!',
 	}
 	static resources = {
+		food: ["burger", "burrito", "fries", "pizza", "taco",],
+		grocery: ["candy", "chips", "cookie", "sandwich"],
 		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete', 'pipe'],
 		motel: null, 
 		pawn: ['bat', 'knife', 'hatchet', 'machete', 'tool'],

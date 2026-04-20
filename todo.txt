@@ -5,9 +5,7 @@ TODO
         food
         hardware store
     sleep
-    favorites - directions null for 
     when take_all, even though it can stack, it's not doing it
-    auto_loot_settings not loading
     think favorites directions just gets assigned to the nearest shop even if assigned
 ABANDONED
     redo map loot and how i handled map data

@@ -53,7 +53,7 @@ class UIFavorite{
 				let get_that = human.resources[id][trade_this];
 				txt += `<div>${human.interactions[id]} ${human.conversion[id][0]} ${trade_this} for ${human.conversion[id][1]} ${get_that}</div>`;
 				continue;
-			} else if (human.interactions[id] == 'beg'){
+			} else if (human.interactions[id] == 'beg' || human.interactions[id] == 'directions'){
 				txt += `<div>${human.interactions[id]}</div>`;	
 				continue;
 			}

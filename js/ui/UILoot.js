@@ -41,7 +41,7 @@ class UILoot{
 			if (is_loot){
 				where = 'loot';
 			}
-            if (juego.player.state.auto_loot && juego.player.state.auto_loot_preferences[item]){
+            if (juego.player.state.auto_loot && juego.player.state.auto_loot_preferences[item.name]){
                 auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id} class='auto_loot_item' checked>`;
             } else if (juego.player.state.auto_loot && !juego.player.state.auto_loot_preferences[item.name]){
                 auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id} class='auto_loot_item'>`;

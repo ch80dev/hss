@@ -4,31 +4,32 @@ class Favorite{
 		human: [],
 		shop: [],
 	} 
-	add(set_type, set_id, directions, location, x, y, path, need){	
-		if (directions)	{
-			set_type = 'directions';
-			set_id = 0;
-		}
+	add(set_type, set_id, location, x, y, path, need){	
 		if (this.set[set_type][set_id] == undefined){
 			this.set[set_type][set_id] = { location: location, x:x, y:y, path: path, need: need}
 		} else if (this.set[set_type][set_id] != undefined){
-			delete this.set[set_type][set_id];
+			this.set[set_type].splice(set_id, 1);			
 		}
 	}
 	add_shop_not_here(shop, path ){
-		this.add('shop', shop.id, false, shop.location, shop.x, shop.y, path, []);
+		this.add('shop', shop.id, shop.location, shop.x, shop.y, path, []);
 	}
     add_by_type(type, id, juego){
 		let favorite_target = juego.get.human(id);
 		if (type == 'shop'){
 			favorite_target = juego.get.shop(id);
 		}
-		this.add(type, id, false, { type: juego.player.state.location.type, id: juego.player.state.location.id }, favorite_target.x, favorite_target.y, [], []);
+		this.add(type, id, { type: juego.player.state.location.type, id: juego.player.state.location.id }, favorite_target.x, favorite_target.y, [], []);
+		if (type == 'directions'){
+			juego.map.generator.shop.reset_queue();
+			
+			
+		}
 		
 	}
 
 	add_for_directions(path, need){
-		this.add('shop', null, true, {type: null, id: null}, null, null, path, need);
+		this.add('directions', 0, {type: null, id: null}, null, null, path, need);
 		
 	}
 

@@ -40,4 +40,9 @@ class ShopGenerator {
             }
         }
     }
+
+    reset_queue(){
+        this.queue_used =  false;
+		this.queue =  [];
+    }
 }

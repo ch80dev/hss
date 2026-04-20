@@ -71,7 +71,7 @@ class PlayerMovement{
         }
         if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('shop')){ //ENTER SHOP
             //console.log('enter shop');
-            this.player.actions.enter_shop(pos.x, pos.y, map);
+            this.player.actions.shop.enter(pos.x, pos.y, map);
             return;
         } else if (this.player.state.fighting && MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
             this.player.actions.attack(pos.x, pos.y, juego);

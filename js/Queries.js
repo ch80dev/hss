@@ -27,9 +27,7 @@ class Queries{
 
 	rat(location_type, location_id, x, y){
 		//console.log(location_type, location_id, x, y);
-		//console.log(rats);
         for (let rat of this.rats){
-			//console.log(rat.location, rat.x, rat.y);
             if (rat.location.type == location_type && rat.location.id == location_id 
 				&& rat.x == x && rat.y == y){
                 return rat;
@@ -60,7 +58,7 @@ class Queries{
 		return null;
 	}
 
-	directions(human, what, map){
+	directions(human, what, map, favorites){
 		//console.log(human, what);
 		let target_shop = null;
 		for (let shop of this.shops){
@@ -70,30 +68,30 @@ class Queries{
 			}
 		}
 		if (target_shop != null && target_shop.location != null){
-			let path = this.map.get.navigator.find_path(human.location, target_shop.location);
-			let exits = this.map.get.navigator.fetch_exits_for_path(path);
-			this.favorites.add_shop_not_here(target_shop, exits);			
+			let path = map.get.navigator.find_path(human.location, target_shop.location);
+			let exits = map.get.navigator.fetch_exits_for_path(path);
+			favorites.add_shop_not_here(target_shop, exits);			
 			ui.log("They give you directions to " + what);
 			return;
 		}
-		this.map.generator.shop.queue.push(what);
-		if (this.map.unused_exits.street > 0){
-			let nearest = this.map.get.navigator.find_nearest('street', human.location);
-			let exits = this.map.get.navigator.fetch_exits_for_path(nearest.path);
+		map.generator.shop.queue.push(what);
+		if (map.unused_exits.street > 0){
+			let nearest = map.get.navigator.find_nearest('street', human.location);
+			let exits = map.get.navigator.fetch_exits_for_path(nearest.path);
 			let last_loc = nearest.path[nearest.path.length - 1];
 			exits.push(nearest.exit);
-			this.favorites.add_for_directions(exits, []);
+			favorites.add_for_directions(exits, []);
 			ui.log("They give you directions to " + what);
 			return;
 
 		}
 		//this makes an assumption that the starting alley has another alley that you can go to
-		this.map.generator.location.exit_queue.push('street');
-		let nearest = this.map.get.navigator.find_nearest('alley', human.location);
-		let exits = this.map.get.navigator.fetch_exits_for_path(nearest.path);
+		map.generator.location.exit_queue.push('street');
+		let nearest = map.get.navigator.find_nearest('alley', human.location);
+		let exits = map.get.navigator.fetch_exits_for_path(nearest.path);
 		let last_loc = nearest.path[nearest.path.length - 1];
 		exits.push(nearest.exit);
-		this.favorites.add_for_directions(exits, ['street']);
+		favorites.add_for_directions(exits, ['street']);
 		ui.log("They give you directions to " + what);
 	}
 }

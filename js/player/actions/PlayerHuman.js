@@ -25,7 +25,7 @@ class PlayerHuman{
             this.player.money += human.conversion[id];
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'directions' && ui.social.directions_selected != null && juego.favorites.set.directions.length < 1){
-            juego.get.directions(human, ui.social.directions_selected, juego.map);
+            juego.get.directions(human, ui.social.directions_selected, juego.map, juego.favorites);
             ui.change_screen('map');
             this.player.state.socializing = null;
         } 

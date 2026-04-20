@@ -26,7 +26,7 @@ class PlayerShop{
         }
     }
 
-    enter_shop(x, y, map){
+    enter(x, y, map){
         
         let shop_on_map = map.get.inspector.fetch_shop(x, y);
         if (shop_on_map == null){

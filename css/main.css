@@ -135,6 +135,7 @@ html, body{
     text-align: center;
     height: var(--status-bar-height);
     line-height: var(--status-bar-height);
+    color: white;
 }
 
 

@@ -1,4 +1,5 @@
 class UI{
+	fade_opacity_delta = .1;
 	favorites = new UIFavorite();
 	loot = new UILoot();
 	map = new UIMap();
@@ -67,7 +68,18 @@ class UI{
 		$("#time").html(`Week #${weeks} ${days} ${hours}:${minutes}`)
 	}
 
-	log(msg){		
+	fade_status(){
+		
+		let opacity = Number($("#status").css("opacity"));
+		if (opacity <= 0){
+			return;	
+		}
+		opacity -= this.fade_opacity_delta;
+		$("#status").css("opacity", opacity);
+	}
+
+	log(msg){	
+		
 		this.status_msg += " " + msg;
 	}
 	

@@ -5,7 +5,6 @@ TODO
         food
         hardware store
     sleep
-    fade status instead of overwriting it when not in use
     favorites - directions null for 
     when take_all, even though it can stack, it's not doing it
     auto_loot_settings not loading

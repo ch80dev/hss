@@ -112,7 +112,7 @@ class PlayerMovement{
                 console.log('d');
             this.player.actions.loot_corpse(map, juego);
         }
-        ui.log("");
+        ui.fade_status("");
         
     }
 }

@@ -32,6 +32,7 @@ class UIRefresh {
 		}
 		$('#stigma').html(`${stigma_cent.toFixed(1)}%`);
 		if (this.ui.status_msg != ''){
+			$("#status").css('opacity', 1);
 			$("#status").html(this.ui.status_msg);
 		}
 		

@@ -4,6 +4,9 @@ class UIRefresh {
         this.ui = ui;
     }
     go(){
+		if (this.ui.sleeping){			
+			setTimeout(this.ui.fade_for_sleep, 100);
+		}
 		if (juego.player.state.shopping != null ){
 			this.ui.shop.display(juego.player);
 		} else if (juego.player.state.looting){
@@ -48,7 +51,7 @@ class UIRefresh {
 		if (Number($("#status").css('opacity')) <= 0){
 			this.ui.auto_loot_inv = {};
 		}
-		if (this.show_ui_auto_loot || this.ui.status_msg != ''){
+		if (!this.ui.sleeping && (this.show_ui_auto_loot || this.ui.status_msg != '')){
 			this.ui.status_msg = '';
 			this.show_ui_auto_loot = false;
 			$("#status").css('opacity', 1);			

@@ -81,4 +81,21 @@ class PlayerActions {
         this.player.state.looting = true;
 
     }
+
+    sleep_in_tent(map){
+        let tent = map.get.inspector.fetch_tent(this.player.fetch_from());
+        console.log(tent);
+        if(tent == null){
+            return;
+        }
+        let penalty = this.player.status.sleep(true, false);
+        ui.sleeping = true;
+        let txt = "You sleep in a tent."
+        if (penalty > 0){
+            txt += `And you regain a little health. [${penalty}]`;
+        }
+        ui.log(txt)
+        ui.change_screen('map');
+        this.player.state.looting = false;
+    }
 }

@@ -34,7 +34,19 @@ class InventoryUse{
         if (item.name == 'crate'){           
             item.name = 'crate (placed)';
             this.player.inventory.move.drop_item(id, map);
-            map.is(this.player.state.x, this.player.state.y, 8);
+            map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('crate'));
+            return;
+        } else if (item.name == 'tent'){
+            item.name = 'tent (placed)';
+            this.player.inventory.move.drop_item(id, map);
+            map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
+            return;
+        } else if (item.name == 'sleeping bag'){
+            let penalty = this.player.status.sleep(false, false);
+            ui.sleeping = true;
+            ui.log(`You sleep in a sleeping bag and take a small health penalty for sleeping outside. [${penalty}]`)
+            ui.change_screen('map');
+            this.player.state.looting = false;
             return;
         } else if (Object.keys(ItemConfig.food_gain).includes(item.name)){
             this.player.status.change_stamina(ItemConfig.food_gain[item.name]);

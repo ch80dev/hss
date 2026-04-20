@@ -6,6 +6,7 @@ class UI{
 	map = new UIMap();
 	refresh = new UIRefresh(this);
 	shop = new UIShop();
+	sleeping = false;
 	social = new UISocial();
 	status_msg = "";
 	screen_focused = 'map';
@@ -15,6 +16,24 @@ class UI{
 
 	change_screen(what){
 		this.screen_focused = what;
+	}
+
+	fade_for_sleep(){
+		let opacity =  Number($("body").css('opacity'));
+		
+		opacity = opacity - .03;
+		$('body').css('opacity', opacity);
+
+		if (opacity <= 0){
+			console.log("DONE");
+		}
+		if (ui.sleeping && opacity > 0){
+			setTimeout(this.ui.fade_for_sleep, 100);
+		} else {
+			$('body').css('opacity', 1);
+			ui.sleeping = false;			
+			ui.refresh.go();
+		}
 	}
 
 	update_auto_loot(arr){

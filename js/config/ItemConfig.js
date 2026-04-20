@@ -12,7 +12,7 @@ class ItemConfig {
 		}
 	}
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
-		'screw driver', 'wrench','crow bar','bolt cutters'];
+		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag'];
 	static equipable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
 	static food_in_trash = ['chips', 'sandwich', 'cookie', 'candy'];
 	static food_gain = {
@@ -74,7 +74,8 @@ class ItemConfig {
 		'screw driver': 5,
 		taco: 2,
 		wrench: 12,
-		
+		tent: 20,
+		'sleeping bag': 10,
 		
 		
 		
@@ -93,20 +94,24 @@ class ItemConfig {
 		'plastic bottle': [1, 20],
 		'glass bottle': [21, 40],
 		'aluminum can': [41, 60],
-		'food-spoiled': [61, 78],
-		food: [79, 80],
+		'sleeping bag': [61, 63],
+		tent: [64, 64],
+		flashlight: [65, 68],
+		wrench: [69, 69],
+		'food-spoiled': [70, 74],
+		food: [75, 80],
 		
 		crate: [81, 85],
 		medicine: [86, 86],
 		'medicine (expired)': [87, 93],		
 		'screw driver': [94, 96],
 		wrench: [97, 97],
-		flashlight: [98, 98],
+		lantern: [98, 98],
 		pipe: [99, 99],
 		drugs: [100, 100],		
 		//lighter: [71, 80],
 	}	
-	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco",];		
+	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)'];		
 	static weapon_dmgs = {
 		bat: 4, 
 		knife: 10, 

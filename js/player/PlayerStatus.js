@@ -9,12 +9,15 @@ class PlayerStatus{
 
     change_health (n){
         this.player.state.health += n;
+        let changed = n;
         if (this.player.state.health >= this.player.state.max_health){
+            changed = this.player.state.health - this.player.state.max_health - n;
             this.player.state.health = this.player.state.max_health;            
         } else if (this.player.state.health <= 0 ){
             this.player.state.health = 0;
             this.player.state.dead = true;            
         }
+        return changed;
     }
     change_money(n){
         n = Number(n);
@@ -85,9 +88,19 @@ class PlayerStatus{
 
     sleep(indoors, in_a_building){
         if (in_a_building){
-            this.player.state.stigma = 0;
+            this.player.state.stigma = Math.round(this.player.state.stigma * .5);
+            //set to 0 if you own the room or apartment            
         }
-        this.heal();
-        this.player.state.hours_delta += 8;        
+        let rand = Number((rand_num(1, 10) * .1).toFixed(1));
+        let health_change = this.change_health(rand);
+        //add a thing to show how much health increaseds        
+        
+        this.player.state.hours_delta += 8;     
+        if (!indoors){
+            rand = Number((rand_num(1, 15) * .1).toFixed(1));
+            this.change_health(-rand);
+            return -rand;
+        }
+        return health_change;
     }
 }

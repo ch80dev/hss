@@ -2,7 +2,7 @@ TODO
     more shops 
         homeless shelter
 
-    sleep
+    
     when take_all, even though it can stack, it's not doing it
     use and equip should be aligned right
     need a visual equip and use button

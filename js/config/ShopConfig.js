@@ -14,7 +14,7 @@ class ShopConfig {
 		pawn: 75,
 		recycling: 90,
 	}	
-	static motel_room_cost = 75;
+	static motel_room_cost = 50;
 	static num_of_items_in_pawn_shop = 4;
 	static interactions = {
 		food: ['buy'],
@@ -37,11 +37,11 @@ class ShopConfig {
 	static resources = {
 		food: ["burger", "burrito", "fries", "pizza", "taco",],
 		grocery: ["candy", "chips", "cookie", "sandwich"],
-		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete', 'pipe'],
+		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters',  'knife', 'lantern', 'hatchet', 'machete', 'pipe'],
 		motel: null, 
 		pawn: ['bat', 'knife', 'hatchet', 'machete', 'tool'],
 		recycling: ['glass bottle', 'aluminum can', 'plastic bottle'],
-		sports: ['bat', 'knife', 'machete', 'lantern', 'flashlight']
+		sports: ['bat', 'knife', 'machete', 'lantern', 'flashlight', 'tent', 'sleeping bag']
 	}
 	static types = ['hardware', 'pawn', 'recycling', 'motel'];
 }

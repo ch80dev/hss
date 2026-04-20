@@ -135,6 +135,11 @@ $(document).on('click', '.sell_unique', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '.sleep_in_tent', function(e) {    
+    juego.player.actions.sleep_in_tent(juego.map);
+    ui.refresh.go();
+});
+
 $(document).on('click', '#sleep_at_shop', function() {
     if (juego.player.state.shopping == null){
         return;

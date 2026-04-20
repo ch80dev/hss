@@ -4,6 +4,7 @@ class UILoot{
 		let max_slots = '';
 		let max_weight = '';
 		let auto_loot_on = "";
+		let tent_here = juego.map.get.inspector.fetch_tent(juego.player.fetch_from());
 		if (juego.player.state.auto_loot){
 			auto_loot_on = ' checked ';
 		}
@@ -20,6 +21,10 @@ class UILoot{
 		if (is_loot && juego.map.get.inspector.is_item_here('crate (placed)', juego.player.fetch_from())){
 			crate_here = ' in_crate ';
 			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
+		} else if (is_loot && juego.map.get.inspector.is_item_here('tent (placed)', juego.player.fetch_from()) && tent_here != null){
+			
+			crate_here = ' in_crate ';
+			txt += `<div id='loot-tent' class=''>tent (placed) ${tent_here.durability}%<button id='sleep_in_tent-${tent_here.id}' class='sleep_in_tent'>sleep</button></div>`;
 		}
 		for (let item of items){			
 			let durability = '';
@@ -31,7 +36,7 @@ class UILoot{
 			} else if (is_food && item.durability > 0){		
 				durability = `(${this.fetch_spoil_time(item.durability)})`;
 			}
-			if (item.name == 'crate (placed)'){
+			if (item.name == 'crate (placed)' || item.name == 'tent (placed)'){
 				continue;
 			}
 			let n = item.quantity;

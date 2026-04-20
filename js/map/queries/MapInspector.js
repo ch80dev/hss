@@ -124,6 +124,18 @@ class MapInspector{
         return null;
     }
 
+    fetch_tent(from){
+        if (this.map.loot[from] == undefined){
+            return null;
+        }
+        for (let item of this.map.loot[from].stuff){
+            if (item.name == 'tent (placed)'){
+                console.log(item)
+                return item;
+            }
+        }
+        return null;
+    }
     fetch_unused_exit(target_location_type, location){
         let exits = [];
         for (let x = 0; x < MapConfig.max_x; x ++){

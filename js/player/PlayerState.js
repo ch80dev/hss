@@ -9,7 +9,7 @@ class PlayerState{
     fighting = false;
     health = Config.lifeforms.human.max_health;
     hours_delta = 0;    
-    inventory = [];
+    inventory = [ ];
     inventory_weight =  0;
     location = {
         id: 0,
@@ -35,13 +35,15 @@ class PlayerState{
 
     x = null;
     y = null;
-    constructor(x, y){
+    constructor(x, y, player){
+        this.player = player;
         this.money = rand_num(0, HumanConfig.homeless_money);
         this.x = x;
         this.y = y;
         for (let item_name of Object.keys(ItemConfig.prices)){
             this.auto_loot_preferences[item_name] = true;
         }
+        //this.inventory.push({name: 'tent', id: this.player.inventory.next_id(), quantity: 1, durability: 100 });
     }
     
 }

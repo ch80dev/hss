@@ -77,6 +77,7 @@ class Queries{
 		map.generator.shop.queue.push(what);
 		if (map.unused_exits.street > 0){
 			let nearest = map.get.navigator.find_nearest('street', human.location);
+			console.log('BUG', nearest);
 			let exits = map.get.navigator.fetch_exits_for_path(nearest.path);
 			let last_loc = nearest.path[nearest.path.length - 1];
 			exits.push(nearest.exit);

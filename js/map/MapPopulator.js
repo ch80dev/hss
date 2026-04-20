@@ -13,7 +13,7 @@ class MapPopulator{
         if (rand_for_type <= 2){
             is_it_locked <= 1;
             type = 'recycling';
-        } else if (rand_for_type >= 8){
+        } else if (rand_for_type >= 9){
             num_of_items *= 2;
             is_it_locked <= 7;
             type = 'dumpster';
@@ -32,9 +32,9 @@ class MapPopulator{
             if (ItemConfig.recyclables.includes(item)){
                 n = rand_num(1, 10);
             }
-            if (type == 'dumpster'){
+            if (type == 'dumpster' && ItemConfig.stackable.includes(item)){
                 n *= rand_num(1, 2);
-            } else if (type == 'recycling'){
+            } else if (type == 'recycling' && ItemConfig.stackable.includes(item)){
                 n *= rand_num(2, 3);
             }
             found.push({ name: item, quantity: n, durability: rand_num(10, 100), id: this.map.next_id() });

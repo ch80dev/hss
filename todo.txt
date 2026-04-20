@@ -6,7 +6,18 @@ TODO
         hardware store
     sleep
     when take_all, even though it can stack, it's not doing it
-    think favorites directions just gets assigned to the nearest shop even if assigned
+    loot_all msg should stack on to each other instead of overwriting
+    use and equip should be aligned right
+    need a visual equip and use button
+    space in recylcing shop to sell all
+    trade should be disabled if its a new item and your inventory is full
+    crate looks a bit too much like stigma    
+    shouldn't be able to sell or trade stackable items.
+    for stackable items, add sell all button to human social menu
+    be able to drop loot on ground and see it (it disappears when players leave that location)
+    maybe we can do a list of locations - specifically to show unexplored exist
+    NaN bug in weight
+    when you drop an equipped item, it doesn't reset state.equipped
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

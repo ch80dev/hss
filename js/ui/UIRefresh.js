@@ -59,7 +59,6 @@ class UIRefresh {
 		if (juego.player.state.equipped != null){
 			
 			let equipped = juego.player.inventory.fetch.by_id(juego.player.state.equipped, null);
-			//console.log(juego.player.state.equipped, equipped);
 			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
 		}
 		const formatter = new Intl.NumberFormat('en-US', {

@@ -62,7 +62,7 @@ class InventoryTake {
     item(id, map, take_all_id){
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
-
+        
         
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
@@ -84,6 +84,7 @@ class InventoryTake {
             }
         } else {
             let item = map.loot[at].stuff.splice(id, 1)[0];
+            console.log(item, take_all_id, id, map.loot[at].stuff)
             item.id = this.player.inventory.next_id();
             this.player.state.inventory.push(item);        
         }

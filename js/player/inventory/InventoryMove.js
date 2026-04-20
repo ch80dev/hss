@@ -5,7 +5,13 @@ class InventoryMove{
 
     change_weight(delta){
         //console.log('change_weight: bug', delta, this.player.state.inventory_weight);
+        if (delta == NaN || this.player.state.inventory_weight == NaN){
+            console.log(delta, this.player.state.inventory.weight);
+        }
         this.player.state.inventory_weight += Number(delta);
+        if (delta == NaN || this.player.state.inventory_weight == NaN){
+            console.log(delta, this.player.state.inventory.weight);
+        }
     }
     delete(name, item_id){
         let equipped = { name: null, durability: null };

@@ -48,6 +48,9 @@ class InventoryMove{
         let at = this.player.fetch_from();
         let item = this.player.inventory.fetch.by_id(id);
         this.change_weight(-this.player.inventory.get.fetch_weight(item.name, 1));
+        if (this.player.state.equipped == id){
+            this.player.state.equipped = null;
+        }
         if (ItemConfig.stackable.includes(item.name) && map.get.inspector.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.delete(null, item.id);

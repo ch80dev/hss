@@ -72,7 +72,8 @@ class UIMap {
 					cell_txt = mark;
 				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null){
 					cell_txt = MapConfig.cell_txt[loot.type];
-				} else if (map_at == 1 && loot != null){
+				} else if (map_at == 1 && loot != null && loot.stuff.length > 0){
+					
 					cell_txt = MapConfig.cell_txt['debris'];
 				} else if (MapConfig.cell_txt[MapConfig.cell_class[map_at]] != undefined){
 					cell_txt = MapConfig.cell_txt[MapConfig.cell_class[map_at]];				

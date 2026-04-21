@@ -35,6 +35,7 @@ class InventoryTake {
     }
 
     all(map){
+        console.log('fdfd');
         let at = this.player.fetch_from();
         if (map.loot[at] == undefined){
             return null;

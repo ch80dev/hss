@@ -12,7 +12,7 @@ class ItemConfig {
 		}
 	}
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
-		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag'];
+		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];
 	static equipable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
 	static food_in_trash = ['chips', 'sandwich', 'cookie', 'candy'];
 	static food_gain = {

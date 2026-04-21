@@ -2,8 +2,7 @@ TODO
     more shops 
         homeless shelter    
     for stackable items, add sell all button to human social menu
-    shouldn't be able to use crate (place crate if on trash) - it should be disabled
-    food spoiled giving NaN probalby not a price for it. just remove from being sold
+    
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

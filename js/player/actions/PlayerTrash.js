@@ -4,9 +4,9 @@ class PlayerTrash {
     }
     open(map){
         
-        let taken_arr = this.player.inventory.take.all(map);        
-        let txt = `You looted:  ${taken_arr.join(", ")} [${this.player.state.inventory.length}/${this.player.state.slots_in_inventory}]`;
+        
         if (this.player.state.auto_loot){
+            let taken_arr = this.player.inventory.take.all(map);        
             ui.update_auto_loot(taken_arr);
         }
         let at = this.player.fetch_from();

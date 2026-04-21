@@ -60,9 +60,13 @@ class UILoot{
 			if (can_they_take){
 				can_take = " can_take ";
 			} 
-			if (!is_loot && ItemConfig.usable.includes(item.name)){
+			
+			if (!is_loot && (item.name == 'crate' || item.name == 'tent') && MapConfig.cell_class[juego.map.get.at(juego.player.state.x, juego.player.state.y)] == 'trash' ) {
+				usable = `<button id='use-${item.id}' class='use' disabled>use</button>`;
+			} else if (!is_loot && ItemConfig.usable.includes(item.name)){
 				usable = `<button id='use-${item.id}' class='use'>use</button>`;
 			}
+			
 			if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.state.equipped != item.id){
 				equipable = `<button id='equip-${item.id}' class='equip'>equip</button>`;
 			} else if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.state.equipped == item.id){
@@ -83,6 +87,7 @@ class UILoot{
 			juego.map.loot[juego.player.fetch_from()] = { locked: null, searched: false, stuff: [], durability: null };
 		}
 		if (juego.player.state.looting){
+			
 			$("#loot_container").html( this.display_loot_items(juego.map.loot[juego.player.fetch_from()].stuff, true));
 		}
 		

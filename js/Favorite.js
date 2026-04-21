@@ -4,17 +4,19 @@ class Favorite{
 		human: [],
 		shop: [],
 	} 
-	add(set_type, set_id, location, x, y, path, need){	
-		if (this.set[set_type][set_id] == undefined){
-			this.set[set_type][set_id] = { location: location, x:x, y:y, path: path, need: need}
-		} else if (this.set[set_type][set_id] != undefined){
-			this.set[set_type].splice(set_id, 1);			
+	add(set_type, set_id, location, x, y, path, need){
+		let favorite = this.fetch_by_id(set_type, set_id);
+		if (favorite == undefined){
+			this.set[set_type].push({id: set_id, location: location, x:x, y:y, path: path, need: need});
+		} else if (favorite != undefined){
+			this.delete(set_type, set_id);		
 		}
 	}
 	add_shop_not_here(shop, path ){
 		this.add('shop', shop.id, shop.location, shop.x, shop.y, path, []);
 	}
     add_by_type(type, id, juego){
+		console.log(type, id);
 		let favorite_target = juego.get.human(id);
 		if (type == 'shop'){
 			favorite_target = juego.get.shop(id);
@@ -31,6 +33,23 @@ class Favorite{
 	add_for_directions(path, need){
 		this.add('directions', 0, {type: null, id: null}, null, null, path, need);
 		
+	}
+	delete(set_type, set_id){
+		for (let i in this.set[set_type]){
+			let el = this.set[set_type][i];
+			if (el.id == set_id){
+				this.set[set_type].splice(i, 1);
+			}
+		}
+		return undefined;
+	}
+	fetch_by_id(set_type, set_id){
+		for (let el of this.set[set_type]){
+			if (el.id == set_id){
+				return el;
+			}
+		}
+		return undefined;
 	}
 
 	fetch_incomplete(x, y){

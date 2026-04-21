@@ -10,27 +10,22 @@ class UIFavorite{
                 }
 				continue;
 			}
-			for (let id in juego.favorites.set[entity]){
-				
-				let favorite = juego.favorites.set[entity][id];
-			
+			for (let favorite of juego.favorites.set[entity]){
 				let context = ''; 
-				let target = juego.get.shop(id);
+				let target = juego.get.shop(favorite.id);
 				if (entity == 'human'){
-					context = this.display_favorites_for_human(id);
-					target = juego.get.human(id);
+					context = this.display_favorites_for_human(favorite.id);
+					target = juego.get.human(favorite.id);
 				} 
-				let favorite_symbol = `&#x2606;`;
+				let favorite_symbol = `&#x2605;`;
 				let name = target.name;
 				if (entity == 'human'){
 					name += " " + target.surname;
 				} else {
 					name = ShopConfig.names[target.type];
 				}					
-        		if (juego.favorites.set[entity][id] != undefined){
-            		favorite_symbol = `&#x2605;`;
-        		}
-				txt += `<div class='favorite_entry'><button id='favorite-${entity}-${id}' class='favorite'>${favorite_symbol}</button>${name} (${favorite.x}, ${favorite.y}) ${favorite.path.length} locations away</div>`;
+
+				txt += `<div class='favorite_entry'><button id='favorite-${entity}-${favorite.id}' class='favorite'>${favorite_symbol}</button>${name} (${favorite.x}, ${favorite.y}) ${favorite.path.length} locations away</div>`;
 				txt += `<div class='favorite_context'>${context}</div>`;
 			}
 		}

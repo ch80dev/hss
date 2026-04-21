@@ -2,7 +2,6 @@ TODO
     more shops 
         homeless shelter    
     for stackable items, add sell all button to human social menu
-    maybe we can do a list of locations - specifically to show unexplored exist
     I unfavorited a human and it changed UIFavorite display to the one that was still favorited. (still accurate in terms of path but wrong one on UIFavorite)
     limit directions to 2-3 shops
     tools dont work to open trash
@@ -16,7 +15,8 @@ ABANDONED
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
-        
+    maybe we can do a list of locations - specifically to show unexplored exist
+    
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
     be able to make a campfire

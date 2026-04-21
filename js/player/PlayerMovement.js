@@ -16,7 +16,7 @@ class PlayerMovement{
             let to_type = exits_to.split('-')[0];
             let to_id = exits_to.split('-')[1];
             
-            console.log(`Loading previous location: ${to_type}-${to_id}`);
+            //console.log(`Loading previous location: ${to_type}-${to_id}`);
             let to_x = exits_to.split('-')[2];
             let to_y = exits_to.split('-')[3];
             map.load(to_type, to_id);
@@ -32,7 +32,7 @@ class PlayerMovement{
         map.wipe();  
         let start = map.generator.location.generate(MapConfig.exit_types[exit_id], this.player.state.location.type);   
         
-        console.log(`Exploring to: ${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}`);
+        //console.log(`Exploring to: ${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}`);
         map.locations[MapConfig.exit_types[exit_id]].push(map.grid);
         let to = `${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
         this.player.state.location.type = MapConfig.exit_types[exit_id];

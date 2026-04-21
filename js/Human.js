@@ -107,14 +107,14 @@ class Human extends Lifeform{
             this.conversion[id] = null;
             this.resources[id] = null;
             if (HumanConfig.interactions_for_resources.includes(interaction) && interaction == 'trade'){
-                let first = this.generate_rand_item([]);
-                let second = this.generate_rand_item([first]);
+                let first = this.generate_rand_item([], interaction);
+                let second = this.generate_rand_item([first], interaction);
                 this.resources[id] = { [first]: second };
                 this.conversion[id] = this.generate_conversion(first, second);
                 this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[first]), durability: 100 });
                 this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[second]), durability: 100 });
             } else if (HumanConfig.interactions_for_resources.includes(interaction)){
-                this.resources[id] = this.generate_rand_item([]);
+                this.resources[id] = this.generate_rand_item([], interaction);
                 
             }
             if (interaction == 'buy'){                                
@@ -136,17 +136,19 @@ class Human extends Lifeform{
 
     
 
-    generate_rand_item(not_arr){
+    generate_rand_item(not_arr, interaction){
         //console.log(not_arr);
         let items_drawn_from = ItemConfig.human_items;
         if (this.homeless){
             items_drawn_from = Object.keys(ItemConfig.trash_item_odds);
         }
+        let no_durables = ['sell', 'trade'];
         while(true){
             let rand = rand_num(0, items_drawn_from.length - 1);
-            //console.log(rand, ItemConfig.human_items);
             let rand_item = items_drawn_from[rand];
-            
+            if (no_durables.includes(interaction) && ItemConfig.degradable.includes(rand_item)){
+                continue;
+            }
             if (!not_arr.includes(rand_item)){
                 return rand_item;
             }

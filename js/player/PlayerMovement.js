@@ -87,13 +87,13 @@ class PlayerMovement{
             this.player.state.health -= this.player.state.movement_cost;
         }
         
-        if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.is_equipped_with('tool')
+        if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.has_a_tool()
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
             ui.log('This trash can is locked.');
             return;
         }  else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') 
-            && this.player.inventory.get.is_equipped_with('tool')
+            && this.player.inventory.get.has_a_tool()
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
             this.player.actions.trash.unlock(pos.x, pos.y, map);

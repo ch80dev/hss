@@ -48,7 +48,7 @@ class Input {
     }
 
     press_key(pressed){
-        //console.log(pressed, ui.screen_focused);
+        console.log(pressed, ui.screen_focused, );
         
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){
@@ -72,6 +72,13 @@ class Input {
             juego.player.state.socializing = null;
             juego.player.state.shopping = null;
             ui.change_screen('map');
+        } else if (pressed == " " && juego.player.state.shopping != null){
+            let shop = juego.get.shop(juego.player.state.shopping);
+            if (shop == null || shop.type != 'recycling'){
+                return;
+            }
+            juego.player.actions.shop.sell_all_recycling(shop);
+
         } else if (pressed == " " && juego.player.state.looting){
             juego.player.inventory.take.all(juego.map);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){

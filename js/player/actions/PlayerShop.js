@@ -34,9 +34,11 @@ class PlayerShop{
         if (shop == null){
             return;
         }
+        let n = 0;
         for (let resource_id in shop.resources){
-            this.sell_to_shop(resource_id, shop);
+            n += this.sell_to_shop(resource_id, shop);
         }
+        ui.log(`You made $${n.toFixed(2)} selling all your recyclables.`);
     }
 
     enter(x, y, map){
@@ -62,12 +64,12 @@ class PlayerShop{
         if (quantity == 'all' || quantity > item.quantity){
             quantity = item.quantity;
         }
-        //console.log(resource, quantity, quantity * ItemConfig.prices[resource])
         this.player.status.change_money(quantity * ItemConfig.prices[resource]);
         item.quantity -= quantity;
         if (item.quantity < 1){
             this.player.inventory.move.delete(resource, null);
         }
+        return quantity * ItemConfig.prices[resource];
     }
 
     sell_unique(inventory_id, shop){

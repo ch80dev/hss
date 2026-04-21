@@ -3,7 +3,6 @@ TODO
         homeless shelter
 
     
-    need a visual equip and use button
     space in recylcing shop to sell all
     trade should be disabled if its a new item and your inventory is full
     crate looks a bit too much like stigma    

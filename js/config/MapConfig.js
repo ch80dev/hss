@@ -22,6 +22,7 @@ class MapConfig {
 		rat: 'r',
 		recycling: '&#9646;',
 		shop: '$',
+		tent: '⛺',
 		trash: '&#9646;',
 		unused_exit: '&#9673;',
 		used_exit: '&#9678',		

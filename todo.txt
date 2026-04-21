@@ -1,11 +1,6 @@
 TODO           
     more shops 
-        homeless shelter
-
-    
-    space in recylcing shop to sell all
-    trade should be disabled if its a new item and your inventory is full
-    crate looks a bit too much like stigma    
+        homeless shelter    
     shouldn't be able to sell or trade stackable items.
     for stackable items, add sell all button to human social menu
     be able to drop loot on ground and see it (it disappears when players leave that location)
@@ -19,7 +14,7 @@ TODO
     remove stackable from trade and sell interactions
     dropped an equipped item and it didn't reset this.player.state.equipped (getting error now)
     night time isn't happening
-
+    shouldn't be able to use crate (place crate if on trash) - it should be disabled
     
 ABANDONED
     redo map loot and how i handled map data

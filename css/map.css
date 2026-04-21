@@ -1,5 +1,5 @@
 .alley_exit {
-    color: hwb(211 42% 46%);
+    color: white;
 }
 .human.blocked {
     background: #222222;
@@ -36,7 +36,7 @@
 }
 
 .crate {
-    color: #D4A017;
+    color: #8B5A2B;
 }
 .dumpster{
     font-size: 20px; 
@@ -100,7 +100,7 @@
 }
 
 .dumpster, .trash{
-    color: #8b5a2b;
+    color: #9A9A9A;
 }
 
 .favorite:not(button) {

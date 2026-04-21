@@ -38,10 +38,10 @@ class UISocial{
 				let second = human.resources[id][first];
 				let second_disabled = '';
 				resource = `${conversion[0]} ${first} [${juego.player.inventory.get.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.get.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
-				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1])){
+				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1]) || !juego.player.inventory.can_they_take(second, conversion[1])){
 					first_disabled = ' disabled ';
 				}
-				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0])){
+				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0]) || !juego.player.inventory.can_they_take(first, conversion[0])){
 					second_disabled = ' disabled ';
 				}
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;

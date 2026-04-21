@@ -70,6 +70,7 @@ class UIRefresh {
 		if (juego.player.state.sickness >= juego.player.state.max_sickness){
 			$("#is_sick").removeClass('hidden');
 			$("#sickness_caption").addClass('hidden');
+			$("#sickness_penalty").html(`-${(juego.player.state.sick_hours * .1).toFixed(1)}`)
 
 		} else {
 			$("#is_sick").addClass('hidden');

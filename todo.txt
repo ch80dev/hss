@@ -3,7 +3,6 @@ TODO
         homeless shelter    
     for stackable items, add sell all button to human social menu
     maybe we can do a list of locations - specifically to show unexplored exist
-    sickness should get worse with each hour that goes by at full sickness (+<x> hour penalty each turn)
     I unfavorited a human and it changed UIFavorite display to the one that was still favorited. (still accurate in terms of path but wrong one on UIFavorite)
     limit directions to 2-3 shops
     tools dont work to open trash

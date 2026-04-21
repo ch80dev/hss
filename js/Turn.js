@@ -10,6 +10,7 @@ class Turn{
 			this.time.minutes = 0;
 			this.time.hours ++;
 			this.player.inventory.food_spoils();
+			this.player.status.player_still_sick();
 		}
 		this.time.hours += hours_delta;
 		if (this.time.hours > 23){

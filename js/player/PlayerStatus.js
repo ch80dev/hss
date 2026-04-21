@@ -31,17 +31,21 @@ class PlayerStatus{
 
     change_sickness(n){
         n = Number(n);
+        if (this.player.state.sickness >= this.player.state.max_sickness){
+            this.player.state.sick_hours = null;
+        }
         this.player.state.sickness = (Number(this.player.state.sickness ) || 0) + n;
         if (this.player.state.sickness < 0){
             this.player.state.sickness = 0;
-        } else if (this.player.state.sickness > this.player.state.max_sickness){
+        } else if (this.player.state.sickness >= this.player.state.max_sickness){
+            this.player.state.sick_hours = 0;
             this.player.state.sickness = this.player.state.max_sickness;
         }
     }
 
     change_stamina(immediate_stamina_change){
         if (this.player.state.sickness >= this.player.state.max_sickness ){
-			this.player.state.stamina_delta  *= 2;
+			this.player.state.stamina_delta  -= Number((this.player.state.sick_hours * .1).toFixed(1));
 		}
         let n = Number(this.player.state.stamina_delta );
         if (immediate_stamina_change != null){
@@ -84,6 +88,14 @@ class PlayerStatus{
         }
         //console.log(rand, this.player.state.health);
 
+    }
+
+    player_still_sick(){
+        if (this.player.state.sickness >= this.player.state.max_sickness){
+            console.log(this.player.state.sick_hours);
+            this.player.state.sick_hours ++;
+            console.log(this.player.state.sick_hours);
+        }
     }
 
     sleep(indoors, in_a_building){

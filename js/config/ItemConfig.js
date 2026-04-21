@@ -7,7 +7,7 @@ class ItemConfig {
 		}		
 		for (let item of Object.keys(this.prices)){
 			if (this.weights[item] == undefined){
-				console.log(item);
+				console.log('NaN weight', item);
 			}
 		}
 	}
@@ -166,5 +166,7 @@ class ItemConfig {
 		pizza: .5,
 		sandwich: .5,
 		taco: .5,
+		'sleeping bag': 5,
+		tent: 10,
 	}    
 }

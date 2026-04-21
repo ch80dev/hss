@@ -47,7 +47,6 @@ class UIRefresh {
 			this.ui.auto_loot_inv = {};
 			txt += this.ui.status_msg;
 		}
-		console.log(Object.keys(this.ui.auto_loot_inv).length, $("#status").css('opacity'))
 		if (Number($("#status").css('opacity')) <= 0){
 			this.ui.auto_loot_inv = {};
 		}

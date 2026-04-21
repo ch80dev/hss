@@ -87,7 +87,6 @@ class InventoryTake {
             }
         } else {
             let item = map.loot[at].stuff.splice(id, 1)[0];
-            console.log(item, take_all_id, id, map.loot[at].stuff)
             item.id = this.player.inventory.next_id();
             this.player.state.inventory.push(item);        
         }

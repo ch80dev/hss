@@ -115,7 +115,6 @@ class UI{
 	}
 
 	log(msg){	
-		console.log(msg);
 		this.status_msg += " " + msg;
 	}
 	

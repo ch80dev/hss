@@ -210,3 +210,11 @@ html, body{
     line-height: var(--top-bar-height);
     color: white;
 }
+
+
+.use, .equip, .unequip{
+    float: right;
+}
+.item_container{
+    width: 75%;
+}

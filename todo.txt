@@ -3,8 +3,6 @@ TODO
         homeless shelter
 
     
-    when take_all, even though it can stack, it's not doing it
-    use and equip should be aligned right
     need a visual equip and use button
     space in recylcing shop to sell all
     trade should be disabled if its a new item and your inventory is full
@@ -15,28 +13,21 @@ TODO
     maybe we can do a list of locations - specifically to show unexplored exist
     NaN bug in weight
     when you drop an equipped item, it doesn't reset state.equipped
-    sickness doesn't max out at max_sickness - it goes higher and the stamina penalty is added for every 100 of sickness you have and medicine still onyl removes within that scale (not a percentage of the sickness but points)
+    sickness should get worse with each hour that goes by at full sickness (+<x> hour penalty each turn)
+    I unfavorited a human and it changed UIFavorite display to the one that was still favorited. (still accurate in terms of path but wrong one on UIFavorite)
+    limit directions to 2-3 shops
+    tools dont work to open trash
+    remove stackable from trade and sell interactions
+    dropped an equipped item and it didn't reset this.player.state.equipped (getting error now)
+    night time isn't happening
+
+    
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
-        tools
-            screw driver $5 5%  2dmg
-            wrench $12 2.5% 3dmg
-            crowbar $60 .33% 5dmg
-            Bolt Cutters $120 .125% 4dmg
-
-
-        weapons 
-            fists - 1 point of damage
-            bat 2dmg 1%     $10                      15%trash   pawn
-            pipe 3dmg .5%   $2(buy @ home repair only) 80%t
-            knife 5dmg  2%  $15                         5%t     pawn
-            hatchet 6dm 1.5% $25                                pawn
-            machete 8dmg 1%     $40                             pawn
-
-        light and darkness - map gets dark and you need light to traverse - (ESPECIALLY SEWER)
+        
     center location in map (sometimes its generated to the left of the screen or top of screen)
     be able to kill rats 
     be able to make a campfire
@@ -46,7 +37,7 @@ LATER
     instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
     rats should be able to exit if there's no food in the alley
     if a player equips a crate, they can carry more slots.
-        interacitons with humans should have a min and max stigma and/or rep like you have to have some stigma to beg
+       
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
     when you lose health, (or any lifeform) there's a random chance to lose consciousness if (1, 100) > health

@@ -212,8 +212,20 @@ html, body{
 }
 
 
-.use, .equip, .unequip{
+.use, .equip, #unequip{
     float: right;
+}
+
+.use{
+    background: green;
+}
+.equip{
+    background: black;
+    color: white;
+}
+
+#unequip{
+    background: grey;
 }
 .item_container{
     width: 75%;

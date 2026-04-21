@@ -2,14 +2,12 @@ TODO
     more shops 
         homeless shelter    
     for stackable items, add sell all button to human social menu
-    I unfavorited a human and it changed UIFavorite display to the one that was still favorited. (still accurate in terms of path but wrong one on UIFavorite)
-    limit directions to 2-3 shops
     tools dont work to open trash
     remove stackable from trade and sell interactions
     dropped an equipped item and it didn't reset this.player.state.equipped (getting error now)
     night time isn't happening
     shouldn't be able to use crate (place crate if on trash) - it should be disabled
-    
+    food spoiled giving NaN probalby not a price for it. just remove from being sold
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

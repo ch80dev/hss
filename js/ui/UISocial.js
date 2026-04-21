@@ -56,8 +56,9 @@ class UISocial{
 					selected = " selected ";
 				}
 				resource = `<select id='directions_to'><option ${selected}></option>`;
-				for (let id in ShopConfig.names ){
-					let shop_name = ShopConfig.names[id];
+				for (let shop_type of human.directions_to ){					
+					let id = Object.keys(ShopConfig.names).indexOf(shop_type);
+					let shop_name = ShopConfig.names[shop_type];
 					selected = '';
 					if (this.directions_selected == id){
 						selected = " selected ";

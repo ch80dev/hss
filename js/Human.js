@@ -1,5 +1,6 @@
 class Human extends Lifeform{
     conversion = [];
+    directions_to = [];
     give_when_begged = null;
     homeless = false;
     interactions = {};
@@ -33,6 +34,7 @@ class Human extends Lifeform{
         this.generate_interactions();
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
+        this.directions_to = this.get_available_directions();
     }
     begged(time){
         this.money -= this.give_when_begged;  
@@ -153,6 +155,19 @@ class Human extends Lifeform{
                 return rand_item;
             }
         }
+    }
+    get_available_directions(){
+        let directions_to = [];
+        let num_of_directions = rand_num(2, 3);
+
+        while(directions_to.length < num_of_directions){
+            let rand_id = rand_num(0, Object.keys(ShopConfig.names).length - 1);
+            let rand = Object.keys(ShopConfig.names)[rand_id];
+            if (!directions_to.includes(rand)){
+                directions_to.push(rand);
+            }
+        }
+        return directions_to;
     }
     give(name, quantity){
         //this creates a bug where all items given to NPC will have a 100 durabiltiy. it's fine though

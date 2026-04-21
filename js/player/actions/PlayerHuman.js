@@ -22,7 +22,7 @@ class PlayerHuman{
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'sell' && this.player.inventory.get.do_they_have(human.resources[id], 1)){ 
             this.player.inventory.move.give_to_human(human.resources[id], 1, human);
-            this.player.money += human.conversion[id];
+            this.player.state.money += human.conversion[id];
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'directions' && ui.social.directions_selected != null && juego.favorites.set.directions.length < 1){
             juego.get.directions(human, ui.social.directions_selected, juego.map, juego.favorites);
@@ -30,6 +30,17 @@ class PlayerHuman{
             this.player.state.socializing = null;
         } 
 
+    }
+
+    sell_all_to_human(id, human, ui){
+        if (human.interactions[id] == undefined){
+            console.log('error');
+            return;
+        }
+        let n = this.player.inventory.get.fetch_quantity(human.resources[id]);
+        this.player.inventory.move.give_to_human(human.resources[id], n, human);
+        this.player.state.money += human.conversion[id] * n;
+        ui.log(`You sell ${human.resources[id]} for $${(human.conversion[id] * n).toFixed(2)}.`)
     }
 
     social(x, y, juego){

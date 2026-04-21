@@ -51,7 +51,7 @@ body:has(#loot:not(.hidden)){
     margin-left: 25px;
 }
 
-.interact, .sell_to_shop{
+.interact, .sell_to_shop, .sell_all_to_human{
     font-size: 25px;
     padding: 10px;
 }

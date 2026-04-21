@@ -47,7 +47,11 @@ class UISocial{
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
-				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} ${human.resources[id]}</button>`;
+				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} 1 ${human.resources[id]}</button>`;
+
+				if (interaction == 'sell'){
+				button += `<button id='sell_all_to_human-${id}' class='sell_all_to_human' ${disabled}>${interaction} all ${human.resources[id]}</button>`
+			} 
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
 			} else if (interaction == 'directions'){

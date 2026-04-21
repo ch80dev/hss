@@ -99,6 +99,16 @@ $(document).on('click', '#rent_a_room', function() {
     shop.rent_a_room(juego.player);
     ui.refresh.go();
 });
+
+$(document).on('click', '.sell_all_to_human', function(e) {
+    let human = juego.get.human(juego.player.state.socializing);
+    if (human == null){
+        return;
+    }
+    juego.player.actions.human.sell_all_to_human(Number(this.id.split('-')[1]), human, ui);
+    ui.refresh.go();
+});
+
 $(document).on('click', '#sell_all_recycling', function() {
     if (juego.player.state.shopping == null){
         return;

@@ -1,13 +1,14 @@
 TODO           
     more shops 
         homeless shelter    
-    for stackable items, add sell all button to human social menu
-    
+    BUG: trash is generating items with undefined name
+    BUG: street appears to be in indefinite loop. possibly cant find good shop location
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
+    selling doesn't draw from human's money
     maybe we can do a list of locations - specifically to show unexplored exist
     
     center location in map (sometimes its generated to the left of the screen or top of screen)

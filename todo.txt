@@ -2,7 +2,6 @@ TODO
     more shops 
         homeless shelter    
     for stackable items, add sell all button to human social menu
-    be able to drop loot on ground and see it (it disappears when players leave that location)
     maybe we can do a list of locations - specifically to show unexplored exist
     NaN bug in weight
     when you drop an equipped item, it doesn't reset state.equipped

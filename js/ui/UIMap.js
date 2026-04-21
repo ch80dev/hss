@@ -46,8 +46,10 @@ class UIMap {
 					cell_class = ' human homeless ';
 				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless){
 					cell_class = ' human citizen ';
-				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null){
+				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null){					
 					cell_class = loot.type;
+				} else if (map_at == 1 && loot != null){
+					cell_class = 'debris';
 				} else if (map_at != null){
 					cell_class = MapConfig.cell_class[map_at];
 				}
@@ -70,8 +72,8 @@ class UIMap {
 					cell_txt = mark;
 				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null){
 					cell_txt = MapConfig.cell_txt[loot.type];
-
-
+				} else if (map_at == 1 && loot != null){
+					cell_txt = MapConfig.cell_txt['debris'];
 				} else if (MapConfig.cell_txt[MapConfig.cell_class[map_at]] != undefined){
 					cell_txt = MapConfig.cell_txt[MapConfig.cell_class[map_at]];				
 				} 

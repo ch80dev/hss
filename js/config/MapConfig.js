@@ -13,9 +13,11 @@ class MapConfig {
 		'alley_exit', 'street_exit', 
 		'trash', 'rat', 
 		'human', 'crate',
-		'shop', 'tent'];
+		'shop', 'tent', 
+		'debris',];
 	static cell_txt = {
 		crate: '&#9644;',
+		debris: '⋯',
 		dumpster: '&#9644;',
 		human: 'h',
 		player: '@',

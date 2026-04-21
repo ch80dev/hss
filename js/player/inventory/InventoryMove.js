@@ -92,6 +92,9 @@ class InventoryMove{
     sort(){
         this.player.state.inventory = this.player.state.inventory.sort((a, b) => {
             // localeCompare returns -1, 0, or 1 depending on the alphabetical order
+            if (a.name == undefined){
+                console.log(a);
+            }
             return a.name.localeCompare(b.name);
         });
     }

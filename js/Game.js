@@ -32,7 +32,17 @@ class Game{
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
 	}
-	
+	next(){
+		this.turn.next(this.humans, this.map, this.rats);
+		if (!this.night && this.time.hours >= Config.night_time){
+			ui.log("It's night time now.")
+			this.night = true;
+		}else if (this.night && this.time.hours >= Config.day_time && this.time.hours < Config.night_time){
+			ui.log("It's day time now.")
+			this.night = false;
+		}
+
+	}
 	
 
 	do_populate(location_type, location_id){

@@ -25,7 +25,7 @@ class Turn{
 
 	
 
-	next(human, map, night, rats){
+	next(human, map, rats){
 	
 		this.player.status.change_stamina();
 		this.lifeforms_move(human, map, rats);		
@@ -36,13 +36,7 @@ class Turn{
 		} else {
 			this.forward_time(0, 1);	
 		}
-		if (!night && this.time.hours >= Config.night_time){
-			ui.log("It's night time now.")
-			night = true;
-		}else if (night && this.time.hours >= Config.day_time && this.time.hours < Config.night_time){
-			ui.log("It's day time now.")
-			night = false;
-		}
+
 	}
 
 

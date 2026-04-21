@@ -83,7 +83,7 @@ class Input {
             juego.player.inventory.take.all(juego.map);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
-            juego.turn.next(juego.human, juego.map, juego.night, juego.rats);
+            juego.next();
         } else if (pressed == 'm' && juego.player.state.marking == false){
             juego.player.state.marking = true;
             //console.log(juego.player.state.marking);

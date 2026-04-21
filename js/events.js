@@ -149,7 +149,7 @@ $(document).on('click', '#sleep_at_shop', function() {
         return;
     }
     shop.sleep(juego.player);
-    juego.turn.next(juego.human, juego.map, juego.night, juego.rats);
+    juego.next();
     ui.refresh.go();
 });
 

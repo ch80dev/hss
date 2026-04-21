@@ -27,7 +27,6 @@ class ShopGenerator {
         if (this.map.shops_generated.length >= ShopConfig.types.length){
             return null;
         }
-        return 'recycling';
         if (this.queue.length > 0){
             this.queue_used = true;
             return this.queue.shift();

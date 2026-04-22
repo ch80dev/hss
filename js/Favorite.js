@@ -9,15 +9,25 @@ class Favorite{
 		console.log(favorite);
 		if (favorite == undefined){
 			this.set[set_type].push({id: set_id, location: location, x:x, y:y, path: path, need: need});
+			console.log(this.set[set_type]);
 		} else if (favorite != undefined){
 			this.delete(set_type, set_id);		
 		}
+	}
+
+	add_human_not_here(id, location, x, y){
+		console.log(id, location, x, y, juego.player.state.location, juego.player.state.x, juego.player.state.y)
+		let human_at = juego.map.format_at(location.type, location.id, x, y);
+		let path = juego.map.get.navigator.find_path(juego.player.state.location, location);
+		let exits = juego.map.get.navigator.fetch_exits_for_path(path);
+		console.log(path, exits);
+		this.add('human', id, location, x, y, exits, []);
 	}
 	add_shop_not_here(shop, path ){
 		this.add('shop', shop.id, shop.location, shop.x, shop.y, path, []);
 	}
     add_by_type(type, id, juego){
-		console.log(type, id);
+		console.log(type, id, juego);
 		let favorite_target = juego.get.human(id);
 		if (type == 'shop'){
 			favorite_target = juego.get.shop(id);

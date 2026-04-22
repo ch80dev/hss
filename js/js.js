@@ -7,7 +7,7 @@ HumanConfig.audit();
 ItemConfig.audit();
 MapConfig.audit();
 ShopConfig.audit();
-
+DefaultConfig.audit();
 function rand_num(min, max) {
 	return Math.round(Math.random() * (max - min) + min);
 }

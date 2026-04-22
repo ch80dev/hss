@@ -2,13 +2,22 @@ class PlayerHuman{
     constructor(player){
         this.player = player;
     }
-
+    cancel_quest(human, quests){
+        human.quest.accepted = null;
+        quests.cancel(human.id);
+    }
     cash_out(human, time, ui){
         human.gambled = { days: time.days, hours: time. hours };
         human.ante = null;
         this.player.status.change_money(human.gambled_and_won);
         ui.log(`You won $${human.gambled_and_won}!`);
         human.gambled_and_won = 0;        
+    }
+
+    complete_quest(human, ui){
+        human.quest.completed = null;
+        this.player.status.change_money(human.quest.paying);
+        ui.log(`You just got $${human.quest.paying}! [$${this.player.state.money}]`)
     }
     gamble (human, time, ui){
         if (human == null){
@@ -34,7 +43,7 @@ class PlayerHuman{
         human.gambled = { days: time.days, hours: time. hours };
         ui.log(txt);
     }
-    interact(id, human, time, ui){
+    interact(id, human, time, ui, quests){
         //console.log(id, human, time);
         if (human.interactions[id] == undefined){
             console.log('error');
@@ -62,6 +71,10 @@ class PlayerHuman{
             this.player.state.socializing = null;
         } else if (interaction == 'gamble' && this.player.state.money >= 10){
             this.gamble(human, time, ui);
+        } else if (interaction == 'work'){
+            human.quest.accepted = true;
+            quests.add(human.id, human.quest.type, human.quest.quantity, human.quest.paying);
+            ui.log("You've accepted some work.");
         } 
 
     }
@@ -84,7 +97,7 @@ class PlayerHuman{
             return;
         }
 
-        if (this.player.state.stigma > human.max_stigma_tolerance){
+        if (this.player.state.stigma > human.max_stigma_tolerance && human.quest != null && !human.quest.accepted){
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }

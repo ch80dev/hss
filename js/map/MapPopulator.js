@@ -72,7 +72,12 @@ class MapPopulator{
 
     generate_item_from_trash(recycling_only){
         if (recycling_only){
-            return ItemConfig.recyclables[rand_num(0, ItemConfig.recyclables.length - 1)];
+            let rand = rand_num(0, ItemConfig.recyclables.length - 1);
+            let rand_recycling = ItemConfig.recyclables[rand];
+            if (rand_recycling == undefined){
+                console.log('BUG', rand, rand_recycling);
+            }
+            return rand_recycling;
         }
 		let gen_odds = rand_num(1, 100);
 		for (let item_name in ItemConfig.trash_item_odds){

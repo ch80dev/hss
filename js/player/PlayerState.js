@@ -44,7 +44,12 @@ class PlayerState{
         for (let item_name of Object.keys(ItemConfig.prices)){
             this.auto_loot_preferences[item_name] = true;
         }
-        //this.inventory.push({name: 'crate', id: this.player.inventory.next_id(), quantity: 1, durability: 100 });
+        if (DefaultConfig.init_inventory != null){
+            this.inventory.push(DefaultConfig.init_inventory);
+        }
+        if (DefaultConfig.equip_init_inventory){
+            this.equipped = 0;
+        }
     }
     
 }

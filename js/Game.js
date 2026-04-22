@@ -8,6 +8,7 @@ class Game{
 	loop = new Loop();
 	player = null; // needs to before map;
 	populate = null;
+	quests = new Quest();
 	map = new GameMap (MapConfig.max_x, MapConfig.max_y);
 	rats = [];
 

@@ -63,7 +63,7 @@ class InventoryTake {
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
         
-        
+        console.log(map.get.inspector.fetch_loot(at, id));
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
             && !this.player.inventory.get.can_they_take(map.get.inspector.fetch_loot(at, id).name, map.get.inspector.fetch_loot(at, id).quantity))){

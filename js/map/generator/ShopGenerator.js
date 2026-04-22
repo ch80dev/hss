@@ -28,7 +28,10 @@ class ShopGenerator {
         if (this.map.shops_generated.length >= shop_types.length){
             return null;
         }
-        //return 'homeless';
+        if (DefaultConfig.shop_type != null){
+            return DefaultConfig.shop_type;
+        }
+        
         if (this.queue.length > 0){
             this.queue_used = true;
             return this.queue.shift();

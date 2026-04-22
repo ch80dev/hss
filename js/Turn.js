@@ -59,7 +59,7 @@ class Turn{
 			}
 
 			if (rat.attacking_player && distance < 2 ){
-				rat.attack_player();
+				rat.attack_player(juego.player);
 			}
 			rat.move(id);
 		}

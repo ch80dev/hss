@@ -57,6 +57,9 @@ class Lifeform {
 
     die(){
         this.dead = true;
+        if (this.type == 'rat'){
+            juego.quests.process('rats', 1, juego.favorites);
+        }
     }
 
     get_hit(dmg){
@@ -66,7 +69,8 @@ class Lifeform {
         this.health -= dmg;
         if (this.health <= 0){
             this.health = 0;
-            this.dead = true;
+            this.die();
+            
         }
         
 

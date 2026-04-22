@@ -56,6 +56,24 @@ $(document).on('click', '.buy_unique', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '#cancel_quest', function(e) {
+    let human = juego.get.human(juego.player.state.socializing);
+    if (human == null){
+        return;
+    }
+    juego.player.actions.human.cancel_quest(human, juego.quests);
+    ui.refresh.go();
+});
+
+$(document).on('click', '#complete_quest', function(e) {
+    let human = juego.get.human(juego.player.state.socializing);
+    if (human == null){
+        return;
+    }
+    juego.player.actions.human.complete_quest(human, ui);
+    ui.refresh.go();
+});
+
 $(document).on('click', '#cash_out', function(e) {
     let human = juego.get.human(juego.player.state.socializing);
     if (human == null){
@@ -94,7 +112,7 @@ $(document).on('click', '.interact:not(.trade)', function(e) {
     if (human == null){
         return;
     }
-    juego.player.actions.human.interact(Number(this.id.split('-')[1]), human, juego.time, ui);
+    juego.player.actions.human.interact(Number(this.id.split('-')[1]), human, juego.time, ui, juego.quests);
     ui.refresh.go();
 });
 

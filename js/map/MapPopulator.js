@@ -95,7 +95,7 @@ class MapPopulator{
 
     populate_with_trash_cans(id){
         let size = this.map.get.geometry.fetch_size();
-        let num_of_trash_cans = rand_num(1, Math.round(size * .05));
+        let num_of_trash_cans = rand_num(Math.round(size * .005), Math.round(size * .05));
         for (let i = 0; i < num_of_trash_cans; i ++){
             let border = this.map.get.inspector.fetch_border_spot(true);
             this.map.is(border.x, border.y, 5);

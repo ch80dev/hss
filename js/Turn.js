@@ -12,10 +12,16 @@ class Turn{
 			this.player.inventory.food_spoils();
 			this.player.status.player_still_sick();
 		}
-		this.time.hours += hours_delta;
-		if (this.time.hours > 23){
-			this.time.hours = 0;
+		if (hours_delta < 1){ 
+			return;
+
+		}
+		if (this.time.hours + hours_delta > 23){
+			this.time.hours = (this.time.hours + hours_delta) - 24;
 			this.time.days ++; 			
+		} else {
+			this.time.hours = 0;
+			this.time.days ++;
 		}
 		if (this.time.days > Config.days_of_the_week.length){
 			this.time.days = 1;

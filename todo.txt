@@ -1,6 +1,6 @@
 TODO           
     more shops 
-        homeless shelter    
+           
     BUG: trash is generating items with undefined name
     BUG: street appears to be in indefinite loop. possibly cant find good shop location
 ABANDONED

@@ -43,6 +43,7 @@ class InventoryUse{
             return;
         } else if (item.name == 'sleeping bag'){
             let penalty = this.player.status.sleep(false, false);
+            this.player.status.add_time(8, 0);
             ui.sleeping = true;
             ui.log(`You sleep in a sleeping bag and take a small health penalty for sleeping outside. [${penalty}]`)
             ui.change_screen('map');

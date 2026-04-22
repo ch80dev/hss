@@ -24,9 +24,7 @@ class UI{
 		opacity = opacity - .03;
 		$('body').css('opacity', opacity);
 
-		if (opacity <= 0){
-			console.log("DONE");
-		}
+
 		if (ui.sleeping && opacity > 0){
 			setTimeout(this.ui.fade_for_sleep, 100);
 		} else {

@@ -107,7 +107,6 @@ class PlayerStatus{
         let health_change = this.change_health(rand);
         //add a thing to show how much health increaseds        
         
-        this.player.state.hours_delta += 8;     
         if (!indoors){
             rand = Number((rand_num(1, 15) * .1).toFixed(1));
             this.change_health(-rand);

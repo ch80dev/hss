@@ -28,7 +28,6 @@ class PlayerMovement{
             map.name_old_location(this.player.state.location.type, this.player.state.location.id);
             return;
         }
-        console.log(juego.night);
         map.wipe();  
         let start = map.generator.location.generate(MapConfig.exit_types[exit_id], this.player.state.location.type);   
         

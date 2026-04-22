@@ -150,6 +150,19 @@ $(document).on('click', '.sleep_in_tent', function(e) {
     ui.refresh.go();
 });
 
+$(document).on('click', '#sleep_at_homeless_shelter', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.get.shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    shop.sleep_at_homeless_shelter(juego.player, juego.time);
+    juego.next();
+    ui.refresh.go();
+});
+
 $(document).on('click', '#sleep_at_shop', function() {
     if (juego.player.state.shopping == null){
         return;

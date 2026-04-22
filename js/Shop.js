@@ -28,6 +28,15 @@ class Shop{
         this.resources = ShopConfig.resources[type];
         this.max_stigma = ShopConfig.max_stigma[type];
     }
+    sleep_at_homeless_shelter(player, time){
+        player.status.sleep(true, true);
+        
+        let time_delta = 24 - (time.hours + ShopConfig.homeless_out) + 12;
+        player.status.add_time(time_delta, 0)
+        ui.sleeping = true;
+        ui.change_screen('map');
+        player.state.shopping = false;
+    }
 
     rent_a_room(player){
         if (player.state.money < ShopConfig.motel_room_cost){

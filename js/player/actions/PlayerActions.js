@@ -89,6 +89,7 @@ class PlayerActions {
             return;
         }
         let penalty = this.player.status.sleep(true, false);
+        this.player.status.add_time(8, 0);
         ui.sleeping = true;
         let txt = "You sleep in a tent."
         if (penalty > 0){

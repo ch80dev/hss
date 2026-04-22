@@ -64,7 +64,6 @@ class InventoryQueries{
 
     has_a_tool(){
         for (let tool of Object.keys(ItemConfig.tool_durability_uses)){
-            console.log(tool);
             if(this.is_equipped_with(tool)){
                 return true;
             }

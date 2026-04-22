@@ -23,6 +23,8 @@ class UIShop{
             txt += this.display_sell_unique(player, shop);
         } else if (shop.type == 'motel'){
             txt += this.display_motel(player, shop);
+        } else if (shop.type =='homeless'){
+            txt += this.display_homeless(player, juego.time);
         }           
         $("#shop").html(txt);
     }
@@ -69,6 +71,15 @@ class UIShop{
             }
             txt += `<button id='buy_from_shop-${id}' class='buy_from_shop' ${disabled}> buy ${resource} [$${ItemConfig.prices[resource]}]</button>`
         }
+        return txt;
+    }
+
+    display_homeless(player, time){
+        let disabled = '';
+        if (time.hours < ShopConfig.homeless_check_in[0] || time.hours >= ShopConfig.homeless_check_in[1]){
+            disabled = ' disabled ';
+        }
+        let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_homeless_shelter' ${disabled}>sleep</button>`;
         return txt;
     }
     display_sell_generic(player, shop){

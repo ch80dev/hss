@@ -14,7 +14,7 @@ class Game{
 	shops = [];
 	time = {
 		days: 1,
-		hours: 8,
+		hours: 12,
 		minutes: 0,
 		weeks: 1,
 	}
@@ -32,6 +32,7 @@ class Game{
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
 	}
+	
 	next(){
 		this.turn.next(this.humans, this.map, this.rats);
 		if (!this.night && this.time.hours >= Config.night_time){

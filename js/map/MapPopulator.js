@@ -77,6 +77,9 @@ class MapPopulator{
 		let gen_odds = rand_num(1, 100);
 		for (let item_name in ItemConfig.trash_item_odds){
 			let item_odd= ItemConfig.trash_item_odds[item_name];
+            if (item_name == undefined){
+                console.log("BUG", item_name);
+            }
 			if (gen_odds >= item_odd[0] && gen_odds <= item_odd[1] ){
 				return item_name;
 			}

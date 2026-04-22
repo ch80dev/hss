@@ -28,13 +28,13 @@ class Turn{
 			this.time.weeks ++;
 		}
 	}
-
+	
 	
 
-	next(human, map, rats){
+	next(humans, map, rats){
 	
 		this.player.status.change_stamina();
-		this.lifeforms_move(human, map, rats);		
+		this.lifeforms_move(humans, map, rats);		
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
 			this.player.state.minutes_delta = 0;
@@ -72,6 +72,10 @@ class Turn{
 		
 			if (human.attacking_player && distance < 2 ){
 				human.attack_player(juego.player);
+			}
+			if (human.gambled != null && human.gambled.days > this.time.days && human.gambled.hours >= this.time.hours){
+				human.gambled = null;
+				human.ante = HumanConfig.starting_gamble_ante;
 			}
 			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
 				console.log('beggining reset');

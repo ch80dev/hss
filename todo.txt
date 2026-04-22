@@ -4,8 +4,17 @@ TODO
         kill rats
         beat up guy
         clean up trash
-    
-
+    gamble causes NaN when below 0;
+    food being sold as NaN
+    gambling isn't very interesting
+    sleeping should have a 12 hour timer except for homeless shelter
+    BUG I can only trade one thing at a time. It won't let me keep trading
+    BUG TRADE If the conversion rate is higher than their current supply, reduce their trade down to that. - not consistent - not able to do it later
+    Limit humans to the money they have
+    shouldn't be able to drop a crate on anywher except for map_at 1
+    BUG I think 'food' and 'food-spoiled' are causing NaN
+    BUG Can't take stuff out of crate
+    BUG clicked something on ground and something else came out and couldn't click anymore
 BUGS
     BUG: trash is generating items with undefined name  04-21-26
     BUG: street appears to be in indefinite loop. not sure why though 04-21-26

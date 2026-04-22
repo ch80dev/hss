@@ -34,6 +34,16 @@ $(document).on('click', '#auto_loot', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '#bet', function(e) {
+    let human = juego.get.human(juego.player.state.socializing);
+    if (human == null){
+        return;
+    }
+    juego.player.actions.human.gamble(human, juego.time, ui);
+    ui.refresh.go();
+});
+
+
 $(document).on('click', '.buy_unique', function() {
     if (juego.player.state.shopping == null){
         return;
@@ -43,6 +53,15 @@ $(document).on('click', '.buy_unique', function() {
         return;
     }
     juego.player.actions.shop.buy_unique(this.id.split('-')[1], shop);
+    ui.refresh.go();
+});
+
+$(document).on('click', '#cash_out', function(e) {
+    let human = juego.get.human(juego.player.state.socializing);
+    if (human == null){
+        return;
+    }
+    juego.player.actions.human.cash_out(human, juego.time, ui);
     ui.refresh.go();
 });
 

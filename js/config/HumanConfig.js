@@ -7,6 +7,7 @@ class HumanConfig{
 		}		
 	}
     	//HUMAN
+    static starting_gamble_ante = 10;
 	static human_chance_to_be_cop = 1;
 	static interactions = ['buy', 'sell', 'trade', 'beg', 'directions', 'gamble'];//, 'escort', 'favor', 'work', ];
 	static interactions_for_money = ['sell', 'beg', 'work'];

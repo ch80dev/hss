@@ -1,6 +1,9 @@
 class Human extends Lifeform{
+    ante = 10;
     conversion = [];
     directions_to = [];
+    gambled = null;
+    gambled_and_won = 0;
     give_when_begged = null;
     homeless = false;
     interactions = {};

@@ -6,8 +6,9 @@ class UISocial{
 		}
 		let human = juego.get.human(juego.player.state.socializing);
 		//console.log(human);
+		let favorite = juego.favorites.fetch_by_id('human', human.id);
 		let favorite_symbol = `&#x2606;`;
-        if (juego.favorites.set.human[human.id] != undefined){
+        if (favorite != undefined){
             favorite_symbol = `&#x2605;`;
         }
 		let txt = `<div id='human_title'><button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> ${human.name} ${human.surname}</div>`;
@@ -25,7 +26,7 @@ class UISocial{
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
 				|| (interaction == 'directions' && this.directions_selected == null)
 				|| (interaction == 'directions' && juego.favorites.set.directions.length > 0)
-				|| (interaction == 'gamble' && juego.player.state.money < 10)
+				|| (interaction == 'gamble' && (human.ante == null || juego.player.state.money < human.ante))
 				){
 				disabled = ' disabled ';			
 			}
@@ -76,6 +77,9 @@ class UISocial{
 			} else if (interaction == 'work'){
 				let mission = human.missions[id];
 				resource = `kill ${mission.quantity} rats for $${mission.paying}`;
+			} else if (interaction == 'gamble' && human.gambled != null && human.ante != null){
+				resource = "Keep going?";
+				button = `<button id='cash_out'>cash out $${human.gambled_and_won}</button><button id='bet' ${disabled}>gamble ${human.ante}</button>`;
 			} 
 			
 			

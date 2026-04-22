@@ -2,6 +2,38 @@ class PlayerHuman{
     constructor(player){
         this.player = player;
     }
+
+    cash_out(human, time, ui){
+        human.gambled = { days: time.days, hours: time. hours };
+        human.ante = null;
+        this.player.status.change_money(human.gambled_and_won);
+        ui.log(`You won $${human.gambled_and_won}!`);
+        human.gambled_and_won = 0;        
+    }
+    gamble (human, time, ui){
+        if (human == null){
+            return;
+        }
+        let you = rand_num(2, 13);
+        let them = rand_num(2, 13);
+        let txt = `You drew ${you}. They drew ${them}. `
+        //console.log(you, them, typeof you, typeof them, you)
+        if (you > them){
+            human.gambled_and_won += human.ante;    
+            txt += `You won! +$${human.ante} [${human.gambled_and_won}]`
+            human.ante = Math.round(human.ante * 1.5);
+        } else if (you < them){
+            this.player.status.change_money(-human.ante);
+            txt += `You lost! -$${human.ante} [${this.player.state.money}]`;
+            human.ante = null;
+            human.gambled_and_won = 0;
+        } else {
+            txt += "Draw! "
+            human.ante = Math.round(human.ante * 1.5);
+        }
+        human.gambled = { days: time.days, hours: time. hours };
+        ui.log(txt);
+    }
     interact(id, human, time, ui){
         //console.log(id, human, time);
         if (human.interactions[id] == undefined){
@@ -22,28 +54,14 @@ class PlayerHuman{
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'sell' && this.player.inventory.get.do_they_have(human.resources[id], 1)){ 
             this.player.inventory.move.give_to_human(human.resources[id], 1, human);
-            this.player.state.money += human.conversion[id];
+            this.player.state.money += Number(human.conversion[id]);
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'directions' && ui.social.directions_selected != null && juego.favorites.set.directions.length < 1){
             juego.get.directions(human, ui.social.directions_selected, juego.map, juego.favorites);
             ui.change_screen('map');
             this.player.state.socializing = null;
         } else if (interaction == 'gamble' && this.player.state.money >= 10){
-            let you = rand_num(2, 13);
-            let them = rand_num(2, 13);
-            let txt = `You drew ${you}. They drew ${them}. `
-            //console.log(you, them, typeof you, typeof them, you)
-            if (you > them){
-                this.player.state.money += 10;
-                txt += `You won! +$10 [${this.player.state.money}]`
-
-            } else if (you < them){
-                this.player.state.money -= 10;
-                txt += `You lost! -$10 [${this.player.state.money}]`;
-            } else {
-                txt += "Draw! "
-            }
-            ui.log(txt);
+            this.gamble(human, time, ui);
         } 
 
     }
@@ -55,7 +73,7 @@ class PlayerHuman{
         }
         let n = this.player.inventory.get.fetch_quantity(human.resources[id]);
         this.player.inventory.move.give_to_human(human.resources[id], n, human);
-        this.player.state.money += human.conversion[id] * n;
+        this.player.state.money += Number(human.conversion[id] * n);
         ui.log(`You sell ${human.resources[id]} for $${(human.conversion[id] * n).toFixed(2)}.`)
     }
 

@@ -5,8 +5,9 @@ class UIShop{
         if (shop == null){
             return;
         }
+        let favorite = juego.favorites.fetch_by_id('shop', shop.id);
         let favorite_symbol = `&#x2606;`;
-        if (juego.favorites.set.shop[shop.id] != undefined){
+        if (favorite != undefined){
             favorite_symbol = `&#x2605;`;
         }
         let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite'>${favorite_symbol}</button>${ShopConfig.names[shop.type]}</div>`

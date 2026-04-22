@@ -6,6 +6,7 @@ class Favorite{
 	} 
 	add(set_type, set_id, location, x, y, path, need){
 		let favorite = this.fetch_by_id(set_type, set_id);
+		console.log(favorite);
 		if (favorite == undefined){
 			this.set[set_type].push({id: set_id, location: location, x:x, y:y, path: path, need: need});
 		} else if (favorite != undefined){

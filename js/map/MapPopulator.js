@@ -25,12 +25,18 @@ class MapPopulator{
         for (let i = 0; i < num_of_items; i ++){            
             let durability = rand_num(10, 100);
             let item = this.generate_item_from_trash(type == 'recycling');
+            if (item == undefined){
+                console.log('BUG', item);
+            }
             if (item == 'food'){
                 item = ItemConfig.food_in_trash[rand_num(0, ItemConfig.food_in_trash.length - 1)];
                 durability = rand_num(5, ItemConfig.food_spoilage[item]);
             }else if (item == 'food-spoiled'){
                 durability = 0;
                 item = Object.keys(ItemConfig.food_gain)[rand_num(0, Object.keys(ItemConfig.food_gain).length - 1)];
+            }
+            if (item == undefined){
+                console.log('BUG', item);
             }
             let n = 1;
             if(already_found.includes(item)){

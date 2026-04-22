@@ -23,8 +23,9 @@ class ShopGenerator {
         return null;
     }
 
-    generate_shop_type(){     
-        if (this.map.shops_generated.length >= ShopConfig.types.length){
+    generate_shop_type(){   
+        let shop_types = Object.keys(ShopConfig.names);  
+        if (this.map.shops_generated.length >= shop_types.length){
             return null;
         }
         //return 'homeless';
@@ -34,7 +35,7 @@ class ShopGenerator {
 
         }
         while (true){
-            let rand_type = ShopConfig.types[rand_num(0, ShopConfig.types.length - 1)];
+            let rand_type = shop_types[rand_num(0, shop_types.length - 1)];
             if (!this.map.shops_generated.includes(rand_type)){
                 this.map.shops_generated.push(rand_type);
                 return rand_type;    

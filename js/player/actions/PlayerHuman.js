@@ -28,6 +28,22 @@ class PlayerHuman{
             juego.get.directions(human, ui.social.directions_selected, juego.map, juego.favorites);
             ui.change_screen('map');
             this.player.state.socializing = null;
+        } else if (interaction == 'gamble' && this.player.state.money >= 10){
+            let you = rand_num(2, 13);
+            let them = rand_num(2, 13);
+            let txt = `You drew ${you}. They drew ${them}. `
+            //console.log(you, them, typeof you, typeof them, you)
+            if (you > them){
+                this.player.state.money += 10;
+                txt += `You won! +$10 [${this.player.state.money}]`
+
+            } else if (you < them){
+                this.player.state.money -= 10;
+                txt += `You lost! -$10 [${this.player.state.money}]`;
+            } else {
+                txt += "Draw! "
+            }
+            ui.log(txt);
         } 
 
     }

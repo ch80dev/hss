@@ -5,6 +5,7 @@ class Human extends Lifeform{
     homeless = false;
     interactions = {};
     begging_unlocked = true;
+    missions = [];
     resources = [];
     min_stigma_beg = null;
     max_stigma_tolerance = null;
@@ -98,6 +99,7 @@ class Human extends Lifeform{
         this.interactions = interactions;
         let n = 0;
         for (let id in  interactions){
+            this.missions[id] = null;
             let interaction = interactions[id];
             if (HumanConfig.interactions_for_money.includes(interaction)){
                 let inc = rand_num(1, HumanConfig.homeless_money);
@@ -126,17 +128,27 @@ class Human extends Lifeform{
             } else if (interaction == 'sell'){
                 this.conversion[id] = Number(ItemConfig.prices[this.resources[id]]  
                     -  (ItemConfig.prices[this.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
+            } else if (interaction == 'work'){
 
+                this.missions[id] = this.generate_mission();
             }
         }
         if (n > 0){
             this.money = n; 
         }
-        //console.log(this.interactions, this.inventory, this.resources, this.conversion);
-        
+
     }
 
-    
+    generate_mission(){
+        let missions_available = ['rats'];
+        let mission = missions_available[rand_num(0, missions_available.length - 1)];
+        let price = {
+            rats: 10,
+        }
+        let quantity = rand_num(1, 10);
+        return {type: mission, quantity: quantity, paying: price[mission] * quantity }
+
+    }
 
     generate_rand_item(not_arr, interaction){
         //console.log(not_arr);

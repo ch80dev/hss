@@ -10,6 +10,7 @@ class ItemConfig {
 				console.log('NaN weight', item);
 			}
 		}
+
 	}
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];

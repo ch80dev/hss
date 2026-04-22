@@ -1,8 +1,14 @@
 TODO           
-    more shops 
-           
-    BUG: trash is generating items with undefined name
-    BUG: street appears to be in indefinite loop. possibly cant find good shop location
+    work
+        fetch quests
+        kill rats
+        beat up guy
+        clean up trash
+    
+
+BUGS
+    BUG: trash is generating items with undefined name  04-21-26
+    BUG: street appears to be in indefinite loop. not sure why though 04-21-26
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    
@@ -38,15 +44,6 @@ LATER
     shopping cart
     bags
 
-BUGS
-
-    you cant control which durability item you're trading so if you have multiple, just the first one goes
-    after placing crate, I can see it anywhere I look
-    SICK still shows % of sickness 
-    accidentally bought 3 tools instead of just one - maybe do a delayi
-    trades shouldnt exist that require more unstackable items than slots in inventory
-    when i picked up a placed crate, it removed it apparently but didn't put it in ym inventory
-    sold drugs to human and i got the money (I think) but the quantity went to 0
 DESIGN
     can't meaningfully keep track of where stuff instead
         what if you can create chalk marks ? YES

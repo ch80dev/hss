@@ -25,6 +25,7 @@ class UISocial{
 				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
 				|| (interaction == 'directions' && this.directions_selected == null)
 				|| (interaction == 'directions' && juego.favorites.set.directions.length > 0)
+				|| (interaction == 'gamble' && juego.player.state.money < 10)
 				){
 				disabled = ' disabled ';			
 			}
@@ -72,6 +73,9 @@ class UISocial{
 
 				}
 				resource += "</select>";
+			} else if (interaction == 'work'){
+				let mission = human.missions[id];
+				resource = `kill ${mission.quantity} rats for $${mission.paying}`;
 			} 
 			
 			

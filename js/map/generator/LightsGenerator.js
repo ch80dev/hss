@@ -50,7 +50,7 @@ class LightsGenerator{
         let n = 0;
         let valid_x = [border.x];
         let valid_y = [border.y];
-        while(n < 1000){
+        while(n < 100){
             let good = null;
             let rand_spot = lights[rand_num(0, lights.length - 1)];
             let open = this.map.get.inspector.fetch_open_with_distance(rand_spot.x, rand_spot.y, 4);

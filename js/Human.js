@@ -220,7 +220,7 @@ class Human extends Lifeform{
         if (this.homeless){
             items_drawn_from = Object.keys(this.map.populator.trash_item_odds);
         }
-        let no_durables = ['sell', 'trade'];
+        let no_durables = ['trade'];
         while(true){
             let rand = rand_num(0, items_drawn_from.length - 1);
             let rand_item = items_drawn_from[rand];

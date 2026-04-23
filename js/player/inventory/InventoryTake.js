@@ -36,11 +36,12 @@ class InventoryTake {
     all(map, autoloot){
         let at = this.player.fetch_from();
         if (map.loot[at] == undefined){
+            
             return null;
         }
         let id = 0;
         let taken = [];
-        while (map.loot[at].stuff.length > 0){            
+        while (map.loot[at] != undefined && map.loot[at].stuff.length > 0){            
             let item = map.loot[at].stuff[id];
             if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
                 break;
@@ -49,7 +50,7 @@ class InventoryTake {
                 id ++;
                 continue;
             }
-            let status = this.item( item.id, map, id);            
+            let status = this.item( item.id, map, id);   
             if (status != false){
                 taken.push(status);
             }

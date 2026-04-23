@@ -190,6 +190,16 @@ $(document).on('click', '.sell_unique', function() {
     ui.refresh.go();
 });
 
+
+$(document).on('click', '.sell_unique_to_human', function() {
+    let human = juego.get.human(juego.player.state.socializing);
+    if (human == null){
+        return;
+    }
+    juego.player.actions.human.sell_unique_to_human(Number(this.id.split('-')[1]), human, ui);
+    ui.refresh.go();
+});
+
 $(document).on('click', '.sleep_in_tent', function(e) {    
     juego.player.actions.sleep_in_tent(juego.map);
     ui.refresh.go();

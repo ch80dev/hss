@@ -69,6 +69,9 @@ class PlayerMovement{
             this.player.status.change_stigma(Config.stigma_effects['sewer']);
             this.player.status.change_sickness(Config.sickness_effects['sewer']);
         }
+        if(juego.night){
+            this.player.inventory.use.light();
+        }
         if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('shop')){ //ENTER SHOP
             //console.log('enter shop');
             this.player.actions.shop.enter(pos.x, pos.y, map);

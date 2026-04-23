@@ -77,6 +77,21 @@ class InventoryUse{
         this.player.inventory.move.delete(null, id);
         
     }
+
+    light(){
+        if (this.player.state.light_equipped == null){
+            console.log('error');
+            return;
+        }
+        let light = this.player.inventory.fetch.by_id(this.player.state.light_equipped);
+
+        light.durability -= ItemConfig.light_durability_uses[light.name];
+        if (light.durability < 1){
+            ui.log (`You broke your ${light.name}.`);
+            this.player.inventory.move.delete(null, this.player.state.light_equipped);
+            this.player.state.light_equipped = null;
+        }
+    }
     weapon(){
 
         if (this.player.state.equipped == null 

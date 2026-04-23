@@ -41,6 +41,10 @@ class ItemConfig {
 		
 	}
 	static human_items = ['crate', 'drugs', 'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
+	static light_durability_uses = {
+		flashlight: .5,
+		lantern: .25,
+	}
 	static lights = ['flashlight', 'lantern'];
 	static meat = {
 		human: 100,

@@ -15,6 +15,7 @@ class PlayerTrash {
         let dmg = this.player.status.fetch_dmg();
         let caption = 'You missed the trash can.';
         if (did_they_hit){
+
             this.player.status.change_stamina_delta(-.9);
             this.player.inventory.use.weapon();
             loot.durability -= dmg;
@@ -22,6 +23,9 @@ class PlayerTrash {
             if (loot.durability < 1){
                 caption += " You got it open!"
                 loot.locked = false;
+                this.player.state.x = x;
+                this.player.state.y = y;
+                this.open(map);
             }
 
         }

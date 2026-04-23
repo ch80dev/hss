@@ -9,7 +9,7 @@ class DefaultConfig{
     static interactions = [];
     static shop_type = null;
 	//this needs to be null if not enabled
-	static init_inventory = null;//{name: 'medicine (expired)', id: 0, quantity: 1, durability: 100 };
+	static init_inventory = null;// {name: 'flashlight', id: 0, quantity: 1, durability: 100 };
 	static equip_init_inventory = false;
 	
 }

@@ -10,6 +10,7 @@ class ItemConfig {
 				console.log('NaN weight', item);
 			}
 		}
+		
 
 	}
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
@@ -91,27 +92,24 @@ class ItemConfig {
 		'crow bar': .33,
 		'bolt cutters': .125,
 	}
-	static trash_item_odds = {		
-		'plastic bottle': [1, 20],
-		'glass bottle': [21, 40],
-		'aluminum can': [41, 60],
-		'sleeping bag': [61, 63],
-		tent: [64, 64],
-		flashlight: [65, 68],
-		wrench: [69, 69],
-		'food-spoiled': [70, 74],
-		food: [75, 80],
-		
-		crate: [81, 85],
-		medicine: [86, 86],
-		'medicine (expired)': [87, 93],		
-		'screw driver': [94, 96],
-		wrench: [97, 97],
-		lantern: [98, 98],
-		pipe: [99, 99],
-		drugs: [100, 100],		
-		//lighter: [71, 80],
-	}	
+	static trash_items = {
+		'plastic bottle': 40,	
+		'glass bottle': 40,
+		'aluminum can': 40,
+		'sleeping bag': 2,
+		tent: 1,
+		flashlight: 2,
+		'food-spoiled': 18,
+		food: 2,		
+		crate: 5,
+		medicine: 2,
+		'medicine (expired)': 10,		
+		'screw driver': 5,
+		lantern: 1,
+		pipe: 1,
+		drugs: 1,		
+	}
+	
 	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)'];		
 	static weapon_dmgs = {
 		bat: 4, 

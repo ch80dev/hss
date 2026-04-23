@@ -3,10 +3,7 @@ TODO
         beat up guy
     
     
-    BUG clicked something on ground and something else came out and couldn't click anymore
-        tents, weapons, wrench, lanterns, flashlights, sleeping bags are way too common
-        food should be more spoiled and players should have a way to not pick them up 
-        recycling should be even more common
+        
     favorites should go through the dark as well
     you should be able to sell durable items (not trade or equipped though )
     have a secondary equipped
@@ -18,12 +15,15 @@ TODO
     sleeping bag didn't go down in uses after sleeping(check tent too)
     add more slots - bags 10 slots 1% every time added slots and backpack
     BUG max stimga'd for a human but still able to interact presumably because of that new addition
+    when you're maxed out in inventory , flash the slots or weight when you try to bring something over. make take all disabled and turn off cursor:pointer
 BUGS
-    BUG: trash is generating items with undefined name  04-21-26
+    BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason
     BUG: street appears to be in indefinite loop. not sure why though 04-21-26
     BUG I can only trade one thing at a time. It won't let me keep trading - not consistent - not able to do it later 04-22-26
     BUG gamble causes NaN when below 0; 04-21-26
+    BUG clicked something on ground and something else came out and couldn't click anymore 04-22-26
+
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

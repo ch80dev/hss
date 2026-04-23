@@ -1,6 +1,17 @@
 class MapPopulator{
+    trash_item_odds = {		
+		
+	}
+	trash_max_odds = null;	
     constructor(map){
         this.map = map;
+        let n = 1;
+		
+		for (let item in ItemConfig.trash_items){
+			this.trash_item_odds[item] = [n, n + ItemConfig.trash_items[item]];
+			n += ItemConfig.trash_items[item];
+		}
+		this.trash_max_odds = n;
     }
 
     fill_trash(id, x, y){
@@ -75,13 +86,13 @@ class MapPopulator{
             let rand = rand_num(0, ItemConfig.recyclables.length - 1);
             let rand_recycling = ItemConfig.recyclables[rand];
             if (rand_recycling == undefined){
-                console.log('BUG', rand, rand_recycling);
+                //console.log('BUG', rand, rand_recycling);
             }
             return rand_recycling;
         }
-		let gen_odds = rand_num(1, 100);
-		for (let item_name in ItemConfig.trash_item_odds){
-			let item_odd= ItemConfig.trash_item_odds[item_name];
+		let gen_odds = rand_num(1, this.trash_max_odds);
+		for (let item_name in this.trash_item_odds){
+			let item_odd= this.trash_item_odds[item_name];
             if (item_name == undefined){
                 console.log("BUG", item_name);
             }

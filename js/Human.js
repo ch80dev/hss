@@ -220,7 +220,7 @@ class Human extends Lifeform{
         let banned = ['food', 'food-spoiled'];
         let items_drawn_from = ItemConfig.human_items;
         if (this.homeless){
-            items_drawn_from = Object.keys(ItemConfig.trash_item_odds);
+            items_drawn_from = Object.keys(this.map.populator.trash_item_odds);
         }
         let no_durables = ['sell', 'trade'];
         while(true){

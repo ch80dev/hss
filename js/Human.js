@@ -42,14 +42,12 @@ class Human extends Lifeform{
     }
 
     adjust_conversion(id, first, first_q, second, second_q){
-        console.log(this.conversion[id], first, first_q, second, second_q);
         if (this.conversion[id][0] > first_q){
             this.conversion[id][0] = first_q;        
         }
         if ( this.conversion[id][1] > second_q){
             this.conversion[id][1] = second_q;
         }
-        console.log(this.conversion[id]);
     }
     begged(time){        
         this.begging_unlocked = { days: time.days + 1, hours: time.hours};
@@ -226,10 +224,14 @@ class Human extends Lifeform{
         while(true){
             let rand = rand_num(0, items_drawn_from.length - 1);
             let rand_item = items_drawn_from[rand];
-            if (banned.includes(rand_item) || (no_durables.includes(interaction) && ItemConfig.degradable.includes(rand_item)) ){
+            if (banned.includes(rand_item) || (no_durables.includes(interaction) && ItemConfig.degradable.includes(rand_item)) 
+            || (interaction == 'trade' 
+                && ((not_arr.includes('medicine') && rand_item == 'medicine (expired)') 
+                || (not_arr.includes('medicine (expired)') && rand_item == 'medicine')) && rand_num(1, 3) != 1 )){
                 continue;
             }
-            if (!not_arr.includes(rand_item)){
+            
+            if (!not_arr.includes(rand_item) ){
                 return rand_item;
             }
         }

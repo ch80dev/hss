@@ -7,7 +7,6 @@ TODO
     you should be able to sell durable items (not trade or equipped though )
     have a secondary equipped
     you should be bale to use weapons to open trash cans
-    trade medicine -> expired medicine is coming up too often
     BUG auto_loot_preferences aren't doing anything
     BUG favorites list lists for NULL not sure which
     flashlight and lantern don't appear to be going down in usage

@@ -80,7 +80,8 @@ class InventoryQueries{
     }
 
     is_equipped_with_id(id){
-        for (let equipped in this.player.state.equipped){
+        for (let where in this.player.state.equipped){
+            let equipped = this.player.state.equipped[where];
             if (equipped == id){
                 return true;
             }

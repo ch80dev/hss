@@ -113,6 +113,7 @@ class Human extends Lifeform{
 
     generate_interactions(){
         let interactions = DefaultConfig.interactions;
+        let create_quest = false;
         while(interactions.length < HumanConfig.num_of_interactions_per_human ){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
             let less_often = ['directions'];
@@ -158,14 +159,16 @@ class Human extends Lifeform{
                 this.conversion[id] = Number(ItemConfig.prices[this.resources[id]]  
                     -  (ItemConfig.prices[this.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
             } else if (interaction == 'work'){
-
-                this.quest = this.generate_quest();
+                create_quest = true;
+                
             }
         }
         if (n > 0){
             this.money = n; 
         }
-
+        if(create_quest){
+            this.quest = this.generate_quest();
+        }
     }
 
     generate_quest(){
@@ -268,6 +271,7 @@ class Human extends Lifeform{
             return send;
         }
         this.money -= n;
+        return n;
     }
 
     how_much_to_give_when_begged(){        

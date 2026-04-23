@@ -76,9 +76,9 @@ class UILoot{
 				usable = `<button id='use-${item.id}' class='use' ${disabled}>use ${item_add}</button>`;
 			}
 			
-			if (!is_loot && ItemConfig.equipable.includes(item.name) && !juego.player.inventory.get.is_equipped_with(item.name)){
+			if (!is_loot && ItemConfig.equipable.includes(item.name) && !juego.player.inventory.get.is_equipped_with_id(item.id)){
 				equipable = `<button id='equip-${item.id}' class='equip'>equip</button>`;
-			} else if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.inventory.get.is_equipped_with(item.name)){
+			} else if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.inventory.get.is_equipped_with_id(item.id)){
 				equipable = `<button id='unequip-${juego.player.inventory.get.is_equipped_where(item.name)}' class='unequip'>unequip</button>`;
 			}
 			let line = `<div class='item_container'>${auto_loot}<span id='${where}-${item.id}' class='item ${crate_here} ${can_take}'>${item.name} ${durability} ${usable} ${equipable} </span></div>`;

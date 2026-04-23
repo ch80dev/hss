@@ -1,6 +1,10 @@
 TODO           
     work
-        beat up guy        
+        beat up guy   
+    be able to differentiate between spoiled
+    BUG work kill 0 rats for $0     
+    BUG degradable items being traded
+    BUG NaN money after selling to human presumably
 BUGS
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason

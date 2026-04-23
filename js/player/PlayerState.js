@@ -37,7 +37,7 @@ class PlayerState{
     
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
-    stigma = 50;
+    stigma = 0;
     sick_hours = 0;
     sickness = 0;
 

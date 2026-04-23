@@ -101,6 +101,9 @@ class UIMap {
                 if (juego.player.state.looking_at != null && juego.player.state.looking_at.x == x && juego.player.state.looking_at.y == y){
                     cell_class += " looking_at ";					
 				} 
+				if (favorited){
+					cell_class += ' favorite ';
+				}
 				
 				
 				

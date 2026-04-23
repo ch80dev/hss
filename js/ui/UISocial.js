@@ -16,9 +16,9 @@ class UISocial{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			
-			if ((interaction != 'work' && this.player.state.stigma > human.max_stigma_tolerance)
+			if ((interaction != 'work' && juego.player.state.stigma > human.max_stigma_tolerance)
 				
-				(interaction == 'buy' && juego.player.inventory.get.are_they_full() 
+				|| (interaction == 'buy' && juego.player.inventory.get.are_they_full() 
 					&& ((ItemConfig.stackable.includes(human.resources[id]) 
 					&& !juego.player.inventory.get.is_in_inventory(human.resources[id])) 
 					|| !ItemConfig.stackable.includes(human.resources[id]) ))
@@ -53,10 +53,10 @@ class UISocial{
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} 1 ${human.resources[id]}</button>`;
-				if (interaction == 'sell' && ItemConfig.stackable.includes(human.resources[id])){
+				if (interaction == 'sell' && !ItemConfig.stackable.includes(human.resources[id])){
 					button = this.display_unique_items_to_sell(human.resources[id]);
 				} else if (interaction == 'sell'){
-				button += `<button id='sell_all_to_human-${id}' class='sell_all_to_human' ${disabled}>${interaction} all ${human.resources[id]}</button>`
+					button += `<button id='sell_all_to_human-${id}' class='sell_all_to_human' ${disabled}>${interaction} all ${human.resources[id]}</button>`
 				} 
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
@@ -112,7 +112,7 @@ class UISocial{
 		let txt = '';
 		let item_ids = juego.player.inventory.fetch.all_items([name]);
 		for (let id of item_ids){
-			if (this.player.inventory.get.is_equipped_with_id(id)){
+			if (juego.player.inventory.get.is_equipped_with_id(id)){
 				continue;
 			}
 			let item = juego.player.inventory.fetch.by_id(id);

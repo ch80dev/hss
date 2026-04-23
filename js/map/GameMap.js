@@ -48,7 +48,17 @@ class GameMap {
         this.names.alley.push({connecting: [this.next_new_street], length: { [this.next_new_street]: null} });
         this.generator.lights.generate_for_alley();
     }
-    
+    delete_loot(at, id){
+        for (let stuff_arr_id in this.loot[at].stuff){
+            let item = this.loot[at].stuff[stuff_arr_id];
+            if (item.id == id){
+                this.loot[at].stuff.splice(stuff_arr_id, 1);
+                return;
+            }
+        }
+        console.log('error');
+        return null;
+    }
     
     format_at(location_type, location_id, x, y){
         return `${location_type}-${location_id}-${x}-${y}`;

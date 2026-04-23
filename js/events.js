@@ -118,9 +118,12 @@ $(document).on('click', '.interact:not(.trade)', function(e) {
 
 $(document).on('click', '.item', function(e) {
     // If a nested button (e.g. .use) was clicked, let its handler run only.
+    console.log('item');
     if (e.target && e.target.closest('button')){
+        console.log('bang');
         return;
     }
+    
     juego.player.inventory.move.item(this.id.split('-')[0], this.id.split('-')[1], juego.map);
     ui.refresh.go();
 });

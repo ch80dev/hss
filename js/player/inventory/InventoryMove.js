@@ -51,7 +51,7 @@ class InventoryMove{
         if (this.player.state.equipped == id){
             this.player.state.equipped = null;
         }
-        juego.quests.process('fetch', -quantity, name);
+        juego.quests.process('fetch', -1, name);
         if (ItemConfig.stackable.includes(item.name) && map.get.inspector.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.delete(null, item.id);

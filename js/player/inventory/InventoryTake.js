@@ -85,10 +85,10 @@ class InventoryTake {
             } else {
                 map.loot[at].stuff.splice(take_all_id, 1);
             }
-        } else {
-            let item = map.loot[at].stuff.splice(id, 1)[0];
-            item.id = this.player.inventory.next_id();
-            this.player.state.inventory.push(item);        
+        } else {                    
+            loot.id = this.player.inventory.next_id();
+            this.player.state.inventory.push(loot);
+            map.delete_loot(at, loot.id);        
         }
         this.player.inventory.move.sort();
         let map_at = map.get.at(this.player.state.x, this.player.state.y);

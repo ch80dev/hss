@@ -9,7 +9,7 @@ class DefaultConfig{
     static interactions = ['trade'];
     static shop_type = 'homeless';
 	//this needs to be null if not enabled
-	static init_inventory = {name: 'sleeping bag', id: 0, quantity: 1, durability: 100 };
+	static init_inventory = {name: 'crate', id: 0, quantity: 1, durability: 100 };
 	static equip_init_inventory = true;
 	
 }

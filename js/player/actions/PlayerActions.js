@@ -78,6 +78,8 @@ class PlayerActions {
     }
 
     sleep_in_tent(map){
+        let caption = "";
+        let loot = map.loot[this.player.fetch_from()];
         let tent = map.get.inspector.fetch_tent(this.player.fetch_from());
         console.log(tent);
         if(tent == null || !this.player.status.can_they_sleep()){
@@ -85,12 +87,23 @@ class PlayerActions {
         }
         this.player.status.add_time(8, 0);
         let penalty = this.player.status.sleep(true, false);
+        tent.durability -= 1;
+        if (tent.durability < 1){
+            caption = " Your tent broke!";
+            map.delete_loot(this.player.fetch_from(), tent.id);
+            let map_is = 1;
+            if (loot != undefined && loot.stuff.length > 0){
+                map_is = MapConfig.cell_class.indexOf('debris');
+            }
+            map.is(this.player.state.x, this.player.state.y, map_is);
+            
+        }
         ui.sleeping = true;
         let txt = "You sleep in a tent."
         if (penalty > 0){
-            txt += `And you regain a little health. [${penalty}]`;
+            txt += `And you regain a little health. [${penalty}] `;
         }
-        ui.log(txt)
+        ui.log(`${txt} ${caption}`)
         ui.change_screen('map');
         this.player.state.looting = false;
     }

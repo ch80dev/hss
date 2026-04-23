@@ -47,9 +47,15 @@ class InventoryUse{
             return;
         } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep()){
             this.player.status.add_time(8, 0);
+            let caption = "";
             let penalty = this.player.status.sleep(false, false);
+            item.durability -= 1;
+            if (item.durability < 1){ 
+                this.player.inventory.move.delete(null, id);
+                caption = " Your sleeping bag broke!";
+            }
             ui.sleeping = true;
-            ui.log(`You sleep in a sleeping bag and take a small health penalty for sleeping outside. [${penalty}]`)
+            ui.log(`You sleep in a sleeping bag and take a small health penalty for sleeping outside. [${penalty}] ${caption}`)
             ui.change_screen('map');
             this.player.state.looting = false;
             return;

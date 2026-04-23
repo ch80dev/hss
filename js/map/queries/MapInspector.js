@@ -143,7 +143,6 @@ class MapInspector{
         }
         for (let item of this.map.loot[from].stuff){
             if (item.name == 'tent (placed)'){
-                console.log(item)
                 return item;
             }
         }

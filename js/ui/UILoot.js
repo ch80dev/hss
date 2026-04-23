@@ -12,11 +12,11 @@ class UILoot{
 		if (!is_loot && juego.player.state.inventory_weight >= juego.player.state.max_inventory_weight){
 			max_weight = ' max ';
 		}
-		if (!is_loot && juego.player.state.inventory.length >= juego.player.state.slots_in_inventory){
+		if (!is_loot && juego.player.state.inventory.length >= juego.player.state.inventory_slots){
 			max_slots = ' max ';
 		}
 		if (!is_loot){
-			txt = `<span class='heading'>Slots</span>: <span class='${max_slots}'>${juego.player.state.inventory.length}/${juego.player.state.slots_in_inventory}</span> <span class='heading'>Weight</span>: <span class='${max_weight}'>${juego.player.state.inventory_weight.toFixed(1)}/${juego.player.state.max_inventory_weight}</span>`;
+			txt = `<span class='heading'>Slots</span>: <span class='${max_slots}'>${juego.player.state.inventory.length}/${juego.player.state.inventory_slots}</span> <span class='heading'>Weight</span>: <span class='${max_weight}'>${juego.player.state.inventory_weight.toFixed(1)}/${juego.player.state.max_inventory_weight}</span>`;
 		}
 		if (is_loot && juego.map.get.inspector.is_item_here('crate (placed)', juego.player.fetch_from())){
 			crate_here = ' in_crate ';
@@ -76,9 +76,9 @@ class UILoot{
 				usable = `<button id='use-${item.id}' class='use' ${disabled}>use ${item_add}</button>`;
 			}
 			
-			if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.state.equipped != item.id && juego.player.state.light_equipped != item.id){
+			if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.state.equipped.hand!= item.id && juego.player.state.equipped.light!= item.id){
 				equipable = `<button id='equip-${item.id}' class='equip'>equip</button>`;
-			} else if (!is_loot && ItemConfig.equipable.includes(item.name) && (juego.player.state.equipped == item.id || juego.player.state.light_equipped == item.id)){
+			} else if (!is_loot && ItemConfig.equipable.includes(item.name) && (juego.player.state.equipped.hand== item.id || juego.player.state.equipped.light== item.id)){
 				equipable = `<button id='unequip'>unequip</button>`;
 			}
 			let line = `<div class='item_container'>${auto_loot}<span id='${where}-${item.id}' class='item ${crate_here} ${can_take}'>${item.name} ${durability} ${usable} ${equipable} </span></div>`;

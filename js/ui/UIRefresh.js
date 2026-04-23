@@ -78,10 +78,19 @@ class UIRefresh {
 		}
 
 		$("#equipped").html("");
-		if (juego.player.state.equipped != null){
-			
-			let equipped = juego.player.inventory.fetch.by_id(juego.player.state.equipped, null);
-			$("#equipped").html(`${equipped.name} (${equipped.durability}%)`)
+		if (juego.player.state.equipped.hand!= null){
+			let equipment_caption = '';
+			for (let equipped_id in this.player.state.equipped){
+				if (equipped_id == null){
+					continue;
+				}
+				let equipped = juego.player.inventory.fetch.by_id(equipped_id);
+				if (equipped == null){
+					continue;
+				}
+				equipment_caption = `${equipped.name} (${equipped.durability}%)`;
+			}
+			$("#equipped").html(equipment_caption);
 		}
 		const formatter = new Intl.NumberFormat('en-US', {
             style: 'decimal',

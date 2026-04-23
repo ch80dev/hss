@@ -248,8 +248,8 @@ $(document).on('click', '.trade', function(e) {
     ui.refresh.go();
 });
 
-$(document).on('click', '#unequip', function(e) {
-    juego.player.state.equipped = null;
+$(document).on('click', '.unequip', function(e) {
+    this.player.inventory.use.unequip(this.id.split('-')[1]);
     ui.refresh.go();
 });
 

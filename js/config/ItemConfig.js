@@ -13,6 +13,10 @@ class ItemConfig {
 		
 
 	}
+	static bags = ['plastic bag'];
+	static bags_slots = {
+		'plastic bag': 10,
+	}
     static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];
 	static equipable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
@@ -101,15 +105,16 @@ class ItemConfig {
 		'plastic bottle': 40,	
 		'glass bottle': 40,
 		'aluminum can': 40,
-		'sleeping bag': 2,
-		tent: 1,
-		flashlight: 2,
 		'food-spoiled': 18,
-		food: 2,		
-		crate: 5,
-		medicine: 2,
+		'plastic bag': 10,
 		'medicine (expired)': 10,		
+		crate: 5,
 		'screw driver': 5,
+		'sleeping bag': 2,
+		flashlight: 2,
+		food: 2,		
+		medicine: 2,
+		tent: 1,
 		lantern: 1,
 		pipe: 1,
 		drugs: 1,		

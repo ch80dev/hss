@@ -4,24 +4,26 @@ class InventoryUse{
     }
     equip(id){
         let item = this.player.inventory.fetch.by_id(id);
-        if (ItemConfig.lights.includes(item.name)){
-            this.player.state.light_equipped = id;
+        if (ItemConfig.lights.includes(item.name)){            
+            this.player.state.equipped.light= id;
+        } else if (ItemConfig.bags.includes(item.name)){
+            this.player.state.equipped.bag = id;
+            
         }
-        this.player.state.equipped = id;
+        this.player.state.equipped.hand= id;
     }
 
     
     
     equipment(usage_cost){
-        //console.log('use', this.player.state.equipped);
-        if (this.player.state.equipped == null){
+        if (this.player.state.equipped.hand== null){
             return;
         }
-        let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
         item.durability -= usage_cost;
         if (item.durability <= 0){
-            this.player.inventory.delete(null, this.player.state.equipped);            
-            this.player.state.equipped = null;
+            this.player.inventory.delete(null, this.player.state.equipped.hand);            
+            this.player.state.equipped.hand= null;
             
         }
 
@@ -85,37 +87,50 @@ class InventoryUse{
     }
 
     light(){
-        if (this.player.state.light_equipped == null){
+        if (this.player.state.equipped.light== null){
             console.log('error');
             return;
         }
-        let light = this.player.inventory.fetch.by_id(this.player.state.light_equipped);
+        let light = this.player.inventory.fetch.by_id(this.player.state.equipped.light);
 
         light.durability -= ItemConfig.light_durability_uses[light.name];
         if (light.durability < 1){
             ui.log (`You broke your ${light.name}.`);
-            this.player.inventory.move.delete(null, this.player.state.light_equipped);
-            this.player.state.light_equipped = null;
+            this.player.inventory.move.delete(null, this.player.state.equipped.light);
+            this.player.state.equipped.light= null;
         }
     }
     weapon(){
 
-        if (this.player.state.equipped == null 
-            || (this.player.state.equipped != null 
-            && (this.player.inventory.fetch.by_id(this.player.state.equipped) == undefined 
-                || (this.player.inventory.fetch.by_id(this.player.state.equipped) != undefined 
-                && !Object.keys(ItemConfig.weapon_dmgs).includes(this.player.inventory.fetch.by_id(this.player.state.equipped).name))) )){
+        if (this.player.state.equipped.hand== null 
+            || (this.player.state.equipped.hand!= null 
+            && (this.player.inventory.fetch.by_id(this.player.state.equipped.hand) == undefined 
+                || (this.player.inventory.fetch.by_id(this.player.state.equipped.hand) != undefined 
+                && !Object.keys(ItemConfig.weapon_dmgs).includes(this.player.inventory.fetch.by_id(this.player.state.equipped.hand).name))) )){
             console.log('error')
             return;            
         }
-        let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
-        let durability_hit_per_use = ItemConfig.weapon_durability_uses[this.player.inventory.fetch.by_id(this.player.state.equipped).name];
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
+        let durability_hit_per_use = ItemConfig.weapon_durability_uses[this.player.inventory.fetch.by_id(this.player.state.equipped.hand).name];
         item.durability -= durability_hit_per_use;
         if (item.durability < 1){
             ui.log(`You broke your ${item.name}.`);
-            this.player.inventory.move.delete(null, this.player.state.equipped);
-            this.player.state.equipped = null;
+            this.player.inventory.move.delete(null, this.player.state.equipped.hand);
+            this.player.state.equipped.hand= null;
             
         }
+    }
+
+    unequip(what){
+        if (!Object.keys(this.player.state.equipped).includes(what)){
+            console.log('error');
+            return;
+        }
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped[what]);
+        if (item != null && ItemConfig.bags.includes(item.name)){
+            this.player.state.inventory_slots -= ItemConfig.bags_slots[item.name];
+        }
+        this.player.state.equipped[what] = null;
+        
     }
 }

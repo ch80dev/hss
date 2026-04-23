@@ -15,8 +15,8 @@ class InventoryMove{
     }
     delete(name, item_id){
         let equipped = { name: null, durability: null };
-        if (this.player.state.equipped != null){
-            let equipment = this.player.inventory.fetch.by_id(this.player.state.equipped);
+        if (this.player.state.equipped.hand!= null){
+            let equipment = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
             equipped.name = equipment.name;
             equipped.durability = equipment.durability;
         }
@@ -27,14 +27,14 @@ class InventoryMove{
                 break;
             }
         }
-        if (this.player.state.equipped == null ){
+        if (this.player.state.equipped.hand== null ){
             return;
         }
         for (let id in this.player.state.inventory){
             let item = this.player.state.inventory[id];
             console.log(id, item);
-            if (item.name == equipped.name && item.durability == equipped.durability && this.player.state.equipped != item.id){
-                this.player.state.equipped = item.id;
+            if (item.name == equipped.name && item.durability == equipped.durability && this.player.state.equipped.hand!= item.id){
+                this.player.state.equipped.hand= item.id;
                 return;
             }
         }
@@ -48,8 +48,8 @@ class InventoryMove{
         let at = this.player.fetch_from();
         let item = this.player.inventory.fetch.by_id(id);
         this.change_weight(-this.player.inventory.get.fetch_weight(item.name, 1));
-        if (this.player.state.equipped == id){
-            this.player.state.equipped = null;
+        if (this.player.state.equipped.hand== id){
+            this.player.state.equipped.hand= null;
         }
         juego.quests.process('fetch', -1, name);
         if (ItemConfig.stackable.includes(item.name) && map.get.inspector.is_item_here(item.name, at)){

@@ -3,7 +3,7 @@ class InventoryQueries{
         this.player = player;
     }
     are_they_full(){
-        return this.player.state.inventory.length >= this.player.state.slots_in_inventory  
+        return this.player.state.inventory.length >= this.player.state.inventory_slots  
             || this.player.state.inventory_weight >= this.player.state.max_inventory_weight        
     }
     
@@ -23,7 +23,7 @@ class InventoryQueries{
             return false;
         } else if (ItemConfig.stackable.includes(name) && this.is_in_inventory(name)){
             return true;
-        } else if (this.player.state.inventory.length >= this.player.state.slots_in_inventory ){
+        } else if (this.player.state.inventory.length >= this.player.state.inventory_slots ){
             return false;
         }
         return true;
@@ -79,13 +79,22 @@ class InventoryQueries{
         return false;
     }
 
+    is_equipped_with_id(id){
+        for (let equipped in this.player.state.equipped){
+            if (equipped == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
     is_equipped_with(what){
-        if (this.player.state.equipped == null && this.player.state.light_equipped == null){
+        if (this.player.state.equipped.hand== null && this.player.state.equipped.light== null){
             return false;
         }
 
-        let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
-        let light = this.player.inventory.fetch.by_id(this.player.state.light_equipped);
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
+        let light = this.player.inventory.fetch.by_id(this.player.state.equipped.light);
         if ((item != null && item.name == what) || (light != null && light.name == what)){
             return true;
         }

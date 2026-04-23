@@ -40,7 +40,6 @@ class PlayerTrash {
             ui.update_auto_loot(taken_arr);
         }
         let at = this.player.fetch_from();
-        console.log(map.loot[at].stuff.length)
         if (!this.player.state.auto_loot || map.loot[at] != undefined && map.loot[at].stuff.length > 0){
             ui.change_screen('loot');
             this.player.state.looting = true;            
@@ -71,7 +70,7 @@ class PlayerTrash {
 
     unlock(x, y, map){
         let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
-        let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
         let durability_cost = ItemConfig.tool_durability_uses[item.name];
         this.player.inventory.use.equipment(durability_cost);
         if (map.loot[at] == undefined){

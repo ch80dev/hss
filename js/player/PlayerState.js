@@ -5,11 +5,16 @@ class PlayerState{
         'raw meat (rat)': false,
     };
     dead = false;
-    equipped = null;
+    equipped = {
+        bag: null,
+        hand: null,
+        light: null,
+    };
     fighting = false;
     health = Config.lifeforms.human.max_health;
     hours_delta = 0;    
     inventory = [ ];
+    inventory_slots = 8;
     inventory_weight =  0;
     last_slept = { days: 1, hours: 8 };
     light_equipped = null;
@@ -30,7 +35,6 @@ class PlayerState{
     movement_cost = .1;
     socializing = null;
     
-    slots_in_inventory = 8;
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
     stigma = 50;
@@ -45,13 +49,13 @@ class PlayerState{
         this.x = x;
         this.y = y;
         for (let item_name of Object.keys(ItemConfig.prices)){
-            this.auto_loot_preferences[item_name] = false;
+            this.auto_loot_preferences[item_name] = true;
         }
         if (DefaultConfig.init_inventory != null){
             this.inventory.push(DefaultConfig.init_inventory);
         }
         if (DefaultConfig.equip_init_inventory){
-            this.equipped = 0;
+            this.equipped.hand = 0;
         }
     }
     

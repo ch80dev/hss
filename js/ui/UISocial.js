@@ -16,7 +16,7 @@ class UISocial{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			
-			if ((interaction != work && this.player.state.stigma > human.max_stigma_tolerance)
+			if ((interaction != 'work' && this.player.state.stigma > human.max_stigma_tolerance)
 				
 				(interaction == 'buy' && juego.player.inventory.get.are_they_full() 
 					&& ((ItemConfig.stackable.includes(human.resources[id]) 
@@ -112,10 +112,11 @@ class UISocial{
 		let txt = '';
 		let item_ids = juego.player.inventory.fetch.all_items([name]);
 		for (let id of item_ids){
-			if (id == this.player.state.equipped){
+			if (this.player.inventory.get.is_equipped_with_id(id)){
 				continue;
 			}
 			let item = juego.player.inventory.fetch.by_id(id);
+			
 			txt += `<button id='sell_unique_to_human-${id}' class='sell_unique_to_human'>sell ${item.name} (${item.durability})</button>`;
 		}
 		return txt;

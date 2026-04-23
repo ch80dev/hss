@@ -105,8 +105,8 @@ class PlayerStatus{
     fetch_dmg(){
         let max_dmg = 1;
         let weapon_equipped =  null;
-        if (this.player.state.equipped != null){
-            weapon_equipped = this.player.inventory.fetch.by_id(this.player.state.equipped).name;
+        if (this.player.state.equipped.hand!= null){
+            weapon_equipped = this.player.inventory.fetch.by_id(this.player.state.equipped.hand).name;
             max_dmg = ItemConfig.weapon_dmgs[weapon_equipped];
         }
         return rand_num(1, max_dmg);

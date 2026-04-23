@@ -27,7 +27,7 @@ class InventoryTake {
             this.player.inventory.move.sort();
             return;
         }
-        while(this.player.state.inventory.length < this.player.state.slots_in_inventory){
+        while(this.player.state.inventory.length < this.player.state.inventory_slots){
             this.player.state.inventory.push({ name: name, quantity: 1, durability: 100, id: this.player.inventory.next_id()});
         }
         this.player.inventory.move.sort();

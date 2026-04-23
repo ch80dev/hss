@@ -108,6 +108,10 @@ html, body{
     overflow-y: auto;
 }
 
+.max{
+    color: red;
+}
+
 #close_loot_div{
     width: 100%;
 

@@ -11,7 +11,7 @@ class UISocial{
         if (favorite != undefined){
             favorite_symbol = `&#x2605;`;
         }
-		let txt = `<div id='human_title'><button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> ${human.name} ${human.surname}</div>`;
+		let txt = `<div id='human_title'><button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> ${human.name} ${human.surname} $${human.money}</div>`;
 		for (let id in human.interactions){			
 			let disabled = '';
 			let interaction = human.interactions[id];
@@ -21,12 +21,13 @@ class UISocial{
 					&& !juego.player.inventory.get.is_in_inventory(human.resources[id])) 
 					|| !ItemConfig.stackable.includes(human.resources[id]) ))
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
-				|| (interaction == 'sell' && !juego.player.inventory.get.do_they_have(human.resources[id], 1))
-				|| (interaction == 'beg' && human.begging_unlocked !== true)
-				|| (interaction == 'beg' && human.min_stigma_beg > juego.player.state.stigma)
+				|| (interaction == 'sell' && (!juego.player.inventory.get.do_they_have(human.resources[id], 1) || human.money < human.conversion[id]))
+				|| (interaction == 'beg' 
+					&& (human.begging_unlocked !== true || human.min_stigma_beg > juego.player.state.stigma || human.money < human.give_when_begged))
 				|| (interaction == 'directions' && this.directions_selected == null)
 				|| (interaction == 'directions' && juego.favorites.set.directions.length > 0)
-				|| (interaction == 'gamble' && (human.ante == null || juego.player.state.money < human.ante))
+				|| (interaction == 'gamble' && (human.ante == null || juego.player.state.money < human.ante || human.money < human.ante))
+				|| (interaction == 'work' && (human.money < human.quest.paying ))
 				){
 				disabled = ' disabled ';			
 			}

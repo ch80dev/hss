@@ -9,14 +9,14 @@ class PlayerHuman{
     cash_out(human, time, ui){
         human.gambled = { days: time.days, hours: time. hours };
         human.ante = null;
-        this.player.status.change_money(human.gambled_and_won);
+        this.player.status.change_money(human.get_money(human.gambled_and_won));
         ui.log(`You won $${human.gambled_and_won}!`);
         human.gambled_and_won = 0;        
     }
 
     complete_quest(human, ui){
         human.quest.completed = null;
-        this.player.status.change_money(human.quest.paying);
+        this.player.status.change_money(human.get_money(human.quest.paying));
         ui.log(`You just got $${human.quest.paying}! [$${this.player.state.money}]`)
     }
     gamble (human, time, ui){
@@ -33,6 +33,7 @@ class PlayerHuman{
             human.ante = Math.round(human.ante * 1.5);
         } else if (you < them){
             this.player.status.change_money(-human.ante);
+            human.get_money(-human.ante);
             txt += `You lost! -$${human.ante} [${this.player.state.money}]`;
             human.ante = null;
             human.gambled_and_won = 0;
@@ -51,19 +52,21 @@ class PlayerHuman{
         }
         let interaction = human.interactions[id];       
         if (interaction == 'beg' && human.begging_unlocked == true 
-            && this.player.state.stigma >= human.min_stigma_beg){            
-            this.player.state.money += human.give_when_begged;                      
-            ui.log(`They gave you $${human.give_when_begged}.`)
-            human.begged(time);
+            && this.player.state.stigma >= human.min_stigma_beg){
+            let begged = human.begged(time);
+            this.player.status.change_money(begged);
+            ui.log(`They gave you $${begged}.`)
+            
         } else if (interaction == 'buy' 
             && this.player.state.money >= human.conversion[id] 
             && this.player.inventory.get.can_they_take(human.resources[id], 1)){ 
             this.player.state.money -= human.conversion[id];
             this.player.inventory.take.from_human(human.resources[id], 1, human);
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
-        } else if (interaction == 'sell' && this.player.inventory.get.do_they_have(human.resources[id], 1)){ 
+        } else if (interaction == 'sell' && this.player.inventory.get.do_they_have(human.resources[id], 1) 
+            && human.money >= human.conversion[id]){ 
             this.player.inventory.move.give_to_human(human.resources[id], 1, human);
-            this.player.state.money += Number(human.conversion[id]);
+            this.player.status.change_money(human.get_money(Number(human.conversion[id])));
             ui.log(`You sell ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'directions' && ui.social.directions_selected != null && juego.favorites.set.directions.length < 1){
             juego.get.directions(human, ui.social.directions_selected, juego.map, juego.favorites);
@@ -86,7 +89,7 @@ class PlayerHuman{
         }
         let n = this.player.inventory.get.fetch_quantity(human.resources[id]);
         this.player.inventory.move.give_to_human(human.resources[id], n, human);
-        this.player.state.money += Number(human.conversion[id] * n);
+        this.player.status.change_money(human.get_money(Number(human.conversion[id] * n)));
         ui.log(`You sell ${human.resources[id]} for $${(human.conversion[id] * n).toFixed(2)}.`)
     }
 

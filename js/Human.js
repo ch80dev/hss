@@ -51,10 +51,11 @@ class Human extends Lifeform{
         }
         console.log(this.conversion[id]);
     }
-    begged(time){
-        this.money -= this.give_when_begged;  
+    begged(time){        
         this.begging_unlocked = { days: time.days + 1, hours: time.hours};
         this.how_much_to_give_when_begged();
+        return this.get_money(this.give_when_begged);
+
     }
 
     check_quest(){
@@ -116,6 +117,10 @@ class Human extends Lifeform{
         let interactions = DefaultConfig.interactions;
         while(interactions.length < HumanConfig.num_of_interactions_per_human ){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
+            let less_often = ['directions'];
+            if (less_often.includes(rand) && rand_num(1,3) != 1){
+                continue;
+            }
             if (!interactions.includes(rand)){
                 interactions.push(rand);
             }
@@ -174,24 +179,26 @@ class Human extends Lifeform{
         if (num_of_trash < 10){
             min = 1;
         }
-        let quest = quests_available[rand_num(min, quests_available.length - 1)];
-        let quantity = rand_num(1, 10);
-        if (quest == 'trash'){
-            quantity = num_of_trash;
-        }
+        let quest = quests_available[rand_num(min, quests_available.length - 1)];        
         let price = {
             rats: 10,
             fetch: 1,
             trash: rand_num(1, 3),
         }
         let context = null;
-        let paying = price[quest] * quantity;
+        //let paying = price[quest] * quantity;
+        let paying = rand_num(Math.round (this.money / 2), this.money); //limit it to money
+        let quantity = paying / price[quest];
+        if (quest == 'trash'){
+            quantity = num_of_trash;
+        }
         if (quest == 'fetch'){
+            //this will run into an edge case where the human might not have enough money
             let rand_item = ItemConfig.stackable[rand_num(0, ItemConfig.stackable.length - 1)];
             let price = ItemConfig.prices[rand_item];
             let rand_variance = Number((rand_num(10, 50) / 100).toFixed(2));
             price = Number((price + (price * rand_variance)).toFixed(2));
-            paying = rand_num(10, 100);
+            paying = rand_num(10, this.money);
             quantity = Math.ceil(paying / price)
             context = rand_item;
         }
@@ -249,6 +256,16 @@ class Human extends Lifeform{
         }
         let item = this.fetch_item(name);
         item.quantity += quantity;
+    }
+
+    get_money(n){
+        if (n > this.money){
+            console.log('too much money');
+            let send = this.money;
+            this.money = 0;
+            return send;
+        }
+        this.money -= n;
     }
 
     how_much_to_give_when_begged(){        

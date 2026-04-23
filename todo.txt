@@ -4,7 +4,6 @@ TODO
     
     
         
-    favorites should go through the dark as well
     you should be able to sell durable items (not trade or equipped though )
     have a secondary equipped
     you should be bale to use weapons to open trash cans

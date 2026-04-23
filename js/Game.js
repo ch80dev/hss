@@ -15,7 +15,7 @@ class Game{
 	shops = [];
 	time = {
 		days: 1,
-		hours: 12,
+		hours: 8,
 		minutes: 0,
 		weeks: 1,
 	}

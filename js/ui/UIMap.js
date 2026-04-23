@@ -7,6 +7,7 @@ class UIMap {
 				let cell_class = ' empty ';
 				let cell_txt = '';
 				let distance_from_player = juego.map.get.geometry.fetch_distance(x, y, juego.player.state.x, juego.player.state.y);
+				let favorited = false;
 				let human = juego.get.human_by_loc(juego.player.state.location.type, juego.player.state.location.id, x, y);
 				let loot = juego.map.loot[`${juego.player.state.location.type}-${juego.player.state.location.id}-${x}-${y}`];
 				let map_at = juego.map.get.at(x, y);
@@ -15,7 +16,13 @@ class UIMap {
 				let is_lit = false;
 				let has_flashlight = juego.player.inventory.get.is_equipped_with('flashlight');
 				let has_lantern = juego.player.inventory.get.is_equipped_with('lantern');
-
+				if (((map_at != null && map_at > 1 && map_at < 5) 
+					|| (map_at == MapConfig.cell_class.indexOf('human') 
+					|| map_at == MapConfig.cell_class.indexOf('shop')))
+					&&   juego.favorites.is_here(juego.map.format_at(juego.player.state.location.type, juego.player.state.location.id, x, y))){					
+								
+					favorited = true;
+                }
 				// 1. Base Vision & Lantern (Circular)
 				if (distance_from_player < 2 || (has_lantern && distance_from_player < 4)) {
 					is_lit = true;
@@ -31,11 +38,13 @@ class UIMap {
 					if (juego.facing == 'left'  && dx < 0 && Math.abs(dy) <= Math.abs(dx)) is_lit = true;
 					if (juego.facing == 'right' && dx > 0 && Math.abs(dy) <= Math.abs(dx)) is_lit = true;
 				}
-
+				if (favorited){
+					cell_class = ' favorite ';
+				}
 				// 3. The "Darkness" Skip
 				if (juego.night && !is_lit && !juego.map.get.inspector.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y)) {
 					// We draw the ID so the DOM stays consistent, but the content is blank
-					txt += `<div id='cell-${x}-${y}' class='cell dark'></div>`;
+					txt += `<div id='cell-${x}-${y}' class='cell dark ${cell_class}'></div>`;
 					continue;
 				}
 
@@ -92,13 +101,7 @@ class UIMap {
                 if (juego.player.state.looking_at != null && juego.player.state.looking_at.x == x && juego.player.state.looking_at.y == y){
                     cell_class += " looking_at ";					
 				} 
-				if (((map_at != null && map_at > 1 && map_at < 5) 
-					|| (map_at == MapConfig.cell_class.indexOf('human') 
-					|| map_at == MapConfig.cell_class.indexOf('shop')))
-					&&   juego.favorites.is_here(juego.map.format_at(juego.player.state.location.type, juego.player.state.location.id, x, y))){					
-								
-					cell_class += " favorite ";
-                }
+				
 				
 				
 				txt += `<div id='cell-${x}-${y}' class='cell ${cell_class}'>${cell_txt}</div>`

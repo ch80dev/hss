@@ -51,7 +51,7 @@ class UISocial{
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} 1 ${human.resources[id]}</button>`;
-				if (interaction == 'sell' && ItemConfig.stackable(includes(human.resources[id]))){
+				if (interaction == 'sell' && ItemConfig.stackable.includes(human.resources[id])){
 					button = this.display_unique_items_to_sell(human.resources[id]);
 				} else if (interaction == 'sell'){
 				button += `<button id='sell_all_to_human-${id}' class='sell_all_to_human' ${disabled}>${interaction} all ${human.resources[id]}</button>`

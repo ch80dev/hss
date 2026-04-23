@@ -44,15 +44,23 @@ class UIFavorite{
 		}
 		for (let id in human.interactions){
 			if (human.interactions[id] == 'trade'){
-				let trade_this = Object.keys(human.resources[id]);
+				let trade_this = Object.keys(human.resources[id]);				
 				let get_that = human.resources[id][trade_this];
 				txt += `<div>${human.interactions[id]} ${human.conversion[id][0]} ${trade_this} for ${human.conversion[id][1]} ${get_that}</div>`;
 				continue;
 			} else if (human.interactions[id] == 'beg' || human.interactions[id] == 'directions'){
+			
 				txt += `<div>${human.interactions[id]}</div>`;	
 				continue;
+			} else if (human.interactions[id] == 'work'){
+				txt += `<div>${human.interactions[id]} ${human.quest.narrate}</div>`;	
+				continue;
 			}
-			txt += `<div>${human.interactions[id]} ${human.resources[id]} for $${human.conversion[id]}</div>`;
+			let context = `${human.resources[id]} for $${human.conversion[id]}`;
+			if (human.resources[id] == null || human.conversion[id] == null){
+				context = '';
+			}
+			txt += `<div>${human.interactions[id]} ${context}</div>`;
 		}
 		return txt;
 	}

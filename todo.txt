@@ -4,7 +4,6 @@ TODO
     
     
         
-    BUG favorites list lists for NULL not sure which
     sleeping bag didn't go down in uses after sleeping(check tent too)
     add more slots - bags 10 slots 1% every time added slots and backpack
     BUG max stimga'd for a human but still able to interact presumably because of that new addition

@@ -34,6 +34,11 @@ $(document).on('click', '#auto_loot', function() {
     ui.refresh.go();
 });
 
+$(document).on('change', '.auto_loot_item', function() {
+    juego.player.status.toggle_auto_loot(this.id.split('-')[1], this.id.split('-')[2], juego.map);
+    ui.refresh.go();
+});
+
 $(document).on('click', '#bet', function(e) {
     let human = juego.get.human(juego.player.state.socializing);
     if (human == null){
@@ -217,7 +222,7 @@ $(document).on('click', '#sleep_at_shop', function() {
 });
 
 $(document).on('click', '#take_all_loot', function() {
-    juego.player.inventory.take.all(juego.map);
+    juego.player.inventory.take.all(juego.map, false);
     ui.refresh.go();
 });
 

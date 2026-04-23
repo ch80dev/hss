@@ -33,7 +33,7 @@ class InventoryTake {
         this.player.inventory.move.sort();
     }
 
-    all(map){
+    all(map, autoloot){
         let at = this.player.fetch_from();
         if (map.loot[at] == undefined){
             return null;
@@ -42,16 +42,21 @@ class InventoryTake {
         let taken = [];
         while (map.loot[at].stuff.length > 0){            
             let item = map.loot[at].stuff[id];
-            let status = this.item( structuredClone(item.id), map, id);            
+            if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
+                break;
+            }
+            if (autoloot && !this.player.state.auto_loot_preferences[item.name]){
+                id ++;
+                continue;
+            }
+            let status = this.item( item.id, map, id);            
             if (status != false){
                 taken.push(status);
             }
             if (status === false){
                 id ++;
             }
-            if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
-                break;
-            }
+            
             
         }
         return taken;

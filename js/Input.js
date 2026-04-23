@@ -80,7 +80,7 @@ class Input {
             juego.player.actions.shop.sell_all_recycling(shop);
 
         } else if (pressed == " " && juego.player.state.looting){
-            juego.player.inventory.take.all(juego.map);
+            juego.player.inventory.take.all(juego.map, false);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
             juego.next();

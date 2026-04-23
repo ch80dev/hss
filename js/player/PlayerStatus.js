@@ -137,4 +137,16 @@ class PlayerStatus{
         }
         return health_change;
     }
+
+    toggle_auto_loot(where, id, map){
+        let item = this.player.inventory.fetch.by_id(id);
+        if (where == 'loot'){
+            item = map.get.inspector.fetch_loot(this.player.fetch_from(), id);
+        }
+
+        if (item == null){
+            return;
+        }
+        this.player.state.auto_loot_preferences[item.name] = !this.player.state.auto_loot_preferences[item.name];
+    }
 }

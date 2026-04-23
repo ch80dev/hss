@@ -6,10 +6,11 @@ class PlayerTrash {
         
         
         if (this.player.state.auto_loot){
-            let taken_arr = this.player.inventory.take.all(map);        
+            let taken_arr = this.player.inventory.take.all(map, true);        
             ui.update_auto_loot(taken_arr);
         }
         let at = this.player.fetch_from();
+        console.log(map.loot[at].stuff.length)
         if (!this.player.state.auto_loot || map.loot[at] != undefined && map.loot[at].stuff.length > 0){
             ui.change_screen('loot');
             this.player.state.looting = true;            

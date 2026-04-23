@@ -61,9 +61,9 @@ class UILoot{
 				where = 'loot';
 			}
             if (juego.player.state.auto_loot && juego.player.state.auto_loot_preferences[item.name]){
-                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id} class='auto_loot_item' checked>`;
+                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id}' class='auto_loot_item' checked>`;
             } else if (juego.player.state.auto_loot && !juego.player.state.auto_loot_preferences[item.name]){
-                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id} class='auto_loot_item'>`;
+                auto_loot = `<input type='checkbox' id='auto_loot_item-${where}-${item.id}' class='auto_loot_item'>`;
             }
             
 			if (can_they_take){

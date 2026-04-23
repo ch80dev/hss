@@ -6,10 +6,10 @@ class DefaultConfig{
 			console.log(mistakes);
 		}		
 	}
-    static interactions = ['trade'];
-    static shop_type = 'homeless';
+    static interactions = [];
+    static shop_type = null;
 	//this needs to be null if not enabled
-	static init_inventory = {name: 'crate', id: 0, quantity: 1, durability: 100 };
-	static equip_init_inventory = true;
+	static init_inventory = null; //{name: 'crate', id: 0, quantity: 1, durability: 100 };
+	static equip_init_inventory = false;
 	
 }

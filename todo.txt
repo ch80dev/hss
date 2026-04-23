@@ -8,6 +8,16 @@ TODO
     shouldn't be able to drop a crate on anywher except for map_at 1
     BUG clicked something on ground and something else came out and couldn't click anymore
     BUG when I placed a crate, it made inventory NaN
+    does expired medicine actually work?
+        tents, weapons, wrench, lanterns, flashlights, sleeping bags are way too common
+        food should be more spoiled and players should have a way to not pick them up 
+        recycling should be even more common
+    favorites should go through the dark as well
+    you should be able to sell durable items (not trade or equipped though )
+    have a secondary equipped
+    you should be bale to use weapons to open trash cans
+    trade medicine -> expired medicine is coming up too often
+    BUG auto_loot_preferences aren't doing anything
 BUGS
     BUG: trash is generating items with undefined name  04-21-26
         console.log isn't catching this for some reason

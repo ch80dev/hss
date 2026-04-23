@@ -88,8 +88,8 @@ class PlayerActions {
         if(tent == null || !this.player.status.can_they_sleep()){
             return;
         }
-        let penalty = this.player.status.sleep(true, false);
         this.player.status.add_time(8, 0);
+        let penalty = this.player.status.sleep(true, false);
         ui.sleeping = true;
         let txt = "You sleep in a tent."
         if (penalty > 0){

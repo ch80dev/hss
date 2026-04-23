@@ -1,8 +1,8 @@
 class PlayerState{
     auto_loot = true;
     auto_loot_preferences = {
-        'raw meat (human)': true,
-        'raw meat (rat)': true,
+        'raw meat (human)': false,
+        'raw meat (rat)': false,
     };
     dead = false;
     equipped = null;
@@ -29,7 +29,7 @@ class PlayerState{
     movement_cost = .1;
     socializing = null;
     
-    slots_in_inventory = 7;
+    slots_in_inventory = 8;
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
     stigma = 0;
@@ -44,7 +44,7 @@ class PlayerState{
         this.x = x;
         this.y = y;
         for (let item_name of Object.keys(ItemConfig.prices)){
-            this.auto_loot_preferences[item_name] = true;
+            this.auto_loot_preferences[item_name] = false;
         }
         if (DefaultConfig.init_inventory != null){
             this.inventory.push(DefaultConfig.init_inventory);

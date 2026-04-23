@@ -29,10 +29,11 @@ class Shop{
         this.max_stigma = ShopConfig.max_stigma[type];
     }
     sleep_at_homeless_shelter(player, time){
-        player.status.sleep(true, true);
-        
         let time_delta = 24 - (time.hours + ShopConfig.homeless_out) + 12;
         player.status.add_time(time_delta, 0)
+        player.status.sleep(true, true);
+        
+        
         ui.sleeping = true;
         ui.change_screen('map');
         player.state.shopping = false;
@@ -53,7 +54,8 @@ class Shop{
             return;
 
         }
-        if(this.type == 'motel'){            
+        if(this.type == 'motel'){   
+            player.status.add_time(8, 0)         
             player.status.sleep(true, true);
             this.room_rented_at == null; // eventually do time
             return;

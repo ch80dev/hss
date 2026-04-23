@@ -42,8 +42,8 @@ class InventoryUse{
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
             return;
         } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep()){
-            let penalty = this.player.status.sleep(false, false);
             this.player.status.add_time(8, 0);
+            let penalty = this.player.status.sleep(false, false);
             ui.sleeping = true;
             ui.log(`You sleep in a sleeping bag and take a small health penalty for sleeping outside. [${penalty}]`)
             ui.change_screen('map');

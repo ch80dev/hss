@@ -121,6 +121,7 @@ class PlayerStatus{
     }
 
     sleep(indoors, in_a_building){
+        this.player.state.stamina = this.player.state.max_stamina;
         if (in_a_building){
             this.player.state.stigma = Math.round(this.player.state.stigma * .5);
             //set to 0 if you own the room or apartment            
@@ -128,7 +129,7 @@ class PlayerStatus{
         let rand = Number((rand_num(1, 10) * .1).toFixed(1));
         let health_change = this.change_health(rand);
         //add a thing to show how much health increaseds        
-        
+        juego.next();
         if (!indoors){
             rand = Number((rand_num(1, 15) * .1).toFixed(1));
             this.change_health(-rand);

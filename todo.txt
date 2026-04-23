@@ -1,9 +1,7 @@
 TODO           
     work
         beat up guy
-        clean up trash
     gamble causes NaN when below 0;
-    food being sold as NaN
     gambling isn't very interesting
     sleeping should have a 12 hour timer except for homeless shelter
     BUG I can only trade one thing at a time. It won't let me keep trading

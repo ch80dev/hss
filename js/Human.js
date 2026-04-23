@@ -193,6 +193,7 @@ class Human extends Lifeform{
 
     generate_rand_item(not_arr, interaction){
         //console.log(not_arr);
+        let banned = ['food', 'food-spoiled'];
         let items_drawn_from = ItemConfig.human_items;
         if (this.homeless){
             items_drawn_from = Object.keys(ItemConfig.trash_item_odds);
@@ -201,7 +202,7 @@ class Human extends Lifeform{
         while(true){
             let rand = rand_num(0, items_drawn_from.length - 1);
             let rand_item = items_drawn_from[rand];
-            if (no_durables.includes(interaction) && ItemConfig.degradable.includes(rand_item)){
+            if (banned.includes(rand_item) || (no_durables.includes(interaction) && ItemConfig.degradable.includes(rand_item)) ){
                 continue;
             }
             if (!not_arr.includes(rand_item)){

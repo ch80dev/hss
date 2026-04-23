@@ -112,7 +112,7 @@ class PlayerHuman{
             return;
         }
 
-        if (this.player.state.stigma > human.max_stigma_tolerance && human.quest != null && !human.quest.accepted){
+        if (this.player.state.stigma > human.max_stigma_tolerance || (human.quest != null && human.quest.accepted && !human.quest.completed)){
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }

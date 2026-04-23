@@ -33,7 +33,7 @@ class PlayerState{
     slots_in_inventory = 8;
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
-    stigma = 0;
+    stigma = 50;
     sick_hours = 0;
     sickness = 0;
 

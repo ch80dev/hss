@@ -5,7 +5,6 @@ TODO
     
         
     add more slots - bags 10 slots 1% every time added slots and backpack
-    BUG max stimga'd for a human but still able to interact presumably because of that new addition
     when you're maxed out in inventory , flash the slots or weight when you try to bring something over. make take all disabled and turn off cursor:pointer
 BUGS
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26

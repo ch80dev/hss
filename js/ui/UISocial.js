@@ -16,7 +16,9 @@ class UISocial{
 			let disabled = '';
 			let interaction = human.interactions[id];
 			
-			if ((interaction == 'buy' && juego.player.inventory.get.are_they_full() 
+			if ((interaction != work && this.player.state.stigma > human.max_stigma_tolerance)
+				
+				(interaction == 'buy' && juego.player.inventory.get.are_they_full() 
 					&& ((ItemConfig.stackable.includes(human.resources[id]) 
 					&& !juego.player.inventory.get.is_in_inventory(human.resources[id])) 
 					|| !ItemConfig.stackable.includes(human.resources[id]) ))

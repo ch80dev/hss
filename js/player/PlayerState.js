@@ -11,6 +11,7 @@ class PlayerState{
     hours_delta = 0;    
     inventory = [ ];
     inventory_weight =  0;
+    last_slept = { days: 1, hours: 8 };
     location = {
         id: 0,
         type: 'alley',
@@ -27,6 +28,7 @@ class PlayerState{
     money = null;
     movement_cost = .1;
     socializing = null;
+    
     slots_in_inventory = 7;
     stamina = Config.lifeforms.human.max_stamina;
     stamina_delta = 0;

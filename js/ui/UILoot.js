@@ -22,11 +22,20 @@ class UILoot{
 			crate_here = ' in_crate ';
 			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
 		} else if (is_loot && juego.map.get.inspector.is_item_here('tent (placed)', juego.player.fetch_from()) && tent_here != null){
-			
+			let disabled = '';
+			if (!juego.player.status.can_they_sleep){
+				disabled = ' disabled ';
+			}
 			crate_here = ' in_crate ';
-			txt += `<div id='loot-tent' class=''>tent (placed) ${tent_here.durability}%<button id='sleep_in_tent-${tent_here.id}' class='sleep_in_tent'>sleep</button></div>`;
+			txt += `<div id='loot-tent' class=''>tent (placed) ${tent_here.durability}%<button id='sleep_in_tent-${tent_here.id}' class='sleep_in_tent' ${disabled}>sleep</button></div>`;
 		}
-		for (let item of items){			
+		for (let item of items){		
+			let disabled = '';
+			let item_add = '';
+			if (!is_loot && item.name == 'sleeping bag' && !juego.player.status.can_they_sleep()){
+				disabled = ' disabled ';
+				item_add = ` (${juego.player.status.fetch_time_til_they_can_sleep()}h)`;
+			}
 			let durability = '';
 			let is_food = Object.keys(ItemConfig.food_gain).includes(item.name); 
 			if (ItemConfig.degradable.includes(item.name)){
@@ -64,7 +73,7 @@ class UILoot{
 			if (!is_loot && (item.name == 'crate' || item.name == 'tent') && MapConfig.cell_class[juego.map.get.at(juego.player.state.x, juego.player.state.y)] == 'trash' ) {
 				usable = `<button id='use-${item.id}' class='use' disabled>use</button>`;
 			} else if (!is_loot && ItemConfig.usable.includes(item.name)){
-				usable = `<button id='use-${item.id}' class='use'>use</button>`;
+				usable = `<button id='use-${item.id}' class='use' ${disabled}>use ${item_add}</button>`;
 			}
 			
 			if (!is_loot && ItemConfig.equipable.includes(item.name) && juego.player.state.equipped != item.id){

@@ -26,7 +26,7 @@ class Game{
 		setInterval(this.loop.go(), Config.loop_interval_timing);
 		this.get = new Queries(this.humans, this.rats, this.shops);
 		let open = this.map.get.inspector.fetch_open();
-		this.player = new Player(open.x, open.y);
+		this.player = new Player(open.x, open.y, this.time);
 		this.populate = new Populator(this.map, this.player);
 		this.turn = new Turn(this.player, this.time);
 		this.populate.with_rats('alley', 0, this.rats);

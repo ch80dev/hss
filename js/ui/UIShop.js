@@ -29,16 +29,40 @@ class UIShop{
         }           
         $("#shop").html(txt);
     }
+
+    display_homeless(player, time){
+        let can_they_sleep = player.status.can_they_sleep();
+        let disabled = '';
+        if (time.hours < ShopConfig.homeless_check_in[0] || time.hours >= ShopConfig.homeless_check_in[1] 
+            || !can_they_sleep){
+            disabled = ' disabled ';
+        }
+        let timer = '';
+        console.log(can_they_sleep, player.status.fetch_time_til_they_can_sleep());
+        if (!can_they_sleep){
+            timer = ` (available in ${player.status.fetch_time_til_they_can_sleep()}h)`;
+        }
+        let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_homeless_shelter' ${disabled}>sleep ${timer}</button>`;
+        return txt;
+    }
+
     display_motel(player, shop){
+        let can_they_sleep = player.status.can_they_sleep();
+        let disabled = '';
+        let timer = '';
         let txt = "<div>Sleeping inside (like at a motel or a homeless shelter) brings your stigma to 0. (in addition to avoiding the healthy penalty for sleeping outside) </div>";
         if (shop.room_rented_at == null){
-            let disabled = '';
+            
             if (player.state.money < ShopConfig.motel_room_cost){
                 disabled = ' disabled ';
             }
             return `${txt} <div><button id='rent_a_room' class='rent_a_room' ${disabled}>rent a room for $${ShopConfig.motel_room_cost}</button></div>`
         }
-        return `${txt} <div><button id='sleep_at_shop'>sleep</button> </div>`
+        if (!can_they_sleep){
+            disabled = ' disabled ';
+            timer = `(available in ${player.status.fetch_time_til_they_can_sleep()}h)`;
+        }
+        return `${txt} <div><button id='sleep_at_shop' ${disabled}>sleep ${timer}</button> </div>`
     }
 
     display_recycling(player, shop){
@@ -75,14 +99,7 @@ class UIShop{
         return txt;
     }
 
-    display_homeless(player, time){
-        let disabled = '';
-        if (time.hours < ShopConfig.homeless_check_in[0] || time.hours >= ShopConfig.homeless_check_in[1]){
-            disabled = ' disabled ';
-        }
-        let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_homeless_shelter' ${disabled}>sleep</button>`;
-        return txt;
-    }
+
     display_sell_generic(player, shop){
         let txt = "";
         for (let id in ShopConfig.resources[shop.type]){

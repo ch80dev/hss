@@ -85,7 +85,7 @@ class PlayerActions {
     sleep_in_tent(map){
         let tent = map.get.inspector.fetch_tent(this.player.fetch_from());
         console.log(tent);
-        if(tent == null){
+        if(tent == null || !this.player.status.can_they_sleep()){
             return;
         }
         let penalty = this.player.status.sleep(true, false);

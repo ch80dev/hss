@@ -41,7 +41,7 @@ class InventoryUse{
             this.player.inventory.move.drop_item(id, map);
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
             return;
-        } else if (item.name == 'sleeping bag'){
+        } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep()){
             let penalty = this.player.status.sleep(false, false);
             this.player.status.add_time(8, 0);
             ui.sleeping = true;

@@ -31,6 +31,7 @@ class Config {
 	
 
 	//PLAYER
+	static can_sleep_every = 12; //hours
 	static low_stamina_threshold = 25;
 	static max_sickness = 100;
 	static stamina_cost = {

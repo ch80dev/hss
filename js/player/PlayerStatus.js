@@ -1,10 +1,32 @@
 class PlayerStatus{
-    constructor(player){
+    constructor(player, time){
         this.player = player;
+        this.time = time;
     }
     add_time(hours, minutes){
         this.player.state.hours_delta += hours;
         this.player.state.minutes_delta += minutes;
+    }
+
+    can_they_sleep(){
+        return this.fetch_time_til_they_can_sleep() <= 0;
+    }
+    fetch_hours_since_last_sleep(){
+        //doesn't keep track of weeks
+        let days =  this.time.days - this.player.state.last_slept.days;
+        let hours = this.time.hours - this.player.state.last_slept.hours;
+        if (hours < 0){
+            hours = this.time.hours;
+        }
+        if (days > 0){
+            hours += days * 24;
+        }
+        return hours;
+    }
+
+    fetch_time_til_they_can_sleep(){
+        let hours = Config.can_sleep_every - this.fetch_hours_since_last_sleep();
+        return hours;
     }
 
     change_health (n){

@@ -80,12 +80,13 @@ class InventoryQueries{
     }
 
     is_equipped_with(what){
-        if (this.player.state.equipped == null){
+        if (this.player.state.equipped == null && this.player.state.light_equipped == null){
             return false;
         }
 
         let item = this.player.inventory.fetch.by_id(this.player.state.equipped);
-        if (item != null && item.name == what){
+        let light = this.player.inventory.fetch.by_id(this.player.state.light_equipped);
+        if ((item != null && item.name == what) || (light != null && light.name == what)){
             return true;
         }
         return false;

@@ -41,6 +41,7 @@ class ItemConfig {
 		
 	}
 	static human_items = ['crate', 'drugs', 'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
+	static lights = ['flashlight', 'lantern'];
 	static meat = {
 		human: 100,
 		rat: 1,

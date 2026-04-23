@@ -3,6 +3,10 @@ class InventoryUse{
         this.player = player;
     }
     equip(id){
+        let item = this.player.inventory.fetch.by_id(id);
+        if (ItemConfig.lights.includes(item.name)){
+            this.player.state.light_equipped = id;
+        }
         this.player.state.equipped = id;
     }
 

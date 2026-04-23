@@ -12,6 +12,7 @@ class PlayerState{
     inventory = [ ];
     inventory_weight =  0;
     last_slept = { days: 1, hours: 8 };
+    light_equipped = null;
     location = {
         id: 0,
         type: 'alley',

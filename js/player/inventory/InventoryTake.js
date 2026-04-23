@@ -12,7 +12,6 @@ class InventoryTake {
             console.log('error');
             return;
         }
-        this.player.inventory.move.change_weight(this.player.inventory.get.fetch_weight(name, quantity));
         let npc_item = human.fetch_item(name);
         if (npc_item.quantity == quantity){
             human.delete_item(name);
@@ -74,9 +73,7 @@ class InventoryTake {
         if (Object.keys(ItemConfig.food_gain).includes(loot.name) && loot.durability < 1){
             txt += " (spoiled)";
         }
-        let weight = this.player.inventory.get.fetch_weight(loot.name, loot.quantity);
         let what = loot.name;
-        this.player.inventory.move.change_weight(weight);
         juego.quests.process('fetch', loot.quantity, what);
         if (ItemConfig.stackable.includes(what) && this.player.inventory.get.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);

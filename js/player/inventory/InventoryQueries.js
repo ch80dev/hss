@@ -6,6 +6,15 @@ class InventoryQueries{
         return this.player.state.inventory.length >= this.player.state.slots_in_inventory  
             || this.player.state.inventory_weight >= this.player.state.max_inventory_weight        
     }
+    
+    calculate_total_weight(){
+        let n = 0;
+        for (let item of this.player.state.inventory){
+            n += this.fetch_weight(item.name, item.quantity);
+        }
+        console.log(n);
+        return n;
+    }
 
     can_they_take(name, quantity){
         let weight = this.fetch_weight(name, quantity);

@@ -4,7 +4,6 @@ TODO
     
     
     BUG clicked something on ground and something else came out and couldn't click anymore
-    BUG when I placed a crate, it made inventory NaN
     does expired medicine actually work?
         tents, weapons, wrench, lanterns, flashlights, sleeping bags are way too common
         food should be more spoiled and players should have a way to not pick them up 

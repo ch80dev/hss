@@ -58,7 +58,7 @@ class Lifeform {
     die(){
         this.dead = true;
         if (this.type == 'rat'){
-            juego.quests.process('rats', 1, juego.favorites);
+            juego.quests.process('rats', 1, null);
         }
     }
 

@@ -1,7 +1,6 @@
 TODO           
     work
         fetch quests
-        kill rats
         beat up guy
         clean up trash
     gamble causes NaN when below 0;
@@ -17,6 +16,7 @@ TODO
     BUG clicked something on ground and something else came out and couldn't click anymore
 BUGS
     BUG: trash is generating items with undefined name  04-21-26
+        console.log isn't catching this for some reason
     BUG: street appears to be in indefinite loop. not sure why though 04-21-26
 ABANDONED
     redo map loot and how i handled map data

@@ -19,7 +19,7 @@ class InventoryTake {
         } else {
             npc_item.quantity -= quantity;
         }
-
+        juego.quests.process('fetch', quantity, name);
         if (ItemConfig.stackable.includes(name) && this.player.inventory.get.is_in_inventory(name)){
             this.player.inventory.move.stack_item_in_inventory(name, quantity);
             return;
@@ -63,7 +63,7 @@ class InventoryTake {
         //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
         
-        console.log(map.get.inspector.fetch_loot(at, id));
+        console.log('BUG', map.get.inspector.fetch_loot(at, id));
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
             && !this.player.inventory.get.can_they_take(map.get.inspector.fetch_loot(at, id).name, map.get.inspector.fetch_loot(at, id).quantity))){
@@ -77,7 +77,7 @@ class InventoryTake {
         let weight = this.player.inventory.get.fetch_weight(loot.name, loot.quantity);
         let what = loot.name;
         this.player.inventory.move.change_weight(weight);
-        
+        juego.quests.process('fetch', loot.quantity, what);
         if (ItemConfig.stackable.includes(what) && this.player.inventory.get.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
             if (take_all_id == null){

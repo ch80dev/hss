@@ -51,6 +51,7 @@ class InventoryMove{
         if (this.player.state.equipped == id){
             this.player.state.equipped = null;
         }
+        juego.quests.process('fetch', -quantity, name);
         if (ItemConfig.stackable.includes(item.name) && map.get.inspector.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.delete(null, item.id);
@@ -68,6 +69,7 @@ class InventoryMove{
             console.log('error');
             return;
         }
+        juego.quests.process('fetch', -quantity, name);
         let item = this.player.inventory.fetch.by_name(name);
         this.change_weight(-this.player.inventory.get.fetch_weight(name, quantity));
        if (ItemConfig.stackable.includes(name)){            

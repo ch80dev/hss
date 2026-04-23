@@ -26,7 +26,7 @@ class MapPopulator{
             let durability = rand_num(10, 100);
             let item = this.generate_item_from_trash(type == 'recycling');
             if (item == undefined){
-                console.log('BUG', item);
+                console.log('BUG', item, type == 'recycling');
             }
             if (item == 'food'){
                 item = ItemConfig.food_in_trash[rand_num(0, ItemConfig.food_in_trash.length - 1)];

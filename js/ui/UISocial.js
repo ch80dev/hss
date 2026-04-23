@@ -84,14 +84,14 @@ class UISocial{
 				resource = " [ COMPLETED ]";
 				button = `<button id='complete_quest'>complete</button>`;
 			} else if (interaction == 'work' && !human.quest.accepted){				
-				resource = `kill ${human.quest.quantity} rats for $${human.quest.paying}`;				
+				resource = human.quest.narrate;	
 			} else if (interaction == 'work' && human.quest.accepted){
 				let quest = juego.quests.fetch_by_id(human.id);
 				if (quest == null){
 					continue;
 				}
 				button = `<button id='cancel_quest'>cancel</button>`;
-				resource = `killed  ${quest.current}/${human.quest.quantity} rats for $${human.quest.paying}`;				
+				resource = `${human.quest.narrate}  [${quest.current}/${human.quest.quantity}]`;				
 			} else if (interaction == 'gamble' && human.gambled != null && human.ante != null){
 				resource = "Keep going?";
 				button = `<button id='cash_out'>cash out $${human.gambled_and_won}</button><button id='bet' ${disabled}>gamble ${human.ante}</button>`;

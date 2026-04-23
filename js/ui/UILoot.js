@@ -94,7 +94,6 @@ class UILoot{
 	}
 
 	fetch_spoil_time(hours){
-		console.log(hours);
 		if (hours < 24){
 			return `${hours}h`;
 		}

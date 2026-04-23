@@ -1,8 +1,12 @@
 class Quest {
     id = 0;
     set = [];
-    add(human_id,  type, quantity, paying){
-        this.set.push({ human_id: human_id, id: this.next_id(), type: type, current: 0, quantity: quantity, paying: paying, canceled: false });
+    add(human_id,  quest){
+        let current = 0;
+        if (quest.type == 'fetch'){
+            current = juego.player.inventory.get.fetch_quantity(quest.context);
+        }
+        this.set.push({ human_id: human_id, id: this.next_id(), type: quest.type, current: current, quantity: quest.quantity, paying: quest.paying, canceled: false, context: quest.context });
     }
     cancel(human_id){
         let quest = this.fetch_by_id(human_id);
@@ -24,12 +28,12 @@ class Quest {
         }
         return null;
     }
-    process(type, delta, favorites){
+    process(type, delta, context){
         for (let quest of this.set){
-            if (quest.canceled){
+            if (quest.canceled || quest.type != type || (type == 'fetch' && context != quest.context)){
                 continue;
             }
-            let favorite = favorites.fetch_by_id('human', quest.human_id);
+            let favorite = juego.favorites.fetch_by_id('human', quest.human_id);
             let human = juego.get.human(quest.human_id);
             if (human == null || human.quest.completed){
                 continue;
@@ -37,14 +41,18 @@ class Quest {
             if (quest.type == type && delta != null ){
                 quest.current += delta;                
             }
+            let txt = `${quest.current}/${quest.quantity} rats killed`;
+            if (type == 'fetch'){
+                txt = `${quest.current}/${quest.quantity} ${context}`;
+            }
             if (quest.current >= quest.quantity){
                 human.quest.completed = true;
-                ui.log(`You've killed ${quest.quantity} rats. Head back for your money!`);
+                ui.log(`${txt} Head back for your money!`);
                 if (favorite == undefined){
-                    favorites.add_human_not_here(quest.human_id, human.location, human.x, human.y);
+                    juego.favorites.add_human_not_here(quest.human_id, human.location, human.x, human.y);
                 }
             } else {
-                ui.log(`Killed ${quest.current}/${quest.quantity} rats.`);
+                ui.log(`(${txt})`);
             }
         }
     }

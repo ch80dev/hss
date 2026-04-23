@@ -84,7 +84,7 @@ class ItemConfig {
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
 	static spoiled_sick_gain = [1, 50];
-	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle',  'fuel', 'medicine', 'medicine (expired)', 'drugs', 'raw meat (human)', 'raw meat (rat)'];
+	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'medicine', 'medicine (expired)', 'drugs'];
 	static tool_durability_uses = {
 		'screw driver': 5,
 		wrench: 2.5,

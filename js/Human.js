@@ -142,14 +142,34 @@ class Human extends Lifeform{
     }
 
     generate_quest(){
-        let quests_available = ['rats'];
+        let quests_available = ['fetch'];
 
         let quest = quests_available[rand_num(0, quests_available.length - 1)];
         let price = {
             rats: 10,
+            fetch: 1, 
         }
+        let context = null;
         let quantity = rand_num(1, 10);
-        return { completed: false, type: quest, quantity: quantity, paying: price[quest] * quantity, accepted: false }
+        let paying = price[quest] * quantity;
+        if (quest == 'fetch'){
+            let rand_item = ItemConfig.stackable[rand_num(0, ItemConfig.stackable.length - 1)];
+            let price = ItemConfig.prices[rand_item];
+            let rand_variance = Number((rand_num(10, 50) / 100).toFixed(2));
+            price = Number((price + (price * rand_variance)).toFixed(2));
+            paying = rand_num(10, 100);
+            quantity = Math.round(paying / price)
+            context = rand_item;
+        }
+        let narrate = this.narrate_quest(quest, quantity, paying, context);
+        return { completed: false, type: quest, quantity: quantity, paying: paying, accepted: false, narrate: narrate, context: context }
+    }
+    narrate_quest(type, quantity, paying, context){
+        if (type == 'rat'){
+            return `kill ${quantity}  rats for $${paying}`;
+        } else if (type == 'fetch'){
+            return `bring me ${quantity} ${context} for $${paying}`;
+        }
     }
 
     generate_rand_item(not_arr, interaction){

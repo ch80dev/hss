@@ -73,7 +73,7 @@ class PlayerHuman{
             this.gamble(human, time, ui);
         } else if (interaction == 'work'){
             human.quest.accepted = true;
-            quests.add(human.id, human.quest.type, human.quest.quantity, human.quest.paying);
+            quests.add(human.id, human.quest);
             ui.log("You've accepted some work.");
         } 
 

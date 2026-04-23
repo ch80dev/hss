@@ -2,6 +2,32 @@ class PlayerTrash {
     constructor(player){
         this.player = player;
     }
+
+    hit(x, y, map){
+        let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
+        let loot = map.loot[at];
+        console.log(loot, loot != undefined, !loot.locked, loot.durability < 1);
+        if (loot == undefined || !loot.locked || loot.durability < 1){
+            console.log('error');
+            return;
+        }
+        let did_they_hit = this.player.status.did_they_hit();
+        let dmg = this.player.status.fetch_dmg();
+        let caption = 'You missed the trash can.';
+        if (did_they_hit){
+            this.player.status.change_stamina_delta(-.9);
+            this.player.inventory.use.weapon();
+            loot.durability -= dmg;
+            caption = `You hit the trash can for ${dmg} damage. [${loot.durability}%]`
+            if (loot.durability < 1){
+                caption += " You got it open!"
+                loot.locked = false;
+            }
+
+        }
+        ui.log(caption);
+    }
+
     open(map){
         
         

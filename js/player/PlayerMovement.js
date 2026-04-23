@@ -85,8 +85,14 @@ class PlayerMovement{
         } else if (this.player.state.health > 0){
             this.player.state.health -= this.player.state.movement_cost;
         }
-        
-        if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.has_a_tool()
+        if (this.player.state.fighting && (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') 
+            && !this.player.inventory.get.has_a_tool()
+            && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
+            && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked)){
+            this.player.actions.trash.hit(pos.x, pos.y, map);
+            return;    
+            
+        } else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.has_a_tool()
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
             ui.log('This trash can is locked.');

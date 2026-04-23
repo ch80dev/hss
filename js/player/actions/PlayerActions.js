@@ -14,16 +14,11 @@ class PlayerActions {
             target = juego.get.human_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
         }
         this.player.status.change_stamina_delta(Config.stamina_cost['attack']);
-        let did_they_hit = rand_num(1, 100) <= this.player.state.stamina;
-        let max_dmg = 1;
-        let weapon_equipped =  null;
-        if (this.player.state.equipped != null){
-            weapon_equipped = this.player.inventory.fetch.by_id(this.player.state.equipped).name;
-            max_dmg = ItemConfig.weapon_dmgs[weapon_equipped];
-            this.player.inventory.use.weapon();
-        }
-        let dmg = rand_num(1, max_dmg);
+        let did_they_hit = this.player.status.did_they_hit();
+        let dmg = this.player.status.fetch_dmg();
         if (did_they_hit){
+            this.player.inventory.use.weapon();
+
             target.get_hit(dmg);
             let money_caption = '';
             if (target.money > 0 && target.health < 1){

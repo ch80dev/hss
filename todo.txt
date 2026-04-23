@@ -4,7 +4,6 @@ TODO
     
     
     BUG clicked something on ground and something else came out and couldn't click anymore
-    does expired medicine actually work?
         tents, weapons, wrench, lanterns, flashlights, sleeping bags are way too common
         food should be more spoiled and players should have a way to not pick them up 
         recycling should be even more common

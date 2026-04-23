@@ -25,7 +25,7 @@ class InventoryUse{
 
     item(id, map){
         let item = this.player.inventory.fetch.by_id(id);
-        let medicine_works = rand_num(1, 5) == 1;
+        let medicine_works = rand_num(1, 3) == 1;
         //console.log(id, item);
         if (!this.player.inventory.get.can_they_use(item.name, map)){
             console.log('cant use');
@@ -51,8 +51,12 @@ class InventoryUse{
             return;
         } else if (Object.keys(ItemConfig.food_gain).includes(item.name)){
             this.player.status.change_stamina(ItemConfig.food_gain[item.name]);
-        } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine(expired)')){
-            this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], ItemConfig.medicine_gain[1]));
+        } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine (expired)')){
+            let gain = ItemConfig.medicine_gain[1];
+            if (item.name == 'medicine (expired)'){
+                gain = Math.round(ItemConfig.medicine_gain[1] / 2);
+            }
+            this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], gain));
             
         }
 

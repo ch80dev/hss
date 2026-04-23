@@ -30,18 +30,21 @@ class Quest {
     }
     process(type, delta, context){
         for (let quest of this.set){
-            if (quest.canceled || quest.type != type || (type == 'fetch' && context != quest.context)){
+            if (quest.canceled || quest.type != type 
+                || (type == 'fetch' && context != quest.context)){
                 continue;
             }
             let favorite = juego.favorites.fetch_by_id('human', quest.human_id);
             let human = juego.get.human(quest.human_id);
-            if (human == null || human.quest.completed){
+            if (human == null || human.quest.completed 
+                || (type == 'trash' && (juego.player.state.location.type != human.location.type 
+                || juego.player.state.location.id != human.location.id))){
                 continue;
             }
             if (quest.type == type && delta != null ){
                 quest.current += delta;                
             }
-            let txt = `${quest.current}/${quest.quantity} rats killed`;
+            let txt = `${quest.current}/${quest.quantity} ${type}`;
             if (type == 'fetch'){
                 txt = `${quest.current}/${quest.quantity} ${context}`;
             }

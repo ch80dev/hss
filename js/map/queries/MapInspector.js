@@ -91,6 +91,19 @@ class MapInspector{
         return this.map.marks[at];
     }
 
+    fetch_num_of_trash(){
+        //this only works for the current location
+        let n = 0;
+        for (let x = 0; x < MapConfig.max_x; x ++){
+            for (let y = 0; y < MapConfig.max_y; y ++){
+                if (this.map.get.at(x, y) == MapConfig.cell_class.indexOf('trash')){
+                    n ++;
+                }
+            }
+        }
+        return n;
+    }
+
     fetch_open(){
         while(true){
             let rand_x = rand_num (0, MapConfig.max_x - 1);

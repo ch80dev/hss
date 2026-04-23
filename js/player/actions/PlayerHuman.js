@@ -101,6 +101,7 @@ class PlayerHuman{
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }
+        human.check_quest();
         this.player.state.socializing = human.id;
         ui.change_screen('social');
 

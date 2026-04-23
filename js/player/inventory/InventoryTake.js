@@ -93,6 +93,7 @@ class InventoryTake {
         this.player.inventory.move.sort();
         let map_at = map.get.at(this.player.state.x, this.player.state.y);
         if (map.loot[at].stuff.length == 0 && (map_at == 5 || MapConfig.attackable.includes(map_at)) ){
+            juego.quests.process('trash', 1, null);
             map.is(this.player.state.x, this.player.state.y, 1);
         }
         if (map.loot[at].stuff.length == 0){

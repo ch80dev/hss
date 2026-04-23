@@ -1,6 +1,5 @@
 TODO           
     work
-        fetch quests
         beat up guy
         clean up trash
     gamble causes NaN when below 0;

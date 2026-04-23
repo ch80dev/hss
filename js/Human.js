@@ -46,6 +46,13 @@ class Human extends Lifeform{
         this.how_much_to_give_when_begged();
     }
 
+    check_quest(){
+        let num_of_trash = this.map.get.inspector.fetch_num_of_trash();
+        if (this.quest.type == 'trash' && !this.quest.accepted && num_of_trash != this.quest.quantity){
+            this.generate_quest();
+        }
+    }
+
 
     delete_item(name){
         for (let id in  this.inventory){
@@ -142,15 +149,25 @@ class Human extends Lifeform{
     }
 
     generate_quest(){
-        let quests_available = ['fetch'];
+        let quests_available = ['trash', 'rats', 'fetch']; // trash needs to be first
+        let num_of_trash = this.map.get.inspector.fetch_num_of_trash();
+        let min = 0;
+        
 
-        let quest = quests_available[rand_num(0, quests_available.length - 1)];
+        if (num_of_trash < 10){
+            min = 1;
+        }
+        let quest = quests_available[rand_num(min, quests_available.length - 1)];
+        let quantity = rand_num(1, 10);
+        if (quest == 'trash'){
+            quantity = num_of_trash;
+        }
         let price = {
             rats: 10,
-            fetch: 1, 
+            fetch: 1,
+            trash: rand_num(1, 3),
         }
         let context = null;
-        let quantity = rand_num(1, 10);
         let paying = price[quest] * quantity;
         if (quest == 'fetch'){
             let rand_item = ItemConfig.stackable[rand_num(0, ItemConfig.stackable.length - 1)];
@@ -158,17 +175,19 @@ class Human extends Lifeform{
             let rand_variance = Number((rand_num(10, 50) / 100).toFixed(2));
             price = Number((price + (price * rand_variance)).toFixed(2));
             paying = rand_num(10, 100);
-            quantity = Math.round(paying / price)
+            quantity = Math.ceil(paying / price)
             context = rand_item;
         }
         let narrate = this.narrate_quest(quest, quantity, paying, context);
         return { completed: false, type: quest, quantity: quantity, paying: paying, accepted: false, narrate: narrate, context: context }
     }
     narrate_quest(type, quantity, paying, context){
-        if (type == 'rat'){
+        if (type == 'rats'){
             return `kill ${quantity}  rats for $${paying}`;
         } else if (type == 'fetch'){
             return `bring me ${quantity} ${context} for $${paying}`;
+        } else if (type == 'trash'){
+            return `empty all ${quantity} trash cans here for ${paying}`;
         }
     }
 

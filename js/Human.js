@@ -40,6 +40,17 @@ class Human extends Lifeform{
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
         this.directions_to = this.get_available_directions();
     }
+
+    adjust_conversion(id, first, first_q, second, second_q){
+        console.log(this.conversion[id], first, first_q, second, second_q);
+        if (this.conversion[id][0] > first_q){
+            this.conversion[id][0] = first_q;        
+        }
+        if ( this.conversion[id][1] > second_q){
+            this.conversion[id][1] = second_q;
+        }
+        console.log(this.conversion[id]);
+    }
     begged(time){
         this.money -= this.give_when_begged;  
         this.begging_unlocked = { days: time.days + 1, hours: time.hours};
@@ -47,6 +58,9 @@ class Human extends Lifeform{
     }
 
     check_quest(){
+        if (this.quest == null){
+            return;
+        }
         let num_of_trash = this.map.get.inspector.fetch_num_of_trash();
         if (this.quest.type == 'trash' && !this.quest.accepted && num_of_trash != this.quest.quantity){
             this.generate_quest();
@@ -124,8 +138,11 @@ class Human extends Lifeform{
                 let second = this.generate_rand_item([first], interaction);
                 this.resources[id] = { [first]: second };
                 this.conversion[id] = this.generate_conversion(first, second);
-                this.inventory.push({ name: first, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[first]), durability: 100 });
-                this.inventory.push({ name: second, quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[second]), durability: 100 });
+                let first_quantity = Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[first]);
+                let second_quantity = Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[second]);
+                this.adjust_conversion(id, first, first_quantity, second, second_quantity);
+                this.inventory.push({ name: first, quantity: first_quantity, durability: 100 });
+                this.inventory.push({ name: second, quantity: second_quantity, durability: 100 });
             } else if (HumanConfig.interactions_for_resources.includes(interaction)){
                 this.resources[id] = this.generate_rand_item([], interaction);
                 

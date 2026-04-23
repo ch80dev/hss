@@ -6,7 +6,7 @@ class DefaultConfig{
 			console.log(mistakes);
 		}		
 	}
-    static interactions = ['work'];
+    static interactions = ['trade'];
     static shop_type = 'homeless';
 	//this needs to be null if not enabled
 	static init_inventory = {name: 'sleeping bag', id: 0, quantity: 1, durability: 100 };

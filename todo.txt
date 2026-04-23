@@ -2,9 +2,8 @@ TODO
     work
         beat up guy
     gamble causes NaN when below 0;
-    gambling isn't very interesting
-    BUG I can only trade one thing at a time. It won't let me keep trading
-    BUG TRADE If the conversion rate is higher than their current supply, reduce their trade down to that. - not consistent - not able to do it later
+    BUG I can only trade one thing at a time. It won't let me keep trading - not consistent - not able to do it later
+    
     Limit humans to the money they have
     shouldn't be able to drop a crate on anywher except for map_at 1
     BUG Can't take stuff out of crate

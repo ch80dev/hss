@@ -123,9 +123,7 @@ $(document).on('click', '.interact:not(.trade)', function(e) {
 
 $(document).on('click', '.item', function(e) {
     // If a nested button (e.g. .use) was clicked, let its handler run only.
-    console.log('item');
     if (e.target && e.target.closest('button')){
-        console.log('bang');
         return;
     }
     
@@ -249,7 +247,7 @@ $(document).on('click', '.trade', function(e) {
 });
 
 $(document).on('click', '.unequip', function(e) {
-    this.player.inventory.use.unequip(this.id.split('-')[1]);
+    juego.player.inventory.use.unequip(this.id.split('-')[1]);
     ui.refresh.go();
 });
 

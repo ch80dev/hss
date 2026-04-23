@@ -14,12 +14,15 @@ class ItemConfig {
 
 	}
 	static bags = ['plastic bag'];
+	static bags_durability_uses = {
+		'plastic bag': 1,
+	}
 	static bags_slots = {
 		'plastic bag': 10,
 	}
-    static degradable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
+    static degradable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];
-	static equipable = ['pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
+	static equipable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
 	static food_in_trash = ['chips', 'sandwich', 'cookie', 'candy'];
 	static food_gain = {
 		burger: 21,
@@ -80,6 +83,7 @@ class ItemConfig {
 		'medicine (expired)': 2, 
 		pizza: 4,
 		'plastic bottle': .05,
+		'plastic bag': .05, 
 		pipe: 2, //cant sell only buy
 		sandwich: 4,
 		'screw driver': 5,
@@ -173,6 +177,7 @@ class ItemConfig {
 		cookie: .25,
 		fries: .25,
 		pizza: .5,
+		'plastic bag': .25, 
 		sandwich: .5,
 		taco: .5,
 		'sleeping bag': 5,

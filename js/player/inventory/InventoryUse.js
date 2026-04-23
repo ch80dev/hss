@@ -2,13 +2,32 @@ class InventoryUse{
     constructor(player){
         this.player = player;
     }
+    bag(){
+        if (this.player.state.equipped.bag == null){
+            return;
+        }
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped.bag);
+        if (item == null){
+            return;
+        }
+        let usage = ItemConfig.bags_durability_uses[item.name];
+        item.durability -= usage;
+        if (item.durability < 1){
+            this.unequip('bag');
+            ui.log(`Your bag broke!`);
+            this.player.inventory.move.delete(null, item.id);
+        }
+    }
     equip(id){
         let item = this.player.inventory.fetch.by_id(id);
         if (ItemConfig.lights.includes(item.name)){            
-            this.player.state.equipped.light= id;
+            this.player.state.equipped.light = id;
+            return;
+
         } else if (ItemConfig.bags.includes(item.name)){
             this.player.state.equipped.bag = id;
-            
+            this.player.state.inventory_slots += ItemConfig.bags_slots[item.name];
+            return;
         }
         this.player.state.equipped.hand= id;
     }

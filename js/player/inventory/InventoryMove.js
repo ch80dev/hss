@@ -102,6 +102,7 @@ class InventoryMove{
             }
             return a.name.localeCompare(b.name);
         });
+        this.player.inventory.use.bag();
         this.player.state.inventory_weight = this.player.inventory.get.calculate_total_weight();
     }
 

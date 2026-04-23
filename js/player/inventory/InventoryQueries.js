@@ -89,16 +89,32 @@ class InventoryQueries{
     }
 
     is_equipped_with(what){
-        if (this.player.state.equipped.hand== null && this.player.state.equipped.light== null){
-            return false;
-        }
-
         let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
-        let light = this.player.inventory.fetch.by_id(this.player.state.equipped.light);
-        if ((item != null && item.name == what) || (light != null && light.name == what)){
+        if (ItemConfig.lights.includes(what)){
+            item = this.player.inventory.fetch.by_id(this.player.state.equipped.light);
+        } else if (ItemConfig.bags.includes(what)){
+            item = this.player.inventory.fetch.by_id(this.player.state.equipped.bag);
+        }
+        if ((item != null && item.name == what)){
             return true;
         }
         return false;
+    }
+
+    is_equipped_where(what){
+        let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
+        let where = 'hand';
+        if (ItemConfig.lights.includes(what)){
+            item = this.player.inventory.fetch.by_id(this.player.state.equipped.light);
+            where = 'light';
+        } else if (ItemConfig.bags.includes(what)){
+            item = this.player.inventory.fetch.by_id(this.player.state.equipped.bag);
+            where = 'bag'
+        }
+        if ((item != null && item.name == what)){
+            return where;
+        }
+        return null;
     }
 
     is_in_inventory(what){

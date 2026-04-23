@@ -70,7 +70,7 @@ class UILoot{
 				can_take = " can_take ";
 			} 
 			
-			if (!is_loot && (item.name == 'crate' || item.name == 'tent') && MapConfig.cell_class[juego.map.get.at(juego.player.state.x, juego.player.state.y)] == 'trash' ) {
+			if (!is_loot && (item.name == 'crate' || item.name == 'tent') && juego.map.get.at(juego.player.state.x, juego.player.state.y) != 1 ) {
 				usable = `<button id='use-${item.id}' class='use' disabled>use</button>`;
 			} else if (!is_loot && ItemConfig.usable.includes(item.name)){
 				usable = `<button id='use-${item.id}' class='use' ${disabled}>use ${item_add}</button>`;

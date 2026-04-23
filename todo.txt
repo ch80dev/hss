@@ -1,9 +1,8 @@
 TODO           
     work
         beat up guy
-    gamble causes NaN when below 0;
     
-    shouldn't be able to drop a crate on anywher except for map_at 1
+    
     BUG clicked something on ground and something else came out and couldn't click anymore
     BUG when I placed a crate, it made inventory NaN
     does expired medicine actually work?
@@ -26,7 +25,7 @@ BUGS
         console.log isn't catching this for some reason
     BUG: street appears to be in indefinite loop. not sure why though 04-21-26
     BUG I can only trade one thing at a time. It won't let me keep trading - not consistent - not able to do it later 04-22-26
-
+    BUG gamble causes NaN when below 0; 04-21-26
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    

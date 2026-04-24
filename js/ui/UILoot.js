@@ -4,7 +4,7 @@ class UILoot{
 		let max_slots = '';
 		let max_weight = '';
 		let auto_loot_on = "";
-		let tent_here = juego.map.get.inspector.fetch_tent(juego.player.fetch_from());
+		let tent_here = juego.map.get.inspector.entity.fetch_tent(juego.player.fetch_from());
 		if (juego.player.state.auto_loot){
 			auto_loot_on = ' checked ';
 		}
@@ -18,10 +18,10 @@ class UILoot{
 		if (!is_loot){
 			txt = `<span class='heading'>Slots</span>: <span class='${max_slots}'>${juego.player.state.inventory.length}/${juego.player.state.inventory_slots}</span> <span class='heading'>Weight</span>: <span class='${max_weight}'>${juego.player.state.inventory_weight.toFixed(1)}/${juego.player.state.max_inventory_weight}</span>`;
 		}
-		if (is_loot && juego.map.get.inspector.is_item_here('crate (placed)', juego.player.fetch_from())){
+		if (is_loot && juego.map.get.inspector.entity.is_item_here('crate (placed)', juego.player.fetch_from())){
 			crate_here = ' in_crate ';
 			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
-		} else if (is_loot && juego.map.get.inspector.is_item_here('tent (placed)', juego.player.fetch_from()) && tent_here != null){
+		} else if (is_loot && juego.map.get.inspector.entity.is_item_here('tent (placed)', juego.player.fetch_from()) && tent_here != null){
 			let disabled = '';
 			if (!juego.player.status.can_they_sleep){
 				disabled = ' disabled ';

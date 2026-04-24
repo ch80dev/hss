@@ -1,55 +1,6 @@
 class Input {
-    
-    number_key_pressed(number){
-        //might need to check if locked
-
-        /*
-        let loot = juego.map.loot[juego.player.fetch_from()];
-        if ((juego.player.state.looting && loot == undefined) 
-            && (!juego.player.state.looting && juego.player.state.socializing == null)){
-            return;
-        }
-        if (juego.player.state.looting && loot.stuff[number - 1] != undefined){
-            juego.player.inventory.take.item(number - 1, juego.map); //3rd parameter added for null
-            return;
-        }
-            */
-        if (juego.player.state.socializing == null){ // is this even possible?
-            return;
-        }
-        let human = juego.get.human(juego.player.state.socializing);        
-        if (human == null){
-            return;
-        }
-        let local_interactions = [...human.interactions];
-        
-        let trade_at = local_interactions.indexOf('trade'); // Let's say we want to double 'b'
-
-        // splice(starting index, how many to delete, what to add)
-        if (trade_at != -1){
-            local_interactions.splice(trade_at + 1, 0, local_interactions[trade_at]);
-        }
-        
-
-        let interaction = local_interactions[number - 1];        
-        if (interaction == undefined){
-            return;
-        }
-        let interaction_id = human.interactions.indexOf(interaction);
-        if (interaction == 'trade' && local_interactions[number] != undefined && local_interactions[number] == 'trade'){
-            juego.player.actions.human.trade(interaction_id, 0, human);
-            return;
-        } else if (interaction == 'trade'){
-            juego.player.actions.human.trade(interaction_id, 1, human);
-            return;
-        }        
-        juego.player.actions.human.interact(interaction_id, human, juego.time, ui)
-        
-    }
-
     press_key(pressed){
         //console.log(pressed, ui.screen_focused, );
-        
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){
             juego.favorites.add_by_type('human', juego.player.state.socializing, juego);
@@ -60,7 +11,6 @@ class Input {
         } else if (pressed == 'Escape' && ui.screen_focused == 'favorites'){
             ui.change_screen('map');        
         } else if (juego.player.state.marking && (pressed.length == 1 || pressed == "Escape")){
-            //need to put acceptable marks
             juego.map.mark(juego.player.fetch_from(), pressed);
         } else if (pressed == 'Shift' && !juego.player.state.fighting){
             juego.player.state.fighting = true;
@@ -78,7 +28,6 @@ class Input {
                 return;
             }
             juego.player.actions.shop.sell_all_recycling(shop);
-
         } else if (pressed == " " && juego.player.state.looting){
             juego.player.inventory.take.all(juego.map, false);
         } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
@@ -86,35 +35,25 @@ class Input {
             juego.next();
         } else if (pressed == 'm' && juego.player.state.marking == false){
             juego.player.state.marking = true;
-            //console.log(juego.player.state.marking);
-        } else if (pressed >= 0 && pressed <= 10){
-            this.number_key_pressed(Number(pressed));
         } 
     }
 
     release_key(pressed){
-        //console.log(pressed);
         if (pressed == 'Shift' && juego.player.state.fighting){
             juego.player.state.fighting = false;
+            ui.refresh.go();
         } else if (pressed == 'm'){
             juego.player.state.marking = false;
-            //console.log(juego.player.state.marking);
-            return;
+            ui.refresh.go();
         }
-        
-        ui.refresh.go();
     }
 
     selecting_directions(id){
-        
         if (id == ""){
             ui.social.directions_selected = null;
-            return;
         } else if (Object.keys(ShopConfig.names).includes(id)){
             ui.social.directions_selected = id;
         }   
-
-        
     }
 
 }

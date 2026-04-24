@@ -11,11 +11,12 @@ class UISocial{
         if (favorite != undefined){
             favorite_symbol = `&#x2605;`;
         }
+		console.log(human.interactions);
 		let txt = `<div id='human_title'><button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> ${human.name} ${human.surname} $${human.money}</div>`;
 		for (let id in human.interactions){			
 			let disabled = '';
 			let interaction = human.interactions[id];
-			
+
 			if ((interaction != 'work' && juego.player.state.stigma > human.max_stigma_tolerance)
 				
 				|| (interaction == 'buy' && juego.player.inventory.get.are_they_full() 
@@ -25,7 +26,7 @@ class UISocial{
 				|| (interaction == 'buy' && juego.player.state.money < human.conversion[id])
 				|| (interaction == 'sell' && (!juego.player.inventory.get.do_they_have(human.resources[id], 1) || human.money < human.conversion[id]))
 				|| (interaction == 'beg' 
-					&& (human.begging_unlocked !== true || human.min_stigma_beg > juego.player.state.stigma || human.money < human.give_when_begged))
+					&& (human.begging_unlocked !== true || human.min_stigma_beg > juego.player.state.stigma || human.money < human.items.give_when_begged))
 				|| (interaction == 'directions' && this.directions_selected == null)
 				|| (interaction == 'directions' && juego.favorites.set.directions.length > 0)
 				|| (interaction == 'gamble' && (human.ante == null || juego.player.state.money < human.ante || human.money < human.ante))
@@ -42,16 +43,16 @@ class UISocial{
 				let first_disabled = '';
 				let second = human.resources[id][first];
 				let second_disabled = '';
-				resource = `${conversion[0]} ${first} [${juego.player.inventory.get.fetch_quantity(first)} / ${human.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.get.fetch_quantity(second)} / ${human.fetch_quantity(second)}] or vice versa`;
-				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.do_they_have(second, conversion[1]) || !juego.player.inventory.get.can_they_take(second, conversion[1])){
+				resource = `${conversion[0]} ${first} [${juego.player.inventory.get.fetch_quantity(first)} / ${human.items.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.get.fetch_quantity(second)} / ${human.items.fetch_quantity(second)}] or vice versa`;
+				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.items.do_they_have(second, conversion[1]) || !juego.player.inventory.get.can_they_take(second, conversion[1])){
 					first_disabled = ' disabled ';
 				}
-				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.do_they_have(first, conversion[0]) || !juego.player.inventory.get.can_they_take(first, conversion[0])){
+				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.items.do_they_have(first, conversion[0]) || !juego.player.inventory.get.can_they_take(first, conversion[0])){
 					second_disabled = ' disabled ';
 				}
 				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
-				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
+				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.items.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
 				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} 1 ${human.resources[id]}</button>`;
 				if (interaction == 'sell' && !ItemConfig.stackable.includes(human.resources[id])){
 					button = this.display_unique_items_to_sell(human.resources[id]);

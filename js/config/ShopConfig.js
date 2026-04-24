@@ -18,16 +18,7 @@ class ShopConfig {
 	}	
 	static motel_room_cost = 50;
 	static num_of_items_in_pawn_shop = 4;
-	static interactions = {
-		food: ['buy'],
-		grocery: ['buy'],
-		hardware: ['buy'],
-		homeless: ['sleep'],
-		motel: ['rent room', 'sleep'],
-		pawn: ['buy', 'sell'],
-		recycling: ['sell'],
-		sports: ['buy'],
-	}
+
 	static names = {
 		food: "Demici's!",
 		grocery: 'Hughes Market',
@@ -48,5 +39,4 @@ class ShopConfig {
 		recycling: ['glass bottle', 'aluminum can', 'plastic bottle'],
 		sports: ['bat', 'knife', 'machete', 'lantern', 'flashlight', 'tent', 'sleeping bag']
 	}
-	static types = ['hardware', 'pawn', 'recycling', 'motel'];
 }

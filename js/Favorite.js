@@ -6,28 +6,25 @@ class Favorite{
 	} 
 	add(set_type, set_id, location, x, y, path, need){
 		let favorite = this.fetch_by_id(set_type, set_id);
-		console.log(favorite);
 		if (favorite == undefined){
 			this.set[set_type].push({id: set_id, location: location, x:x, y:y, path: path, need: need});
-			console.log(this.set[set_type]);
 		} else if (favorite != undefined){
 			this.delete(set_type, set_id);		
 		}
 	}
 
 	add_human_not_here(id, location, x, y){
-		console.log(id, location, x, y, juego.player.state.location, juego.player.state.x, juego.player.state.y)
+		c//onsole.log(id, location, x, y, juego.player.state.location, juego.player.state.x, juego.player.state.y)
 		let human_at = juego.map.format_at(location.type, location.id, x, y);
 		let path = juego.map.get.navigator.find_path(juego.player.state.location, location);
-		let exits = juego.map.get.navigator.fetch_exits_for_path(path);
-		console.log(path, exits);
+		let exits = juego.map.get.navigator.entity.fetch_exits_for_path(path);
 		this.add('human', id, location, x, y, exits, []);
 	}
 	add_shop_not_here(shop, path ){
 		this.add('shop', shop.id, shop.location, shop.x, shop.y, path, []);
 	}
     add_by_type(type, id, juego){
-		console.log(type, id, juego);
+		//console.log(type, id, juego);
 		let favorite_target = juego.get.human(id);
 		if (type == 'shop'){
 			favorite_target = juego.get.shop(id);
@@ -35,10 +32,7 @@ class Favorite{
 		this.add(type, id, { type: juego.player.state.location.type, id: juego.player.state.location.id }, favorite_target.x, favorite_target.y, [], []);
 		if (type == 'directions'){
 			juego.map.generator.shop.reset_queue();
-			
-			
 		}
-		
 	}
 
 	add_for_directions(path, need){
@@ -76,7 +70,6 @@ class Favorite{
 	}
 
     is_here(at){
-		
 		let location_type = at.split('-')[0];
 		let location_id = Number(at.split('-')[1]);
 		let x = Number(at.split('-')[2]);
@@ -90,7 +83,6 @@ class Favorite{
 					|| favorite[id].path.includes(at)){
 					return true;
 				}
-
 			}
 		}
 		return false;
@@ -122,10 +114,8 @@ class Favorite{
 		}
 		let location = {type: to.split('-')[0], id: Number(to.split('-')[1]) };
 		let next_location_type = directions.need.shift();
-		let unused_exit = map.get.inspector.fetch_unused_exit(next_location_type, location);
-		
+		let unused_exit = map.get.inspector.entity.fetch_unused_exit(next_location_type, location);
 		directions.path.push(map.format_at(location.type, location.id, unused_exit.x, unused_exit.y));
-		
 	}
 
 }

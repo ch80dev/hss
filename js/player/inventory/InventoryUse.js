@@ -41,7 +41,7 @@ class InventoryUse{
         let item = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
         item.durability -= usage_cost;
         if (item.durability <= 0){
-            this.player.inventory.delete(null, this.player.state.equipped.hand);            
+            this.player.inventory.move.delete(null, this.player.state.equipped.hand);            
             this.player.state.equipped.hand= null;
             
         }
@@ -51,7 +51,6 @@ class InventoryUse{
     item(id, map){
         let item = this.player.inventory.fetch.by_id(id);
         let medicine_works = rand_num(1, 3) == 1;
-        //console.log(id, item);
         if (!this.player.inventory.get.can_they_use(item.name, map)){
             console.log('cant use');
             return;
@@ -88,13 +87,10 @@ class InventoryUse{
                 gain = Math.round(ItemConfig.medicine_gain[1] / 2);
             }
             this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], gain));
-            
         }
-
         if (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability == 0){
             this.player.status.change_sickness(rand_num(ItemConfig.spoiled_sick_gain[0], ItemConfig.spoiled_sick_gain[1]));
         }
-
         if (ItemConfig.stackable.includes(item.name)){
             item.quantity --;
             if (item.quantity > 0){
@@ -102,7 +98,6 @@ class InventoryUse{
             }
         }
         this.player.inventory.move.delete(null, id);
-        
     }
 
     light(){
@@ -111,7 +106,6 @@ class InventoryUse{
             return;
         }
         let light = this.player.inventory.fetch.by_id(this.player.state.equipped.light);
-
         light.durability -= ItemConfig.light_durability_uses[light.name];
         if (light.durability < 1){
             ui.log (`You broke your ${light.name}.`);
@@ -119,6 +113,7 @@ class InventoryUse{
             this.player.state.equipped.light= null;
         }
     }
+
     weapon(){
 
         if (this.player.state.equipped.hand== null 
@@ -136,7 +131,6 @@ class InventoryUse{
             ui.log(`You broke your ${item.name}.`);
             this.player.inventory.move.delete(null, this.player.state.equipped.hand);
             this.player.state.equipped.hand= null;
-            
         }
     }
 

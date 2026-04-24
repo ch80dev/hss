@@ -1,13 +1,9 @@
-#auto_loot_container{
-    text-align: center;
-    margin-bottom: 25px;
-    margin-top: 5px;
-}
 
 body{ 
     background: #111111;
     color: grey;
 }
+
 #bottom {
     width: 100%;
     text-align : center;
@@ -17,18 +13,16 @@ body{
   right: 0;
   bottom: 0;
 }
+
 :root{
     --top-bar-height: 28px;
     --status-bar-height: 24px;
 }
+
 body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
 
-#equipped {
-    text-align: center;
-    width: 100%;
-}
 
 .favorite_entry{
     color: white;
@@ -47,9 +41,6 @@ body:has(#loot:not(.hidden)){
 .hidden{
     display: none;
 }
-.in_crate{
-    margin-left: 25px;
-}
 
 .interact, .sell_to_shop, .sell_all_to_human{
     font-size: 25px;
@@ -60,9 +51,7 @@ body:has(#loot:not(.hidden)){
     display: none !important;
 }
 
-#stigma_container{
-    color: black;
-}
+
 
 html, body{
     height: 100%;
@@ -75,138 +64,34 @@ html, body{
     color: hsl(0, 0%, 100%);
 }
 
-.item{    
-    cursor: pointer;
-}
-
-.item_container{
-    padding-left: 25px;
-    padding-bottom: 10px;
-}
-
-#loot{
-    position: relative;
-    height: calc(100vh - (var(--top-bar-height) + var(--status-bar-height)));
-    overflow: visible;
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
-}
-
-#loot_panels{
-    display: flex;
-    gap: 8px;
-    min-height: 0;
-    max-height: calc(100vh - (var(--top-bar-height) + var(--status-bar-height)) - 60px);
-}
-
-#loot_container, #loot_inventory{
-    background: lightgray;
-    flex: 1;
-    border: 1px black solid;
-    box-sizing: border-box;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.max{
-    color: red;
-}
-
-#close_loot_div{
-    width: 100%;
-
-    min-height: 50px;
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-#close-loot, #take_all_loot{
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 25px;
-    box-sizing: border-box;
-    cursor: pointer;
-    border: none;
-}
-
-#take_all_loot{
-    font-size: 25px;
-    padding: 10px;
-}
-#status {
-    text-align: center;
-    height: var(--status-bar-height);
-    line-height: var(--status-bar-height);
-    color: white;
-}
 
 
-#health_bar{
-    background: red;
-}
+
+
 
 #money, #social_context, #social_menu{
     text-align: center;
 }
+
 #shop{
     text-align: center;
 }
-.low_stamina{
-    color: red;
-}
-#stamina_bar{
-    background: green;
-}
 
-#stigma_bar{
-    background: yellow;
-    color: black;
-}
-.status_bar_container{
-    height: 30px;
-    text-align: center;
 
-    position: relative;
-    width: 25%;
-    float: left;
-    background: grey;
-    border: 1px black solid;
-}
 
-.status_bar{
-    height: 30px;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    position: absolute;
-}
-#status_bar_buffer{
-    width: 12%;
-    position: relative;
-    float: left;
-}
 #location_name {
     text-align: center;
+}
 
 
-}
-#sickness_container, #status_bars{
-    width: 100%;
-    clear:both;
-}
+
 .screen{
     width: 100%;
     clear: both;
 }
-.status_caption {
-    position: absolute;
-    z-index: 2;
-    font-size: 20px;
-    width: 100%;
 
-}
+
+
 #top {
     width: 100%;
     text-align: center;
@@ -216,21 +101,3 @@ html, body{
 }
 
 
-.use, .equip, #unequip{
-    float: right;
-}
-
-.use{
-    background: green;
-}
-.equip{
-    background: black;
-    color: white;
-}
-
-#unequip{
-    background: grey;
-}
-.item_container{
-    width: 75%;
-}

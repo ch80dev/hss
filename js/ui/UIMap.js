@@ -11,7 +11,7 @@ class UIMap {
 				let human = juego.get.human_by_loc(juego.player.state.location.type, juego.player.state.location.id, x, y);
 				let loot = juego.map.loot[`${juego.player.state.location.type}-${juego.player.state.location.id}-${x}-${y}`];
 				let map_at = juego.map.get.at(x, y);
-				let mark = juego.map.get.inspector.fetch_mark(juego.player.state.location.type, juego.player.state.location.id, x, y);
+				let mark = juego.map.get.inspector.entity.fetch_mark(juego.player.state.location.type, juego.player.state.location.id, x, y);
 				let rat = juego.get.rat(juego.player.state.location.type, juego.player.state.location.id, x, y);
 				let is_lit = false;
 				let has_flashlight = juego.player.inventory.get.is_equipped_with('flashlight');
@@ -42,7 +42,7 @@ class UIMap {
 					cell_class = ' favorite ';
 				}
 				// 3. The "Darkness" Skip
-				if (juego.night && !is_lit && !juego.map.get.inspector.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y)) {
+				if (juego.night && !is_lit && !juego.map.get.inspector.entity.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y)) {
 					// We draw the ID so the DOM stays consistent, but the content is blank
 					txt += `<div id='cell-${x}-${y}' class='cell dark ${cell_class}'></div>`;
 					continue;
@@ -71,7 +71,7 @@ class UIMap {
 					cell_txt = MapConfig.cell_txt['player'];
 					
 				} else if (map_at != null && map_at != 1  
-					&& juego.map.get.inspector.have_they_used_this_exit(juego.player.state.location.type, 
+					&& juego.map.get.inspector.entity.have_they_used_this_exit(juego.player.state.location.type, 
 					juego.player.state.location.id, x, y)){
 					cell_txt = MapConfig.cell_txt['used_exit'];
 				} else if (map_at != null && map_at > 1 && map_at < 5){

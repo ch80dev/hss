@@ -9,7 +9,6 @@ class Lifeform {
     location = {
         id: null,
         type: null,
-
     }
     money = 0;
     sense_range = null;

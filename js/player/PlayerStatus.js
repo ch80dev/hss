@@ -3,6 +3,7 @@ class PlayerStatus{
         this.player = player;
         this.time = time;
     }
+    
     add_time(hours, minutes){
         this.player.state.hours_delta += hours;
         this.player.state.minutes_delta += minutes;
@@ -41,14 +42,13 @@ class PlayerStatus{
         }
         return changed;
     }
+
     change_money(n){
         n = Number(n);
         this.player.state.money += n;
         if (this.player.state.money < 0){
             this.player.state.money = 0;
         }
-        
-       
     }
 
     change_sickness(n){
@@ -118,19 +118,14 @@ class PlayerStatus{
             return;
         }
         this.player.state.health += rand;
-        
         if (this.player.state.health >= this.player.state.max_health){
             this.player.state.max_health;
         }
-        //console.log(rand, this.player.state.health);
-
     }
 
     player_still_sick(){
         if (this.player.state.sickness >= this.player.state.max_sickness){
-            console.log(this.player.state.sick_hours);
             this.player.state.sick_hours ++;
-            console.log(this.player.state.sick_hours);
         }
     }
 
@@ -142,7 +137,6 @@ class PlayerStatus{
         }
         let rand = Number((rand_num(1, 10) * .1).toFixed(1));
         let health_change = this.change_health(rand);
-        //add a thing to show how much health increaseds        
         juego.next();
         if (!indoors){
             rand = Number((rand_num(1, 15) * .1).toFixed(1));
@@ -155,9 +149,8 @@ class PlayerStatus{
     toggle_auto_loot(where, id, map){
         let item = this.player.inventory.fetch.by_id(id);
         if (where == 'loot'){
-            item = map.get.inspector.fetch_loot(this.player.fetch_from(), id);
+            item = map.get.inspector.entity.fetch_loot(this.player.fetch_from(), id);
         }
-
         if (item == null){
             return;
         }

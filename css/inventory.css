@@ -1,0 +1,90 @@
+#auto_loot_container{
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 5px;
+}
+#equipped {
+    text-align: center;
+    width: 100%;
+}
+.in_crate{
+    margin-left: 25px;
+}
+.item{    
+    cursor: pointer;
+}
+
+.item_container{
+    padding-left: 25px;
+    padding-bottom: 10px;
+}
+
+#loot{
+    position: relative;
+    height: calc(100vh - (var(--top-bar-height) + var(--status-bar-height)));
+    overflow: visible;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+}
+
+#loot_panels{
+    display: flex;
+    gap: 8px;
+    min-height: 0;
+    max-height: calc(100vh - (var(--top-bar-height) + var(--status-bar-height)) - 60px);
+}
+
+#loot_container, #loot_inventory{
+    background: lightgray;
+    flex: 1;
+    border: 1px black solid;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+}
+#close_loot_div{
+    width: 100%;
+
+    min-height: 50px;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+#close-loot, #take_all_loot{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: none;
+}
+
+.max{
+    color: red;
+}
+
+#take_all_loot{
+    font-size: 25px;
+    padding: 10px;
+}
+
+.use, .equip, #unequip{
+    float: right;
+}
+
+.use{
+    background: green;
+}
+.equip{
+    background: black;
+    color: white;
+}
+
+#unequip{
+    background: grey;
+}
+.item_container{
+    width: 75%;
+}

@@ -1,10 +1,22 @@
-TODO           
+TODO      
+    REFACTOR FRIDAY
     work
         beat up guy   
     be able to differentiate between spoiled
-    BUG work kill 0 rats for $0     
-    BUG degradable items being traded
-    BUG NaN money after selling to human presumably
+    BUG work kill 0 rats for $0 04-24-26    
+    BUG degradable items being traded 04-24-26
+    BUG NaN money after selling to human presumably 04-24-26
+    tools still for sale in pawn shop
+    unequip aligning left
+    if too muhc in inventory, you can't move.
+    eating spoiled food should give you stigma
+    if you interact social and work is available, for trash, cancel it if it goes below 10
+    BUG accepted mission and now its claiming stigma too high 04-24-26
+    if inventory full by slots, I should still be able to stack shit I have
+    show work missions on favorite and uatomatically favorite them when you accept the quest
+    BUG screw driver went to -10% and didn't unequip 04-24-26
+    set up max stigma for shops
+    implement numbers right
 BUGS
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason

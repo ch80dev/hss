@@ -46,7 +46,7 @@ class GameMap {
         this.locations.alley.push(this.grid);
         this.next_new_street = this.generator.generate_street_name();
         this.names.alley.push({connecting: [this.next_new_street], length: { [this.next_new_street]: null} });
-        this.generator.lights.generate_for_alley();
+        this.generator.lights.generate();
     }
     delete_loot(at, id){
         for (let stuff_arr_id in this.loot[at].stuff){

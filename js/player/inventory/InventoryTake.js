@@ -5,16 +5,16 @@ class InventoryTake {
     from_human(name, quantity, human){
         
         //console.log(name, quantity, human);
-        if (!human.do_they_have(name, quantity)){
+        if (!human.items.do_they_have(name, quantity)){
             console.log("error: they don't got this.");
             return;
         } else if (!this.player.inventory.get.can_they_take(name, quantity)){
             console.log('error');
             return;
         }
-        let npc_item = human.fetch_item(name);
+        let npc_item = human.items.fetch(name);
         if (npc_item.quantity == quantity){
-            human.delete_item(name);
+            human.items.delete(name);
         } else {
             npc_item.quantity -= quantity;
         }
@@ -57,24 +57,19 @@ class InventoryTake {
             if (status === false){
                 id ++;
             }
-            
-            
         }
         return taken;
-        
     }
 
     item(id, map, take_all_id){
-        //you should be able to take stuff when adjacent but not now
         let at = this.player.fetch_from();
-        
-        console.log('BUG', map.get.inspector.fetch_loot(at, id));
+        console.log('BUG', map.get.inspector.entity.fetch_loot(at, id)); //04/24/26 not sure when it got put in
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
-            && !this.player.inventory.get.can_they_take(map.get.inspector.fetch_loot(at, id).name, map.get.inspector.fetch_loot(at, id).quantity))){
+            && !this.player.inventory.get.can_they_take(map.get.inspector.entity.fetch_loot(at, id).name, map.get.inspector.entity.fetch_loot(at, id).quantity))){
             return false;
         }
-        let loot = map.get.inspector.fetch_loot(at, id);
+        let loot = map.get.inspector.entity.fetch_loot(at, id);
         let txt = `${loot.quantity} ${loot.name}`;
         if (Object.keys(ItemConfig.food_gain).includes(loot.name) && loot.durability < 1){
             txt += " (spoiled)";

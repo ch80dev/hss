@@ -28,7 +28,7 @@ class Rat extends Lifeform{
         }
         let adjacent_open = this.map.get.inspector.fetch_adjacent(this.x, this.y, 1, true);
         let away_from_player = this.map.get.geometry.fetch_delta(this.x, this.y, this.player.state.x, this.player.state.y);
-        let searching_for_food = this.map.get.inspector.search_for_food(this.x, this.y, this.sense_range);
+        let searching_for_food = this.map.get.inspector.entity.search_for_food(this.x, this.y, this.sense_range);
         if (!this.hungry && distance_to_player <= this.sense_range){
             //console.log('away');
             this.delta = this.run_away(this.player.state.x, this.player.state.y);

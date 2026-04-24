@@ -19,7 +19,6 @@ class InventoryQueries{
     can_they_take(name, quantity){
         let weight = this.fetch_weight(name, quantity);
         if (weight + this.player.state.inventory_weight >= this.player.state.max_inventory_weight){
-            console.log('a');
             return false;
         } else if (ItemConfig.stackable.includes(name) && this.is_in_inventory(name)){
             return true;
@@ -31,23 +30,18 @@ class InventoryQueries{
 
     can_they_use(name, map){
         if ((name == 'lighter' && !this.is_in_inventory('fuel')) 
-            || (name == 'crate' && map.get.inspector.is_item_here('crate (placed)', this.player.fetch_from()))
+            || (name == 'crate' && map.get.inspector.entity.is_item_here('crate (placed)', this.player.fetch_from()))
             || (name == 'crate' && map.get.at(this.player.state.x, this.player.state.y) != 1)){
             return false;
-
         }
         return ItemConfig.usable.includes(name);
     }
     
     do_they_have(what, quantity){
-        //console.log(what, quantity);
         if (!this.is_in_inventory(what)){
-            //console.log("not_in_inventory");
             return false;
         }
-        //console.log(this.player.state.inventory);
         for (let item of this.player.state.inventory){
-            //console.log(item, what, quantity);
             if (item.name == what && item.quantity >= quantity){
                 return true;
             }
@@ -63,10 +57,7 @@ class InventoryQueries{
         return item.quantity;
     }
 
-
-
     fetch_weight(name, quantity){
-        //console.log(name, quantity, ItemConfig.weights[name]);
         return ItemConfig.weights[name] * quantity;
     }
 

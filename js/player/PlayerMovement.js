@@ -10,13 +10,10 @@ class PlayerMovement{
     explore(exit_id, map, juego){   
         let from = this.player.fetch_from();
         let coming_from = { type: this.player.state.location.type, id: this.player.state.location.id };
-        if (map.get.inspector.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
-            
+        if (map.get.inspector.entity.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
             let to_id = exits_to.split('-')[1];
-            
-            //console.log(`Loading previous location: ${to_type}-${to_id}`);
             let to_x = exits_to.split('-')[2];
             let to_y = exits_to.split('-')[3];
             map.load(to_type, to_id);
@@ -30,8 +27,6 @@ class PlayerMovement{
         }
         map.wipe();  
         let start = map.generator.location.generate(MapConfig.exit_types[exit_id], this.player.state.location.type);   
-        
-        //console.log(`Exploring to: ${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}`);
         map.locations[MapConfig.exit_types[exit_id]].push(map.grid);
         let to = `${MapConfig.exit_types[exit_id]}-${map.locations[MapConfig.exit_types[exit_id]].length - 1}-${start.x}-${start.y}`;
         this.player.state.location.type = MapConfig.exit_types[exit_id];
@@ -42,7 +37,6 @@ class PlayerMovement{
         map.generator.lights.generate();     
         this.player.state.x = start.x;
         this.player.state.y = start.y;
-        
         map.exits[from] = to;
         map.exits[to] = from;
         juego.favorites.process(from, to, map);

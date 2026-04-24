@@ -1,10 +1,12 @@
 class PlayerActions {
+    
     constructor(player){
         this.player = player;
         this.human = new PlayerHuman(player);        
         this.shop = new PlayerShop(player);
         this.trash = new PlayerTrash(player);
     }
+
     attack(x, y, juego){
         let map_at = juego.map.get.at(x, y);
         let target = null;
@@ -80,7 +82,7 @@ class PlayerActions {
     sleep_in_tent(map){
         let caption = "";
         let loot = map.loot[this.player.fetch_from()];
-        let tent = map.get.inspector.fetch_tent(this.player.fetch_from());
+        let tent = map.get.inspector.entity.fetch_tent(this.player.fetch_from());
         console.log(tent);
         if(tent == null || !this.player.status.can_they_sleep()){
             return;

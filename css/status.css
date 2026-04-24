@@ -1,0 +1,68 @@
+#health_bar{
+    background: red;
+}
+
+.low_stamina{
+    color: red;
+}
+
+#sickness_container, #status_bars{
+    width: 100%;
+    clear:both;
+}
+
+#stamina_bar{
+    background: green;
+}
+
+
+.status_bar_container{
+    height: 30px;
+    text-align: center;
+    position: relative;
+    width: 25%;
+    float: left;
+    background: grey;
+    border: 1px black solid;
+}
+
+.status_bar{
+    height: 30px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    position: absolute;
+}
+
+
+#status_bar_buffer{
+    width: 12%;
+    position: relative;
+    float: left;
+}
+
+
+
+
+#status {
+    text-align: center;
+    height: var(--status-bar-height);
+    line-height: var(--status-bar-height);
+    color: white;
+}
+
+.status_caption {
+    position: absolute;
+    z-index: 2;
+    font-size: 20px;
+    width: 100%;
+}
+
+#stigma_bar{
+    background: yellow;
+    color: black;
+}
+
+#stigma_container{
+    color: black;
+}

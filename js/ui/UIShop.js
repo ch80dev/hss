@@ -42,7 +42,7 @@ class UIShop{
         if (!can_they_sleep){
             timer = ` (available in ${player.status.fetch_time_til_they_can_sleep()}h)`;
         }
-        let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_homeless_shelter' ${disabled}>sleep ${timer}</button>`;
+        let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_shop' ${disabled}>sleep ${timer}</button>`;
         return txt;
     }
 

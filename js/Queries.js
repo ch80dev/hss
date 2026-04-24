@@ -69,7 +69,7 @@ class Queries{
 		}
 		if (target_shop != null && target_shop.location != null){
 			let path = map.get.navigator.find_path(human.location, target_shop.location);
-			let exits = map.get.navigator.fetch_exits_for_path(path);
+			let exits = map.get.navigator.entity.fetch_exits_for_path(path);
 			favorites.add_shop_not_here(target_shop, exits);			
 			ui.log("They give you directions to " + what);
 			return;
@@ -78,7 +78,7 @@ class Queries{
 		if (map.unused_exits.street > 0){
 			let nearest = map.get.navigator.find_nearest('street', human.location);
 			console.log('BUG', nearest);
-			let exits = map.get.navigator.fetch_exits_for_path(nearest.path);
+			let exits = map.get.navigator.entity.fetch_exits_for_path(nearest.path);
 			let last_loc = nearest.path[nearest.path.length - 1];
 			exits.push(nearest.exit);
 			favorites.add_for_directions(exits, []);
@@ -89,7 +89,7 @@ class Queries{
 		//this makes an assumption that the starting alley has another alley that you can go to
 		map.generator.location.exit_queue.push('street');
 		let nearest = map.get.navigator.find_nearest('alley', human.location);
-		let exits = map.get.navigator.fetch_exits_for_path(nearest.path);
+		let exits = map.get.navigator.entity.fetch_exits_for_path(nearest.path);
 		let last_loc = nearest.path[nearest.path.length - 1];
 		exits.push(nearest.exit);
 		favorites.add_for_directions(exits, ['street']);

@@ -28,16 +28,6 @@ class Shop{
         this.resources = ShopConfig.resources[type];
         this.max_stigma = ShopConfig.max_stigma[type];
     }
-    sleep_at_homeless_shelter(player, time){
-        let time_delta = 24 - (time.hours + ShopConfig.homeless_out) + 12;
-        player.status.add_time(time_delta, 0)
-        player.status.sleep(true, true);
-        
-        
-        ui.sleeping = true;
-        ui.change_screen('map');
-        player.state.shopping = false;
-    }
 
     rent_a_room(player){
         if (player.state.money < ShopConfig.motel_room_cost){
@@ -49,17 +39,21 @@ class Shop{
 
     }
 
-    sleep(player){
+    sleep(player, time){
         if(this.type == 'motel' && this.room_rented_at == null){
             return;
-
         }
+        let time_delta = 8;
         if(this.type == 'motel'){   
-            player.status.add_time(8, 0)         
-            player.status.sleep(true, true);
-            this.room_rented_at == null; // eventually do time
-            return;
+            this.room_rented_at == null; 
+        } else if (type == 'homeless'){ // put in a check to make sure its right time for check in
+            time_delta = 24 - (time.hours + ShopConfig.homeless_out) + 12;
         }
+        player.status.add_time(time_delta, 0)
+        player.status.sleep(true, true);
+        player.state.shopping = false;
+        ui.sleeping = true;
+        ui.change_screen('map');
     }
 
     stock_pawn_shop(){

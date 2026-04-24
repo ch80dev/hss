@@ -4,8 +4,6 @@ class Populator{
         this.player = player;
     }
 
-
-
 	with_humans(location_type, location_id, humans){
         let num_of_humans = rand_num(MapConfig.min_num_of_humans[location_type], MapConfig.max_num_of_humans[location_type]);
 		let id = humans.length;		

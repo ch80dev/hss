@@ -43,7 +43,7 @@ class PlayerShop{
 
     enter(x, y, map){
         
-        let shop_on_map = map.get.inspector.fetch_shop(x, y);
+        let shop_on_map = map.get.inspector.entity.fetch_shop(this.player.state.location.type, this.player.state.location.id, x, y);
         if (shop_on_map == null){
             console.log('error');
             return;

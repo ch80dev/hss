@@ -13,6 +13,7 @@ class InventoryMove{
             console.log(delta, this.player.state.inventory.weight);
         }
     }
+
     delete(name, item_id){
         let equipped = { name: null, durability: null };
         if (this.player.state.equipped.hand!= null){
@@ -39,10 +40,6 @@ class InventoryMove{
             }
         }
     }
-
-
-
-
     
     drop_item(id, map){
         let at = this.player.fetch_from();
@@ -52,7 +49,7 @@ class InventoryMove{
             this.player.state.equipped.hand= null;
         }
         juego.quests.process('fetch', -1, name);
-        if (ItemConfig.stackable.includes(item.name) && map.get.inspector.is_item_here(item.name, at)){
+        if (ItemConfig.stackable.includes(item.name) && map.get.inspector.entity.is_item_here(item.name, at)){
             map.stack_items(item.name, item.quantity, at);
             this.delete(null, item.id);
             return;
@@ -64,7 +61,7 @@ class InventoryMove{
         this.delete(null, id);
     }
 
-     give_to_human(name, quantity, human){
+    give_to_human(name, quantity, human){
         if (!this.player.inventory.get.do_they_have(name, quantity)){
             console.log('error');
             return;
@@ -80,10 +77,8 @@ class InventoryMove{
             || (ItemConfig.stackable.includes(name) && item.quantity < 1)){
             this.delete(name, null);                        
         } 
-        human.give(name, quantity);
+        human.items.give(name, quantity);
     }
-
-    
 
     item(from, id, map){ //from world
         //console.log(from, id);

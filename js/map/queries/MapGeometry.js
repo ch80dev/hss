@@ -22,8 +22,6 @@ class MapGeometry{
 	    return Math.sqrt(Math.pow(from_x - to_x, 2) + Math.pow(from_y - to_y, 2))
     }
 
-
-
     fetch_size(){
         let n = 0;
         for (let x = 0; x < MapConfig.max_x; x ++){

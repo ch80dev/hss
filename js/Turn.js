@@ -28,8 +28,6 @@ class Turn{
 			this.time.weeks ++;
 		}
 	}
-	
-	
 
 	next(humans, map, rats){
 	
@@ -45,12 +43,7 @@ class Turn{
 
 	}
 
-
-
-	
-
 	lifeforms_move(humans, map, rats){		
-		
 		for (let id in  rats){					
 			let rat = rats[id];
 			let distance = map.get.geometry.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);

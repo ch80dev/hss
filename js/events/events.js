@@ -1,0 +1,35 @@
+document.addEventListener('keydown', (event) => {
+   let key_pressed = event.key;
+   juego.input.press_key(key_pressed);
+   ui.refresh.go();
+
+});
+
+document.addEventListener('keyup', (event) => {
+   let key_pressed = event.key;
+   juego.input.release_key(key_pressed);
+});
+
+$(document).on('click', '.cell:not(.empty)', function() {
+    juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
+    ui.refresh.go();
+});
+
+$(document).on('click', '.close', function() {
+    juego.player.state.looting = false;
+    juego.player.state.socializing = null;
+    ui.change_screen('map');
+    ui.refresh.go();
+});
+
+$(document).on('click', '.favorite', function() {
+    juego.favorites.add_by_type(this.id.split('-')[1], Number(this.id.split('-')[2]), juego);
+    ui.refresh.go();
+});
+
+for (let button of document.querySelectorAll('button')){
+	button.addEventListener('click', function(e){
+        console.log('yass');
+		ui.refresh.go();
+	});
+}

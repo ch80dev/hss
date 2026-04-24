@@ -49,17 +49,31 @@ class Turn{
 			let distance = map.get.geometry.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
 			if (rat.dead || rat.location.type != this.player.state.location.type || rat.location.id != this.player.state.location.id){
 				continue;
+			} else if (rat.unconscious_for != 0){
+				rat.unconscious_for --;
+				if (rat.unconscious_for == 0){
+					ui.log(`A rat regained consciousness!`);
+				}
+				continue;
 			}
 
 			if (rat.attacking_player && distance < 2 ){
 				rat.attack_player(juego.player);
+			} else {
+				rat.move(id);
+
 			}
-			rat.move(id);
 		}
 		for (let id in  humans){
 			let human = humans[id];					
 			let distance = map.get.geometry.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
 			if (human.dead){
+				continue;
+			} else if (human.unconscious_for != 0){
+				human.unconscious_for --;
+				if (human.unconscious_for == 0){
+					ui.log(`${human.name} ${human.surname} regained consciousness!`);
+				}
 				continue;
 			}
 		

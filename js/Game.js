@@ -36,6 +36,12 @@ class Game{
 	
 	next(){
 		this.turn.next(this.humans, this.map, this.rats);
+		for (let i = 0; i < this.player.state.unconscious_for; i ++){
+			this.turn.next(this.humans, this.map, this.rats);
+			if (i == 0){
+				this.player.state.unconscious_for = 0;
+			}
+		}
 		if (!this.night && this.time.hours >= Config.night_time){
 			ui.log("It's night time now.")
 			this.night = true;

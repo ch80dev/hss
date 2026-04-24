@@ -32,6 +32,9 @@ class PlayerStatus{
 
     change_health (n){
         this.player.state.health += n;
+        if (n < 0 && rand_num(1, 100) > this.player.state.health){
+            this.go_unconscious();
+        }
         let changed = n;
         if (this.player.state.health >= this.player.state.max_health){
             changed = this.player.state.health - this.player.state.max_health - n;
@@ -112,15 +115,27 @@ class PlayerStatus{
         return rand_num(1, max_dmg);
     }
 
+    go_unconscious(){
+        if (this.player.state.unconscious_for != 0){
+            return;
+        }
+        let unconscious_for = rand_num(1, Config.init_unconscious);
+        if (this.player.state.last_unconsious != null){
+            unconscious_for = rand_num(Math.ceil(this.player.state.last_unconsious / 2), Math.round(this.player.state.last_unconsious * 1.5));
+        }
+        this.player.state.last_unconsious = unconscious_for;
+        this.player.state.unconscious_for = unconscious_for;
+        ui.log("You lost consciousness.");
+        ui.sleeping = true;
+
+    }
+
     heal(){
         let rand = Number((rand_num(1, 10) * .1).toFixed(1));
         if (this.player.state.health >= this.player.state.max_health){ 
             return;
         }
-        this.player.state.health += rand;
-        if (this.player.state.health >= this.player.state.max_health){
-            this.player.state.max_health;
-        }
+        this.player.change_health(rand);
     }
 
     player_still_sick(){

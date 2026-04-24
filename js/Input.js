@@ -1,6 +1,9 @@
 class Input {
     press_key(pressed){
         //console.log(pressed, ui.screen_focused, );
+        if (ui.sleeping || juego.player.state.unconscious_for > 0){
+            return;
+        }
         let directions = ['right', 'left', 'down', 'up'];
         if (pressed == 'f' && juego.player.state.socializing != null){
             juego.favorites.add_by_type('human', juego.player.state.socializing, juego);
@@ -39,6 +42,9 @@ class Input {
     }
 
     release_key(pressed){
+        if (ui.sleeping || juego.player.state.unconscious_for > 0){
+            return;
+        }
         if (pressed == 'Shift' && juego.player.state.fighting){
             juego.player.state.fighting = false;
             ui.refresh.go();

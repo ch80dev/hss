@@ -111,9 +111,13 @@ class PlayerMovement{
             this.player.actions.trash.search(this.player.state.x, this.player.state.y, map)
             return;
          } else if (MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) 
+
             && target != null && target.dead){
                 console.log('d');
             this.player.actions.loot_corpse(map, juego);
+        } else if (MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) 
+            && target != null && target.unconscious_for != 0){
+            this.player.actions.loot_unconscious(map, juego);
         }
         ui.fade_status("");
         

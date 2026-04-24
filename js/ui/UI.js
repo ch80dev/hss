@@ -20,13 +20,10 @@ class UI{
 
 	fade_for_sleep(){
 		let opacity =  Number($("body").css('opacity'));
-		
 		opacity = opacity - .03;
 		$('body').css('opacity', opacity);
-
-
 		if (ui.sleeping && opacity > 0){
-			setTimeout(this.ui.fade_for_sleep, 100);
+			setTimeout(ui.fade_for_sleep, 100);
 		} else {
 			$('body').css('opacity', 1);
 			ui.sleeping = false;			

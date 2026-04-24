@@ -16,6 +16,7 @@ class Lifeform {
     max_health = null;
     max_stamina = null;
     type = null;
+    unconscious_for = 0;
     x = null;
     y = null;
 
@@ -25,9 +26,8 @@ class Lifeform {
         this.map = map;
         this.x = x;
         this.y = y;
-        this.inventory.push({ name: `raw meat (${type})`, quantity: ItemConfig.meat[type], durability: 100 })
         let lifeform = Config.lifeforms[type]
-        for (let attr in lifeform){
+        for (let attr in lifeform){ //initializes max health and max stamina
             let value = lifeform[attr];
             this[attr] = value;
         }
@@ -39,13 +39,13 @@ class Lifeform {
 
     attack_player(player){
         this.stamina += Config.stamina_cost.attack;
-        let did_they_hit = rand_num(1, 100) <= this.stamina;
+        let did_they_hit = rand_num(1, this.max_stamina) <= this.stamina;
         let distance = this.map.get.geometry.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
         if (Math.floor(distance) > 1){ //if shooting, do something else
             return;
         }
         if (!did_they_hit){
-            ui.log(`A ${this.type} missed.`);
+            ui.log(`A ${this.type} missed. [${this.stamina}]`);
             return;
         }        
         let dmg = rand_num(1, this.damage);
@@ -66,12 +66,16 @@ class Lifeform {
             this.attacking_player = true;
         }
         this.health -= dmg;
+        
         if (this.health <= 0){
             this.health = 0;
             this.die();
-            
-        }
+            return;
+        } 
         
+        if (true){//rand_num(1, this.max_health) > this.health){
+            this.go_unconscious();
+        }
 
     }
 
@@ -92,6 +96,20 @@ class Lifeform {
         }
         this.x = x;
         this.y = y;
+    }
+    
+    go_unconscious(){
+        let txt = '';
+        if (this.unconscious_for == 0){
+            txt += `A ${this.type} lost consciousness.`;
+        }
+        this.unconscious_for += rand_num(1, 15);
+        if (txt != ''){
+            ui.log(txt);
+        }
+        
+
+
     }
 
     is_blocked(x, y){

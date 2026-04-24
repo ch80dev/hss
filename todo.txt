@@ -65,3 +65,5 @@ DESIGN
     can't meaningfully keep track of where stuff instead
         what if you can create chalk marks ? YES
     with marking, I can keep track of stuff but it still feels very overwhelming. like i feel like there's a good trade route somewhere but I can't meaningfully keep track in any way
+        resolved
+    NPCs don't heal

@@ -11,7 +11,7 @@ class Config {
 	
 	static days_of_the_week = ["Monday", "Tuesday", "Wednesday", "Thursday", 'Friday', "saturday", "Sunday"];
 	static day_time = 6;
-	static night_time = 20;
+	static init_unconscious = 15;
 	static lifeforms = {
 		human: {
 			sense_range: 10,
@@ -25,8 +25,10 @@ class Config {
 		}
 	}
 	static loop_interval_timing = 1000;
+	static night_time = 20;
+
 	static rat_movement_cost = .1;
-	
+
 	
 	
 

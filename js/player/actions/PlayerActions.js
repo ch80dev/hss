@@ -26,7 +26,9 @@ class PlayerActions {
             if (target.money > 0 && target.health < 1){
                 money_caption = ` You took $${target.money} from them. `;
             }
-            if (target.health < 1){                                
+            if (target.health < 1){      
+                target.inventory.push({ name: `raw meat (${target.type})`, quantity: ItemConfig.meat[target.type], durability: 100 })
+                          
                 juego.map.loot[juego.map.format_at(this.player.state.location.type, this.player.state.location.id, x, y)] = { stuff: null };
                 juego.map.loot[juego.map.format_at(this.player.state.location.type, this.player.state.location.id, x, y)].stuff = target.inventory;
                 this.player.state.money += target.money;
@@ -67,16 +69,27 @@ class PlayerActions {
         
         ui.log(msg);
     }
-
+    loot_body(map, juego){
+       
+        ui.change_screen('loot');
+        this.player.state.looting = true;
+    }
     loot_corpse(map, juego){
 
+        this.loot_body(map, juego);
+    }
+
+    loot_unconscious(map, juego){
         let target = juego.get.target(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y);
         if (target == null){
             return;
         }
-        ui.change_screen('loot');
-        this.player.state.looting = true;
-
+        if (target.inventory != null){
+            juego.map.loot[this.player.fetch_from()] = { stuff: null };
+            juego.map.loot[this.player.fetch_from()].stuff = target.inventory;
+            target.inventory = null;
+        }
+        this.loot_body(map, juego);
     }
 
     sleep_in_tent(map){

@@ -17,6 +17,7 @@ class PlayerState{
     inventory_slots = 8;
     inventory_weight =  0;
     last_slept = { days: 1, hours: 8 };
+    last_unconscious = null;
     light_equipped = null;
     location = {
         id: 0,
@@ -40,7 +41,7 @@ class PlayerState{
     stigma = 0;
     sick_hours = 0;
     sickness = 0;
-
+    unconscious_for = 0;
     x = null;
     y = null;
     constructor(x, y, player){

@@ -1,9 +1,11 @@
 class UISocial{
 	directions_selected = null;
+	button_num = 1;
     display(){
 		if (juego.player.state.socializing == null){
 			return;
 		}
+		this.button_num = 1;
 		let human = juego.get.human(juego.player.state.socializing);
 		//console.log(human);
 		let favorite = juego.favorites.fetch_by_id('human', human.id);
@@ -33,7 +35,7 @@ class UISocial{
 				){
 				disabled = ' disabled ';			
 			}
-			let button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction}</button>`;
+			let button = `<button id='interact-${id}' class='interact button_${this.button_num}' ${disabled}>${interaction}</button>`;
 			
 			let resource = "";
 			if (typeof human.resources[id]  == 'object' && interaction == 'trade'){
@@ -49,14 +51,14 @@ class UISocial{
 				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.items.do_they_have(first, conversion[0]) || !juego.player.inventory.get.can_they_take(first, conversion[0])){
 					second_disabled = ' disabled ';
 				}
-				button = `<button id='trade-${id}-0' class='trade interact' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
+				button = `<button id='trade-${id}-0' class='trade interact button_${this.button_num}' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact button_${++this.button_num}' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
 			} else if (human.resources[id] != null && (interaction == 'buy' || interaction == 'sell')){
 				resource = `${human.resources[id]} [${juego.player.inventory.get.fetch_quantity(human.resources[id])} / ${human.items.fetch_quantity(human.resources[id])}] for $${human.conversion[id]} `;
-				button = `<button id='interact-${id}' class='interact' ${disabled}>${interaction} 1 ${human.resources[id]}</button>`;
+				button = `<button id='interact-${id}' class='interact button_${this.button_num}' ${disabled}>${interaction} 1 ${human.resources[id]}</button>`;
 				if (interaction == 'sell' && !ItemConfig.stackable.includes(human.resources[id])){
 					button = this.display_unique_items_to_sell(human.resources[id]);
 				} else if (interaction == 'sell'){
-					button += `<button id='sell_all_to_human-${id}' class='sell_all_to_human' ${disabled}>${interaction} all ${human.resources[id]}</button>`
+					button += `<button id='sell_all_to_human-${id}' class='sell_all_to_human button_${++this.button_num}' ${disabled}>${interaction} all ${human.resources[id]}</button>`
 				} 
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
@@ -86,7 +88,7 @@ class UISocial{
 				button = '';
 			} else if (interaction == 'work' && human.quest.accepted && human.quest.completed){
 				resource = " [ COMPLETED ]";
-				button = `<button id='complete_quest'>complete</button>`;
+				button = `<button id='complete_quest' class='button_${this.button_num}'>complete</button>`;
 			} else if (interaction == 'work' && !human.quest.accepted){				
 				resource = human.quest.narrate;	
 			} else if (interaction == 'work' && human.quest.accepted){
@@ -94,30 +96,34 @@ class UISocial{
 				if (quest == null){
 					continue;
 				}
-				button = `<button id='cancel_quest'>cancel</button>`;
+				button = `<button id='cancel_quest' class='button_${this.button_num}'>cancel</button>`;
 				resource = `${human.quest.narrate}  [${quest.current}/${human.quest.quantity}]`;				
 			} else if (interaction == 'gamble' && human.gambled != null && human.ante != null){
 				resource = "Keep going?";
-				button = `<button id='cash_out'>cash out $${human.gambled_and_won}</button><button id='bet' ${disabled}>gamble ${human.ante}</button>`;
+				button = `<button id='cash_out' class='button_${this.button_num}'>cash out $${human.gambled_and_won}</button><button id='bet' class='button_${++this.button_num}' ${disabled}>gamble ${human.ante}</button>`;
 			} 
 			
 			
 			txt += `<div class='interaction_caption'>${interaction}  ${resource} </div><div>${button}</div>`;
 			
-			
+			this.button_num++;
 		}
 		$("#social_context").html(txt);
 	}
 	display_unique_items_to_sell(name){
-		let txt = `<button class='sell_unique_to_human' disabled>none in inventory to sell</button>`;
+		let txt = '';
 		let item_ids = juego.player.inventory.fetch.all_items([name]);
+		if (item_ids.length > 0 ){
+			txt = `<button class='sell_unique_to_human button_${this.button_num++}' disabled>none in inventory to sell</button>`;
+		}
 		for (let id of item_ids){
 			if (juego.player.inventory.get.is_equipped_with_id(id)){
 				continue;
 			}
 			let item = juego.player.inventory.fetch.by_id(id);
 			
-			txt += `<button id='sell_unique_to_human-${id}' class='sell_unique_to_human'>sell ${item.name} (${item.durability}%)</button>`;
+			txt += `<button id='sell_unique_to_human-${id}' class='sell_unique_to_human  button_${this.button_num}'>sell ${item.name} (${item.durability}%)</button>`;
+			this.button_num ++;
 		}
 		return txt;
 	}

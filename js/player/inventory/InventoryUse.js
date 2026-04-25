@@ -43,7 +43,6 @@ class InventoryUse{
         if (item.durability <= 0){
             this.player.inventory.move.delete(null, this.player.state.equipped.hand);            
             this.player.state.equipped.hand= null;
-            
         }
 
     }

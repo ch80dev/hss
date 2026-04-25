@@ -1,11 +1,16 @@
 class Input {
+    number_key_pressed(number){
+        $(`.button_${number}`).first().trigger('click');
+    }
     press_key(pressed){
         //console.log(pressed, ui.screen_focused, );
         if (ui.sleeping || juego.player.state.unconscious_for > 0){
             return;
         }
         let directions = ['right', 'left', 'down', 'up'];
-        if (pressed == 'f' && juego.player.state.socializing != null){
+        if (Number(pressed) >= 0 || Number(pressed) <= 9){
+            this.number_key_pressed(Number(pressed));
+        } else if (pressed == 'f' && juego.player.state.socializing != null){
             juego.favorites.add_by_type('human', juego.player.state.socializing, juego);
         } else if (pressed == 'f' && juego.player.state.shopping != null){
             juego.favorites.add_by_type('shop', juego.player.state.shopping, juego);    

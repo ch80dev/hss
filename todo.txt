@@ -1,7 +1,6 @@
 TODO      
     be able to differentiate between spoiled
     BUG degradable items being traded 04-24-26
-    unequip aligning left
     if too muhc in inventory, you can't move.
     eating spoiled food should give you stigma
     if you interact social and work is available, for trash, cancel it if it goes below 10

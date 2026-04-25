@@ -70,7 +70,7 @@
     padding: 10px;
 }
 
-.use, .equip, #unequip{
+.use, .equip, .unequip{
     float: right;
 }
 
@@ -82,7 +82,7 @@
     color: white;
 }
 
-#unequip{
+.unequip{
     background: grey;
 }
 .item_container{

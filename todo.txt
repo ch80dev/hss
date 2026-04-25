@@ -1,10 +1,6 @@
 TODO      
 
     BUG degradable items being traded 04-24-26
-    if you interact social and work is available, for trash, cancel it if it goes below 10
-    BUG accepted mission and now its claiming stigma too high 04-24-26
-    if inventory full by slots, I should still be able to stack shit I have
-    show work missions on favorite and uatomatically favorite them when you accept the quest
     BUG screw driver went to -10% and didn't unequip 04-24-26
     set up max stigma for shops
     implement numbers right
@@ -24,6 +20,10 @@ TODO
     one minute to sleep at a homeless shleter
     
 BUGS
+    ? if inventory full by slots, I should still be able to stack shit I have 04-25-26
+
+    BUG if you interact social and work is available, for trash, cancel it if it goes below 10 04-24-26
+
     BUG NaN money after selling to human presumably 04-24-26, 
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason

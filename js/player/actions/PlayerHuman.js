@@ -78,6 +78,7 @@ class PlayerHuman{
             human.quest.accepted = true;
             quests.add(human.id, human.quest);
             ui.log("You've accepted some work.");
+            juego.favorites.add_by_type('human', human.id, juego);
             if (human.quest.type == 'beating'){
                 let target = juego.get.human(human.quest.context);
                 if (target == null){

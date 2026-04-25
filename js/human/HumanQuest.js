@@ -10,6 +10,7 @@ class HumanQuest{
         }
         let num_of_trash = this.map.get.inspector.entity.fetch_num_of_trash();
         if (this.type == 'trash' && !this.accepted && num_of_trash != this.quantity){
+            console.log("BUG: TRASH REGEN");
             this.generate();
         }
     }

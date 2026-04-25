@@ -1,12 +1,6 @@
 TODO      
-    REFACTOR FRIDAY
-    work
-        beat up guy   
     be able to differentiate between spoiled
-    BUG work kill 0 rats for $0 04-24-26    
     BUG degradable items being traded 04-24-26
-    BUG NaN money after selling to human presumably 04-24-26
-    tools still for sale in pawn shop
     unequip aligning left
     if too muhc in inventory, you can't move.
     eating spoiled food should give you stigma
@@ -17,6 +11,8 @@ TODO
     BUG screw driver went to -10% and didn't unequip 04-24-26
     set up max stigma for shops
     implement numbers right
+    Make dark different color than empty;
+
     lifeforms shoudl come after you if they're attacking you
     lifeforms should go neutral if rand(1, max_health) > health && 1, max_stamina > stamina
 BUGS
@@ -26,7 +22,10 @@ BUGS
     BUG I can only trade one thing at a time. It won't let me keep trading - not consistent - not able to do it later 04-22-26
     BUG gamble causes NaN when below 0; 04-21-26
     BUG clicked something on ground and something else came out and couldn't click anymore 04-22-26
-    Make dark different color than empty;
+    BUG work kill 0 rats for $0 04-24-26    
+    BUG NaN money after selling to human presumably 04-24-26
+
+
 
 ABANDONED
     redo map loot and how i handled map data

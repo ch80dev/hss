@@ -35,7 +35,7 @@ class ShopConfig {
 		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters',  'knife', 'lantern', 'hatchet', 'machete', 'pipe'],
 		homeless: null,
 		motel: null, 
-		pawn: ['bat', 'knife', 'hatchet', 'machete', 'tool'],
+		pawn: ['bat', 'knife', 'hatchet', 'machete', 'screw driver', 'wrench', 'crow bar', 'bolt cutters'],
 		recycling: ['glass bottle', 'aluminum can', 'plastic bottle'],
 		sports: ['bat', 'knife', 'machete', 'lantern', 'flashlight', 'tent', 'sleeping bag']
 	}

@@ -11,6 +11,9 @@ class LightsGenerator{
         let n = 0;
         let valid_x = [border.x];
         let valid_y = [border.y];
+        if (type == 'sewer'){
+            return;
+        }
         while(n < 100){
             let good = null;
             let rand_spot = lights[rand_num(0, lights.length - 1)];

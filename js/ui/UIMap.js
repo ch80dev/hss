@@ -42,7 +42,7 @@ class UIMap {
 					cell_class = ' favorite ';
 				}
 				// 3. The "Darkness" Skip
-				if (juego.night && !is_lit && !juego.map.get.inspector.entity.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y)) {
+				if ((juego.player.state.location.type ==  'sewer' || juego.night) && !is_lit && !juego.map.get.inspector.entity.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y)) {
 					// We draw the ID so the DOM stays consistent, but the content is blank
 					txt += `<div id='cell-${x}-${y}' class='cell dark ${cell_class}'></div>`;
 					continue;

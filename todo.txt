@@ -12,6 +12,7 @@ TODO
 
     lifeforms shoudl come after you if they're attacking you
     lifeforms should go neutral if rand(1, max_health) > health && 1, max_stamina > stamina
+    bleeding - caused by sharp weapons - when a lifeform starts bleeding, they continue losing health until they stop bleeding - bandages stop bleeding and time.
 BUGS
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason

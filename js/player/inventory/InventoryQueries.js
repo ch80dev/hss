@@ -12,7 +12,6 @@ class InventoryQueries{
         for (let item of this.player.state.inventory){
             n += this.fetch_weight(item.name, item.quantity);
         }
-        console.log(n);
         return n;
     }
 

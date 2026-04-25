@@ -11,10 +11,14 @@ class ShopConfig {
 	static just_buying = ['food', 'grocery', 'hardware', 'sports'];
     	///SHOP
 	static max_stigma = {
+		food: 50,
+		grocery: 25,
 		hardware: 75,
+		homeless: 101,
 		motel: 50,
 		pawn: 75,
 		recycling: 90,
+		sports: 40,
 	}	
 	static motel_room_cost = 50;
 	static num_of_items_in_pawn_shop = 4;

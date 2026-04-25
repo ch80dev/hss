@@ -2,7 +2,6 @@ TODO
 
     BUG degradable items being traded 04-24-26
     BUG screw driver went to -10% and didn't unequip 04-24-26
-    set up max stigma for shops
     implement numbers right
     Make dark different color than empty;
 

@@ -8,6 +8,7 @@ class ShopConfig {
 	}
 	static homeless_out = 6;
 	static homeless_check_in = [12, 18];
+	static homeless_wait = 30;
 	static just_buying = ['food', 'grocery', 'hardware', 'sports'];
     	///SHOP
 	static max_stigma = {

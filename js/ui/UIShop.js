@@ -38,11 +38,13 @@ class UIShop{
             disabled = ' disabled ';
         }
         let timer = '';
-        console.log(can_they_sleep, player.status.fetch_time_til_they_can_sleep());
         if (!can_they_sleep){
             timer = ` (available in ${player.status.fetch_time_til_they_can_sleep()}h)`;
         }
         let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_shop' ${disabled}>sleep ${timer}</button>`;
+        if (juego.waiting > 0){
+            txt += `<div id='homeless_wait'>${juego.waiting}</div>`;
+        }
         return txt;
     }
 

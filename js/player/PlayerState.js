@@ -16,7 +16,7 @@ class PlayerState{
     inventory = [ ];
     inventory_slots = 8;
     inventory_weight =  0;
-    last_slept = { days: 1, hours: 8 };
+    last_slept = { days: 1, hours: 0 };
     last_unconscious = null;
     light_equipped = null;
     location = {

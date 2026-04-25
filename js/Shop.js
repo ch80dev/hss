@@ -45,14 +45,19 @@ class Shop{
         let time_delta = 8;
         if(this.type == 'motel'){   
             this.room_rented_at == null; 
-        } else if (type == 'homeless'){ // put in a check to make sure its right time for check in
+        } else if (this.type == 'homeless'){ // put in a check to make sure its right time for check in
+            juego.waiting = ShopConfig.homeless_wait;
             time_delta = 24 - (time.hours + ShopConfig.homeless_out) + 12;
         }
         player.status.add_time(time_delta, 0)
         player.status.sleep(true, true);
+        
+        
         player.state.shopping = false;
         ui.sleeping = true;
-        ui.change_screen('map');
+        if (this.type == 'motel'){
+            ui.change_screen('map');
+        }
     }
 
     stock_pawn_shop(){

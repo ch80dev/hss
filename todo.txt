@@ -1,9 +1,8 @@
 TODO      
 
 
-    BUG I had $11 but wasn't able to buy a screw driver at a pawn shop. 04/24/26
-    one minute to sleep at a homeless shleter
-    
+    BUG human spawned infront of a shop
+    BUG infinite loop entering street 04-25-26
 BUGS
     ? if inventory full by slots, I should still be able to stack shit I have 04-25-26
     BUG screw driver went to -10% and didn't unequip 04-24-26
@@ -19,6 +18,7 @@ BUGS
     BUG work kill 0 rats for $0 04-24-26    
     BUG I'm taking something from my crate and it's incrementing the iventory stack but not removing it. 04-24-26 think I fixed this
     BUG faovrites not going over dark 04-24-26 I think this is a CSS error
+    BUG I had $11 but wasn't able to buy a screw driver at a pawn shop. 04/24/26 was I full?
 
 
 

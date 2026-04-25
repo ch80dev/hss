@@ -15,12 +15,12 @@ class Game{
 	shops = [];
 	time = {
 		days: 1,
-		hours: 8,
+		hours: 12, //8
 		minutes: 0,
 		weeks: 1,
 	}
 	turn = null;
-	
+	waiting = 0;
 	
 	constructor(){
 		setInterval(this.loop.go(), Config.loop_interval_timing);
@@ -42,6 +42,9 @@ class Game{
 				this.player.state.unconscious_for = 0;
 			}
 		}
+		if (this.waiting > 0){
+			this.wait();
+		}
 		if (!this.night && this.time.hours >= Config.night_time){
 			ui.log("It's night time now.")
 			this.night = true;
@@ -57,5 +60,12 @@ class Game{
 		this.populate.with_humans(location_type, location_id, this.humans);
 		this.populate.with_rats(location_type, location_id, this.rats);
 		this.populate.with_shops(this.favorites, this.shops);
+	}
+	wait(){
+		juego.waiting --;
+		ui.refresh.go();
+		if (juego.waiting > 0){
+			setTimeout(juego.wait, 1000);
+		}
 	}
 }

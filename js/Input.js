@@ -25,7 +25,7 @@ class Input {
         } else if (pressed == 'i'){
             juego.player.state.looting = true;
             ui.change_screen('loot');
-        } else if (pressed == "Escape" && (juego.player.state.looting || juego.player.state.socializing != null || juego.player.state.shopping != null)){
+        } else if (pressed == "Escape" && juego.waiting < 1 && (juego.player.state.looting || juego.player.state.socializing != null || juego.player.state.shopping != null)){
             juego.player.state.looting = false;
             juego.player.state.socializing = null;
             juego.player.state.shopping = null;

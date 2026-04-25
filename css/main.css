@@ -42,7 +42,7 @@ body:has(#loot:not(.hidden)){
     display: none;
 }
 
-.interact, .sell_to_shop, .sell_all_to_human{
+.interact, .sell_to_shop, .sell_all_to_human, .sell_unique_to_human{
     font-size: 25px;
     padding: 10px;
 }

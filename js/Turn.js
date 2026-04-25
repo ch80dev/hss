@@ -19,7 +19,8 @@ class Turn{
 		if (this.time.hours + hours_delta > 23){
 			this.time.hours = (this.time.hours + hours_delta) - 24;
 			this.time.days ++; 			
-		} else {
+		} 
+		if (this.time.hours > 23) {
 			this.time.hours = 0;
 			this.time.days ++;
 		}

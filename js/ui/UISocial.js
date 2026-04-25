@@ -109,7 +109,7 @@ class UISocial{
 		$("#social_context").html(txt);
 	}
 	display_unique_items_to_sell(name){
-		let txt = '';
+		let txt = `<button class='sell_unique_to_human' disabled>none in inventory to sell</button>`;
 		let item_ids = juego.player.inventory.fetch.all_items([name]);
 		for (let id of item_ids){
 			if (juego.player.inventory.get.is_equipped_with_id(id)){
@@ -117,7 +117,7 @@ class UISocial{
 			}
 			let item = juego.player.inventory.fetch.by_id(id);
 			
-			txt += `<button id='sell_unique_to_human-${id}' class='sell_unique_to_human'>sell ${item.name} (${item.durability})</button>`;
+			txt += `<button id='sell_unique_to_human-${id}' class='sell_unique_to_human'>sell ${item.name} (${item.durability}%)</button>`;
 		}
 		return txt;
 	}

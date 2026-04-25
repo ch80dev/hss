@@ -93,6 +93,7 @@
 .shop{
     background: #33ff00;
     color: black;
+    border: 1px #33ff00 solid;
 }
 
 .street_exit{

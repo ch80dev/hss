@@ -25,6 +25,7 @@ class PlayerMovement{
             map.name_old_location(this.player.state.location.type, this.player.state.location.id);
             return;
         }
+        this.player.state.looking_at = null;
         map.wipe();  
         let start = map.generator.location.generate(MapConfig.exit_types[exit_id], this.player.state.location.type);   
         map.locations[MapConfig.exit_types[exit_id]].push(map.grid);

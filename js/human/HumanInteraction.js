@@ -15,7 +15,7 @@ class HumanInteraction {
     begged(time){        
         this.human.begging_unlocked = { days: time.days + 1, hours: time.hours};
         this.how_much_to_give_when_begged();
-        return this.human.inventory.get_money(this.give_when_begged);
+        return this.human.items.get_money(this.give_when_begged);
 
     }
 
@@ -28,9 +28,10 @@ class HumanInteraction {
     }
 
     generate(){
-        let interactions = DefaultConfig.interactions;
         let create_quest = false;
-        while(interactions.length < HumanConfig.num_of_interactions_per_human ){
+        let interactions = DefaultConfig.interactions;
+        let num_of_interactions_for_them = rand_num(1, HumanConfig.num_of_interactions_per_human);
+        while(interactions.length <  num_of_interactions_for_them){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
             let less_often = ['directions'];
             if (less_often.includes(rand) && rand_num(1,3) != 1){

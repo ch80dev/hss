@@ -79,7 +79,7 @@ class InventoryTake {
         if (ItemConfig.stackable.includes(what) && this.player.inventory.get.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
             if (take_all_id == null){
-                map.loot[at].stuff.splice(id, 1);
+                map.delete_loot(at, loot.id);
             } else {
                 map.loot[at].stuff.splice(take_all_id, 1);
             }

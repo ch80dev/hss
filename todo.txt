@@ -2,9 +2,7 @@ TODO
 
 
     BUG I had $11 but wasn't able to buy a screw driver at a pawn shop. 04/24/26
-    BUG I'm taking something from my crate and it's incrementing the stack but not removing it.
-    change interactions between 1 and 3. Not just 3 all teh time.
-    if sewer, use flashlight as well
+    BUG I'm taking something from my crate and it's incrementing the stack but not removing it. 04-24-26 think I fixed this
     BUG my light is shining beyond a wall
     BUG faovrites not going over dark
     one minute to sleep at a homeless shleter

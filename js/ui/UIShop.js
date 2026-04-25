@@ -134,7 +134,6 @@ class UIShop{
         let txt = "";
         let all_sellable_items_in_inventory = player.inventory.fetch.all_items(ShopConfig.resources[shop.type]);
         
-        
         if (all_sellable_items_in_inventory.length > 0){
             txt = "<div>From Your Inventory</div>";
         }

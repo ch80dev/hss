@@ -21,9 +21,13 @@ class PlayerActions {
         let did_they_hit = this.player.status.did_they_hit();
         let dmg = this.player.status.fetch_dmg();
         if (did_they_hit){
+            let bleeding_txt = '';
             this.player.inventory.use.weapon();
-
-            target.get_hit(dmg);
+            let bleed = this.player.inventory.get.weapon_bleed();
+            if (target.bleeding < 1 && bleed > 0){
+                bleeding_txt = " They started bleeding!"
+            }
+            target.get_hit(dmg, false, bleed);
             let money_caption = '';
             if (target.money > 0 && target.health < 1){
                 money_caption = ` You took $${target.money} from them. `;
@@ -41,7 +45,7 @@ class PlayerActions {
                 unconscious = `${target.name} ${target.surname} lost consciousness.`;
             }
             
-            ui.log(`You hit them for ${dmg} dmg. [${target.health}] ${money_caption} ${unconscious}`);
+            ui.log(`You hit them for ${dmg} dmg. [${target.health}] ${money_caption} ${unconscious} ${bleeding_txt}`);
             return;
         }
         ui.log(`You missed them! ${target.health}/${target.max_health}`);

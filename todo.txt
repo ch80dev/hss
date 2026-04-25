@@ -1,8 +1,6 @@
 TODO      
 
 
-    lifeforms should go neutral if rand(1, max_health) > health && 1, max_stamina > stamina
-    bleeding - caused by sharp weapons - when a lifeform starts bleeding, they continue losing health until they stop bleeding - bandages stop bleeding and time.
     when you have no unique items to sell, create a disabled button that says none in inventory
     limit fetch orders to 100 and trades 100
     BUG I had $11 but wasn't able to buy a screw driver at a pawn shop. 04/24/26
@@ -34,6 +32,7 @@ ABANDONED
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
+    show player when they're bleeding and be able to stop with bandages
     selling doesn't draw from human's money
     maybe we can do a list of locations - specifically to show unexplored exist
     

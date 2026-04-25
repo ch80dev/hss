@@ -67,6 +67,10 @@ class Turn{
 
 			if (rat.attacking_player && (rand_num(1, rat.max_stamina) > rat.stamina) && rand_num(1, rat.max_health) > rat.health){
 				rat.attacking = false;
+				ui.log("A rat calmed down.");
+			}
+			if (rat.bleeding > 0){
+				rat.bleed();
 			}
 		}
 		for (let id in  humans){
@@ -103,6 +107,10 @@ class Turn{
 			if (human.attacking_player && (rand_num(1, human.max_stamina) > human.stamina) 
 				&& rand_num(1, human.max_health) > human.health){
 				human.attacking = false;
+				ui.log(`${human.name} ${human.surname} calmed down.`);
+			}
+			if (human.bleeding > 0){
+				human.bleed();
 			}
 		}
 	}

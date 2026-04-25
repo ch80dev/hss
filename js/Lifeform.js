@@ -1,5 +1,6 @@
 class Lifeform {
     attacking_player = false;
+    bleeding = 0;
     damage = 1;
     dead = false;
     delta= {x: 0, y: 0};
@@ -40,6 +41,7 @@ class Lifeform {
 
     attack_player(player){
         let are_they_unconscious = this.player.state.unconscious_for != 0;
+        let bleed = 0;
         this.stamina += Config.stamina_cost.attack;
         let did_they_hit = rand_num(1, this.max_stamina) <= this.stamina;
         let distance = this.map.get.geometry.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
@@ -52,13 +54,25 @@ class Lifeform {
             return;
         }        
         let dmg = rand_num(1, this.damage);
+        if (this.type == 'rat'){
+            bleed = 2;
+        }
         this.player.status.change_health(-dmg);
+        if (bleed > 0){
+            this.player.status.bleeding += rand_num(1, bleed);
+        }
         if (!are_they_unconscious && this.player.state.unconscious_for > 0){
             unconscious = "You lost consciousness.";
-            
         }
         ui.log(`A ${this.type} hit player for  ${dmg} damage. [${player.state.health}] ${unconscious}`);
-        
+    }
+
+    bleed(){
+        if (this.bleeding > 0){
+            this.get_hit(1, true, 0);
+            console.log("BLEED", this.bleeding);
+            this.bleeding --;
+        }
     }
 
     die(){
@@ -68,10 +82,11 @@ class Lifeform {
         }
     }
 
-    get_hit(dmg){
-        if (!this.attacking_player){
+    get_hit(dmg, bleeding, bleed){
+        if (!this.attacking_player && !bleeding){
             this.attacking_player = true;
         }
+        this.bleeding += bleed;
         this.health -= dmg;
         
         if (this.health <= 0){

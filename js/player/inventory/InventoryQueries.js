@@ -117,4 +117,18 @@ class InventoryQueries{
         }
         return false;
     }
+
+    weapon_bleed(){
+        if (this.player.state.equipped.hand == null){
+            return 0;
+        }
+        let weapon = this.player.inventory.fetch.by_id(this.player.state.equipped.hand);
+        if (weapon == null ){
+            return 0;
+        }
+        if (!Object.keys(ItemConfig.weapon_bleed).includes(weapon.name)){
+            return 0;
+        }
+        return ItemConfig.weapon_bleed[weapon.name];
+    }
 }

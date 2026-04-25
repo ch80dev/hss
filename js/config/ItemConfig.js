@@ -124,7 +124,12 @@ class ItemConfig {
 		drugs: 1,		
 	}
 	
-	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)'];		
+	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)'];	
+	static weapon_bleed = {
+		knife: 2,
+		hatchet: 3,
+		machete: 4,
+	}	
 	static weapon_dmgs = {
 		bat: 4, 
 		knife: 10, 

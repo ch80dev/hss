@@ -46,7 +46,8 @@ class InventoryTake {
             if (map.loot[at] == undefined || id >= map.loot[at].stuff.length){
                 break;
             }
-            if (autoloot && !this.player.state.auto_loot_preferences[item.name]){
+            if (autoloot && (!this.player.state.auto_loot_preferences[item.name] 
+                || (Object.keys(ItemConfig.food_gain).includes(item.name) && !this.player.state.auto_loot_preferences[item.name + ' (spoiled)']))){
                 id ++;
                 continue;
             }

@@ -1,7 +1,5 @@
 TODO      
-    BUG NaN money after selling to human presumably 04-24-26, 
 
-    be able to differentiate between spoiled
     BUG degradable items being traded 04-24-26
     if you interact social and work is available, for trash, cancel it if it goes below 10
     BUG accepted mission and now its claiming stigma too high 04-24-26
@@ -23,7 +21,10 @@ TODO
     if sewer, use flashlight as well
     BUG my light is shining beyond a wall
     BUG faovrites not going over dark
+    one minute to sleep at a homeless shleter
+    
 BUGS
+    BUG NaN money after selling to human presumably 04-24-26, 
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason
     BUG: street appears to be in indefinite loop. not sure why though 04-21-26

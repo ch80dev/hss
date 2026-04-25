@@ -52,6 +52,9 @@ class PlayerState{
         for (let item_name of Object.keys(ItemConfig.prices)){
             this.auto_loot_preferences[item_name] = true;
         }
+        for (let item_name of Object.keys(ItemConfig.food_gain)){
+            this.auto_loot_preferences[item_name + ' (spoiled)'] = false;
+        }
         if (DefaultConfig.init_inventory != null){
             this.inventory.push(DefaultConfig.init_inventory);
         }

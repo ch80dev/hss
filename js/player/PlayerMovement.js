@@ -59,6 +59,10 @@ class PlayerMovement{
         if (!map.get.geometry.is_valid(pos.x, pos.y) || map.get.at(pos.x, pos.y) == null ){
             return;
         }  
+        if (this.player.state.inventory.length > this.player.state.inventory_slots){
+            ui.log("You're overencumbered and can't move.");
+            return;
+        }
         if (this.player.state.location.type == 'sewer'){
             this.player.status.change_stigma(Config.stigma_effects['sewer']);
             this.player.status.change_sickness(Config.sickness_effects['sewer']);

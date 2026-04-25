@@ -22,7 +22,7 @@
     background: #555555;
     border: 1px #555555 solid;
 }
-.dark:not(.empty) {
+.dark:not(.empty):not(.favorite) {
     background: #111111;
     border: 1px #111111 solid;
 }

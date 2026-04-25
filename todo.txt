@@ -2,9 +2,6 @@ TODO
 
 
     BUG I had $11 but wasn't able to buy a screw driver at a pawn shop. 04/24/26
-    BUG I'm taking something from my crate and it's incrementing the stack but not removing it. 04-24-26 think I fixed this
-    BUG my light is shining beyond a wall
-    BUG faovrites not going over dark
     one minute to sleep at a homeless shleter
     
 BUGS
@@ -20,6 +17,9 @@ BUGS
     BUG gamble causes NaN when below 0; 04-21-26
     BUG clicked something on ground and something else came out and couldn't click anymore 04-22-26
     BUG work kill 0 rats for $0 04-24-26    
+    BUG I'm taking something from my crate and it's incrementing the iventory stack but not removing it. 04-24-26 think I fixed this
+    BUG faovrites not going over dark 04-24-26 I think this is a CSS error
+
 
 
 

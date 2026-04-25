@@ -37,6 +37,7 @@ class UIMap {
 					if (juego.facing == 'down'  && dy > 0 && Math.abs(dx) <= Math.abs(dy)) is_lit = true;
 					if (juego.facing == 'left'  && dx < 0 && Math.abs(dy) <= Math.abs(dx)) is_lit = true;
 					if (juego.facing == 'right' && dx > 0 && Math.abs(dy) <= Math.abs(dx)) is_lit = true;
+					if (!juego.map.get.inspector.has_line_of_sight(x, y, juego.player.state.x, juego.player.state.y)) is_lit = false;
 				}
 				if (favorited){
 					cell_class = ' favorite ';

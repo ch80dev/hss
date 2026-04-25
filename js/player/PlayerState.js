@@ -33,7 +33,7 @@ class PlayerState{
     max_stigma = 100;
     minutes_delta = 0;
     money = null;
-    movement_cost = .1;
+    movement_cost = null;
     socializing = null;
     
     stamina = Config.lifeforms.human.max_stamina;
@@ -49,6 +49,7 @@ class PlayerState{
         this.money = rand_num(0, HumanConfig.homeless_money);
         this.x = x;
         this.y = y;
+        this.movement_cost = Config.stamina_cost.move
         for (let item_name of Object.keys(ItemConfig.prices)){
             this.auto_loot_preferences[item_name] = true;
         }

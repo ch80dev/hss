@@ -59,11 +59,14 @@ class Turn{
 				continue;
 			}
 
-			if (rat.attacking_player && distance < 2 ){
+			if (rat.attacking_player && distance < 2 && map.get.geometry.is_orthogonal(rat.x, rat.y, this.player.state.x, this.player.state.y)){
 				rat.attack_player(juego.player);
 			} else {
 				rat.move(id);
+			}
 
+			if (rat.attacking_player && (rand_num(1, rat.max_stamina) > rat.stamina) && rand_num(1, rat.max_health) > rat.health){
+				rat.attacking = false;
 			}
 		}
 		for (let id in  humans){
@@ -83,9 +86,11 @@ class Turn{
 				}
 				continue;
 			}
-		
-			if (human.attacking_player && distance < 2 ){
+			if (human.attacking_player && distance < 2 
+				&& map.get.geometry.is_orthogonal(human.x, human.y, this.player.state.x, this.player.state.y)){
 				human.attack_player(juego.player);
+			} else if (human.attacking_player){
+				human.move();
 			}
 			if (human.gambled != null && human.gambled.days > this.time.days && human.gambled.hours >= this.time.hours){
 				human.gambled = null;
@@ -94,6 +99,10 @@ class Turn{
 			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
 				console.log('beggining reset');
 				human.begging_unlocked = true;
+			}
+			if (human.attacking_player && (rand_num(1, human.max_stamina) > human.stamina) 
+				&& rand_num(1, human.max_health) > human.health){
+				human.attacking = false;
 			}
 		}
 	}

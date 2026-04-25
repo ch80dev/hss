@@ -16,6 +16,17 @@ class MapNavigator {
         return locations;
     }
 
+    fetch_best_spots_for_delta(x, y, adjacent_arr, delta){
+        let arr = [];
+        for (let spot of adjacent_arr){
+            let spot_delta = this.map.get.geometry.fetch_delta(x, y, spot.x, spot.y);
+            if (spot_delta.x == delta.x || spot_delta.y == delta.y){
+                arr.push(spot);
+            }
+        }
+        return arr;
+    }
+
     fetch_exits_for_path(path){
         let exits = [];
         for (let id in  path){

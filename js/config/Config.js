@@ -38,6 +38,7 @@ class Config {
 	static max_sickness = 100;
 	static stamina_cost = {
 		attack: -1,
+		move: .1,
 	}
 	static stigma_effects = {
 		trash: .2,

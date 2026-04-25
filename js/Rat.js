@@ -29,24 +29,21 @@ class Rat extends Lifeform{
         let adjacent_open = this.map.get.inspector.fetch_adjacent(this.x, this.y, 1, true);
         let toward_player = this.map.get.geometry.fetch_delta(this.player.state.x, this.player.state.y, this.x, this.y);
         let searching_for_food = this.map.get.inspector.entity.search_for_food(this.x, this.y, this.sense_range);
-        /*TESTING
         if (!this.hungry && distance_to_player <= this.sense_range){
             //console.log('away');
             this.delta = this.run_away(this.player.state.x, this.player.state.y);
-            
-            
         } else 
-          */  
             if (this.hungry && searching_for_food.x != 0 && this.searching_for_food.y != 0){
             this.delta = searching_for_food;
         } 
+        if (this.attacking_player){
+            this.delta = this.map.get.geometry.invert_delta(this.run_away(this.player.state.x, this.player.state.y));
+        }
         if ((this.delta.x != 0 || this.delta.y != 0) && this.is_blocked(this.x + this.delta.x, this.y + this.delta.y) && adjacent_open.length > 0){            
             let rand_open = adjacent_open[rand_num(0, adjacent_open.length - 1)];
             this.delta = this.map.get.geometry.fetch_delta(rand_open.x, rand_open.y, this.x, this.y)
         }
-        if (this.attacking_player){
-            this.delta = this.map.get.geometry.invert_delta(this.run_away(this.player.state.x, this.player.state.y));
-        }
+        
         let pos_x = this.x + this.delta.x;
         let pos_y = this.y + this.delta.y;
         this.go(pos_x, pos_y, 6, Config.rat_movement_cost);

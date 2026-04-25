@@ -38,7 +38,7 @@ class HumanQuest{
         let quantity = Math.round(paying / price[quest]);
         if (quest == 'trash'){
             quantity = num_of_trash;
-        }
+        } 
         if (quest == 'fetch'){
             let rand_item = ItemConfig.stackable[rand_num(0, ItemConfig.stackable.length - 1)];
             let price = ItemConfig.prices[rand_item];
@@ -47,6 +47,10 @@ class HumanQuest{
             paying = rand_num(10, this.human.money);
             quantity = Math.ceil(paying / price)
             context = rand_item;
+            if (quantity > 100){
+                quantity = 100;
+                paying = Math.round(quantity * price);
+            }
         } else if (quest == 'beating'){
             let rand_human = this.get.rand_human(this.human.id);
             if (rand_human == null){

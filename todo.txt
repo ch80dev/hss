@@ -1,8 +1,6 @@
 TODO      
 
 
-    when you have no unique items to sell, create a disabled button that says none in inventory
-    limit fetch orders to 100 and trades 100
     BUG I had $11 but wasn't able to buy a screw driver at a pawn shop. 04/24/26
     BUG I'm taking something from my crate and it's incrementing the stack but not removing it.
     change interactions between 1 and 3. Not just 3 all teh time.
@@ -32,12 +30,12 @@ ABANDONED
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
+
+    limit trade to max quantity of 100 
     show player when they're bleeding and be able to stop with bandages
-    selling doesn't draw from human's money
     maybe we can do a list of locations - specifically to show unexplored exist
     
     center location in map (sometimes its generated to the left of the screen or top of screen)
-    be able to kill rats 
     be able to make a campfire
     be able to cook meat from rats
     tooltips for items

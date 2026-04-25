@@ -50,7 +50,7 @@ class InventoryUse{
 
     item(id, map){
         let item = this.player.inventory.fetch.by_id(id);
-        let medicine_works = rand_num(1, 3) == 1;
+        let medicine_works = rand_num(1, 4) == 1;
         if (!this.player.inventory.get.can_they_use(item.name, map)){
             console.log('cant use');
             return;
@@ -89,6 +89,7 @@ class InventoryUse{
             this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], gain));
         }
         if (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability == 0){
+            this.player.status.change_stigma(Number((rand_num(5, 2) * .1).toFixed(1)));
             this.player.status.change_sickness(rand_num(ItemConfig.spoiled_sick_gain[0], ItemConfig.spoiled_sick_gain[1]));
         }
         if (ItemConfig.stackable.includes(item.name)){

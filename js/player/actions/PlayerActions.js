@@ -15,6 +15,8 @@ class PlayerActions {
         } else if (map_at == MapConfig.cell_class.indexOf('human')){
             target = juego.get.human_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
         }
+        let are_they_unconscious = target.unconscious_for != 0;
+        let unconscious = '';
         this.player.status.change_stamina_delta(Config.stamina_cost['attack']);
         let did_they_hit = this.player.status.did_they_hit();
         let dmg = this.player.status.fetch_dmg();
@@ -33,8 +35,13 @@ class PlayerActions {
                 juego.map.loot[juego.map.format_at(this.player.state.location.type, this.player.state.location.id, x, y)].stuff = target.inventory;
                 this.player.state.money += target.money;
                 target.money = 0;
+            } else if (target.type == 'rat' && !are_they_unconscious && target.unconscious_for != 0){
+                unconscious = `A ${target.type} lost consciousness.`;
+            } else if (!are_they_unconscious && target.unconscious_for != 0){
+                unconscious = `${target.name} ${target.surname} lost consciousness.`;
             }
-            ui.log(`You hit them for ${dmg} dmg. [${target.health}] ${money_caption}`);
+            
+            ui.log(`You hit them for ${dmg} dmg. [${target.health}] ${money_caption} ${unconscious}`);
             return;
         }
         ui.log(`You missed them! ${target.health}/${target.max_health}`);

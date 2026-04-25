@@ -1,5 +1,7 @@
 class Human extends Lifeform{
     ante = 10;
+    begging_unlocked = true;
+
     conversion = [];
     directions_to = [];
     gambled = null;
@@ -9,8 +11,8 @@ class Human extends Lifeform{
     interaction = new HumanInteraction(this);
     interactions = {};
     items = new HumanInventory(this);
-    begging_unlocked = true;
-    quest = new HumanQuest(this, this.map);
+    
+    quest = null;
     resources = [];
     min_stigma_beg = null;
     max_stigma_tolerance = null;
@@ -18,11 +20,14 @@ class Human extends Lifeform{
     stigma = null; 
     surname = null;
 
-    constructor(id, x, y, are_they_homeless, location_type, location_id, map, player){
+    constructor(id, x, y, are_they_homeless, location_type, location_id, map, player, get){
+        
         super('human', x, y, location_type, location_id, map);
          this.id = id;
         this.map = map;
         this.player = player;
+        this.get = get;
+        this.quest = new HumanQuest(this, this.map, this.get);
         this.homeless = are_they_homeless;
         this.max_stigma_tolerance = rand_num(50, 100);
         this.min_stigma_beg = rand_num(0, 10);

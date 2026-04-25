@@ -6,6 +6,7 @@ class Lifeform {
     health = null;
     hungry = false;
     inventory = [];
+    just_went_unconscious = false;
     location = {
         id: null,
         type: null,
@@ -38,9 +39,11 @@ class Lifeform {
     }
 
     attack_player(player){
+        let are_they_unconscious = this.player.state.unconscious_for != 0;
         this.stamina += Config.stamina_cost.attack;
         let did_they_hit = rand_num(1, this.max_stamina) <= this.stamina;
         let distance = this.map.get.geometry.fetch_distance(this.x, this.y, player.state.x, player.state.y);       
+        let unconscious = '';
         if (Math.floor(distance) > 1){ //if shooting, do something else
             return;
         }
@@ -50,7 +53,11 @@ class Lifeform {
         }        
         let dmg = rand_num(1, this.damage);
         this.player.status.change_health(-dmg);
-        ui.log(`A ${this.type} hit player for  ${dmg} damage. [${player.state.health}]`);
+        if (!are_they_unconscious && this.player.state.unconscious_for > 0){
+            unconscious = "You lost consciousness.";
+            
+        }
+        ui.log(`A ${this.type} hit player for  ${dmg} damage. [${player.state.health}] ${unconscious}`);
         
     }
 
@@ -73,10 +80,9 @@ class Lifeform {
             return;
         } 
         
-        if (true){//rand_num(1, this.max_health) > this.health){
+        if (rand_num(1, this.max_health) > this.health){
             this.go_unconscious();
         }
-
     }
 
     go(x, y, map_id, movement_cost){
@@ -100,14 +106,8 @@ class Lifeform {
     
     go_unconscious(){
         let txt = '';
-        if (this.unconscious_for == 0){
-            txt += `A ${this.type} lost consciousness.`;
-        }
         this.unconscious_for += rand_num(1, 15);
-        if (txt != ''){
-            ui.log(txt);
-        }
-        
+        this.just_went_unconscious = true;
 
 
     }

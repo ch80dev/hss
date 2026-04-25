@@ -53,6 +53,7 @@ class Turn{
 				rat.unconscious_for --;
 				if (rat.unconscious_for == 0){
 					ui.log(`A rat regained consciousness!`);
+					console.log(rat.attacking_player);
 				}
 				continue;
 			}
@@ -67,9 +68,14 @@ class Turn{
 		for (let id in  humans){
 			let human = humans[id];					
 			let distance = map.get.geometry.fetch_distance(this.player.state.x, this.player.state.y, human.x, human.y);
+			if (human.just_went_unconscious){
+				juego.quests.process('beating', 1, human.id)		
+				human.just_went_unconscious = false;
+			}
 			if (human.dead){
 				continue;
 			} else if (human.unconscious_for != 0){
+				
 				human.unconscious_for --;
 				if (human.unconscious_for == 0){
 					ui.log(`${human.name} ${human.surname} regained consciousness!`);

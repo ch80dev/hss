@@ -125,7 +125,6 @@ class PlayerStatus{
         }
         this.player.state.last_unconsious = unconscious_for;
         this.player.state.unconscious_for = unconscious_for;
-        ui.log("You lost consciousness.");
         ui.sleeping = true;
 
     }

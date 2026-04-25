@@ -24,7 +24,6 @@ class Shop{
         if (type == 'pawn'){
             this.stock_pawn_shop();
         }
-        this.interactions = ShopConfig.interactions[type];
         this.resources = ShopConfig.resources[type];
         this.max_stigma = ShopConfig.max_stigma[type];
     }

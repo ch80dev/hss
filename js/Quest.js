@@ -38,7 +38,9 @@ class Quest {
             let human = juego.get.human(quest.human_id);
             if (human == null || human.quest.completed 
                 || (type == 'trash' && (juego.player.state.location.type != human.location.type 
-                || juego.player.state.location.id != human.location.id))){
+                || juego.player.state.location.id != human.location.id))
+                || (type == 'beating' && quest.context != context)
+                ){
                 continue;
             }
             if (quest.type == type && delta != null ){
@@ -47,6 +49,12 @@ class Quest {
             let txt = `${quest.current}/${quest.quantity} ${type}`;
             if (type == 'fetch'){
                 txt = `${quest.current}/${quest.quantity} ${context}`;
+            } else if (type == 'beating'){
+                let target = juego.get.human(quest.context);
+                if (target == null){
+                    txt = "ERROR";
+                }
+                txt = `You knocked out ${target.name} ${target.surname}!`;
             }
             if (quest.current >= quest.quantity){
                 human.quest.completed = true;

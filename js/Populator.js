@@ -1,5 +1,6 @@
 class Populator{
-    constructor(map, player){
+    constructor(map, player, get){
+		this.get = get;
         this.map = map;
         this.player = player;
     }
@@ -11,7 +12,7 @@ class Populator{
             let open = this.map.get.inspector.fetch_open();
             this.map.is(open.x, open.y, 7);
 			let are_they_homeless = rand_num(1, 100) <= MapConfig.homeless_cent[location_type];
-			humans.push(new Human(id + i, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player))
+			humans.push(new Human(id + i, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player, this.get))
         }
     }
 
@@ -21,7 +22,7 @@ class Populator{
         for (let i = 0; i < num_of_rats; i ++){
             let open = this.map.get.inspector.fetch_open();
             this.map.is(open.x, open.y, 6);	
-            rats.push(new Rat(id, open.x, open.y, location_type, location_id, this.map, this.player))			
+            rats.push(new Rat(id, open.x, open.y, location_type, location_id, this.map, this.player, this.get))			
         }
     }
 

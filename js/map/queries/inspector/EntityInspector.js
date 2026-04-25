@@ -4,7 +4,7 @@ class EntityInspector {
     }
 
     fetch_behind_shop(pos_x, pos_y){
-        let open = this.fetch_adjacent(pos_x, pos_y, 1, true)[0];
+        let open = this.map.get.inspector.fetch_adjacent(pos_x, pos_y, 1, true)[0];
         let delta = this.map.get.geometry.fetch_delta( pos_x, pos_y, open.x, open.y,);
         let center_delta = this.map.get.geometry.fetch_delta( Math.round(MapConfig.max_x / 2), Math.round(MapConfig.max_y / 2), pos_x, pos_y);
         let spot = { x: pos_x + delta.x, y: pos_y + delta.y };

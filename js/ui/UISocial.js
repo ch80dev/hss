@@ -11,7 +11,6 @@ class UISocial{
         if (favorite != undefined){
             favorite_symbol = `&#x2605;`;
         }
-		console.log(human.interactions);
 		let txt = `<div id='human_title'><button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> ${human.name} ${human.surname} $${human.money}</div>`;
 		for (let id in human.interactions){			
 			let disabled = '';

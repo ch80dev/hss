@@ -78,6 +78,14 @@ class PlayerHuman{
             human.quest.accepted = true;
             quests.add(human.id, human.quest);
             ui.log("You've accepted some work.");
+            if (human.quest.type == 'beating'){
+                let target = juego.get.human(human.quest.context);
+                if (target == null){
+                    console.log('error');
+                    return;
+                }
+                juego.favorites.add_human_not_here(target.id, target.location, target.x, target.y);
+            }
         } 
 
     }
@@ -111,7 +119,7 @@ class PlayerHuman{
             return;
         }
 
-        if (this.player.state.stigma > human.max_stigma_tolerance || (human.quest != null && human.quest.accepted && !human.quest.completed)){
+        if (!human.quest.accepted && this.player.state.stigma > human.max_stigma_tolerance){
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
         }

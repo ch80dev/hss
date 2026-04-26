@@ -15,7 +15,7 @@ class HumanInteraction {
     begged(time){        
         this.human.begging_unlocked = { days: time.days + 1, hours: time.hours};
         this.how_much_to_give_when_begged();
-        return this.human.items.get_money(this.give_when_begged);
+        return this.human.items.get_money(this.human.items.give_when_begged);
 
     }
 

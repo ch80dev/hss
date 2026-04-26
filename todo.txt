@@ -1,13 +1,15 @@
-TODO      
-    mark when trash cans are untouched
-    BUG hours going over 24
-    BUG when you buy, their money doesn't go up 
-    BUG infinite loop on street entering
-    BUG human spawned infront of a shop
-    BUG slept on a trash can
-    BUG DefaultConfig turnign every shop into that shop type
-    BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.
+TODO
+
+    mark when trash cans are untouched04-25-26
+    BUG hours going over 2404-25-26
+    BUG when you buy, their money doesn't go up 04-25-26
+    BUG infinite loop on street entering04-25-26
+    BUG human spawned infront of a shop04-25-26
+    BUG slept on a trash can04-25-26
+    BUG DefaultConfig turnign every shop into that shop type04-25-26
+    BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26
     humans shouldn't interact with you if they're fighting you
+    BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26
 BUGS
     BUG
         MapQueries.js:12 Uncaught TypeError: Cannot read properties of undefined (reading '2')
@@ -24,7 +26,6 @@ BUGS
     BUG screw driver went to -10% and didn't unequip 04-24-26
     BUG degradable items being traded 04-24-26
     BUG if you interact social and work is available, for trash, cancel it if it goes below 10 04-24-26
-    BUG NaN money after selling to human presumably 04-24-26, 
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason
     BUG: street appears to be in indefinite loop. not sure why though 04-21-26, 04-25-26 (no console)

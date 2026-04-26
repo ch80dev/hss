@@ -4,6 +4,7 @@ class PlayerState{
         'raw meat (human)': false,
         'raw meat (rat)': false,
     };
+    crimes_this_turn = [];
     dead = false;
     equipped = {
         bag: null,
@@ -34,6 +35,7 @@ class PlayerState{
     minutes_delta = 0;
     money = null;
     movement_cost = null;
+    reported_crimes = [];
     socializing = null;
     
     stamina = Config.lifeforms.human.max_stamina;

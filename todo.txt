@@ -1,9 +1,25 @@
 TODO      
-
-
+    mark when trash cans are untouched
+    BUG hours going over 24
+    BUG when you buy, their money doesn't go up 
+    BUG infinite loop on street entering
     BUG human spawned infront of a shop
-    BUG infinite loop entering street 04-25-26
+    BUG slept on a trash can
+    BUG DefaultConfig turnign every shop into that shop type
+    BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.
+    humans shouldn't interact with you if they're fighting you
 BUGS
+    BUG
+        MapQueries.js:12 Uncaught TypeError: Cannot read properties of undefined (reading '2')
+            at @ MapQueries.js:12
+            go @ Lifeform.js:112
+            move @ Rat.js:49
+            lifeforms_move @ Turn.js:65
+            next @ Turn.js:36
+            next @ Game.js:38
+            press_key @ Input.js:43
+            (anonymous) @ events.js:3
+
     ? if inventory full by slots, I should still be able to stack shit I have 04-25-26
     BUG screw driver went to -10% and didn't unequip 04-24-26
     BUG degradable items being traded 04-24-26
@@ -11,7 +27,7 @@ BUGS
     BUG NaN money after selling to human presumably 04-24-26, 
     BUG: trash is generating items with undefined name  04-21-26 - think I resolved this with new trash odds 04-23-26
         console.log isn't catching this for some reason
-    BUG: street appears to be in indefinite loop. not sure why though 04-21-26
+    BUG: street appears to be in indefinite loop. not sure why though 04-21-26, 04-25-26 (no console)
     BUG I can only trade one thing at a time. It won't let me keep trading - not consistent - not able to do it later 04-22-26
     BUG gamble causes NaN when below 0; 04-21-26
     BUG clicked something on ground and something else came out and couldn't click anymore 04-22-26
@@ -60,6 +76,7 @@ LATER
     bags
 
 DESIGN
+    went from one street to another kind of aimlessly and there wasn't anything interesting in most of them 04-25-26
     can't meaningfully keep track of where stuff instead
         what if you can create chalk marks ? YES
     with marking, I can keep track of stuff but it still feels very overwhelming. like i feel like there's a good trade route somewhere but I can't meaningfully keep track in any way

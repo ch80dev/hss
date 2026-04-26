@@ -30,10 +30,11 @@ class Turn{
 		}
 	}
 
-	next(humans, map, rats){
+	next(humans, map, rats, cops){
 	
 		this.player.status.change_stamina();
-		this.lifeforms_move(humans, map, rats);		
+		this.lifeforms_move(humans, map, rats, cops);		
+
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
 			this.player.state.minutes_delta = 0;
@@ -41,10 +42,21 @@ class Turn{
 		} else {
 			this.forward_time(0, 1);	
 		}
-
+		this.player.state.crimes_this_turn = [];
 	}
 
-	lifeforms_move(humans, map, rats){		
+	lifeforms_move(humans, map, rats, cops){		
+
+		for (let cop of cops){
+			let give_warning = rand_num(1, 3)  + cop.severity == 1;
+			if (give_warning){
+				ui.log("Police! Freeze!");
+				continue;
+			}
+			cop.move();
+
+
+		}
 		for (let id in  rats){					
 			let rat = rats[id];
 			let distance = map.get.geometry.fetch_distance(this.player.state.x, this.player.state.y, rat.x, rat.y);
@@ -54,7 +66,6 @@ class Turn{
 				rat.unconscious_for --;
 				if (rat.unconscious_for == 0){
 					ui.log(`A rat regained consciousness!`);
-					console.log(rat.attacking_player);
 				}
 				continue;
 			}
@@ -101,7 +112,6 @@ class Turn{
 				human.ante = HumanConfig.starting_gamble_ante;
 			}
 			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
-				console.log('beggining reset');
 				human.begging_unlocked = true;
 			}
 			if (human.attacking_player && (rand_num(1, human.max_stamina) > human.stamina) 
@@ -111,6 +121,9 @@ class Turn{
 			}
 			if (human.bleeding > 0){
 				human.bleed();
+			}
+			if(this.player.state.crimes_this_turn.length > 0 && distance <= human.sense_range && map.get.inspector.has_line_of_sight(human.x, human.y, this.player.state.x, this.player.state.y)){
+				human.watch();
 			}
 		}
 	}

@@ -65,6 +65,7 @@ class InventoryUse{
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
             return;
         } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep()){
+            this.player.status.add_crime('sleep');
             this.player.status.add_time(8, 0);
             let caption = "";
             let penalty = this.player.status.sleep(false, false);

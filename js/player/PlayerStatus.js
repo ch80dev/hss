@@ -4,6 +4,10 @@ class PlayerStatus{
         this.time = time;
     }
     
+    add_crime(what){
+        this.player.state.crimes_this_turn.push(what);
+    }
+
     add_time(hours, minutes){
         this.player.state.hours_delta += hours;
         this.player.state.minutes_delta += minutes;

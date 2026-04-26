@@ -18,9 +18,15 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop){
     background: #555555;
     border: 1px #555555 solid;
+}
+
+.cop{
+    background: #555555;
+    color: blue;
+    border: 1px blue solid;
 }
 .dark:not(.empty):not(.favorite) {
     background: #111111;

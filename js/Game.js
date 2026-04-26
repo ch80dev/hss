@@ -1,4 +1,5 @@
 class Game{
+	cops = [];
 	facing = 'up';
 	get = null;
 	night = false;
@@ -6,12 +7,13 @@ class Game{
 	humans = [];
 	input = new Input();
 	loop = new Loop();
+	police_responding_in = {};
 	player = null; // needs to before map;
+	police_dispatched = [];
 	populate = null;
 	quests = new Quest();
 	map = new GameMap (MapConfig.max_x, MapConfig.max_y);
-	rats = [];
-
+	rats = [];	
 	shops = [];
 	time = {
 		days: 1,
@@ -33,9 +35,53 @@ class Game{
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
 	}
+	call_police(){
+		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?
+		let response = this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`];
+		if (response != undefined){
+			ui.log(` [Police: ${response.time}]`);
+			return;
+
+		}
+		let severity = -1;
+		for (let crime of this.player.state.reported_crimes){
+			if (severity < Config.crime_severity[crime]){
+				severity = Config.crime_severity[crime];
+			}
+		}
+		response = {};
+		let num_of_exits = this.map.get.inspector.entity.fetch_num_of_exits();
+		if (this.player.state.location.type == 'street'){
+			response.from = null;
+			response.time = 0;
+		} else if (num_of_exits.street > 0){
+			response.from = 'street';
+			response.time = 10;
+		} else if (num_of_exits.alley > 0){
+			response.from = 'alley';
+			response.time = 25;
+		} else if (num_of_exits.sewer > 0){
+			response.from = 'sewer';
+			response.time = 50;
+		}
+		if (severity < 0){
+			console.log('error!!!'. severity);
+		}
+		response.severity = severity;
+		ui.log(`Police were called! [${response.time}]`);
+		this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`] = response;
+	}
 	
 	next(){
-		this.turn.next(this.humans, this.map, this.rats);
+		for (let loc_str in this.police_responding_in){
+			let report = this.police_responding_in[loc_str];
+			report.time --;
+		}
+		this.turn.next(this.humans, this.map, this.rats, this.cops);
+		if (this.player.state.reported_crimes.length > 0 
+			&& this.player.state.location.type != 'sewer'){
+			//this.call_police();
+		}
 		for (let i = 0; i < this.player.state.unconscious_for; i ++){
 			this.turn.next(this.humans, this.map, this.rats);
 			if (i == 0){
@@ -52,7 +98,26 @@ class Game{
 			ui.log("It's day time now.")
 			this.night = false;
 		}
+		for (let location in this.police_responding_in){
+			let report = this.police_responding_in[location];
+			console.log(report, this.police_dispatched);
+			if (report.time < 1 && !this.police_dispatched.includes(this.player.fetch_loc_str())){
+				this.police_dispatched.push(this.player.fetch_loc_str());
+				let exits = this.map.get.inspector.entity.fetch_exits_of_type(report.from);
+				if (report.type != null && exits.length == 0){
+					console.log('error');
+					return;
+				}
+				if (report.type == null){
+					exits = this.map.get.inspector.entity.fetch_exits();
+				}
+				let rand = exits[rand_num(0, exits.length - 1)];
+				ui.log("POLICE! FREEZE!");
 
+				this.cops.push(new Cop(this.cops.length, rand.x, rand.y, report.severity, location.split('-')[0], location.split('-')[0], this.map, this.player, this.get));
+				this.map.is(rand.x, rand.y, MapConfig.cell_class.indexOf('cop'));
+			}
+		}
 	}
 	
 

@@ -50,9 +50,11 @@ class PlayerHuman{
             console.log('error');
             return;
         }
-        let interaction = human.interactions[id];       
+        this.player.status.add_crime('talk');
+        let interaction = human.interactions[id];
         if (interaction == 'beg' && human.begging_unlocked == true 
             && this.player.state.stigma >= human.min_stigma_beg){
+            this.player.status.add_crime('beg');
             let begged = human.interaction.begged(time);
             this.player.status.change_money(begged);
             ui.log(`They gave you $${begged}.`)

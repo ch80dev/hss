@@ -63,4 +63,29 @@ class Human extends Lifeform{
 
         this.go(pos.x, pos.y, MapConfig.cell_class.indexOf('human'), Config.stamina_cost.move);
     }
+
+    report_crime(what){
+        if (!this.player.state.reported_crimes.includes(what)){
+            this.player.state.reported_crimes.push(what);
+        }
+    }
+
+    watch(juego){
+        
+        for (let crime of this.player.state.crimes_this_turn){
+            let severity = Config.crime_severity[crime];
+            let do_they_report = this.player.state.stigma > this.max_stigma_tolerance 
+                && rand_num(1, 100) < this.player.state.stigma;
+            if (severity == 1){
+                do_they_report = rand_num(1, 100) < this.player.state.stigma;
+            } else if (severity == 2){
+                do_they_report = rand_num(1,2) == 1;
+            } else if (severity == 3){
+                do_they_report = true;
+            }
+            if (do_they_report){
+                this.report_crime(crime);
+            }
+        }
+    }
 }

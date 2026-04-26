@@ -14,8 +14,9 @@ class MapConfig {
 		'trash', 'rat', 
 		'human', 'crate',
 		'shop', 'tent', 
-		'debris',];
+		'debris', 'cop'];
 	static cell_txt = {
+		cop: '&sect;',
 		crate: '&#9644;',
 		debris: '⋯',
 		dumpster: '&#9644;',

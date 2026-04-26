@@ -24,6 +24,7 @@ class PlayerActions {
             let bleeding_txt = '';
             this.player.inventory.use.weapon();
             let bleed = this.player.inventory.get.weapon_bleed();
+            this.player.status.add_crime('attack-' + target.type);
             if (target.bleeding < 1 && bleed > 0){
                 bleeding_txt = " They started bleeding!"
             }
@@ -32,7 +33,8 @@ class PlayerActions {
             if (target.money > 0 && target.health < 1){
                 money_caption = ` You took $${target.money} from them. `;
             }
-            if (target.health < 1){      
+            if (target.health < 1){ 
+                this.player.status.add_crime(`kill-${target.type}$`)
                 target.inventory.push({ name: `raw meat (${target.type})`, quantity: ItemConfig.meat[target.type], durability: 100 })
                           
                 juego.map.loot[juego.map.format_at(this.player.state.location.type, this.player.state.location.id, x, y)] = { stuff: null };
@@ -42,6 +44,7 @@ class PlayerActions {
             } else if (target.type == 'rat' && !are_they_unconscious && target.unconscious_for != 0){
                 unconscious = `A ${target.type} lost consciousness.`;
             } else if (!are_they_unconscious && target.unconscious_for != 0){
+                this.player.status.add_crime(`knock_out-${target.type}$`)
                 unconscious = `${target.name} ${target.surname} lost consciousness.`;
             }
             
@@ -86,7 +89,6 @@ class PlayerActions {
         this.player.state.looting = true;
     }
     loot_corpse(map, juego){
-
         this.loot_body(map, juego);
     }
 
@@ -94,6 +96,9 @@ class PlayerActions {
         let target = juego.get.target(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y);
         if (target == null){
             return;
+        }
+        if (target.type == 'human'){
+            this.player.status.add_crime('loot_unconscious');
         }
         if (target.inventory != null){
             juego.map.loot[this.player.fetch_from()] = { stuff: null };
@@ -107,6 +112,7 @@ class PlayerActions {
         let caption = "";
         let loot = map.loot[this.player.fetch_from()];
         let tent = map.get.inspector.entity.fetch_tent(this.player.fetch_from());
+        this.player.status.add_crime('sleep');
         console.log(tent);
         if(tent == null || !this.player.status.can_they_sleep()){
             return;

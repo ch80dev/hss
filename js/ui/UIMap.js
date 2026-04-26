@@ -51,8 +51,10 @@ class UIMap {
 
 
 				
+				if (map_at != null && map_at == MapConfig.cell_class.indexOf('cop')){
+					cell_class = ' cop ';
 				  
-				if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && human.homeless){
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && human.homeless){
 					cell_class = ' human homeless ';
 				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless){
 					cell_class = ' human citizen ';
@@ -68,8 +70,13 @@ class UIMap {
 					cell_class = ' rat hungry';
 				} 
 
+
+
 				if (juego.player.movement.at(x, y)){
 					cell_txt = MapConfig.cell_txt['player'];
+					
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('cop')){
+					cell_txt = MapConfig.cell_txt.cop; // need to put this up here to overwrite exit
 					
 				} else if (map_at != null && map_at != 1  
 					&& juego.map.get.inspector.entity.have_they_used_this_exit(juego.player.state.location.type, 

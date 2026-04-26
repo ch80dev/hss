@@ -23,6 +23,43 @@ class EntityInspector {
         return null;
     }
 
+    fetch_exits(){
+        let exits = [];
+        for (let x = 0; x < MapConfig.max_x; x ++){
+            for (let y = 0; y < MapConfig.max_y; y ++){
+                let at = this.map.get.at(x, y);
+                if (at == null){
+                    continue;
+                }
+                let el = MapConfig.cell_class[at]
+                if (el.slice(-4) == 'exit'){
+                    exits.push({ x: x, y: y });
+                }
+            }
+        }
+        return exits;
+    }
+
+    fetch_exits_of_type(type){
+        if (type == null){
+            return [];
+        }
+        let exits = [];
+        for (let x = 0; x < MapConfig.max_x; x ++){
+            for (let y = 0; y < MapConfig.max_y; y ++){
+                let at = this.map.get.at(x, y);
+                if (at == null){
+                    continue;
+                }
+                let el = MapConfig.cell_class[at]
+                if (el.slice(0, -5) == type){
+                    exits.push({ x: x, y: y });
+                }
+            }
+        }
+        return exits;
+    }
+
     fetch_loot(at, id){
         for (let item of this.map.loot[at].stuff){
             if (item.id == id){
@@ -39,6 +76,25 @@ class EntityInspector {
             return null;
         }
         return this.map.marks[at];
+    }
+
+    fetch_num_of_exits(){
+        let exits = ['alley_exit', 'street_exit', 'sewer_exit'];
+        let num_of_exits = { alley: 0, sewer: 0, street: 0 };
+        for (let x = 0; x < MapConfig.max_x; x ++){
+            for (let y = 0; y < MapConfig.max_y; y ++){
+                let at = this.map.get.at(x, y);
+                if (at == null){
+                    continue;
+                }
+                let el = MapConfig.cell_class[at]
+                if (!exits.includes(el)){
+                    continue;
+                }
+                num_of_exits[el.slice(0, -5)] ++;
+            }
+        }
+        return num_of_exits;
     }
 
     fetch_num_of_trash(){

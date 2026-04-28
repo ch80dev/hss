@@ -54,22 +54,5 @@ class Config {
 		3 - shooting
 	*/
 
-	static crime_severity = {
-		'attack-cop': 3,
-		'attack-human': 2,
-		'attack-rat': 1,
-		beg: 1,
-		hit_trash: 2,
-		'kill-human': 3,
-		'kill-rat': 1,
-		'knock_out-rat': 1,
-		'knock_out-human': 2,
-		loot_unconscious: 2,
-		open_trash: 0,
-		sleep: 1,
-		talk: 0,
-		unlock_trash: 1,
-		
-	}
 	
 }

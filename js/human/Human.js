@@ -73,7 +73,7 @@ class Human extends Lifeform{
     watch(juego){
         
         for (let crime of this.player.state.crimes_this_turn){
-            let severity = Config.crime_severity[crime];
+            let severity = CopConfig.crime_severity[crime];
             let do_they_report = this.player.state.stigma > this.max_stigma_tolerance 
                 && rand_num(1, 100) < this.player.state.stigma;
             if (severity == 1){

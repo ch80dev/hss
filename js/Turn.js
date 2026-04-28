@@ -12,10 +12,6 @@ class Turn{
 			this.player.inventory.food_spoils();
 			this.player.status.player_still_sick();
 		}
-		if (hours_delta < 1){ 
-			return;
-
-		}
 		if (this.time.hours + hours_delta > 23){
 			this.time.hours = (this.time.hours + hours_delta) - 24;
 			this.time.days ++; 			
@@ -48,14 +44,28 @@ class Turn{
 	lifeforms_move(humans, map, rats, cops){		
 
 		for (let cop of cops){
+			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
 			let give_warning = rand_num(1, 3)  + cop.severity == 1;
+			if (!cop.keeping_the_peace){
+				continue;
+			}
+			if (distance <= cop.sense_range){
+				give_warning = cop.spot_player(this.player.state.x, this.player.state.y, give_warning);
+				
+			}
 			if (give_warning){
 				ui.log("Police! Freeze!");
 				continue;
 			}
-			cop.move();
 
+			if (distance >= 2){
+				cop.move();
+				continue;
+			} 
+			this.player.actions.detained_interview();
 
+			
+			
 		}
 		for (let id in  rats){					
 			let rat = rats[id];

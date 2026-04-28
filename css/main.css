@@ -4,6 +4,21 @@ body{
     color: grey;
 }
 
+.†{
+    color: #0055FF;
+}
+
+.§{
+    color: #FFD700;
+}
+
+.¿{
+    color: #00C800;
+}
+
+.¶{
+    color: #E0E0E0;
+}
 #bottom {
     width: 100%;
     text-align : center;
@@ -23,6 +38,35 @@ body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
 
+.cop_interview{
+    font-size: 30px;
+    padding: 25px;
+    background: #1A1A1A;
+}
+
+#cop_interview_context{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 30px;
+}
+#cop_interview_score{
+    font-size: 40px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.cop_score{
+
+    margin: 10px;
+}
+
+#detained{
+    text-align: center;
+}
+.detained{
+    padding: 10px;
+    font-size: 25px;
+}
 
 .favorite_entry{
     color: white;

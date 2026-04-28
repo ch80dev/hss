@@ -15,6 +15,23 @@ $(document).on('click', '.cell:not(.empty)', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '.cop_interview', function() {
+    juego.cop_interview.choose(Number(this.id.split('-')[1]));
+    if (juego.cop_interview.result == 'win'){
+        juego.player.actions.cop_lets_them_go(juego.get);
+    } else if (juego.cop_interview.result == 'lose'){
+        juego.player.actions.crime_sentencing();
+    }
+    ui.refresh.go();
+});
+
+
+
+$(document).on('click', '.detained', function() {
+    juego.player.actions.detained(this.id.split('-')[1], juego.get);
+    ui.refresh.go();
+});
+
 $(document).on('click', '.close', function() {
     juego.player.state.looting = false;
     juego.player.state.socializing = null;
@@ -24,6 +41,12 @@ $(document).on('click', '.close', function() {
 
 $(document).on('click', '.favorite', function() {
     juego.favorites.add_by_type(this.id.split('-')[1], Number(this.id.split('-')[2]), juego);
+    ui.refresh.go();
+});
+
+
+$(document).on('click', '#start_sentence', function() {
+    juego.player.actions.start_sentence();
     ui.refresh.go();
 });
 

@@ -1,21 +1,20 @@
 class Queries{
-    constructor(humans, rats, shops){
+    constructor(humans, rats, shops, cops){
+		this.cops = cops;
         this.humans = humans;
 		this.rats = rats;
         this.shops = shops;
     }
-	rand_human(not_them_id){
-		if (this.humans.length <= 2){
-			return null;
-		}
-		while(true){
-			let rand = rand_num(0, this.humans.length - 1);
-			let human = this.human(rand);
-			if (human != null && human.id != not_them_id){
-				return human;
+
+	cop(id){
+		for (let cop of this.cops){
+			if (cop.id == id){
+				return cop;
 			}
 		}
+		return null;
 	}
+
     human_by_loc(location_type, location_id, x, y){
 		for (let human of this.humans){			
             if (human.location.type == location_type && human.location.id == location_id 
@@ -35,6 +34,19 @@ class Queries{
             }
         }
         return null;
+	}
+
+	rand_human(not_them_id){
+		if (this.humans.length <= 2){
+			return null;
+		}
+		while(true){
+			let rand = rand_num(0, this.humans.length - 1);
+			let human = this.human(rand);
+			if (human != null && human.id != not_them_id){
+				return human;
+			}
+		}
 	}
 
 	rat(location_type, location_id, x, y){

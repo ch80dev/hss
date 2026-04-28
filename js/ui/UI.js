@@ -1,5 +1,6 @@
 class UI{
 	auto_loot_inv = {};
+	cop = new UICop();
 	fade_opacity_delta = .1;
 	favorites = new UIFavorite();
 	loot = new UILoot();
@@ -9,7 +10,7 @@ class UI{
 	sleeping = false;
 	social = new UISocial();
 	status_msg = "";
-	screen_focused = 'map';
+	screen_focused = 'detained';
 	constructor(){
 
 	}

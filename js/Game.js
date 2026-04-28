@@ -1,4 +1,5 @@
 class Game{
+	cop_interview = new CopInterview();
 	cops = [];
 	facing = 'up';
 	get = null;
@@ -26,7 +27,7 @@ class Game{
 	
 	constructor(){
 		setInterval(this.loop.go(), Config.loop_interval_timing);
-		this.get = new Queries(this.humans, this.rats, this.shops);
+		this.get = new Queries(this.humans, this.rats, this.shops, this.cops);
 		let open = this.map.get.inspector.fetch_open();
 		this.player = new Player(open.x, open.y, this.time);
 		this.populate = new Populator(this.map, this.player, this.get);
@@ -34,6 +35,8 @@ class Game{
 		this.populate.with_rats('alley', 0, this.rats);
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
+		
+		this.cops.push(new Cop(this.cops.length, this.player.state.x + 2, this.player.state.y + 2, 0, this.player.state.location.type, this.player.state.location.id, this.map, this.player, this.get));
 	}
 	call_police(){
 		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?
@@ -45,8 +48,8 @@ class Game{
 		}
 		let severity = -1;
 		for (let crime of this.player.state.reported_crimes){
-			if (severity < Config.crime_severity[crime]){
-				severity = Config.crime_severity[crime];
+			if (severity < CopConfig.crime_severity[crime]){
+				severity = CopConfig.crime_severity[crime];
 			}
 		}
 		response = {};
@@ -80,7 +83,7 @@ class Game{
 		this.turn.next(this.humans, this.map, this.rats, this.cops);
 		if (this.player.state.reported_crimes.length > 0 
 			&& this.player.state.location.type != 'sewer'){
-			//this.call_police();
+			this.call_police();
 		}
 		for (let i = 0; i < this.player.state.unconscious_for; i ++){
 			this.turn.next(this.humans, this.map, this.rats);

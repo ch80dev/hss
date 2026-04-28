@@ -46,7 +46,7 @@ class HumanInventory{
             this.human.inventory.push({ name: name, quantity: quantity, durability: 100 });
             return;
         }
-        let item = this.fetch_item(name);
+        let item = this.fetch(name);
         item.quantity += quantity;
     }
 

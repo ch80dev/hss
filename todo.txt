@@ -1,5 +1,14 @@
 TODO
-
+    BUG putting stuff in crate and my weight is NaN now 04-25-26
+    BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
+    make tools less effective - screw driver almost never breaks
+    BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+    stamina should replenish by 50% so players still have to eat
+    status is really hgih on shop and human
+    add number presses to  shop buttons
+    increase num of trash can min by one unit
+    add .1-.5 health penalty to consuming expired meds
+    remove trade cans to bottles bottles to cans etc.
     mark when trash cans are untouched04-25-26
     BUG hours going over 2404-25-26
     BUG when you buy, their money doesn't go up 04-25-26
@@ -10,6 +19,8 @@ TODO
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26
     humans shouldn't interact with you if they're fighting you
     BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26
+    have a cop cycle between blue and red as they move
+    When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
 BUGS
     BUG
         MapQueries.js:12 Uncaught TypeError: Cannot read properties of undefined (reading '2')
@@ -21,7 +32,7 @@ BUGS
             next @ Game.js:38
             press_key @ Input.js:43
             (anonymous) @ events.js:3
-
+            
     ? if inventory full by slots, I should still be able to stack shit I have 04-25-26
     BUG screw driver went to -10% and didn't unequip 04-24-26
     BUG degradable items being traded 04-24-26

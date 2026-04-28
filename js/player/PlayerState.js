@@ -6,6 +6,8 @@ class PlayerState{
     };
     crimes_this_turn = [];
     dead = false;
+    cop_interview = false;
+    detained_by = 0;
     equipped = {
         bag: null,
         hand: null,
@@ -35,7 +37,9 @@ class PlayerState{
     minutes_delta = 0;
     money = null;
     movement_cost = null;
-    reported_crimes = [];
+    reported_crimes = ['beg'];
+    sentence_served = null;
+    sentenced_to = null;
     socializing = null;
     
     stamina = Config.lifeforms.human.max_stamina;

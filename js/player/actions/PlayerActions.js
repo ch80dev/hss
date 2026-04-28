@@ -54,6 +54,70 @@ class PlayerActions {
         ui.log(`You missed them! ${target.health}/${target.max_health}`);
     }
 
+    cop_lets_them_go(get){
+        if (this.player.state.detained_by == null){
+            return;
+        }
+        let cop = get.cop(this.player.state.detained_by);
+        if (cop == null){
+            return;
+        }
+        cop.keeping_the_peace = false;
+        this.player.state.detained_by = null;
+        ui.log("'Alright, you're free to go but stay out of trouble...'");
+        ui.change_screen('map');
+    }
+
+    crime_sentencing(){
+        let max_sentence = 0;
+        for (let crime of this.player.state.reported_crimes){
+            max_sentence += CopConfig.crime_sentencing[crime];
+
+        }
+        let min_sentence = Math.round(this.player.state.stigma / this.player.state.max_stigma * max_sentence);
+        let sentence = rand_num(min_sentence, max_sentence);
+        this.player.state.sentenced_to = sentence;        
+    }
+
+    detained(what, get){
+        if (this.player.state.detained_by == null){
+            return;
+        }
+        let cop = get.cop(this.player.state.detained_by);
+        if (cop == null){
+            return;
+        }
+        if (what == 'accept'){
+            
+            this.crime_sentencing();
+            return;
+        } else if (what == 'deny'){
+            if (cop.severity == null){
+                console.log('error');
+                return;
+            }
+            juego.cop_interview.severity = cop.severity;
+            this.player.state.detained_interviewing = true;
+            return;
+        } 
+        
+        if (what != 'escape'){
+            console.log('how?');
+            return;
+        }
+        this.player.state.detained_by = null;
+        ui.change_screen('map');
+        cop.escaping = true;
+
+    }
+
+    detained_interview(id){
+        this.player.state.detained_by = id;
+        ui.change_screen('cop');
+    }
+
+
+
     look (x, y, map){
         let simple = ["rat", 'human'];
         if (this.player.state.looking_at != null && this.player.state.looking_at.x == x && this.player.state.looking_at.y == y){
@@ -138,5 +202,19 @@ class PlayerActions {
         ui.log(`${txt} ${caption}`)
         ui.change_screen('map');
         this.player.state.looting = false;
+    }
+    serve_sentence(){
+        console.log('served', juego.player.state.sentence_served);
+        juego.player.state.sentence_served ++;
+        ui.refresh.go();
+        if (juego.player.state.sentence_served < juego.player.state.sentenced_to){
+            setTimeout(juego.player.actions.serve_sentence, 1000);
+        }
+    }
+
+    start_sentence(){
+        this.player.state.sentence_served = 0;
+        console.log(this.player.state.sentence_served);
+        setTimeout(juego.player.actions.serve_sentence, 1000);
     }
 }

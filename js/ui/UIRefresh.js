@@ -4,12 +4,15 @@ class UIRefresh {
         this.ui = ui;
     }
     go(){
-		
+		console.log(juego.player.state.detained_by);
 		if (juego.player.state.shopping != null ){
 			this.ui.shop.display(juego.player);
 		} else if (juego.player.state.looting){
 			this.ui.loot.display();
+		} else if (juego.player.state.detained_by != null){
+			this.ui.cop.display();
 		}
+
 		this.ui.display_location_name();
 		
 		

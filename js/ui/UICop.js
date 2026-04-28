@@ -1,0 +1,88 @@
+class UICop{
+    display(){
+        console.log('cop');
+        if (juego.player.state.detained_by == null){
+            return;
+        }
+        let cop = juego.get.cop(juego.player.state.detained_by);
+        if (cop == null){
+            return;
+        }
+        console.log(juego.player.state.sentence_served);
+        if (juego.player.state.sentence_served != null){
+            $("#detained").html(this.display_sentence_served());
+            return;
+        } else if (juego.player.state.sentenced_to != null){
+            $("#detained").html(this.display_sentenced());
+            return;
+        } else if (juego.player.state.cop_interview){
+            $("#detained").html(this.display_interview(cop));
+            return;
+        }
+
+        $("#detained").html(this.display_start(cop));
+
+        
+    }
+    display_interview(cop){
+        let interview = juego.cop_interview;
+        let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div>`;
+        for (let i in interview.buttons.categories){
+            let category  = Object.keys(interview.buttons.categories[i])[0];
+            let category_num = interview.buttons.categories[i][category];
+            let cost  = Object.keys(interview.buttons.costs[i])[0];
+            let secondary = '';
+            let cost_num = interview.buttons.costs[i][cost];
+            if (cost_num == 1 || cost_num == 2){
+                secondary += `<span class='${cost}'>(+${cost_num}${cost})</span>`;
+            }
+            txt += `<button id='cop_interview-${i}' class='cop_interview'><span class='${category}'>+${category_num}${category}</span> ${secondary}</button>`;
+        }
+        txt += `</div><div id='cop_interview_score'>`;
+            for(let category of interview.categories){
+                let score = interview.score[category];
+                txt += `<span class='${category} cop_score'>${category}: ${score}</span>`;
+            }
+        txt +=  `</div><div id='cop_interview_context'>${interview.turns}/${interview.turns_per_round} ${interview.evaluate()}</div>`;
+        return txt;
+    }
+
+    display_sentenced(){
+        let txt = `<div>For the following crimes:</div>`;
+        for (let crime of juego.player.state.reported_crimes){
+            txt += `<div>${CopConfig.crime_captions[crime]}</div>`;
+        }
+        
+        txt += `You've been sentenced to ${this.format_sentencing(juego.player.state.sentenced_to)}.</div><div><button id='start_sentence'>start</button></div>`;
+        return txt;
+    }
+
+    display_sentence_served(){
+        let txt = `<div>Day #${juego.player.state.sentence_served} of ${this.format_sentencing(juego.player.state.sentenced_to)}</div>`;
+        txt += `<button id='sentence_even'></button><button id='sentence_odd'></button>`
+        return txt;
+    }
+
+    display_start(cop){
+        let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div>Police!</div> <div>So we got a call for a perp matching your description for the following:`;
+        for (let crime of juego.player.state.reported_crimes){
+            txt += `<div>${CopConfig.crime_captions[crime]}</div>`;
+        }
+
+        txt += `<div>Know anything about that?</div>`;
+        txt += `<div><button id='detained-accept' class='detained'>${CopConfig.detained.accept[rand_num(0, CopConfig.detained.accept.length - 1)]} </button></div>`
+        txt += `<div><button id='detained-deny' class='detained'>${CopConfig.detained.deny[rand_num(0, CopConfig.detained.deny.length - 1)]} </button></div>`
+        txt += `<div><button id='detained-escape' class='detained'>${CopConfig.detained.escape[rand_num(0, CopConfig.detained.escape.length - 1)]} </button></div>`
+        return txt;
+    }
+
+    format_sentencing(n){
+        let txt = `${n} days`;
+        if (n >= 365){
+            txt = `${(n / 365).toFixed(1)} years`;        
+        } else if (n >= 30){
+            txt = `${(n / 30).toFixed(1)} months`;        
+        }
+        return txt;
+    }
+}

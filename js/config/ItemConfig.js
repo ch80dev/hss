@@ -100,10 +100,10 @@ class ItemConfig {
 	static spoiled_sick_gain = [1, 50];
 	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'medicine', 'medicine (expired)', 'drugs'];
 	static tool_durability_uses = {
-		'screw driver': 5,
-		wrench: 2.5,
-		'crow bar': .33,
-		'bolt cutters': .125,
+		'screw driver': 10,
+		wrench: 5,
+		'crow bar': .5,
+		'bolt cutters': .25,
 	}
 	static trash_items = {
 		'plastic bottle': 40,	

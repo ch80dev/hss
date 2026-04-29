@@ -118,6 +118,7 @@ class UISocial{
 		}
 		for (let id of item_ids){
 			if (juego.player.inventory.get.is_equipped_with_id(id)){
+				console.log("BUG: shouldn't be able to sell equipped items to humans 04-29-26", id);
 				continue;
 			}
 			let item = juego.player.inventory.fetch.by_id(id);

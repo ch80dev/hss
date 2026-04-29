@@ -1,8 +1,6 @@
 TODO
-    BUG shouldn't be able to sell equipped items to humans
     BUG putting stuff in crate and my weight is NaN now 04-25-26
     BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
-    make tools less effective - screw driver almost never breaks
     BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
     stamina should replenish by 50% so players still have to eat
     status is really hgih on shop and human
@@ -28,6 +26,9 @@ TODO
     When you're tazed unconscious, the cop should wait to see if you flee again.
     
 BUGS
+
+    BUG shouldn't be able to sell equipped items to humans
+
     BUG
         MapQueries.js:12 Uncaught TypeError: Cannot read properties of undefined (reading '2')
             at @ MapQueries.js:12

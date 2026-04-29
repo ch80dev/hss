@@ -37,8 +37,6 @@ class Game{
 		this.populate.with_rats('alley', 0, this.rats);
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
-		
-		//this.cops.push(new Cop(this.cops.length, this.player.state.x + 2, this.player.state.y + 2, 0, this.player.state.location.type, this.player.state.location.id, this.map, this.player, this.get));
 	}
 	call_police(){
 		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?
@@ -92,8 +90,9 @@ class Game{
 			this.call_police();
 		}
 		for (let i = 0; i < this.player.state.unconscious_for; i ++){
-			this.turn.next(this.humans, this.map, this.rats);
-			if (i == 0){
+			console.log(this.player.state.unconscious_for, i);
+			this.turn.next(this.humans, this.map, this.rats, this.cops);
+			if (i == this.player.state.unconscious_for - 1){
 				this.player.state.unconscious_for = 0;
 			}
 		}

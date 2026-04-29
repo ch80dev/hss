@@ -39,8 +39,8 @@ class PlayerState{
     movement_cost = null;
     reported_crimes = [];
     in_pacman_jail = false;
-    sentence_served = 0; //null
-    sentenced_to = 100; //null
+    sentence_served = null; //null
+    sentenced_to = null; //null
     shopping = null;
     socializing = null;
     

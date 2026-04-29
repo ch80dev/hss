@@ -45,6 +45,12 @@ $(document).on('click', '.favorite', function() {
 });
 
 
+$(document).on('click', '#go_to_the_yard', function() {
+    juego.player.actions.go_to_the_yard();
+    ui.refresh.go();
+});
+
+
 $(document).on('click', '#start_sentence', function() {
     juego.player.actions.start_sentence();
     ui.refresh.go();

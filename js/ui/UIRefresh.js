@@ -4,6 +4,10 @@ class UIRefresh {
         this.ui = ui;
     }
     go(){
+		if (this.ui.sleeping){			
+			setTimeout(this.ui.fade_for_sleep, 100);
+			return;
+		}
 		if (juego.player.state.shopping != null ){
 			this.ui.shop.display(juego.player);
 		} else if (juego.player.state.looting){
@@ -95,8 +99,6 @@ class UIRefresh {
         });
 		$("#money").html(`$${formatter.format(juego.player.state.money)}`);
 		this.ui.display_time();
-		if (this.ui.sleeping){			
-			setTimeout(this.ui.fade_for_sleep, 100);
-		}
+		
 	}
 }

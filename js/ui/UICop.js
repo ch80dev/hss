@@ -1,8 +1,10 @@
 class UICop{
     display(){
+
         if (juego.player.state.detained_by == null){
             return;
         }
+
         let cop = juego.get.cop(juego.player.state.detained_by);
         if (cop == null){
             return;
@@ -20,7 +22,6 @@ class UICop{
             $("#detained").html(this.display_interview(cop));
             return;
         }
-
         $("#detained").html(this.display_start(cop));
 
         
@@ -86,14 +87,14 @@ class UICop{
 
     display_sentence_served(){
         let txt = `<div>Day #${juego.player.state.sentence_served} of ${this.format_sentencing(juego.player.state.sentenced_to)}</div>`;
-        txt += `<button id='sentence_even'></button><button id='sentence_odd'></button>`
+        txt += `<button id='go_to_the_yard'>Go to the yard. (time passes 10x faster)</button>`
         return txt;
     }
 
     display_start(cop){
         let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div>Police!</div> <div>So we got a call for a perp matching your description for the following:`;
         for (let crime of juego.player.state.reported_crimes){
-            txt += `<div>${CopConfig.crime_captions[crime]}</div>`;
+            txt += `<div class='crime_reported'>${CopConfig.crime_captions[crime]}</div>`;
         }
 
         txt += `<div>Know anything about that?</div>`;

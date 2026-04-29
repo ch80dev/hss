@@ -21,14 +21,14 @@ body{
 }
 #bottom {
     width: 100%;
-    text-align : center;
-    clear:both;
+    text-align: center;
+    clear: both;
     position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 75;
+    left: 0;
+    right: 0;
+    /* This sets the distance from the bottom edge of the screen */
+    bottom: 75px; 
 }
-
 :root{
     --top-bar-height: 28px;
     --status-bar-height: 24px;
@@ -79,6 +79,11 @@ body:has(#loot:not(.hidden)){
   color: transparent;
 }
 
+
+.crime_reported{
+    color: white;
+    font-weight: bold;
+}
 #detained{
     text-align: center;
 }

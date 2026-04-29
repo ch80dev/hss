@@ -11,6 +11,7 @@ class UI{
 	social = new UISocial();
 	status_msg = "";
 	screen_focused = 'map';
+	unconscious = false;
 	constructor(){
 
 	}
@@ -27,7 +28,8 @@ class UI{
 			setTimeout(ui.fade_for_sleep, 100);
 		} else {
 			$('body').css('opacity', 1);
-			ui.sleeping = false;			
+			ui.sleeping = false;	
+			ui.unconscious = false;		
 			ui.refresh.go();
 		}
 	}

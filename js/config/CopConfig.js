@@ -78,4 +78,7 @@ class CopConfig{
 		talk: 1,
 		unlock_trash: 30,
 	}
+
+	static tazer_max_distance = 5;
+	static tazer_damage = 10;
 }

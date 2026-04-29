@@ -87,6 +87,7 @@ class PlayerActions {
         if (cop == null){
             return;
         }
+        console.log(cop, what);
         if (what == 'accept'){
             
             this.crime_sentencing();
@@ -97,7 +98,8 @@ class PlayerActions {
                 return;
             }
             juego.cop_interview.severity = cop.severity;
-            this.player.state.detained_interviewing = true;
+            this.player.state.cop_interview = true;
+            
             return;
         } 
         
@@ -113,10 +115,13 @@ class PlayerActions {
 
     detained_interview(id){
         this.player.state.detained_by = id;
-        ui.change_screen('cop');
+        ui.change_screen('detained');
     }
 
-
+    go_to_the_yard(){
+        this.player.state.in_pacman_jail = true;
+        juego.jail.start();
+    }
 
     look (x, y, map){
         let simple = ["rat", 'human'];

@@ -20,9 +20,7 @@ class MapNavigator {
         let arr = [];
         for (let spot of adjacent_arr){
             let spot_delta = this.map.get.geometry.fetch_delta(spot.x, spot.y, x, y);
-            console.log(x, y, spot, delta);
             if (spot_delta.x == delta.x || spot_delta.y == delta.y){
-                console.log(spot);
                 arr.push(spot);
             }
         }

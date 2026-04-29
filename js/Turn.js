@@ -27,10 +27,8 @@ class Turn{
 	}
 
 	next(humans, map, rats, cops){
-	
 		this.player.status.change_stamina();
 		this.lifeforms_move(humans, map, rats, cops);		
-
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
 			this.player.state.minutes_delta = 0;
@@ -42,29 +40,30 @@ class Turn{
 	}
 
 	lifeforms_move(humans, map, rats, cops){		
-
+		let cop_on_scene = false;
 		for (let cop of cops){
 			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
-			let give_warning = rand_num(1, 3)  + cop.severity == 1;
+			let give_warning = rand_num(1, 3 + cop.severity)   == 1;
 			if (!cop.keeping_the_peace){
 				continue;
 			}
+			cop_on_scene = true;
 			if (distance <= cop.sense_range){
 				give_warning = cop.spot_player(this.player.state.x, this.player.state.y, give_warning);
-				
 			}
 			if (give_warning){
-				ui.log("Police! Freeze!");
+				ui.log(" <span class='cop_warn'>'POLICE! FREEZE!'</span>");
 				continue;
 			}
-			
-
-			if (distance >= 2){
-				console.log(cop.x, cop.y);
+			if (this.player.state.detained_by == null && this.player.state.unconscious_for < 1 && cop.num_of_tazes > 0 && cop.severity == 2 && cop.player_fleeing && distance <= CopConfig.tazer_max_distance){
+				ui.log("A cop is tazing you.")
+				cop.taze_player(distance);
+				continue;
+			} else if (distance >= 2){
 				cop.move();
 				continue;
 			} 
-			this.player.actions.detained_interview();
+			this.player.actions.detained_interview(cop.id);
 
 			
 			
@@ -126,9 +125,11 @@ class Turn{
 			if (human.begging_unlocked.days < this.time.days && human.begging_unlocked.hours < this.time.hours){
 				human.begging_unlocked = true;
 			}
-			if (human.attacking_player && (rand_num(1, human.max_stamina) > human.stamina) 
-				&& rand_num(1, human.max_health) > human.health){
-				human.attacking = false;
+			if (human.attacking_player 
+				&& ((rand_num(1, human.max_stamina) > human.stamina 
+				&& rand_num(1, human.max_health) > human.health)
+				|| cop_on_scene)){
+				human.attacking_player = false;
 				ui.log(`${human.name} ${human.surname} calmed down.`);
 			}
 			if (human.bleeding > 0){

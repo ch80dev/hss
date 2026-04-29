@@ -57,6 +57,7 @@ class Turn{
 				ui.log("Police! Freeze!");
 				continue;
 			}
+			
 
 			if (distance >= 2){
 				console.log(cop.x, cop.y);

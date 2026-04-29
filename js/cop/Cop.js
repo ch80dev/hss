@@ -15,6 +15,8 @@ class Cop extends Lifeform{
         this.severity = severity;
         this.map = map;
         this.player = player;
+        this.heading_towards.x = this.player.state.x;
+        this.heading_towards.y = this.player.state.y;
         this.get = get;
         this.max_stigma_tolerance = rand_num(1, 50);
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
@@ -24,8 +26,18 @@ class Cop extends Lifeform{
 
     move(){
         //cop appears to be moving away
-        let toward_player = this.map.get.geometry.fetch_delta(this.x, this.y, this.heading_towards.x, this.heading_towards.y);
+        let toward_player = this.map.get.geometry.fetch_delta(this.heading_towards.x, this.heading_towards.y, this.x, this.y);
         let pos = {x: this.x, y: this.y};
+        if (toward_player.x != 0 && this.map.get.at(pos.x + toward_player.x, pos.y) == 1 
+            && this.map.get.geometry.is_valid(pos.x + toward_player.x, pos.y)){
+            pos.x += toward_player.x;
+        } else if (toward_player.x != 0 && this.map.get.at(pos.x, pos.y + toward_player.y) == 1 
+            && this.map.get.geometry.is_valid(pos.x, pos.y + toward_player.y)){
+            pos.y += toward_player.y;
+            
+        }
+        /*
+
         let adjacent_to_human = this.map.get.inspector.fetch_adjacent(this.x, this.y, 1, true);
         let adjacent_to_player = this.map.get.inspector.fetch_adjacent(this.heading_towards.x, this.heading_towards.y, 1, true);
         let common = this.map.get.fetch_common(adjacent_to_human, adjacent_to_player);
@@ -34,14 +46,15 @@ class Cop extends Lifeform{
             pos.x = rand.x;
             pos.y = rand.y;
         }
+        
         let best = this.map.get.navigator.fetch_best_spots_for_delta(this.x, this.y, adjacent_to_human, toward_player);
-        console.log(common, best);
-        if (common.length < 1 && best.length > 0){
+        
+        if (common.length < 1 || best.length > 0){
+            console.log()
             let rand = best[rand_num(0, best.length - 1)];
             pos.x = rand.x;
             pos.y = rand.y;
-        }
-        console.log(pos);
+        }*/
         this.go(pos.x, pos.y, MapConfig.cell_class.indexOf('cop'), Config.stamina_cost.move);
     }
 
@@ -51,6 +64,7 @@ class Cop extends Lifeform{
             return;
         }
         if (x != this.heading_towards.x || y != this.heading_towards.y){
+            console.log("PLAYER FLEEING");
             this.player_fleeing = true;
             this.warn();
             warning = false;
@@ -66,6 +80,6 @@ class Cop extends Lifeform{
             "Police! You will be tazed if you don't stop!",
             "Don't move, you piece of shit! Or I'll shoot you in your fucking head!",
         ]
-        ui.log(warnings[this.severity]);
+        ui.log(`<span class='cop_warning'>${warnings[this.severity]}</span>`);
     }
 }

@@ -60,6 +60,25 @@ body:has(#loot:not(.hidden)){
     margin: 10px;
 }
 
+.cop_warning{
+    font-family: monospace;
+  font-weight: bold;
+  
+  /* Create a repeating red/blue pattern */
+  background: repeating-linear-gradient(
+    to right,
+    red 0ch,
+    red 1ch,
+    blue 1ch,
+    blue 2ch
+  );
+  
+  /* Clip the background to the text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 #detained{
     text-align: center;
 }

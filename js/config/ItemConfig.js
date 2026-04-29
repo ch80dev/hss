@@ -187,5 +187,6 @@ class ItemConfig {
 		taco: .5,
 		'sleeping bag': 5,
 		tent: 10,
+		
 	}    
 }

@@ -55,13 +55,11 @@ class InventoryUse{
             return;
         }
         if (item.name == 'crate'){           
-            item.name = 'crate (placed)';
-            this.player.inventory.move.drop_item(id, map);
+            this.player.inventory.move.drop_item(id, map, 'crate (placed)');
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('crate'));
             return;
         } else if (item.name == 'tent'){
-            item.name = 'tent (placed)';
-            this.player.inventory.move.drop_item(id, map);
+            this.player.inventory.move.drop_item(id, map, 'tent (placed)');
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
             return;
         } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep()){

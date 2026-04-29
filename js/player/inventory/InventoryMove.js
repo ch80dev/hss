@@ -41,7 +41,7 @@ class InventoryMove{
         }
     }
     
-    drop_item(id, map){
+    drop_item(id, map, rename_to){
         let at = this.player.fetch_from();
         let item = this.player.inventory.fetch.by_id(id);
         this.change_weight(-this.player.inventory.get.fetch_weight(item.name, 1));
@@ -57,6 +57,9 @@ class InventoryMove{
         if (map.loot[at] == undefined){
             map.loot[at] = { locked: false, searched: false, stuff: []};
         } 
+        if (rename_to != null){
+            item.name = rename_to;
+        }
         map.loot[at].stuff.push(item);        
         this.delete(null, id);
     }
@@ -86,7 +89,7 @@ class InventoryMove{
             this.player.inventory.take.item(id, map, null);   
             return;     
         }
-        this.drop_item(id, map);
+        this.drop_item(id, map, null);
     }
 
     sort(){

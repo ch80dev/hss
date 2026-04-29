@@ -79,7 +79,7 @@ class Cop extends Lifeform{
         if (this.num_of_tazes < 1){
             return;
         }
-        let do_they_hit = true;//rand_num(1, distance) == 1;
+        let do_they_hit = rand_num(1, distance) == 1;
         this.num_of_tazes --;
         if (!do_they_hit ){
             ui.log (" They missed!");
@@ -88,7 +88,7 @@ class Cop extends Lifeform{
 
         let dmg = rand_num(1, CopConfig.tazer_damage);
         this.player.status.change_health(-dmg);
-
+        this.player_fleeing = false;
         ui.log(`They tazed you unconscious and caused ${dmg} damage. [${this.player.state.health}]`);
         this.player.status.go_unconscious();
         

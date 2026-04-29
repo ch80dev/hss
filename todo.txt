@@ -1,5 +1,4 @@
 TODO
-    BUG putting stuff in crate and my weight is NaN now 04-25-26
     BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
     BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
     stamina should replenish by 50% so players still have to eat

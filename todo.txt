@@ -1,5 +1,4 @@
 TODO
-    remove trade cans to bottles bottles to cans etc.
     BUG shouldn't be able to sell equipped items to humans
     BUG putting stuff in crate and my weight is NaN now 04-25-26
     BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26

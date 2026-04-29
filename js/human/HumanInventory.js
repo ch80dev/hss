@@ -3,7 +3,7 @@ class HumanInventory{
         this.human = human;
     }
     
-    delete_item(name){
+    delete(name){
         for (let id in  this.human.inventory){
             let item = this.human.inventory[id];
             if (item.name == name){

@@ -8,7 +8,7 @@ class Input {
             return;
         }
         let directions = ['right', 'left', 'down', 'up'];
-        if (Number(pressed) >= 0 || Number(pressed) <= 9){
+        if (pressed.trim() !== "" && Number(pressed) >= 0 && Number(pressed) <= 9){
             this.number_key_pressed(Number(pressed));
         } else if (pressed == 'f' && juego.player.state.socializing != null){
             juego.favorites.add_by_type('human', juego.player.state.socializing, juego);
@@ -47,6 +47,8 @@ class Input {
             juego.next();
         } else if (pressed == 'm' && juego.player.state.marking == false){
             juego.player.state.marking = true;
+        } else if (pressed == ' ' && juego.player.status.can_they_move() ){
+            juego.next();
         } 
     }
 

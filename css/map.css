@@ -18,7 +18,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop):not(.recycling_searched):not(.trash_searched):not(.dumpster_searched){
     background: #555555;
     border: 1px #555555 solid;
 }
@@ -91,6 +91,11 @@
     color: #0072CE;
 }
 
+.recycling_searched {
+    color: #0072CE;
+    background: #444444;
+    border: 1px #444444 solid;
+}
 .sewer_exit {
     color: #b04a4a;
     
@@ -104,6 +109,12 @@
 
 .street_exit{
     color: #4caf50;
+}
+
+.dumpster_searched, .trash_searched{
+    color: #9A9A9A;
+    background: #444444;
+    border: 1px #444444 solid;
 }
 
 .dumpster, .trash{

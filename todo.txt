@@ -1,5 +1,4 @@
 TODO
-    mark when trash cans are untouched04-25-26
     remove trade cans to bottles bottles to cans etc.
     BUG shouldn't be able to sell equipped items to humans
     BUG putting stuff in crate and my weight is NaN now 04-25-26
@@ -27,6 +26,7 @@ TODO
     BUG tried to sell crate and received error at PlayerHuman:110
     at night, it shoudl be harded for people to spot you and report you - I slept on a street and was immediately caled the police on.
     BUG if you go unconscious, it appears that cops disappear? cops are becoming undefined somehow
+    When you're tazed unconscious, the cop should wait to see if you flee again.
     
 BUGS
     BUG

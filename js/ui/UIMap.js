@@ -58,6 +58,8 @@ class UIMap {
 					cell_class = ' human homeless ';
 				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless){
 					cell_class = ' human citizen ';
+				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null && loot.searched){
+					cell_class = `${loot.type}_searched`;
 				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null){					
 					cell_class = loot.type;
 				} else if (map_at == 1 && loot != null){

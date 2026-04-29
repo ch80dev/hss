@@ -57,6 +57,7 @@ class PlayerTrash {
             console.log('trash');
             return;
         }
+        trash.searched = true;
         this.player.status.change_stamina_delta(-.4);
         this.player.status.add_time(0, 5);
         if (trash.stuff.length == 0){

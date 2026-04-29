@@ -78,7 +78,7 @@ class PlayerMovement{
         } else if (this.player.state.fighting && MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
             this.player.actions.attack(pos.x, pos.y, juego);
             return;
-        } else if (!this.player.state.fighting && MapConfig.sociable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//SOCIAL
+        } else if (!this.player.state.fighting && MapConfig.sociable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead && !target.attacking_player){//SOCIAL
             this.player.actions.human.social(pos.x, pos.y, juego);
             return;
         }

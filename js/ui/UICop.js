@@ -1,6 +1,5 @@
 class UICop{
     display(){
-        console.log('cop');
         if (juego.player.state.detained_by == null){
             return;
         }
@@ -8,8 +7,10 @@ class UICop{
         if (cop == null){
             return;
         }
-        console.log(juego.player.state.sentence_served);
-        if (juego.player.state.sentence_served != null){
+        if (juego.player.state.in_pacman_jail){
+            $("#detained").html(this.display_jail());
+            return;
+        } else if (juego.player.state.sentence_served != null){
             $("#detained").html(this.display_sentence_served());
             return;
         } else if (juego.player.state.sentenced_to != null){
@@ -45,6 +46,32 @@ class UICop{
             }
         txt +=  `</div><div id='cop_interview_context'>${interview.turns}/${interview.turns_per_round} ${interview.evaluate()}</div>`;
         return txt;
+    }
+
+    display_jail(){
+        let cell_classes = [null, 'jail_wall', 'jail_player', 'jail_enemy', 'jail_guard'];
+
+        let txt = `<div>${this.format_sentencing(juego.player.state.sentence_served)} of ${this.format_sentencing(juego.player.state.sentenced_to)}</div>`;
+        let jail = juego.jail;
+        for (let y = 0; y < jail.max_y; y ++){
+            txt += "<div class='row'>"
+            for (let x = 0; x < jail.max_x; x ++){
+                let cell_class = 'jail_empty';
+                let cell_txt = '';
+                if (jail.at(x, y) != null){
+                    cell_class = cell_classes[jail.at(x, y)];
+                } else if (jail.guard_sees(x, y)){
+                    cell_class = 'jail_guard_sees';
+                }
+
+                if (jail.power_ups[x][y]){
+                    cell_txt = '*';
+                }
+                txt += `<div id='cell-${x}-${y}' class='jail_cell ${cell_class}'>${cell_txt}</div>`;
+
+            }
+        }
+        return txt;        
     }
 
     display_sentenced(){

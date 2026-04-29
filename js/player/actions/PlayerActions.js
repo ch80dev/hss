@@ -204,12 +204,16 @@ class PlayerActions {
         this.player.state.looting = false;
     }
     serve_sentence(){
-        console.log('served', juego.player.state.sentence_served);
         juego.player.state.sentence_served ++;
         ui.refresh.go();
         if (juego.player.state.sentence_served < juego.player.state.sentenced_to){
             setTimeout(juego.player.actions.serve_sentence, 1000);
+            return;
         }
+        this.player.state.sentence_served = null;
+        this.player.state.sentenced_to = null;
+        this.player.state.cop_interview
+
     }
 
     start_sentence(){

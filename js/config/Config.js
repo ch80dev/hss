@@ -24,7 +24,7 @@ class Config {
 			max_stamina: 30,
 		}
 	}
-	static loop_interval_timing = 1000;
+	static loop_interval_timing = 50;
 	static night_time = 20;
 
 	static rat_movement_cost = .1;

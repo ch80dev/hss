@@ -38,7 +38,11 @@ class Input {
             juego.player.actions.shop.sell_all_recycling(shop);
         } else if (pressed == " " && juego.player.state.looting){
             juego.player.inventory.take.all(juego.map, false);
-        } else if (!juego.player.state.looting && directions.includes(pressed.substring(5).toLowerCase())){
+        } else if (juego.player.state.in_pacman_jail 
+            && directions.includes(pressed.substring(5).toLowerCase())){
+            juego.jail.move(pressed.substring(5).toLowerCase());
+        } else if (juego.player.status.can_they_move() 
+            && directions.includes(pressed.substring(5).toLowerCase())){
             juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
             juego.next();
         } else if (pressed == 'm' && juego.player.state.marking == false){

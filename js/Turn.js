@@ -59,6 +59,7 @@ class Turn{
 			}
 
 			if (distance >= 2){
+				console.log(cop.x, cop.y);
 				cop.move();
 				continue;
 			} 

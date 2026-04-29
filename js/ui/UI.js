@@ -10,7 +10,7 @@ class UI{
 	sleeping = false;
 	social = new UISocial();
 	status_msg = "";
-	screen_focused = 'detained';
+	screen_focused = 'map';
 	constructor(){
 
 	}

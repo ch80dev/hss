@@ -35,12 +35,13 @@ class Cop extends Lifeform{
             pos.y = rand.y;
         }
         let best = this.map.get.navigator.fetch_best_spots_for_delta(this.x, this.y, adjacent_to_human, toward_player);
+        console.log(common, best);
         if (common.length < 1 && best.length > 0){
             let rand = best[rand_num(0, best.length - 1)];
             pos.x = rand.x;
             pos.y = rand.y;
         }
-        
+        console.log(pos);
         this.go(pos.x, pos.y, MapConfig.cell_class.indexOf('cop'), Config.stamina_cost.move);
     }
 

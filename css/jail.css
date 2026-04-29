@@ -1,0 +1,32 @@
+.jail_cell {
+    color: white;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    float:left;
+
+}
+
+.jail_empty {
+    background-color: grey;
+}
+.jail_enemy {
+    background: red;
+
+}
+
+.jail_player{
+    background: green;
+}
+
+.jail_wall {
+    background-color: black;
+}
+
+.jail_guard{
+    background-color: blue;
+}
+
+.jail_guard_sees{
+    background: #6b6bf7;
+}

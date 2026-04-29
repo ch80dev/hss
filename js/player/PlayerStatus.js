@@ -13,6 +13,10 @@ class PlayerStatus{
         this.player.state.minutes_delta += minutes;
     }
 
+    can_they_move(){
+        return this.player.state.detained_by == null && this.player.state.socializing == null && this.player.state.looting == false;
+    }
+
     can_they_sleep(){
         return this.fetch_time_til_they_can_sleep() <= 0;
     }

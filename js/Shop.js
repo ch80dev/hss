@@ -53,7 +53,7 @@ class Shop{
         player.status.sleep(true, true);
         
         
-        player.state.shopping = false;
+        player.state.shopping = null;
         ui.sleeping = true;
         if (this.type == 'motel'){
             ui.change_screen('map');

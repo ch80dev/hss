@@ -7,13 +7,15 @@ class Game{
 	favorites = new Favorite();
 	humans = [];
 	input = new Input();
+	jail = null;
 	loop = new Loop();
+	map = new GameMap (MapConfig.max_x, MapConfig.max_y);
+
 	police_responding_in = {};
 	player = null; // needs to before map;
 	police_dispatched = [];
 	populate = null;
 	quests = new Quest();
-	map = new GameMap (MapConfig.max_x, MapConfig.max_y);
 	rats = [];	
 	shops = [];
 	time = {
@@ -26,21 +28,25 @@ class Game{
 	waiting = 0;
 	
 	constructor(){
-		setInterval(this.loop.go(), Config.loop_interval_timing);
 		this.get = new Queries(this.humans, this.rats, this.shops, this.cops);
 		let open = this.map.get.inspector.fetch_open();
 		this.player = new Player(open.x, open.y, this.time);
 		this.populate = new Populator(this.map, this.player, this.get);
 		this.turn = new Turn(this.player, this.time);
+		this.jail = new PacMan(this.map, this.player, this.loop);
 		this.populate.with_rats('alley', 0, this.rats);
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
 		
-		this.cops.push(new Cop(this.cops.length, this.player.state.x + 2, this.player.state.y + 2, 0, this.player.state.location.type, this.player.state.location.id, this.map, this.player, this.get));
+		//this.cops.push(new Cop(this.cops.length, this.player.state.x + 2, this.player.state.y + 2, 0, this.player.state.location.type, this.player.state.location.id, this.map, this.player, this.get));
 	}
 	call_police(){
 		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?
 		let response = this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`];
+		if (response != undefined && response.time <= 0){
+			return;
+
+		}
 		if (response != undefined){
 			ui.log(` [Police: ${response.time}]`);
 			return;
@@ -103,7 +109,6 @@ class Game{
 		}
 		for (let location in this.police_responding_in){
 			let report = this.police_responding_in[location];
-			console.log(report, this.police_dispatched);
 			if (report.time < 1 && !this.police_dispatched.includes(this.player.fetch_loc_str())){
 				this.police_dispatched.push(this.player.fetch_loc_str());
 				let exits = this.map.get.inspector.entity.fetch_exits_of_type(report.from);
@@ -118,7 +123,7 @@ class Game{
 				ui.log("POLICE! FREEZE!");
 
 				this.cops.push(new Cop(this.cops.length, rand.x, rand.y, report.severity, location.split('-')[0], location.split('-')[0], this.map, this.player, this.get));
-				this.map.is(rand.x, rand.y, MapConfig.cell_class.indexOf('cop'));
+				//this.map.is(rand.x, rand.y, MapConfig.cell_class.indexOf('cop'));
 			}
 		}
 	}

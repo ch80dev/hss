@@ -82,10 +82,12 @@ class InventoryUse{
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine (expired)')){
             let gain = ItemConfig.medicine_gain[1];
             if (item.name == 'medicine (expired)'){
+                this.player.status.change_health(-Number((rand_num(0, 2) * .1).toFixed(1)));
                 gain = Math.round(ItemConfig.medicine_gain[1] / 2);
             }
             this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], gain));
         }
+ 
         if (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability == 0){
             this.player.status.change_stigma(Number((rand_num(5, 2) * .1).toFixed(1)));
             this.player.status.change_sickness(rand_num(ItemConfig.spoiled_sick_gain[0], ItemConfig.spoiled_sick_gain[1]));

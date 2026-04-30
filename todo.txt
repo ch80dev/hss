@@ -1,5 +1,4 @@
 TODO
-    add .1-.5 health penalty to consuming expired meds
     BUG hours going over 2404-25-26
     BUG when you buy, their money doesn't go up 04-25-26
     BUG infinite loop on street entering04-25-26

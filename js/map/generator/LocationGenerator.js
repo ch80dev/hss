@@ -93,8 +93,12 @@ class LocationGenerator {
             }
             if (location_type == 'sewer' &&  num_of_exit_types.sewer >= 2){
                 exit_id = MapConfig.cell_class.indexOf('alley_exit');
-            } else if (location_type == 'alley' && num_of_exit_types.street > 0){
+            } else if (location_type == 'alley' && num_of_exit_types.street > 0 && num_of_exit_types.sewer < 1){
                 exit_id = rand_num(2, 3);
+            } else if (location_type == 'alley' && num_of_exit_types.street > 0 && num_of_exit_types.sewer >= 1){
+                exit_id = 3;
+            } else if (location_type == 'alley' && num_of_exit_types.street < 1 && num_of_exit_types.sewer >= 1){
+                exit_id = rand_num(3, 4);
             }
             let exit_type = MapConfig.exit_types[exit_id];            
             if (exit_type == entered_from){

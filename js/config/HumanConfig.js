@@ -12,7 +12,7 @@ class HumanConfig{
 	static interactions = ['buy', 'sell', 'trade', 'beg', 'directions', 'gamble', 'work'];//, 'escort', 'favor', ];
 	static interactions_for_money = ['sell', 'beg', 'work'];
 	static interactions_for_resources = ['trade', 'buy', 'sell'];
-	static homeless_money = 50;
+	static homeless_money = 25;
     
 	static num_of_interactions_per_human = 3;
     

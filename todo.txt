@@ -5,14 +5,13 @@ TODO
 
         PLAYTEST
         
-        be able to create a favorite for beat unconscious work quest
-        limit player to 3 quests maybe
+            be able to create a favorite for beat unconscious work quest
+            limit player to 3 quests maybe
         BUG still able to trade cans for bottles
-        make 2 exits on a street very rare - and make that second exit being a street exit 1 in 3 
+            make 2 exits on a street very rare - and make that second exit being a street exit 1 in 3 
         BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
         human.resources[id] is undefined. 04-29-26
         BUG Got detained by police but reported_crimes is blank.
-        there's too much variance with the cash going 0 to 50. make it less
         BUG lantern light is going past walls too
         sewer exits are becoming too common in alley ways
 BUGS

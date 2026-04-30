@@ -9,5 +9,5 @@ MapConfig.audit();
 ShopConfig.audit();
 DefaultConfig.audit();
 function rand_num(min, max) {
-	return Math.round(Math.random() * (max - min) + min);
+	return Math.floor(Math.random() * (max - min) + min);
 }

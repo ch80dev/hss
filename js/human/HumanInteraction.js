@@ -32,6 +32,7 @@ class HumanInteraction {
         let create_quest = false;
         let interactions = DefaultConfig.interactions;
         let num_of_interactions_for_them = rand_num(1, HumanConfig.num_of_interactions_per_human);
+        console.log(num_of_interactions_for_them);
         while(interactions.length <  num_of_interactions_for_them){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
             let less_often = ['directions'];
@@ -42,6 +43,7 @@ class HumanInteraction {
                 interactions.push(rand);
             }
         }
+        console.log(interactions.length);
         this.human.interactions = interactions;
         let n = 0;
         for (let id in  interactions){

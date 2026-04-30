@@ -110,7 +110,7 @@ class PlayerHuman{
     sell_unique_to_human(id, human, ui){
         let item = this.player.inventory.fetch.by_id(id);
         if (human.interactions[id] == undefined || item == null){
-            console.log('error');
+            console.log('error', human.interactions[id], item, id);
             return;
         }
         this.player.inventory.move.give_to_human(human.resources[id], 1, human);

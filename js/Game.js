@@ -81,7 +81,6 @@ class Game{
 	}
 	
 	next(){
-		console.log(this.cops);
 		for (let loc_str in this.police_responding_in){
 			let report = this.police_responding_in[loc_str];
 			report.time --;

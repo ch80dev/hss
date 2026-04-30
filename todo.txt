@@ -2,12 +2,24 @@ TODO
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
     Cops should follow you through exits for severity 1 and up - I figured out that the cop can just tick off their distance from the exit and appear at the exit the player used.
     do the flavor text for cop interview
+
+        PLAYTEST
+        be able to click on a shop to see what kind
+        be able to click on a human to see their interactions, money, etc
+        gamble is coming up too much. 
+        be able to create a favorite for beat unconscious work quest
+        limit player to 3 quests maybe
+        BUG still able to trade cans for bottles
+        make 2 exits on a street very rare - and make that second exit being a street exit 1 in 3 
+        BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+        human.resources[id] is undefined. 04-29-26
+        
 BUGS
-    BUG tried to sell crate and received error at PlayerHuman:110
+    BUG tried to sell crate and received error at PlayerHuman:110 04-25-26, added more context to console.log 04-29-26
     BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26
     BUG hours going over 2404-25-26
-    BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+   
     BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
     BUG shouldn't be able to sell equipped items to humans
 

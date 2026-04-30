@@ -27,9 +27,9 @@ class InventoryTake {
             this.player.inventory.move.sort();
             return;
         }
-        while(this.player.state.inventory.length < this.player.state.inventory_slots){
-            this.player.state.inventory.push({ name: name, quantity: 1, durability: 100, id: this.player.inventory.next_id()});
-        }
+        //while(this.player.state.inventory.length < this.player.state.inventory_slots){ //this is filling the player's inventory - not sure why I did this
+        this.player.state.inventory.push({ name: name, quantity: 1, durability: 100, id: this.player.inventory.next_id()});
+        //}
         this.player.inventory.move.sort();
     }
 
@@ -47,7 +47,7 @@ class InventoryTake {
                 break;
             }
             if (autoloot && (!this.player.state.auto_loot_preferences[item.name] 
-                || (Object.keys(ItemConfig.food_gain).includes(item.name) && !this.player.state.auto_loot_preferences[item.name + ' (spoiled)']))){
+                || (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability <1 && !this.player.state.auto_loot_preferences[item.name + ' (spoiled)']))){
                 console.log("BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25", item.name + ' (spoiled)', (Object.keys(ItemConfig.food_gain).includes(item.name), this.player.state.auto_loot_preferences[item.name + ' (spoiled)']));
                 id ++;
                 continue;

@@ -37,7 +37,7 @@ class UISocial{
 			}
 			let button = `<button id='interact-${id}' class='interact button_${this.button_num}' ${disabled}>${interaction}</button>`;
 			if (interaction == 'trade' || interaction == 'buy'){
-				console.log("BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 ");
+				console.log("BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 ", human.resources[id]);
 			}
 			let resource = "";
 			if (typeof human.resources[id]  == 'object' && interaction == 'trade'){

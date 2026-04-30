@@ -36,7 +36,9 @@ class UISocial{
 				disabled = ' disabled ';			
 			}
 			let button = `<button id='interact-${id}' class='interact button_${this.button_num}' ${disabled}>${interaction}</button>`;
-			
+			if (interaction == 'trade' || interaction == 'buy'){
+				console.log("BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 ");
+			}
 			let resource = "";
 			if (typeof human.resources[id]  == 'object' && interaction == 'trade'){
 				let conversion = human.conversion[id];
@@ -45,10 +47,16 @@ class UISocial{
 				let second = human.resources[id][first];
 				let second_disabled = '';
 				resource = `${conversion[0]} ${first} [${juego.player.inventory.get.fetch_quantity(first)} / ${human.items.fetch_quantity(first)}] for ${conversion[1]} ${second} [${juego.player.inventory.get.fetch_quantity(second)} / ${human.items.fetch_quantity(second)}] or vice versa`;
-				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.items.do_they_have(second, conversion[1]) || !juego.player.inventory.get.can_they_take(second, conversion[1])){
+				if (!juego.player.inventory.get.do_they_have(first, conversion[0]) || !human.items.do_they_have(second, conversion[1]) 
+					|| !juego.player.inventory.get.can_they_take(second, conversion[1])){
+				console.log('BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26', juego.player.inventory.get.do_they_have(first, conversion[0]), human.items.do_they_have(second, conversion[1]), 
+					juego.player.inventory.get.can_they_take(second, conversion[1]));
 					first_disabled = ' disabled ';
 				}
-				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.items.do_they_have(first, conversion[0]) || !juego.player.inventory.get.can_they_take(first, conversion[0])){
+				if (!juego.player.inventory.get.do_they_have(second, conversion[1]) || !human.items.do_they_have(first, conversion[0]) 
+					|| !juego.player.inventory.get.can_they_take(first, conversion[0])){
+				console.log('BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26', juego.player.inventory.get.do_they_have(second, conversion[1]), !human.items.do_they_have(first, conversion[0]),
+					juego.player.inventory.get.can_they_take(first, conversion[0]));
 					second_disabled = ' disabled ';
 				}
 				button = `<button id='trade-${id}-0' class='trade interact button_${this.button_num}' ${first_disabled}>${interaction} ${conversion[0]} ${first} </button><button id='trade-${id}-1' class='trade interact button_${++this.button_num}' ${second_disabled}>${interaction} ${conversion[1]} ${second} </button>`;
@@ -76,8 +84,6 @@ class UISocial{
 						selected = " selected ";
 					}	
 					resource += `<option value='${id}'  ${selected}>${shop_name}</option>`;
-					
-
 				}
 				resource += "</select>";
 			} else if (interaction == 'work' && human.quest.accepted == null){

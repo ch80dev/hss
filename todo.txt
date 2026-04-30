@@ -1,7 +1,6 @@
 TODO
-    BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
-    BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
-    stamina should replenish by 50% so players still have to eat
+    
+    
     status is really hgih on shop and human
     add number presses to  shop buttons
     increase num of trash can min by one unit
@@ -25,7 +24,8 @@ TODO
     When you're tazed unconscious, the cop should wait to see if you flee again.
     
 BUGS
-
+BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+    BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
     BUG shouldn't be able to sell equipped items to humans
 
     BUG

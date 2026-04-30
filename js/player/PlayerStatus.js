@@ -153,7 +153,8 @@ class PlayerStatus{
     }
 
     sleep(indoors, in_a_building){
-        this.player.state.stamina = this.player.state.max_stamina;
+        let stamina_gain = Math.round((this.player.state.max_stamina - this.player.state.stamina) * .5);
+        this.player.state.stamina += stamina_gain;
         if (in_a_building){
             this.player.state.stigma = Math.round(this.player.state.stigma * .5);
             //set to 0 if you own the room or apartment            

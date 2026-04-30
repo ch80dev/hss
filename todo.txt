@@ -1,5 +1,4 @@
 TODO
-    increase num of trash can min by one unit
     add .1-.5 health penalty to consuming expired meds
     BUG hours going over 2404-25-26
     BUG when you buy, their money doesn't go up 04-25-26

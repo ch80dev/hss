@@ -25,7 +25,8 @@ class UIMap {
 					favorited = true;
                 }
 				// 1. Base Vision & Lantern (Circular)
-				if (distance_from_player < 2 || (has_lantern && distance_from_player < 4)) {
+				if (distance_from_player < 2 || (has_lantern && distance_from_player < 4 
+					&& juego.map.get.inspector.has_line_of_sight(x, y, juego.player.state.x, juego.player.state.y))) {
 					is_lit = true;
 				}
 

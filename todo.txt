@@ -12,8 +12,6 @@ TODO
         BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
         human.resources[id] is undefined. 04-29-26
         BUG Got detained by police but reported_crimes is blank.
-        BUG lantern light is going past walls too
-        sewer exits are becoming too common in alley ways
 BUGS
     BUG tried to sell crate and received error at PlayerHuman:110 04-25-26, added more context to console.log 04-29-26
     BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25

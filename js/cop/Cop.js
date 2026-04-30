@@ -1,5 +1,6 @@
 class Cop extends Lifeform{
     escaping = false;
+    flashing = false;
     heading_towards = {};
     keeping_the_peace = true;
     max_stigma_tolerance = null;
@@ -52,7 +53,6 @@ class Cop extends Lifeform{
         let best = this.map.get.navigator.fetch_best_spots_for_delta(this.x, this.y, adjacent_to_human, toward_player);
         
         if (pos.x == this.x && pos.y == this.y && best.length > 0){
-            console.log()
             let rand = best[rand_num(0, best.length - 1)];
             pos.x = rand.x;
             pos.y = rand.y;
@@ -66,7 +66,6 @@ class Cop extends Lifeform{
             return;
         }
         if (x != this.heading_towards.x || y != this.heading_towards.y){
-            console.log("PLAYER FLEEING");
             this.player_fleeing = true;
             this.warn();
             warning = false;

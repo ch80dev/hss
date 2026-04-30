@@ -48,6 +48,7 @@ class InventoryTake {
             }
             if (autoloot && (!this.player.state.auto_loot_preferences[item.name] 
                 || (Object.keys(ItemConfig.food_gain).includes(item.name) && !this.player.state.auto_loot_preferences[item.name + ' (spoiled)']))){
+                console.log("BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25", item.name + ' (spoiled)', (Object.keys(ItemConfig.food_gain).includes(item.name), this.player.state.auto_loot_preferences[item.name + ' (spoiled)']));
                 id ++;
                 continue;
             }

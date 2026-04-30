@@ -37,12 +37,10 @@ class GameMap {
         this.max_x = max_x;
         this.max_y = max_y;
         this.get = new MapQueries(this);
-
         this.generator = new MapGenerator(this);
         this.populator = new MapPopulator(this);
-
         this.wipe();        
-        this.generator.location.generate('alley', null);        
+        this.generator.location.generate('alley', null);
         this.locations.alley.push(this.grid);
         this.next_new_street = this.generator.generate_street_name();
         this.names.alley.push({connecting: [this.next_new_street], length: { [this.next_new_street]: null} });
@@ -77,7 +75,6 @@ class GameMap {
 
     mark(at, what){
         if (what == 'Escape' && this.marks[at] != undefined){
-            //console.log('go');
             delete this.marks[at];
             return;
         }

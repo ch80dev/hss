@@ -78,7 +78,6 @@ class LocationGenerator {
             let farthest = this.map.get.inspector.fetch_farthest(exit, exits);
             this.draw(exit, farthest, thickness[location_type]);
         }
-
         if (location_type == 'street' && rand_num(1, 2) == 1){
             exits.pop();
         }

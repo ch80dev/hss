@@ -15,6 +15,16 @@ class Queries{
 		return null;
 	}
 
+	cop_by_loc(location_type, location_id, x, y){
+		for (let cop of this.cops){		
+            if (cop.location.type == location_type && cop.location.id == location_id 
+				&& cop.x == x && cop.y == y){
+                return cop;
+            }
+        }
+        return null;
+	}
+
     human_by_loc(location_type, location_id, x, y){
 		for (let human of this.humans){			
             if (human.location.type == location_type && human.location.id == location_id 

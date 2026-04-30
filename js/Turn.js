@@ -4,7 +4,6 @@ class Turn{
         this.time = time;
     }
     forward_time(hours_delta, minutes_delta){
-		//console.log(hours_delta, minutes_delta);
 		this.time.minutes += minutes_delta;
 		if (this.time.minutes > 59){
 			this.time.minutes = 0;
@@ -16,8 +15,9 @@ class Turn{
 			this.time.hours = (this.time.hours + hours_delta) - 24;
 			this.time.days ++; 			
 		} 
-		console.log('BUG hours going over 2404-25-26', this.time.hours, typeof this.time.hours);
+
 		if (this.time.hours > 23) {
+			console.log('BUG hours going over 2404-25-26', this.time.hours, typeof this.time.hours);
 			this.time.hours = 0;
 			this.time.days ++;
 		}
@@ -48,6 +48,7 @@ class Turn{
 			if (!cop.keeping_the_peace){
 				continue;
 			}
+			cop.flashing = !cop.flashing;
 			cop_on_scene = true;
 			if (distance <= cop.sense_range){
 				give_warning = cop.spot_player(this.player.state.x, this.player.state.y, give_warning);

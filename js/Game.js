@@ -90,7 +90,6 @@ class Game{
 			this.call_police();
 		}
 		for (let i = 0; i < this.player.state.unconscious_for; i ++){
-			console.log(this.player.state.unconscious_for, i);
 			this.turn.next(this.humans, this.map, this.rats, this.cops);
 			if (i == this.player.state.unconscious_for - 1){
 				this.player.state.unconscious_for = 0;
@@ -120,9 +119,7 @@ class Game{
 				}
 				let rand = exits[rand_num(0, exits.length - 1)];
 				ui.log("POLICE! FREEZE!");
-
-				this.cops.push(new Cop(this.cops.length, rand.x, rand.y, report.severity, location.split('-')[0], location.split('-')[0], this.map, this.player, this.get));
-				//this.map.is(rand.x, rand.y, MapConfig.cell_class.indexOf('cop'));
+				this.cops.push(new Cop(this.cops.length, rand.x, rand.y, report.severity, location.split('-')[0], location.split('-')[1], this.map, this.player, this.get));
 			}
 		}
 	}

@@ -99,6 +99,5 @@ class MapPopulator{
             this.map.is(border.x, border.y, 5);
             this.fill_trash(id, border.x, border.y);
         }
-        
     }
 }

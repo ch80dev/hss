@@ -58,7 +58,9 @@ class MapInspector{
         while(true){
             let rand_x = rand_num (0, MapConfig.max_x - 1);
             let rand_y = rand_num (0, MapConfig.max_x - 1);
-            if (clear && !this.is_clear(rand_x, rand_y))
+            if (clear && !this.is_clear(rand_x, rand_y)){
+                continue;
+            }
             if (this.map.get.at(rand_x, rand_y) == 1){
                 return {x: rand_x, y: rand_y };
             }

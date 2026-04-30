@@ -1,8 +1,7 @@
 TODO
     
     BUG infinite loop on street entering04-25-26
-    BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
-    have a cop cycle between blue and red as they move
+    
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
 
     humans should really be only buying items from the trash 
@@ -12,6 +11,7 @@ TODO
     When you're tazed unconscious, the cop should wait to see if you flee again.
     
 BUGS
+BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26
     BUG hours going over 2404-25-26
     BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 

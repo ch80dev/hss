@@ -18,7 +18,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop):not(.recycling_searched):not(.trash_searched):not(.dumpster_searched){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop):not(.recycling_searched):not(.trash_searched):not(.dumpster_searched):not(.cop_red){
     background: #555555;
     border: 1px #555555 solid;
 }
@@ -27,6 +27,13 @@
     background: #555555;
     color: blue;
     border: 1px blue solid;
+}
+
+.cop_red{
+    background: #555555;
+    color: red;
+    border: 1px red solid;
+
 }
 .dark:not(.empty):not(.favorite) {
     background: #111111;

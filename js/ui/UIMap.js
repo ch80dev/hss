@@ -6,6 +6,7 @@ class UIMap {
 			for (let x = 0; x < MapConfig.max_x; x ++){								
 				let cell_class = ' empty ';
 				let cell_txt = '';
+				let cop = juego.get.cop_by_loc(juego.player.state.location.type, juego.player.state.location.id, x, y);
 				let distance_from_player = juego.map.get.geometry.fetch_distance(x, y, juego.player.state.x, juego.player.state.y);
 				let favorited = false;
 				let human = juego.get.human_by_loc(juego.player.state.location.type, juego.player.state.location.id, x, y);
@@ -49,11 +50,13 @@ class UIMap {
 					continue;
 				}
 
-
 				
-				if (map_at != null && map_at == MapConfig.cell_class.indexOf('cop')){
+				if (map_at != null && map_at == MapConfig.cell_class.indexOf('cop') && cop != null && !cop.flashing){
 					cell_class = ' cop ';
-				  
+				
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('cop') && cop != null && cop.flashing){
+					cell_class = ' cop_red ';
+
 				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && human.homeless){
 					cell_class = ' human homeless ';
 				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless){

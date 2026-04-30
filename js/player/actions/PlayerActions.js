@@ -154,22 +154,50 @@ class PlayerActions {
         let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
         let cell_class = MapConfig.cell_class[map_at];
         let trash = map.loot[at];
+        let human = juego.get.human_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
         if (shop != null){
             msg = `(${x}, ${y}) There is a '${ShopConfig.names[shop.type]}' here.`;
         } else if (cell_class.split('_').length > 0 && cell_class.split("_")[1] == 'exit'){
             msg = `(${x}, ${y}) There is a ${cell_class.split("_")[0]} ${cell_class.split("_")[1]} here.`;
-        } else if (simple.includes(cell_class)){
-            msg = `(${x}, ${y}) There is a ${cell_class} here.`; // later show health and show if homeless
+        } else if (cell_class == 'rat'){
+            msg = `(${x}, ${y}) There is a rat here.`; 
         } else if (cell_class == 'crate'){
             msg = `(${x}, ${y}) You placed a crate here for your stuff.`;
         } else if (cell_class == 'trash' && trash != null && trash.locked){
             msg = `(${x}, ${y}) There is a locked trash can here. (need a tool to open)`;
         } else if (cell_class == 'trash' && trash != null && !trash.locked){
             msg = `(${x}, ${y}) There is a trash can here.`;
+        } else if (human != null){
+            msg = this.look_at_human(human);
         }
         
         ui.log(msg);
     }
+
+    look_at_human(human){
+        let msg = `(${human.x}, ${human.y}) There is a person here.`;
+
+        if (human.homeless){
+            msg += " They are homeless.";
+        }
+        if (!human.met){
+            return msg;
+        }
+
+        msg = `(${human.x}, ${human.y}) ${human.name} ${human.surname} is here.`;
+        if (human.homeless){
+            msg += " They are homeless.";
+        }
+        for (let id in human.interactions){
+            let interaction = human.interactions[id];
+            msg += " " + interaction;
+            if (human.resources[id] != null){
+                msg += " " + human.resources[id] + ' ' + human.conversion[id];
+            }
+        } // this  is shitty but there's too much detail and I gotta rip it out of uisocial narrate
+        return msg;
+    }
+
     loot_body(map, juego){
        
         ui.change_screen('loot');

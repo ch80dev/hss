@@ -57,10 +57,14 @@ class UIMap {
 				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('cop') && cop != null && cop.flashing){
 					cell_class = ' cop_red ';
 
-				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && human.homeless){
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && human.homeless && !human.met_them){
 					cell_class = ' human homeless ';
-				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless){
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless && !human.met_them){
 					cell_class = ' human citizen ';
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && human.homeless && human.met_them){
+					cell_class = ' human homeless_met ';
+				} else if (map_at != null && map_at == MapConfig.cell_class.indexOf('human') && human != null && !human.homeless && human.met_them){
+					cell_class = ' human citizen_met ';
 				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null && loot.searched){
 					cell_class = `${loot.type}_searched`;
 				} else if (MapConfig.cell_class[map_at] == 'trash' && loot != null){					

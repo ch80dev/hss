@@ -8,6 +8,7 @@ class Human extends Lifeform{
     gambled_and_won = 0;
     give_when_begged = null;
     homeless = false;
+    met_them = false;
     interaction = null;
     interactions = {};
     items = new HumanInventory(this);

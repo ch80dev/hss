@@ -5,7 +5,6 @@ TODO
 
         PLAYTEST
         
-        be able to click on a human to see their interactions, money, etc
         gamble is coming up too much. 
         be able to create a favorite for beat unconscious work quest
         limit player to 3 quests maybe

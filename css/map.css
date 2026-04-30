@@ -18,7 +18,7 @@
     float:left;
 
 }
-.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop):not(.recycling_searched):not(.trash_searched):not(.dumpster_searched):not(.cop_red){
+.cell:not(.empty):not(.player):not(.blocked):not(.shop):not(.player_fighting):not(.looking_at):not(.favorite):not(.dark):not(.cop):not(.recycling_searched):not(.trash_searched):not(.dumpster_searched):not(.cop_red):not(.homeless_met):not(.citizen_met){
     background: #555555;
     border: 1px #555555 solid;
 }
@@ -46,6 +46,14 @@
 
 .citizen {
     color: #00ff41;
+    
+}
+
+.citizen_met {
+    color: #00ff41;
+    background: #444444;
+    border: 1px #444444 solid;
+    
 }
 
 .crate {
@@ -73,6 +81,11 @@
     color: #5c8ca3;
 }
 
+.homeless_met{
+    color: #5c8ca3;
+    background: #444444;
+    border: 1px #444444 solid;
+}
 
 .player{
     border: 1px #66ccff solid;

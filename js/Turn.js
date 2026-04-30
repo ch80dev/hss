@@ -44,7 +44,7 @@ class Turn{
 		let cop_on_scene = false;
 		for (let cop of cops){
 			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
-			let give_warning = rand_num(1, 3 + cop.severity)   == 1;
+			let give_warning = rand_num(1, 4 + cop.severity)   == 1;
 			if (!cop.keeping_the_peace ){
 				continue;
 			}
@@ -52,12 +52,25 @@ class Turn{
 				cop.player_is_not_here();
 				return;
 			}
+			if (cop.patrolling != null && cop.patrolling > 0){
+				let open = this.map.get.inspector.fetch_open(true);
+				let at = this.map.get.at(cop.x, cop.y);
+				if (at != 1){
+					console.log(at);
+
+				}
+				this.map.is(cop.x, cop.x, 1);
+				cop.x = open.x;
+				cop.y = open.y;
+				cop.player_gone = false;
+				cop.patrolling = null;
+			}
 			cop.flashing = !cop.flashing;
 			cop_on_scene = true;
 			if (distance <= cop.sense_range){
 				give_warning = cop.spot_player(this.player.state.x, this.player.state.y, give_warning);
 			}
-			if (give_warning){
+			if (this.player.state.unconscious_for < 1 && give_warning){
 				ui.log(" <span class='cop_warn'>'POLICE! FREEZE!'</span>");
 				continue;
 			}
@@ -73,6 +86,9 @@ class Turn{
 				this.player.actions.detained_interview(cop.id);
 				continue;
 			}
+			this.player.state.detained_by = cop.id;
+			ui.change_screen('detained');
+
 			this.player.actions.crime_sentencing();
 			
 			

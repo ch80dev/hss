@@ -6,6 +6,7 @@ class CopConfig{
 			console.log(mistakes);
 		}		
     }
+	static escape_bonus = .5
     
 	static detained = {
         accept: [
@@ -46,7 +47,7 @@ class CopConfig{
 	}
 	static crime_severity = {
 		'attack-cop': 3,
-		'attack-human': 2,
+		'attack-human': 1,
 		'attack-rat': 1,
 		beg: 1,
 		hit_trash: 2,

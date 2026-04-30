@@ -38,6 +38,10 @@ class Cop extends Lifeform{
             return;
         }
         let to = this.map.exits[this.heading_to_exit.exit];
+        if(this.map.locations[this.location.type ][this.location.id][this.x][this.y] != 1){
+            console.log(this.map.locations[this.location.type ][this.location.id][this.x][this.y]);
+        }
+        this.map.locations[this.location.type ][this.location.id][this.x][this.y] = 1;;
         this.location.type = to.split('-')[0];
         this.location.id = to.split('-')[1];
         this.x = Number(to.split('-')[2]);
@@ -88,11 +92,18 @@ class Cop extends Lifeform{
         let exit_location_id = last_exit.split('-')[1];
         let exit_x = last_exit.split('-')[2];
         let exit_y = last_exit.split('-')[3];
-        if (cop.severity == 0 || exit_location_type != this.location.type || exit_location_id != this.location.id){
+        if (this.severity == 0 || exit_location_type != this.location.type || exit_location_id != this.location.id){
             console.log('player not here - patrolling');
             this.wait_for_player();
             return;
-        }
+        } else if (exit_location_type == 'sewer' 
+            && (this.severity < 3 || (this.severity == 3 && rand_num(1, 3) != 1))){
+            console.log('player went in sewer - patrolling');
+            this.wait_for_player();
+            return;
+
+        }        
+        
         let player_distance_to_exit = this.map.get.geometry.fetch_distance(this.heading_towards.x, this.heading_towards.y, exit_x, exit_y);
         if (player_distance_to_exit >= 2){
             console.log("player too far from exit - don't know where they went ");
@@ -100,9 +111,9 @@ class Cop extends Lifeform{
             return;
         }
         let distance_to_exit = this.map.get.geometry.fetch_distance(this.x, this.y, exit_x, exit_y);
+        let bonus = (1 + Number(CopConfig.escape_bonus));
         this.heading_to_exit.exit = last_exit;
-        this.heading_to_exit.distance = distance_to_exit;
-        console.log('head towards this exit', this.heading_to_exit);
+        this.heading_to_exit.distance = Math.ceil(distance_to_exit * bonus);
     }
 
     player_is_not_here(){
@@ -166,7 +177,7 @@ class Cop extends Lifeform{
     }
 
     wait_for_player(){
-        this.patrolling = CopConfig.severity_wait[Cop.severity];
+        this.patrolling = CopConfig.severity_wait[this.severity];
     }
 
     warn(){

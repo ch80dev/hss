@@ -147,13 +147,16 @@ class PlayerActions {
         this.player.state.looking_at = { x: x, y: y };
         let map_at = map.get.at(x, y);
         let msg = `(${x}, ${y}) There is nothing here.`;
-        if (map_at == null){
+        let shop = juego.get.shop_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
+        if (map_at == null && shop == null){
             return;
         }
         let at = map.format_at(this.player.state.location.type, this.player.state.location.id, x, y);
         let cell_class = MapConfig.cell_class[map_at];
         let trash = map.loot[at];
-        if (cell_class.split('_').length > 0 && cell_class.split("_")[1] == 'exit'){
+        if (shop != null){
+            msg = `(${x}, ${y}) There is a '${ShopConfig.names[shop.type]}' here.`;
+        } else if (cell_class.split('_').length > 0 && cell_class.split("_")[1] == 'exit'){
             msg = `(${x}, ${y}) There is a ${cell_class.split("_")[0]} ${cell_class.split("_")[1]} here.`;
         } else if (simple.includes(cell_class)){
             msg = `(${x}, ${y}) There is a ${cell_class} here.`; // later show health and show if homeless

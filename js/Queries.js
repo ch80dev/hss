@@ -92,6 +92,15 @@ class Queries{
 		return null;
 	}
 
+	shop_by_loc(location_type, location_id, x, y){
+		for (let shop of this.shops){
+			if (shop.location.type == location_type && shop.location.id == location_id && shop.x == x && shop.y == y){
+				return shop;
+			}
+		}		
+		return null;
+	}
+
 	directions(human, what, map, favorites){
 		//console.log(human, what);
 		let target_shop = null;

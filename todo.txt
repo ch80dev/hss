@@ -4,7 +4,7 @@ TODO
     do the flavor text for cop interview
 
         PLAYTEST
-        be able to click on a shop to see what kind
+        
         be able to click on a human to see their interactions, money, etc
         gamble is coming up too much. 
         be able to create a favorite for beat unconscious work quest

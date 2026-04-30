@@ -19,6 +19,7 @@ class PacMan {
 
 
     constructor(map, player, loop){
+        this.loop = loop;
         this.map = map; 
         this.player = player;
         this.reset();
@@ -331,7 +332,7 @@ class PacMan {
 
 
     start(){
-        this.game_loop = setInterval(loop.go, Config.loop_interval_timing);
+        this.game_loop = setInterval(this.loop.go, Config.loop_interval_timing);
     }
 
     reset(){

@@ -1,7 +1,8 @@
 class HumanInteraction {
 
-    constructor(human){
+    constructor(human, map){
         this.human = human;
+        this.map = map;
     }
 
     adjust_conversion(id, first, first_q, second, second_q){
@@ -106,7 +107,7 @@ class HumanInteraction {
         //console.log(not_arr);
         let banned = ['food', 'food-spoiled'];
         let items_drawn_from = ItemConfig.human_items;
-        if (this.homeless || interaction == 'sell'){
+        if (this.human.homeless || interaction == 'sell'){
             items_drawn_from = Object.keys(this.map.populator.trash_item_odds);
         }
         let no_durables = ['trade'];

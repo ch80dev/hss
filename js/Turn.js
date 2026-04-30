@@ -45,7 +45,8 @@ class Turn{
 		for (let cop of cops){
 			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
 			let give_warning = rand_num(1, 3 + cop.severity)   == 1;
-			if (!cop.keeping_the_peace){
+			if (!cop.keeping_the_peace || cop.location.type != this.player.state.location.type 
+				|| cop.location.id != this.player.state.location.id){
 				continue;
 			}
 			cop.flashing = !cop.flashing;
@@ -65,8 +66,11 @@ class Turn{
 				cop.move();
 				continue;
 			} 
-			this.player.actions.detained_interview(cop.id);
-
+			if (!cop.escaping){
+				this.player.actions.detained_interview(cop.id);
+				continue;
+			}
+			this.player.actions.crime_sentencing();
 			
 			
 		}

@@ -98,9 +98,9 @@ class UICop{
         }
 
         txt += `<div>Know anything about that?</div>`;
-        txt += `<div><button id='detained-accept' class='detained'>${CopConfig.detained.accept[rand_num(0, CopConfig.detained.accept.length - 1)]} </button></div>`
-        txt += `<div><button id='detained-deny' class='detained'>${CopConfig.detained.deny[rand_num(0, CopConfig.detained.deny.length - 1)]} </button></div>`
-        txt += `<div><button id='detained-escape' class='detained'>${CopConfig.detained.escape[rand_num(0, CopConfig.detained.escape.length - 1)]} </button></div>`
+        txt += `<div><button id='detained-accept' class='detained'>"${CopConfig.detained.accept[rand_num(0, CopConfig.detained.accept.length - 1)]}" </button></div><div>[Go straigh to jail.]</div>`
+        txt += `<div><button id='detained-deny' class='detained'>"${CopConfig.detained.deny[rand_num(0, CopConfig.detained.deny.length - 1)]}"</button></div><div>[ Talk your way out of things. (You'll receive a worse sentence if you fail.) ]</div>`
+        txt += `<div><button id='detained-escape' class='detained'>"${CopConfig.detained.escape[rand_num(0, CopConfig.detained.escape.length - 1)]}"</button></div><div>[ Try to run. (You'll receive the max sentence if you fail.) ]</div>`
         return txt;
     }
 

@@ -51,7 +51,6 @@ class CopInterview{
 	    this.generate_buttons();
 		if (this.turns == this.turns_per_round){
 			this.end_game();
-			console.log(this.result);
 			this.reset();
 		}
 	}

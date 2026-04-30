@@ -75,11 +75,13 @@ class Game{
 			console.log('error!!!'. severity);
 		}
 		response.severity = severity;
+		response.responded = false;
 		ui.log(`Police were called! [${response.time}]`);
 		this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`] = response;
 	}
 	
 	next(){
+		console.log(this.cops);
 		for (let loc_str in this.police_responding_in){
 			let report = this.police_responding_in[loc_str];
 			report.time --;
@@ -107,7 +109,8 @@ class Game{
 		}
 		for (let location in this.police_responding_in){
 			let report = this.police_responding_in[location];
-			if (report.time < 1 && !this.police_dispatched.includes(this.player.fetch_loc_str())){
+			if (!report.responded && report.time < 1 && !this.police_dispatched.includes(this.player.fetch_loc_str())){
+				report.responded = true;
 				this.police_dispatched.push(this.player.fetch_loc_str());
 				let exits = this.map.get.inspector.entity.fetch_exits_of_type(report.from);
 				if (report.type != null && exits.length == 0){

@@ -1,6 +1,8 @@
 class Cop extends Lifeform{
+    denied = false;
     escaping = false;
     flashing = false;
+    distance_from_exit = null;
     heading_towards = {};
     keeping_the_peace = true;
     max_stigma_tolerance = null;

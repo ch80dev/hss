@@ -8,7 +8,7 @@ class Human extends Lifeform{
     gambled_and_won = 0;
     give_when_begged = null;
     homeless = false;
-    interaction = new HumanInteraction(this);
+    interaction = null;
     interactions = {};
     items = new HumanInventory(this);
     
@@ -28,6 +28,7 @@ class Human extends Lifeform{
         this.player = player;
         this.get = get;
         this.quest = new HumanQuest(this, this.map, this.get);
+        this.interaction = new HumanInteraction(this, this.map);
         this.homeless = are_they_homeless;
         this.max_stigma_tolerance = rand_num(50, 100);
         this.min_stigma_beg = rand_num(0, 10);
@@ -65,6 +66,12 @@ class Human extends Lifeform{
     }
 
     report_crime(what){
+        let distance = this.map.get.geometry.fetch_distance(this.x, this.y, this.player.state.x, this.player.state.y);
+        console.log('delete after shown', distance);
+        if (!this.map.get.inspector.entity.is_in_the_light(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y) && rand_num(1, distance) != 1){
+            console.log("NIGHT DELETE");
+            return;
+        }
         if (!this.player.state.reported_crimes.includes(what)){
             this.player.state.reported_crimes.push(what);
         }

@@ -1,16 +1,10 @@
 TODO
-    
-    BUG infinite loop on street entering04-25-26
-    
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
-
-    BUG tried to sell crate and received error at PlayerHuman:110
-    at night, it shoudl be harded for people to spot you and report you - I slept on a street and was immediately caled the police on.
-    BUG if you go unconscious, it appears that cops disappear? cops are becoming undefined somehow
-    When you're tazed unconscious, the cop should wait to see if you flee again.
-    
+    Cops should follow you through exits for severity 1 and up - I figured out that the cop can just tick off their distance from the exit and appear at the exit the player used.
+    do the flavor text for cop interview
 BUGS
-BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
+    BUG tried to sell crate and received error at PlayerHuman:110
+    BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26
     BUG hours going over 2404-25-26
     BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 

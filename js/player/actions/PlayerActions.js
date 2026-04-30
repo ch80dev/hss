@@ -69,12 +69,26 @@ class PlayerActions {
     }
 
     crime_sentencing(){
+        if (this.player.state.detained_by == null){
+            console.log('error');
+            return;
+        }
+        let cop = juego.get.cop(this.player.state.detained_by);
+        if (cop == null){
+            console.log('error');
+            return;
+        }
         let max_sentence = 0;
         for (let crime of this.player.state.reported_crimes){
             max_sentence += CopConfig.crime_sentencing[crime];
 
         }
-        let min_sentence = Math.round(this.player.state.stigma / this.player.state.max_stigma * max_sentence);
+        let min_sentence = 1;
+        if (cop.denied){
+            min_sentence = Math.round(this.player.state.stigma / this.player.state.max_stigma * max_sentence);
+        } else if (cop.escaped){
+            min_sentence = max_sentence;
+        }
         let sentence = rand_num(min_sentence, max_sentence);
         this.player.state.sentenced_to = sentence;        
     }
@@ -97,9 +111,10 @@ class PlayerActions {
                 console.log('error');
                 return;
             }
+            cop.denied = true;
             juego.cop_interview.severity = cop.severity;
             this.player.state.cop_interview = true;
-            
+            ui.log(`Get to ${juego.cop_interview.severity_scores[cop.severity]}. Your final score is &#128077; - &#128078; `)
             return;
         } 
         
@@ -215,9 +230,10 @@ class PlayerActions {
             setTimeout(juego.player.actions.serve_sentence, 1000);
             return;
         }
+        
         this.player.state.sentence_served = null;
         this.player.state.sentenced_to = null;
-        this.player.state.cop_interview
+        this.player.state.cop_interview = false;
 
     }
 

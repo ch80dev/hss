@@ -4,7 +4,6 @@ TODO
     
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
 
-    humans should really be only buying items from the trash 
     BUG tried to sell crate and received error at PlayerHuman:110
     at night, it shoudl be harded for people to spot you and report you - I slept on a street and was immediately caled the police on.
     BUG if you go unconscious, it appears that cops disappear? cops are becoming undefined somehow

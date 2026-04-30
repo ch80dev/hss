@@ -106,7 +106,7 @@ class HumanInteraction {
         //console.log(not_arr);
         let banned = ['food', 'food-spoiled'];
         let items_drawn_from = ItemConfig.human_items;
-        if (this.homeless){
+        if (this.homeless || interaction == 'sell'){
             items_drawn_from = Object.keys(this.map.populator.trash_item_odds);
         }
         let no_durables = ['trade'];

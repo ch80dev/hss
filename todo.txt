@@ -4,15 +4,16 @@ TODO
     do the flavor text for cop interview
 
         PLAYTEST
-        
             be able to create a favorite for beat unconscious work quest
             limit player to 3 quests maybe
-        BUG still able to trade cans for bottles
             make 2 exits on a street very rare - and make that second exit being a street exit 1 in 3 
-        BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
-        human.resources[id] is undefined. 04-29-26
-        BUG Got detained by police but reported_crimes is blank.
+        
+    BUG Got detained by police but reported_crimes is blank. 04-26-25 
 BUGS
+    BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+        human.resources[id] is undefined. 04-29-26 the only way this appears to happen is as returned from rand_item
+    BUG still able to trade cans for bottles 04-29-26
+
     BUG tried to sell crate and received error at PlayerHuman:110 04-25-26, added more context to console.log 04-29-26
     BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26

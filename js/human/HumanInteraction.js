@@ -122,10 +122,20 @@ class HumanInteraction {
                     && ItemConfig.recyclables.includes(rand_item))
                 ||   (not_arr.includes('medicine') && rand_item == 'medicine (expired)') 
                 || (not_arr.includes('medicine (expired)') && rand_item == 'medicine')) && rand_num(1, 3) != 1 )){
+
                 continue;
             }
-            
+            if (not_arr.arr.length > 0 && ItemConfig.recyclables.includes(rand_item)){
+    
+                console.log('BUG still able to trade cans for bottles 04-29-26', not_arr, rand_item, 
+                    ItemConfig.recyclables.includes(not_arr[0]), 
+                    ItemConfig.recyclables.includes(rand_item));
+                
+            }
             if (!not_arr.includes(rand_item) ){
+                if (rand_item == undefined){
+                    console.log("HOW!?!? - BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 ");
+                }
                 return rand_item;
             }
         }

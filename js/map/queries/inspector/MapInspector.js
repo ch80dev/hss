@@ -27,7 +27,7 @@ class MapInspector{
 
     fetch_border_spot(orthogonal){
         while(true){
-            let open = this.fetch_open();            
+            let open = this.fetch_open(false);            
             if (this.is_on_the_border(open.x, open.y, orthogonal)){
                 return open;
             }
@@ -54,10 +54,11 @@ class MapInspector{
     
 
 
-    fetch_open(){
+    fetch_open(clear){
         while(true){
             let rand_x = rand_num (0, MapConfig.max_x - 1);
             let rand_y = rand_num (0, MapConfig.max_x - 1);
+            if (clear && !this.is_clear(rand_x, rand_y))
             if (this.map.get.at(rand_x, rand_y) == 1){
                 return {x: rand_x, y: rand_y };
             }
@@ -67,7 +68,7 @@ class MapInspector{
     fetch_open_with_distance(x, y, target_distance){
         
         while(true){
-            let open = this.fetch_open()
+            let open = this.fetch_open(false)
             let distance = this.map.get.geometry.fetch_distance(x, y, open.x, open.y );
             if (distance == target_distance ){
                 return open;
@@ -112,6 +113,20 @@ class MapInspector{
 
         return true;
     }
+
+    is_clear(pos_x, pos_y){
+        for (let x = pos_x - 1; x <= pos_x + 1; x ++ ){
+            for (let y = pos_y - 1; y <= pos_y + 1; y ++ ){
+                if (x == pos_x && y == pos_y){
+                    continue;
+                }
+                if (!this.map.get.geometry.is_valid(x, y) || this.map.get.at(x, y) != 1){
+                    return false;
+                }
+            }   
+        }
+        return true;
+    }   
 
             //local
     is_on_the_border(pos_x, pos_y, orthogonal){

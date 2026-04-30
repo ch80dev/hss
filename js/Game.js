@@ -29,7 +29,7 @@ class Game{
 	
 	constructor(){
 		this.get = new Queries(this.humans, this.rats, this.shops, this.cops);
-		let open = this.map.get.inspector.fetch_open();
+		let open = this.map.get.inspector.fetch_open(false);
 		this.player = new Player(open.x, open.y, this.time);
 		this.populate = new Populator(this.map, this.player, this.get);
 		this.turn = new Turn(this.player, this.time);

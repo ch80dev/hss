@@ -1,7 +1,6 @@
 TODO
     
     BUG infinite loop on street entering04-25-26
-    BUG human spawned infront of a shop04-25-26
     BUG slept on a trash can04-25-26
     BUG DefaultConfig turnign every shop into that shop type04-25-26
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26

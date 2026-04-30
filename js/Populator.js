@@ -9,7 +9,7 @@ class Populator{
         let num_of_humans = rand_num(MapConfig.min_num_of_humans[location_type], MapConfig.max_num_of_humans[location_type]);
 		let id = humans.length;		
         for (let i = 0; i < num_of_humans; i ++){
-            let open = this.map.get.inspector.fetch_open();
+            let open = this.map.get.inspector.fetch_open(true);
             this.map.is(open.x, open.y, 7);
 			let are_they_homeless = rand_num(1, 100) <= MapConfig.homeless_cent[location_type];
 			humans.push(new Human(id + i, open.x, open.y, are_they_homeless, location_type, location_id, this.map, this.player, this.get))
@@ -20,7 +20,7 @@ class Populator{
         let num_of_rats = rand_num(1, MapConfig.max_num_of_rats[location_type]);        
 		let id = rats.length;		
         for (let i = 0; i < num_of_rats; i ++){
-            let open = this.map.get.inspector.fetch_open();
+            let open = this.map.get.inspector.fetch_open(false);
             this.map.is(open.x, open.y, 6);	
             rats.push(new Rat(id, open.x, open.y, location_type, location_id, this.map, this.player, this.get))			
         }

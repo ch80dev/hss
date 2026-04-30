@@ -5,7 +5,6 @@ TODO
 
         PLAYTEST
         
-        gamble is coming up too much. 
         be able to create a favorite for beat unconscious work quest
         limit player to 3 quests maybe
         BUG still able to trade cans for bottles

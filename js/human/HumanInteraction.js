@@ -35,7 +35,7 @@ class HumanInteraction {
         console.log(num_of_interactions_for_them);
         while(interactions.length <  num_of_interactions_for_them){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
-            let less_often = ['directions'];
+            let less_often = ['directions', 'gamble'];
             if (less_often.includes(rand) && rand_num(1,3) != 1){
                 continue;
             }

@@ -49,6 +49,7 @@ class InventoryUse{
 
     item(id, map){
         let item = this.player.inventory.fetch.by_id(id);
+        let loot = map.loot[this.player.fetch_from()];
         let medicine_works = rand_num(1, 4) == 1;
         if (!this.player.inventory.get.can_they_use(item.name, map)){
             console.log('cant use');
@@ -62,7 +63,7 @@ class InventoryUse{
             this.player.inventory.move.drop_item(id, map, 'tent (placed)');
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
             return;
-        } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep()){
+        } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep() && loot == null || (loot != null && loot.type == null)){
             this.player.status.add_crime('sleep');
             this.player.status.add_time(8, 0);
             let caption = "";

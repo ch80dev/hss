@@ -1,5 +1,6 @@
 class PlayerStatus{
-    constructor(player, time){
+    constructor(player, time, map){
+        this.map = this.map;
         this.player = player;
         this.time = time;
     }

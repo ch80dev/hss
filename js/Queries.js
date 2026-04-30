@@ -1,6 +1,5 @@
 class Queries{
     constructor(humans, rats, shops, cops){
-		console.log("HELLO");
 		this.cops = cops;
         this.humans = humans;
 		this.rats = rats;

@@ -60,4 +60,9 @@ class HumanInventory{
         this.human.money -= n;
         return n;
     }
+
+    give_money(n){
+        this.human.money += n;
+        return n;
+    }
 }

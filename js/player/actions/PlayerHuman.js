@@ -19,6 +19,7 @@ class PlayerHuman{
         this.player.status.change_money(human.items.get_money(human.quest.paying));
         ui.log(`You just got $${human.quest.paying}! [$${this.player.state.money}]`)
     }
+
     gamble (human, time, ui){
         if (human == null){
             return;
@@ -44,6 +45,7 @@ class PlayerHuman{
         human.gambled = { days: time.days, hours: time. hours };
         ui.log(txt);
     }
+
     interact(id, human, time, ui, quests){
         //console.log(id, human, time);
         if (human.interactions[id] == undefined){
@@ -62,7 +64,8 @@ class PlayerHuman{
         } else if (interaction == 'buy' 
             && this.player.state.money >= human.conversion[id] 
             && this.player.inventory.get.can_they_take(human.resources[id], 1)){ 
-            this.player.state.money -= human.conversion[id];
+            this.player.status.change_money(-human.items.give_money(Number(human.conversion[id])));
+
             this.player.inventory.take.from_human(human.resources[id], 1, human);
             ui.log(`You bought ${human.resources[id]} for $${human.conversion[id]}.`)
         } else if (interaction == 'sell' && this.player.inventory.get.do_they_have(human.resources[id], 1) 

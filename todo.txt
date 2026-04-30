@@ -1,6 +1,5 @@
 TODO
-    BUG hours going over 2404-25-26
-    BUG when you buy, their money doesn't go up 04-25-26
+    
     BUG infinite loop on street entering04-25-26
     BUG human spawned infront of a shop04-25-26
     BUG slept on a trash can04-25-26
@@ -18,7 +17,8 @@ TODO
     When you're tazed unconscious, the cop should wait to see if you flee again.
     
 BUGS
-BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+    BUG hours going over 2404-25-26
+    BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
     BUG trade for 1 crate disabled despite having multiple 11/18 slots weight 93/100 04-25-26
     BUG shouldn't be able to sell equipped items to humans
 

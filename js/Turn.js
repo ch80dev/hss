@@ -16,6 +16,7 @@ class Turn{
 			this.time.hours = (this.time.hours + hours_delta) - 24;
 			this.time.days ++; 			
 		} 
+		console.log('BUG hours going over 2404-25-26', this.time.hours, typeof this.time.hours);
 		if (this.time.hours > 23) {
 			this.time.hours = 0;
 			this.time.days ++;

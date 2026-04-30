@@ -17,6 +17,8 @@ class PlayerMovement{
             let to_id = exits_to.split('-')[1];
             let to_x = exits_to.split('-')[2];
             let to_y = exits_to.split('-')[3];
+            this.player.state.last_exit.from = from;
+            this.player.state.last_exit.to = exits_to;
             map.load(to_type, to_id);
             this.player.state.location.type = to_type;
             this.player.state.location.id = parseInt(to_id, 10);
@@ -41,6 +43,9 @@ class PlayerMovement{
         this.player.state.y = start.y;
         map.exits[from] = to;
         map.exits[to] = from;
+        this.player.state.last_exit.from = from;
+        this.player.state.last_exit.to = to;
+
         juego.favorites.process(from, to, map);
         map.name_new_location( this.player.state.location.type,  this.player.state.location.id);
         

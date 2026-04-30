@@ -1,6 +1,6 @@
 TODO
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
-    Cops should follow you through exits for severity 1 and up - I figured out that the cop can just tick off their distance from the exit and appear at the exit the player used.
+    
     do the flavor text for cop interview
 
         PLAYTEST

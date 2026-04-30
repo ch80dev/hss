@@ -45,9 +45,12 @@ class Turn{
 		for (let cop of cops){
 			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
 			let give_warning = rand_num(1, 3 + cop.severity)   == 1;
-			if (!cop.keeping_the_peace || cop.location.type != this.player.state.location.type 
-				|| cop.location.id != this.player.state.location.id){
+			if (!cop.keeping_the_peace ){
 				continue;
+			}
+			if (cop.location.type != this.player.state.location.type || cop.location.id != this.player.state.location.id){
+				cop.player_is_not_here();
+				return;
 			}
 			cop.flashing = !cop.flashing;
 			cop_on_scene = true;

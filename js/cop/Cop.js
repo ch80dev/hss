@@ -2,12 +2,16 @@ class Cop extends Lifeform{
     denied = false;
     escaping = false;
     flashing = false;
-    distance_from_exit = null;
     heading_towards = {};
+    heading_to_exit = {
+        exit: null, distance: null
+    }
     keeping_the_peace = true;
     max_stigma_tolerance = null;
     name = null;
     num_of_tazes = 5;
+    patrolling = null;
+    player_gone = false;
     player_fleeing = false;
     severity = null;
     surname = null;
@@ -26,6 +30,22 @@ class Cop extends Lifeform{
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
         
+    }
+    go_through_exit(){
+        console.log('go through exit');
+        if (this.heading_to_exit.exit == null){
+            console.log('exit');
+            return;
+        }
+        let to = this.map.exits[this.heading_to_exit.exit];
+        this.location.type = to.split('-')[0];
+        this.location.id = to.split('-')[1];
+        this.x = Number(to.split('-')[2]);
+        this.y = Number(to.split('-')[3]);
+        this.player_gone = false;
+        this.heading_to_exit.exit = null;
+        this.heading_to_exit.distance = null;
+
     }
 
     move(){
@@ -62,6 +82,56 @@ class Cop extends Lifeform{
         this.go(pos.x, pos.y, MapConfig.cell_class.indexOf('cop'), Config.stamina_cost.move);
     }
 
+    player_disappeared(){
+        let last_exit = this.player.state.last_exit.from;
+        let exit_location_type = last_exit.split('-')[0];
+        let exit_location_id = last_exit.split('-')[1];
+        let exit_x = last_exit.split('-')[2];
+        let exit_y = last_exit.split('-')[3];
+        if (cop.severity == 0 || exit_location_type != this.location.type || exit_location_id != this.location.id){
+            console.log('player not here - patrolling');
+            this.wait_for_player();
+            return;
+        }
+        let player_distance_to_exit = this.map.get.geometry.fetch_distance(this.heading_towards.x, this.heading_towards.y, exit_x, exit_y);
+        if (player_distance_to_exit >= 2){
+            console.log("player too far from exit - don't know where they went ");
+            this.wait_for_player();
+            return;
+        }
+        let distance_to_exit = this.map.get.geometry.fetch_distance(this.x, this.y, exit_x, exit_y);
+        this.heading_to_exit.exit = last_exit;
+        this.heading_to_exit.distance = distance_to_exit;
+        console.log('head towards this exit', this.heading_to_exit);
+    }
+
+    player_is_not_here(){
+        if (!this.player_gone){
+            this.player_gone = true;
+            this.player_disappeared();
+            return;
+        }
+        if (this.patrolling != null && this.patrolling > 0 
+            && this.heading_to_exit.distance != null && this.heading_to_exit.distance > 0){
+            console.log("this shouldn't happen");
+            return;
+        }
+        if (this.patrolling != null && this.patrolling > 0){
+            this.patrolling --;
+            if (this.patrolling < 1){
+                console.log("DELETE");
+            }
+            return;
+        }
+
+        if (this.heading_to_exit.distance != null && this.heading_to_exit.distance > 0 ){
+            this.heading_to_exit.distance --;
+            if (this.heading_to_exit.distance < 1){
+                this.go_through_exit();
+            }
+        }
+    }
+
     spot_player(x, y, warning){
         let can_they_see = this.map.get.inspector.has_line_of_sight(this.x, this.y, this.player.state.x, this.player.state.y);
         if (!can_they_see){
@@ -93,6 +163,10 @@ class Cop extends Lifeform{
         ui.log(`They tazed you unconscious and caused ${dmg} damage. [${this.player.state.health}]`);
         this.player.status.go_unconscious();
         
+    }
+
+    wait_for_player(){
+        this.patrolling = CopConfig.severity_wait[Cop.severity];
     }
 
     warn(){

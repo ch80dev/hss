@@ -79,6 +79,8 @@ class CopConfig{
 		unlock_trash: 30,
 	}
 
+	static severity_wait = [ 100, 100, 100, 1000 ];
+
 	static tazer_max_distance = 5;
 	static tazer_damage = 10;
 }

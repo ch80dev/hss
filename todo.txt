@@ -1,8 +1,4 @@
 TODO
-    
-    
-    status is really hgih on shop and human
-    add number presses to  shop buttons
     increase num of trash can min by one unit
     add .1-.5 health penalty to consuming expired meds
     BUG hours going over 2404-25-26

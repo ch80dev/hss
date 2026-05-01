@@ -1,4 +1,4 @@
-class UISocial{
+class UIHuman{
 	directions_selected = null;
 	button_num = 1;
     display(){

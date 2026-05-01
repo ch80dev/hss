@@ -114,7 +114,7 @@ class Favorite{
 		}
 		let location = {type: to.split('-')[0], id: Number(to.split('-')[1]) };
 		let next_location_type = directions.need.shift();
-		let unused_exit = map.get.inspector.entity.fetch_unused_exit(next_location_type, location);
+		let unused_exit = map.get.inspector.exit.fetch_unused(next_location_type, location);
 		directions.path.push(map.format_at(location.type, location.id, unused_exit.x, unused_exit.y));
 	}
 

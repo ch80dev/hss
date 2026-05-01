@@ -32,7 +32,7 @@ class MapNavigator {
         for (let id in  path){
             let from_here = path[id];
             let to_there = path[Number(id) + 1];
-            let exit = this.map.get.inspector.entity.fetch_exit(from_here, to_there);
+            let exit = this.map.get.inspector.exit.fetch(from_here, to_there);
             if (exit != null){
                 exits.push(exit);
             }
@@ -48,7 +48,7 @@ class MapNavigator {
         while (queue.length > 0) {
             let current = queue.shift();
             let currentStr = `${current.type}-${current.id}`;
-            let exit = this.map.get.inspector.entity.fetch_unused_exit(target_location_type, current);
+            let exit = this.map.get.inspector.exit.fetch_unused(target_location_type, current);
             if (exit !== null) {
                 return {exit: `${current.type}-${current.id}-${exit.x}-${exit.y}`, path: this.reconstruct_path(came_from, currentStr)};
             }

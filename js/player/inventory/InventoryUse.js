@@ -63,11 +63,11 @@ class InventoryUse{
             this.player.inventory.move.drop_item(id, map, 'tent (placed)');
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('tent'));
             return;
-        } else if (item.name == 'sleeping bag' && this.player.status.can_they_sleep() && (loot == null || (loot != null && loot.type == null))){
+        } else if (item.name == 'sleeping bag' && this.player.status.sleep.can_they() && (loot == null || (loot != null && loot.type == null))){
             this.player.status.add_crime('sleep');
             this.player.status.add_time(8, 0);
             let caption = "";
-            let penalty = this.player.status.sleep(false, false);
+            let penalty = this.player.status.sleep.start(false, false);
             item.durability -= 1;
             if (item.durability < 1){ 
                 this.player.inventory.move.delete(null, id);
@@ -79,19 +79,19 @@ class InventoryUse{
             this.player.state.looting = false;
             return;
         } else if (Object.keys(ItemConfig.food_gain).includes(item.name)){
-            this.player.status.change_stamina(ItemConfig.food_gain[item.name]);
+            this.player.status.stats.change_stamina(ItemConfig.food_gain[item.name]);
         } else if (item.name == 'medicine' || (medicine_works && item.name == 'medicine (expired)')){
             let gain = ItemConfig.medicine_gain[1];
             if (item.name == 'medicine (expired)'){
-                this.player.status.change_health(-Number((rand_num(0, 2) * .1).toFixed(1)));
+                this.player.status.stats.change_health(-Number((rand_num(0, 2) * .1).toFixed(1)));
                 gain = Math.round(ItemConfig.medicine_gain[1] / 2);
             }
-            this.player.status.change_sickness(-rand_num(ItemConfig.medicine_gain[0], gain));
+            this.player.status.stats.change_sickness(-rand_num(ItemConfig.medicine_gain[0], gain));
         }
  
         if (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability == 0){
-            this.player.status.change_stigma(Number((rand_num(5, 2) * .1).toFixed(1)));
-            this.player.status.change_sickness(rand_num(ItemConfig.spoiled_sick_gain[0], ItemConfig.spoiled_sick_gain[1]));
+            this.player.status.stats.change_stigma(Number((rand_num(5, 2) * .1).toFixed(1)));
+            this.player.status.stats.change_sickness(rand_num(ItemConfig.spoiled_sick_gain[0], ItemConfig.spoiled_sick_gain[1]));
         }
         if (ItemConfig.stackable.includes(item.name)){
             item.quantity --;

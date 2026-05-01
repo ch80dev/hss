@@ -33,7 +33,7 @@ class Shop{
             return;
         }
         
-        player.status.change_money(-ShopConfig.motel_room_cost);
+        player.status.stats.change_money(-ShopConfig.motel_room_cost);
         this.room_rented_at = true;
 
     }
@@ -50,7 +50,7 @@ class Shop{
             time_delta = 24 - (time.hours + ShopConfig.homeless_out) + 12;
         }
         player.status.add_time(time_delta, 0)
-        player.status.sleep(true, true);
+        player.status.sleep.start(true, true);
         
         
         player.state.shopping = null;

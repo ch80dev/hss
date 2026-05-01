@@ -17,7 +17,7 @@ class PlayerTrash {
         if (did_they_hit){
             this.player.status.add_crime('hit_trash');
 
-            this.player.status.change_stamina_delta(-.9);
+            this.player.status.stats.change_stamina_delta(-.9);
             this.player.inventory.use.weapon();
             loot.durability -= dmg;
             caption = `You hit the trash can for ${dmg} damage. [${loot.durability}%]`
@@ -52,13 +52,13 @@ class PlayerTrash {
 
     search(x, y, map){
         let trash = map.loot[this.player.fetch_from()];
-        this.player.status.change_stigma(Config.stigma_effects['trash']);
+        this.player.status.stats.change_stigma(Config.stigma_effects['trash']);
         if (trash == undefined){
             console.log('trash');
             return;
         }
         trash.searched = true;
-        this.player.status.change_stamina_delta(-.4);
+        this.player.status.stats.change_stamina_delta(-.4);
         this.player.status.add_time(0, 5);
         if (trash.stuff.length == 0){
             ui.log("Nothing usable in trash");

@@ -34,7 +34,7 @@ class UIShop{
     }
 
     display_homeless(player, time){
-        let can_they_sleep = player.status.can_they_sleep();
+        let can_they_sleep = player.status.sleep.can_they();
         let disabled = '';
         if (time.hours < ShopConfig.homeless_check_in[0] || time.hours >= ShopConfig.homeless_check_in[1] 
             || !can_they_sleep){
@@ -42,7 +42,7 @@ class UIShop{
         }
         let timer = '';
         if (!can_they_sleep){
-            timer = ` (available in ${player.status.fetch_time_til_they_can_sleep()}h)`;
+            timer = ` (available in ${player.status.sleep.fetch_time_til_they_can_sleep()}h)`;
         }
         let txt = `<div>You must be here between ${ShopConfig.homeless_check_in[0]}:00 and ${ShopConfig.homeless_check_in[1]}:00 in order to sleep here and you have to stay until 6am.</div><div><button id='sleep_at_shop' class='button_${this.button_num}' ${disabled}>sleep ${timer}</button>`;
         if (juego.waiting > 0){
@@ -52,7 +52,7 @@ class UIShop{
     }
 
     display_motel(player, shop){
-        let can_they_sleep = player.status.can_they_sleep();
+        let can_they_sleep = player.status.sleep.can_they();
         let disabled = '';
         let timer = '';
         let txt = "<div>Sleeping inside (like at a motel or a homeless shelter) brings your stigma to 0. (in addition to avoiding the healthy penalty for sleeping outside) </div>";
@@ -65,7 +65,7 @@ class UIShop{
         }
         if (!can_they_sleep){
             disabled = ' disabled ';
-            timer = `(available in ${player.status.fetch_time_til_they_can_sleep()}h)`;
+            timer = `(available in ${player.status.sleep.fetch_time_til_they_can_sleep()}h)`;
         }
         return `${txt} <div><button id='sleep_at_shop' class='button_${this.button_num}' ${disabled}>sleep ${timer}</button> </div>`
     }

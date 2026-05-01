@@ -27,7 +27,6 @@ class HumanInventory{
                 return item;
             }
         }
-        //console.log( "nothing to be fetched: " + name);
         return null;
     }
 

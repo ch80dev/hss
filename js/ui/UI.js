@@ -8,7 +8,7 @@ class UI{
 	refresh = new UIRefresh(this);
 	shop = new UIShop();
 	sleeping = false;
-	social = new UISocial();
+	human = new UIHuman();
 	status_msg = "";
 	screen_focused = 'map';
 	unconscious = false;

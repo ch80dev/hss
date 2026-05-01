@@ -89,7 +89,7 @@ class UIMap {
 					cell_txt = MapConfig.cell_txt.cop; // need to put this up here to overwrite exit
 					
 				} else if (map_at != null && map_at != 1  
-					&& juego.map.get.inspector.entity.have_they_used_this_exit(juego.player.state.location.type, 
+					&& juego.map.get.inspector.exit.have_they_used_this(juego.player.state.location.type, 
 					juego.player.state.location.id, x, y)){
 					cell_txt = MapConfig.cell_txt['used_exit'];
 				} else if (map_at != null && map_at > 1 && map_at < 5){

@@ -18,6 +18,10 @@ class LightsGenerator{
             let good = null;
             let rand_spot = lights[rand_num(0, lights.length - 1)];
             let open = this.map.get.inspector.fetch_open_with_distance(rand_spot.x, rand_spot.y, 4);
+            if (open == null){
+                console.log('open equaled null');
+                return;
+            }
             border = this.map.get.inspector.fetch_open(true); //alley - SHOULDN't THIS BE BORDER?
             for (let spot of lights){    
                 let distance 

@@ -11,7 +11,7 @@ class PlayerMovement{
         let from = this.player.fetch_from();
         let coming_from = { type: this.player.state.location.type, id: this.player.state.location.id };
         this.player.state.reported_crimes = [];
-        if (map.get.inspector.entity.have_they_used_this_exit(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
+        if (map.get.inspector.exit.have_they_used_this(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
             let exits_to = map.exits[from];
             let to_type = exits_to.split('-')[0];
             let to_id = exits_to.split('-')[1];
@@ -71,8 +71,8 @@ class PlayerMovement{
             return;
         }
         if (this.player.state.location.type == 'sewer'){
-            this.player.status.change_stigma(Config.stigma_effects['sewer']);
-            this.player.status.change_sickness(Config.sickness_effects['sewer']);
+            this.player.status.stats.change_stigma(Config.stigma_effects['sewer']);
+            this.player.status.stats.change_sickness(Config.sickness_effects['sewer']);
         }
         if(juego.night || this.player.state.location.type == 'sewer'){
             this.player.inventory.use.light();
@@ -82,14 +82,14 @@ class PlayerMovement{
             this.player.actions.shop.enter(pos.x, pos.y, map);
             return;
         } else if (this.player.state.fighting && MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
-            this.player.actions.attack(pos.x, pos.y, juego);
+            this.player.actions.attack.go(pos.x, pos.y, juego.get, juego.map);
             return;
         } else if (!this.player.state.fighting && MapConfig.sociable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead && !target.attacking_player){//SOCIAL
             this.player.actions.human.social(pos.x, pos.y, juego);
             return;
         }
         if (this.player.state.stamina > 0){
-            this.player.status.change_stamina_delta(-this.player.state.movement_cost);
+            this.player.status.stats.change_stamina_delta(-this.player.state.movement_cost);
         } else if (this.player.state.health > 0){
             this.player.state.health -= this.player.state.movement_cost;
         }

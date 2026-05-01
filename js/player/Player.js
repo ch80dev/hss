@@ -1,6 +1,6 @@
 class Player{
-    constructor(x, y, time, map){
-        this.actions = new PlayerActions(this);
+    constructor(x, y, time, map, get){
+        this.actions = new PlayerActions(this, get);
         this.inventory = new PlayerInventory(this);
         this.movement = new PlayerMovement(this);
         this.state = new PlayerState(x, y, this);

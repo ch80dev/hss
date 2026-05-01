@@ -9,7 +9,7 @@ class Turn{
 			this.time.minutes = 0;
 			this.time.hours ++;
 			this.player.inventory.food_spoils();
-			this.player.status.player_still_sick();
+			this.player.status.stats.player_still_sick();
 		}
 		if (this.time.hours + hours_delta > 23){
 			this.time.hours = (this.time.hours + hours_delta) - 24;
@@ -28,7 +28,7 @@ class Turn{
 	}
 
 	next(humans, map, rats, cops){
-		this.player.status.change_stamina();
+		this.player.status.stats.change_stamina();
 		this.lifeforms_move(humans, map, rats, cops);		
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);
@@ -49,7 +49,7 @@ class Turn{
 				continue;
 			}
 			if (cop.location.type != this.player.state.location.type || cop.location.id != this.player.state.location.id){
-				cop.player_is_not_here();
+				cop.pursuit.player_is_not_here();
 				return;
 			}
 			if (cop.patrolling != null && cop.patrolling > 0){
@@ -83,13 +83,13 @@ class Turn{
 				continue;
 			} 
 			if (!cop.escaping){
-				this.player.actions.detained_interview(cop.id);
+				this.player.actions.cop.detained_interview(cop.id);
 				continue;
 			}
 			this.player.state.detained_by = cop.id;
 			ui.change_screen('detained');
 
-			this.player.actions.crime_sentencing();
+			this.player.actions.cop.crime_sentencing();
 			
 			
 		}

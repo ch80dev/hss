@@ -18,9 +18,9 @@ $(document).on('click', '.cell:not(.empty)', function() {
 $(document).on('click', '.cop_interview', function() {
     juego.cop_interview.choose(Number(this.id.split('-')[1]));
     if (juego.cop_interview.result == 'win'){
-        juego.player.actions.cop_lets_them_go(juego.get);
+        juego.player.actions.cop.lets_them_go(juego.get);
     } else if (juego.cop_interview.result == 'lose'){
-        juego.player.actions.crime_sentencing();
+        juego.player.actions.cop.crime_sentencing();
     }
     ui.refresh.go();
 });
@@ -28,7 +28,7 @@ $(document).on('click', '.cop_interview', function() {
 
 
 $(document).on('click', '.detained', function() {
-    juego.player.actions.detained(this.id.split('-')[1], juego.get);
+    juego.player.actions.cop.detained(this.id.split('-')[1], juego.get);
     ui.refresh.go();
 });
 
@@ -46,13 +46,13 @@ $(document).on('click', '.favorite', function() {
 
 
 $(document).on('click', '#go_to_the_yard', function() {
-    juego.player.actions.go_to_the_yard();
+    juego.player.actions.cop.go_to_the_yard();
     ui.refresh.go();
 });
 
 
 $(document).on('click', '#start_sentence', function() {
-    juego.player.actions.start_sentence();
+    juego.player.actions.cop.start_sentence();
     ui.refresh.go();
 });
 

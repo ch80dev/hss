@@ -57,7 +57,7 @@ class Lifeform {
         if (this.type == 'rat'){
             bleed = 2;
         }
-        this.player.status.change_health(-dmg);
+        this.player.status.stats.change_health(-dmg);
         if (bleed > 0){
             this.player.status.bleeding += rand_num(1, bleed);
         }

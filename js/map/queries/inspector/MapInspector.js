@@ -3,7 +3,9 @@ class MapInspector{
     constructor(map){
         this.map = map;
         this.entity = new EntityInspector(map);
+        this.exit = new ExitInspector(map);
     }
+    
     fetch_adjacent(pos_x, pos_y, what, orthogonal){
         let adjacent = [];
         for (let x = pos_x - 1; x <= pos_x + 1; x ++){
@@ -23,8 +25,6 @@ class MapInspector{
         return adjacent;
     }
 
-
-
     fetch_border_spot(orthogonal){
         while(true){
             let open = this.fetch_open(false);            
@@ -33,7 +33,6 @@ class MapInspector{
             }
         }
     }
-
  
     fetch_farthest(point, arr){
         let closest = null;
@@ -51,37 +50,38 @@ class MapInspector{
         }
         return arr[closest_id];
     }
-    
-
 
     fetch_open(clear){
-        while(true){
+        let n = 0;
+        while(n < 100){
             let rand_x = rand_num (0, MapConfig.max_x - 1);
             let rand_y = rand_num (0, MapConfig.max_x - 1);
             if (clear && !this.is_clear(rand_x, rand_y)){
+                n ++;
                 continue;
             }
             if (this.map.get.at(rand_x, rand_y) == 1){
                 return {x: rand_x, y: rand_y };
             }
+            n ++;
         }
+        console.log("fetch open returned null");
+        return null;
     }
     
     fetch_open_with_distance(x, y, target_distance){
-        
-        while(true){
+        let n = 0;
+        while(n < 1000){
             let open = this.fetch_open(false)
             let distance = this.map.get.geometry.fetch_distance(x, y, open.x, open.y );
             if (distance == target_distance ){
                 return open;
             }
+            n ++;
         }
-        
+        console.log("fetch open returned null");
+        return null;
     }
-
-
-
-
 
     has_line_of_sight(x0, y0, x1, y1) { //AI
         let dx = Math.abs(x1 - x0);

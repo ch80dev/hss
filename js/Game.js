@@ -30,10 +30,10 @@ class Game{
 	constructor(){
 		this.get = new Queries(this.humans, this.rats, this.shops, this.cops);
 		let open = this.map.get.inspector.fetch_open(false);
-		this.player = new Player(open.x, open.y, this.time, this.map);
+		this.player = new Player(open.x, open.y, this.time, this.map, this.get);
 		this.populate = new Populator(this.map, this.player, this.get);
 		this.turn = new Turn(this.player, this.time);
-		this.jail = new PacMan(this.map, this.player, this.loop);
+		this.jail = new PacMan(this.map.get.geometry, this.player, this.loop);
 		this.populate.with_rats('alley', 0, this.rats);
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
@@ -58,7 +58,7 @@ class Game{
 			}
 		}
 		response = {};
-		let num_of_exits = this.map.get.inspector.entity.fetch_num_of_exits();
+		let num_of_exits = this.map.get.inspector.exit.fetch_count();
 		if (this.player.state.location.type == 'street'){
 			response.from = null;
 			response.time = 0;
@@ -112,13 +112,13 @@ class Game{
 			if (!report.responded && report.time < 1 && !this.police_dispatched.includes(this.player.fetch_loc_str())){
 				report.responded = true;
 				this.police_dispatched.push(this.player.fetch_loc_str());
-				let exits = this.map.get.inspector.entity.fetch_exits_of_type(report.from);
+				let exits = this.map.get.inspector.exit.fetch_all_of_type(report.from);
 				if (report.type != null && exits.length == 0){
 					console.log('error');
 					return;
 				}
 				if (report.type == null){
-					exits = this.map.get.inspector.entity.fetch_exits();
+					exits = this.map.get.inspector.exit.fetch_all();
 				}
 				let rand = exits[rand_num(0, exits.length - 1)];
 				ui.log("POLICE! FREEZE!");

@@ -23,7 +23,7 @@ class UILoot{
 			txt += "<div id='loot-crate' class=''>crate (placed)</div>";
 		} else if (is_loot && juego.map.get.inspector.entity.is_item_here('tent (placed)', juego.player.fetch_from()) && tent_here != null){
 			let disabled = '';
-			if (!juego.player.status.can_they_sleep){
+			if (!juego.player.status.sleep.can_they){
 				disabled = ' disabled ';
 			}
 			crate_here = ' in_crate ';
@@ -32,9 +32,9 @@ class UILoot{
 		for (let item of items){		
 			let disabled = '';
 			let item_add = '';
-			if (!is_loot && item.name == 'sleeping bag' && !juego.player.status.can_they_sleep()){
+			if (!is_loot && item.name == 'sleeping bag' && !juego.player.status.sleep.can_they()){
 				disabled = ' disabled ';
-				item_add = ` (${juego.player.status.fetch_time_til_they_can_sleep()}h)`;
+				item_add = ` (${juego.player.status.sleep.fetch_time_til_they_can_sleep()}h)`;
 			}
 			let durability = '';
 			let is_food = Object.keys(ItemConfig.food_gain).includes(item.name); 

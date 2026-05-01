@@ -25,7 +25,7 @@ class ShopGenerator {
 
     generate_shop_type(){   
         let shop_types = Object.keys(ShopConfig.names);  
-        if (this.map.shops_generated.length >= shop_types.length){
+        if (this.map.shops_generated.length >= shop_types.length){            
             return null;
         }
         if (DefaultConfig.shop_type != null){

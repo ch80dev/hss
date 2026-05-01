@@ -11,7 +11,7 @@ class PlayerShop{
             || !this.player.inventory.get.can_they_take(item, 1)){
             return null;
         }
-        this.player.status.change_money(-cost);
+        this.player.status.stats.change_money(-cost);
         this.player.state.inventory.push({id: this.player.inventory.next_id(), name: item, quantity: 1, durability: 100 });
         ui.log(`You spent $${cost} [${this.player.state.money}] to buy a ${item}.`);
     }
@@ -25,7 +25,7 @@ class PlayerShop{
         new_item.id = this.player.inventory.next_id();
         this.player.state.inventory.push(new_item);
         this.player.inventory.move.sort();
-        this.player.status.change_money(-ItemConfig.prices[item.name]);
+        this.player.status.stats.change_money(-ItemConfig.prices[item.name]);
         
     }
 
@@ -75,7 +75,7 @@ class PlayerShop{
         if (quantity == 'all' || quantity > item.quantity){
             quantity = item.quantity;
         }
-        this.player.status.change_money(quantity * ItemConfig.prices[resource]);
+        this.player.status.stats.change_money(quantity * ItemConfig.prices[resource]);
         item.quantity -= quantity;
         if (item.quantity < 1){
             this.player.inventory.move.delete(resource, null);
@@ -92,7 +92,7 @@ class PlayerShop{
         }   
         shop.inventory.push(item);
         this.player.inventory.move.delete(null, inventory_id);
-        this.player.status.change_money(Math.round(ItemConfig.prices[item.name] * item.durability * .005));
+        this.player.status.stats.change_money(Math.round(ItemConfig.prices[item.name] * item.durability * .005));
 
     }
 

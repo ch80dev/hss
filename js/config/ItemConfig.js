@@ -91,10 +91,6 @@ class ItemConfig {
 		wrench: 12,
 		tent: 20,
 		'sleeping bag': 10,
-		
-		
-		
-		
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
 	static spoiled_sick_gain = [1, 50];

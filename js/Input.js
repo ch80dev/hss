@@ -67,9 +67,9 @@ class Input {
 
     selecting_directions(id){
         if (id == ""){
-            ui.social.directions_selected = null;
+            ui.human.directions_selected = null;
         } else if (Object.keys(ShopConfig.names).includes(id)){
-            ui.social.directions_selected = id;
+            ui.human.directions_selected = id;
         }   
     }
 

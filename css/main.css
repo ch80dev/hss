@@ -4,21 +4,7 @@ body{
     color: grey;
 }
 
-.†{
-    color: #0055FF;
-}
 
-.§{
-    color: #FFD700;
-}
-
-.¿{
-    color: #00C800;
-}
-
-.¶{
-    color: #E0E0E0;
-}
 #bottom {
     width: 100%;
     text-align: center;
@@ -38,64 +24,7 @@ body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
 
-.cop_interview{
-    font-size: 30px;
-    padding: 25px;
-    background: #1A1A1A;
-    width: 200px;
 
-    flex-shrink: 0;
-}
-
-.cop_interview_answer{
-    text-align: left;
-    width: 100%;
-
-    display: flex;         /* Align children horizontally */
-  align-items: center;   /* Center text vertically relative to the button */
-  gap: 10px;
-}
-
-#cop_interview_context{
-    text-align: center;
-    margin-top: 30px;
-    font-size: 30px;
-}
-
-.cop_interview_question{
-    font-size: 35px;
-    color: white;
-    margin-bottom: 25px;
-}
-#cop_interview_score{
-    font-size: 40px;
-    text-align: center;
-}
-
-.cop_score{
-
-    margin: 10px;
-}
-
-.cop_warning{
-    font-weight: bold;
-    color: white;
-
-}
-
-
-.crime_reported{
-    color: white;
-    font-weight: bold;
-}
-#detained{
-    text-align: center;
-}
-.detained{
-    padding: 10px;
-    font-size: 25px;
-    margin-top: 25px;
-}
 
 .favorite_entry{
     color: white;
@@ -125,7 +54,6 @@ body:has(#loot:not(.hidden)){
 }
 
 
-
 html, body{
     height: 100%;
     margin: 0;
@@ -136,11 +64,6 @@ html, body{
     margin-top: 15px;
     color: hsl(0, 0%, 100%);
 }
-
-
-
-
-
 
 #money, #social_context, #social_menu{
     text-align: center;

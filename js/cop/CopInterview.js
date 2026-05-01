@@ -11,7 +11,7 @@ class CopInterview{
 		["Selfie!", "Thank you for being candid with me.", "Is that why you're here? Fell in love with me already?", "Camera? More like SHAMera."],
 		["Making things harder on myself is how I thrive. I thrive every day.", "You and I makes we? And this little piggy went all the way home.", "We're not that close for you and I to agree on anything.", "U and I? Funny how that's how you end ennui. When will we end this conversation, do you think?"],
 		['My fingerprints? Sure. Let me see your neck.', "My DNA? Eww. What a pervert.", "My DNA?!? That is not my baby! I just met you!", "Sure. I just spit on the ground and showed you one of my fingerprints. Does that rule me out yet?"],
-		["I've been homeless for what seems like forever and I know what a fascist smells like.", "If you know what a criminal looks like, why are you bothering me?", "That's cool. Do you know what an innocent person looks like too?"],
+		["I've been homeless for what seems like forever and I know what a fascist look like.", "If you know what a criminal looks like, why are you bothering me?", "That's cool. Do you know what an innocent person looks like too?", "Looks can be deceiving. You're supposed to be a public servant."],
 	]
 	avoid = null;
 	buttons = {
@@ -34,7 +34,7 @@ class CopInterview{
 		"I've been working as a cop a long time and I think I know what a criminal looks like...",
 		/*
 		"Well, you know what? I can wait all day for you to confess because I'm being paid by the taxpayers.",
-		"You have the right to remain silent, but doing so is kinda mean and sounds like criminal behaviors.",
+		"You have the right to remain silent, but doing so is kinda mean and sounds like criminal behavior.",
 		"I don't really like you and a lot of the people I don't like...I end up arresting them. "
 		*/
 	];
@@ -82,14 +82,12 @@ class CopInterview{
 	}
 
 	choose(i){
-		
 		let color = Object.keys(this.buttons.categories[i])[0];
 		let cost_color = Object.keys(this.buttons.costs[i])[0];
 		this.last_choice = [color, cost_color];
 		this.score[color] += this.buttons.categories[i][color];
 		if (this.valid.includes(this.buttons.costs[i][cost_color]) ){
 			this.score[cost_color] += this.buttons.costs[i][cost_color];
-
 		}
     	this.turns ++;
 	    this.generate_buttons();
@@ -102,14 +100,11 @@ class CopInterview{
 	end_game(){
 		if (this.fetch_score() >= this.severity_scores[this.severity]){
 			this.result = 'win';
-			
 			return;
 		}
-
 		this.result = 'lose';
 	}
 	evaluate(){
-		
 		if (this.score[this.target] > this.score[this.avoid]){
 			return "&#128077;";
 		} else if (this.score[this.target] < this.score[this.avoid]){
@@ -121,6 +116,7 @@ class CopInterview{
 	fetch_score(){
 		return this.score[this.target] - this.score[this.avoid];
 	}
+
 	fetch_highest_score(){
 		let n = 0;
 		
@@ -149,11 +145,9 @@ class CopInterview{
 					&& ((color_arr[i] == this.last_choice[0] && cost_arr[i] == this.last_choice[1])
 					|| (color_arr[i] == this.last_choice[1] && cost_arr[i] == this.last_choice[0]))
 				)) {
-
 					keep_going = true;
 				}
 			}
-
 		}
 		this.buttons.categories = [];
 		this.buttons.costs = [];
@@ -164,6 +158,7 @@ class CopInterview{
 			this.buttons.costs[i][ cost_arr[i]] =   cost_num_arr[i];
 		}
 	}
+
 	generate_avoid(){
 		let remaining = [...this.categories];
 		remaining.splice(this.categories.indexOf(this.target), 1);
@@ -194,17 +189,13 @@ class CopInterview{
 	save(n){
 		if (this.high_scores[n] == undefined){
 			this.high_scores[n] = 0;
-
 		}
 		this.high_scores[n] ++;
 	}
 
 	shuffle(array) {
 		for (let i = array.length - 1; i > 0; i--) {
-			// Pick a random index from 0 to i
 			const j = Math.floor(Math.random() * (i + 1));
-			
-			// Swap elements array[i] and array[j]
 			[array[i], array[j]] = [array[j], array[i]];
 		}
 		return array;

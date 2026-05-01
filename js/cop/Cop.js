@@ -154,6 +154,7 @@ class Cop extends Lifeform{
             warning = false;
         }
         this.heading_towards = { x: x, y: y };
+        console.log(this.heading_towards);
         return warning;
     }
 

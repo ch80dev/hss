@@ -37,6 +37,7 @@ class Game{
 		this.populate.with_rats('alley', 0, this.rats);
 		this.populate.with_humans('alley', 0, this.humans);
 		this.populate.with_shops(this.favorites, this.shops);
+		//this.cops.push(new Cop(this.cops.length, 1, 1, 0, this.player.state.location.type, this.player.state.location.id, this.map, this.player, this.get));
 	}
 	call_police(){
 		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?

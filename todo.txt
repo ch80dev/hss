@@ -1,7 +1,7 @@
 TODO
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
     
-    do the flavor text for cop interview
+    do the flavor text for cop interview - the last 5;
     
         PLAYTEST
             be able to create a favorite for beat unconscious work quest

@@ -1,4 +1,6 @@
 class UICop{
+
+    interview_questions = [];
     display(){
 
         if (juego.player.state.detained_by == null){
@@ -27,9 +29,13 @@ class UICop{
         
     }
     display_interview(cop){
+        let question_id = this.fetch_interview_question();
+        let answers = [0, 1, 2, 3];
+        answers.sort(() => Math.random() - 0.5);
         let interview = juego.cop_interview;
-        let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div>`;
+        let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div><div class='cop_interview_question'>${interview.questions[question_id]}</div>`;
         for (let i in interview.buttons.categories){
+            let answer = interview.answers[question_id][answers[Object.keys(interview.buttons.categories).indexOf(i)]];
             let category  = Object.keys(interview.buttons.categories[i])[0];
             let category_num = interview.buttons.categories[i][category];
             let cost  = Object.keys(interview.buttons.costs[i])[0];
@@ -38,7 +44,7 @@ class UICop{
             if (cost_num == 1 || cost_num == 2){
                 secondary += `<span class='${cost}'>(+${cost_num}${cost})</span>`;
             }
-            txt += `<button id='cop_interview-${i}' class='cop_interview'><span class='${category}'>+${category_num}${category}</span> ${secondary}</button>`;
+            txt += `<div class='cop_interview_answer'><button id='cop_interview-${i}' class='cop_interview'><span class='${category}'>+${category_num}${category}</span> ${secondary}</button>${answer}</div>`;
         }
         txt += `</div><div id='cop_interview_score'>`;
             for(let category of interview.categories){
@@ -102,6 +108,19 @@ class UICop{
         txt += `<div><button id='detained-deny' class='detained'>"${CopConfig.detained.deny[rand_num(0, CopConfig.detained.deny.length - 1)]}"</button></div><div>[ Talk your way out of things. (You'll receive a worse sentence if you fail.) ]</div>`
         txt += `<div><button id='detained-escape' class='detained'>"${CopConfig.detained.escape[rand_num(0, CopConfig.detained.escape.length - 1)]}"</button></div><div>[ Try to run. (You'll receive the max sentence if you fail.) ]</div>`
         return txt;
+    }
+
+    fetch_interview_question(){
+        if (this.interview_questions.length == juego.cop_interview.questions.length){
+            this.interview_questions = [];
+        }
+        while(true){
+            let rand = rand_num(0, juego.cop_interview.questions.length - 1);
+            if (!this.interview_questions.includes(rand)){
+                this.interview_questions.push(rand);
+                return rand;
+            }
+        }
     }
 
     format_sentencing(n){

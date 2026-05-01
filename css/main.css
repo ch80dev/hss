@@ -42,6 +42,18 @@ body:has(#loot:not(.hidden)){
     font-size: 30px;
     padding: 25px;
     background: #1A1A1A;
+    width: 200px;
+
+    flex-shrink: 0;
+}
+
+.cop_interview_answer{
+    text-align: left;
+    width: 100%;
+
+    display: flex;         /* Align children horizontally */
+  align-items: center;   /* Center text vertically relative to the button */
+  gap: 10px;
 }
 
 #cop_interview_context{
@@ -49,10 +61,15 @@ body:has(#loot:not(.hidden)){
     margin-top: 30px;
     font-size: 30px;
 }
+
+.cop_interview_question{
+    font-size: 35px;
+    color: white;
+    margin-bottom: 25px;
+}
 #cop_interview_score{
     font-size: 40px;
     text-align: center;
-    margin-top: 40px;
 }
 
 .cop_score{

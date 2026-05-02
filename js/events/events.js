@@ -9,11 +9,10 @@ document.addEventListener('keyup', (event) => {
    let key_pressed = event.key;
    juego.input.release_key(key_pressed);
 });
-
 let touchTimer;
 const LONG_PRESS_DURATION = 500; // Half a second
 
-$(document).on('touchstart', '.cell:not(.empty)', function(e) {
+$(document).on('touchstart', '.cell', function(e) {
     const cell = this;
     const x = Number(cell.id.split('-')[1]);
     const y = Number(cell.id.split('-')[2]);
@@ -29,7 +28,7 @@ $(document).on('touchstart', '.cell:not(.empty)', function(e) {
     }, LONG_PRESS_DURATION);
 });
 
-$(document).on('touchend touchmove', '.cell:not(.empty)', function() {
+$(document).on('touchend touchmove', '.cell', function() {
     // If they let go or move their finger before the timer hits, cancel it
     clearTimeout(touchTimer);
 });
@@ -41,7 +40,6 @@ $(document).on('contextmenu', '.cell', function(e) {
 
 $(document).on('click', '.cell', function() {
     //juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
-
     if (this.originalEvent instanceof PointerEvent 
         && this.originalEvent.pointerType === 'touch') {
         return;
@@ -50,13 +48,7 @@ $(document).on('click', '.cell', function() {
     ui.refresh.go();
 });
 
-$(document).on('click', '.jail_cell', function() {
-    //juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
-
-    if (this.originalEvent instanceof PointerEvent 
-        && this.originalEvent.pointerType === 'touch') {
-        return;
-    }
+$(document).on('mousedown', '.jail_cell', function() {
     juego.input.click(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), true);
     ui.refresh.go();
 });

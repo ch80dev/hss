@@ -1,5 +1,6 @@
 class Input {
     click(x, y, jail){
+        //console.log(x, y, jail);
         let delta = { x: x - juego.player.state.x, y: y - juego.player.state.y };
         let direction = null;
         let move_delta = juego.map.get.geometry.fetch_delta(x, y, juego.player.state.x, juego.player.state.y);

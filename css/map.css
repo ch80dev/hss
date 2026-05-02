@@ -19,7 +19,9 @@
 .cell {
     color: white;
     width: 3.8vw;
+    max-width: 23px;
     height: 3.8vw;
+    max-height: 23px;
     text-align: center;
     float:left;
 

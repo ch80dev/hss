@@ -50,7 +50,6 @@ class PlayerCop {
         if (cop == null){
             return;
         }
-        console.log(cop, what);
         if (what == 'accept'){
             
             this.crime_sentencing();

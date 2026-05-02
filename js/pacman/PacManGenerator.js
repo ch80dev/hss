@@ -60,6 +60,10 @@ class PacManGenerator {
     }
 
     reset(){
+        this.pacman.enemies[0].x = 0;
+        this.pacman.enemies[0].y = 0;
+        this.pacman.enemies[1].x = this.pacman.max_x - 1;
+        this.pacman.enemies[1].y = this.pacman.max_y - 1;
         for (let x = 0; x < this.pacman.max_x; x ++){
             if (this.pacman.grid[x] == undefined){
                 this.pacman.grid.push([]);
@@ -74,6 +78,7 @@ class PacManGenerator {
         }
         this.pacman.player_at.x = Math.round(this.pacman.max_x / 2);
         this.pacman.player_at.y = Math.round(this.pacman.max_y / 2);
+
         this.place_entities();        
         this.generate_wall();
         this.generate_power_ups();

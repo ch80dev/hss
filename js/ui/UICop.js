@@ -58,12 +58,12 @@ class UICop{
     display_jail(){
         let cell_classes = [null, 'jail_wall', 'jail_player', 'jail_enemy', 'jail_guard'];
 
-        let txt = `<div>${this.format_sentencing(juego.player.state.sentence_served)} of ${this.format_sentencing(juego.player.state.sentenced_to)}</div>`;
+        let txt = `<div>${this.format_sentencing(juego.player.state.sentence_served)} of ${this.format_sentencing(juego.player.state.sentenced_to)}</div><div id='jail_map_container'><div id='jail_map'>`;
         let jail = juego.jail;
         for (let y = 0; y < jail.max_y; y ++){
             txt += "<div class='row'>"
             for (let x = 0; x < jail.max_x; x ++){
-                let cell_class = 'jail_empty';
+                let cell_class = ' jail_empty ';
                 let cell_txt = '';
                 if (jail.map.at(x, y) != null){
                     cell_class = cell_classes[jail.map.at(x, y)];
@@ -78,6 +78,7 @@ class UICop{
 
             }
         }
+        txt += "</div></div>"
         return txt;        
     }
 

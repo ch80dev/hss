@@ -1,7 +1,11 @@
+
+
 .jail_cell {
     color: white;
     width: 6vw;
+    max-width: 33px;
     height: 6vw;
+    max-height: 33px;
     text-align: center;
     float:left;
 
@@ -13,6 +17,16 @@
 .jail_enemy {
     background: red;
 
+}
+
+#jail_map{
+    display: inline-block; /* Crucial: Makes the div only as wide as the rows */
+    margin: 0 auto;
+   
+}
+
+#jail_map_container{
+    width: 100%;
 }
 
 .jail_player{

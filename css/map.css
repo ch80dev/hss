@@ -1,9 +1,10 @@
 
-
-#map *{
+/*
+#map_grid *{
     box-sizing: border-box;
-    font-size: 3vw;
+    font-size: clamp(12px, 3vw, 20px);
 }
+    */
 .alley_exit {
     color: white;
 }
@@ -18,9 +19,9 @@
 
 .cell {
     color: white;
-    width: 3.8vw;
+    width: 3.25vw;
     max-width: 23px;
-    height: 3.8vw;
+    height: 3.25vw;
     max-height: 23px;
     text-align: center;
     float:left;
@@ -68,7 +69,8 @@
     color: #8B5A2B;
 }
 .dumpster{
-    font-size: 6vw; 
+    font-size: clamp(12px, 6vw, 18px);
+
 }
 .row{
     clear:both;
@@ -93,6 +95,18 @@
     color: #5c8ca3;
     background: #444444;
     border: 1px #444444 solid;
+}
+
+#map_container{
+    width: 100%;
+    text-align: center;
+
+}
+
+#map_grid{
+    display: inline-block; /* Crucial: Makes the div only as wide as the rows */
+    margin: 0 auto;
+    text-align: left;
 }
 
 .player{

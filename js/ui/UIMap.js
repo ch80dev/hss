@@ -129,7 +129,7 @@ class UIMap {
 			}
 			txt += "</div>"
 		}
-		document.getElementById('map_grid').innerHTML = txt;
+		$("#map_grid").html(txt);
 			
 	}
 }

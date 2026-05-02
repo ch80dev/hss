@@ -24,6 +24,8 @@
     float: left;
     background: grey;
     border: 1px black solid;
+    padding: 0px;
+
 }
 
 .status_bar{
@@ -32,6 +34,8 @@
     left: 0;
     z-index: 1;
     position: absolute;
+    padding: 0px;
+
 }
 
 
@@ -54,7 +58,7 @@
 .status_caption {
     position: absolute;
     z-index: 2;
-    font-size: 1.75vh;
+    font-size: clamp(10px, 2vh,  30px);
     width: 100%;
 }
 

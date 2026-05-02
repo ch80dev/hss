@@ -1,7 +1,37 @@
 class Input {
+    click(x, y, jail){
+        let delta = { x: x - juego.player.state.x, y: y - juego.player.state.y };
+        let direction = null;
+        let move_delta = juego.map.get.geometry.fetch_delta(x, y, juego.player.state.x, juego.player.state.y);
+        if (jail){
+            delta = { x: x - juego.jail.player_at.x, y: y - juego.jail.player_at.y };
+            move_delta = juego.map.get.geometry.fetch_delta(x, y, juego.jail.player_at.x, juego.jail.player_at.y);
+        }
+        let rand = rand_num(1, 2)
+        if (Math.abs(delta.x) > Math.abs(delta.y) 
+            || (Math.abs(delta.x) == Math.abs(delta.y) && rand == 1)){
+            move_delta.y = 0;
+        } else if (Math.abs(delta.x) < Math.abs(delta.y) 
+            || (Math.abs(delta.x) == Math.abs(delta.y) && rand == 2)){
+            move_delta.x = 0;
+
+        } 
+        direction = juego.player.movement.fetch_direction_from_delta(move_delta);
+        if (direction == null){
+            return;
+        }
+        if (jail){
+            juego.jail.move(direction);
+            return;
+        }
+        juego.player.movement.move(direction, juego.map, juego);
+        juego.next();
+    }
+
     number_key_pressed(number){
         $(`.button_${number}`).first().trigger('click');
     }
+
     press_key(pressed){
         //console.log(pressed, ui.screen_focused, );
         if (ui.sleeping || juego.player.state.unconscious_for > 0){

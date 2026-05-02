@@ -31,6 +31,7 @@ class PacMan {
         this.player.state.in_pacman_jail = false;
         clearTimeout(this.game_loop);
         this.player.actions.cop.serve_sentence();
+        this.generator.reset();
     }
 
     enemies_move(){
@@ -110,11 +111,13 @@ class PacMan {
             down: { x: 0, y: 1 },
             left: { x: -1, y: 0 },
         };
+        console.log(where);
         let pos = {x : this.player_at.x + directions[where].x, y: this.player_at.y + directions[where].y};
-        if (this.map.is_valid(pos.x, pos.y) && this.at(pos.x, pos.y) == 3){
+        if (this.map.is_valid(pos.x, pos.y) && this.map.at(pos.x, pos.y) == 3){
             this.lose();
             return;
         }
+        console.log(pos);
         if (this.map.is_valid(pos.x, pos.y) && this.map.is_open(pos.x, pos.y)){
             this.go(pos);
         }

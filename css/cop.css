@@ -17,10 +17,10 @@
 }
 
 .cop_interview{
-    font-size: 30px;
-    padding: 25px;
+    font-size: 4vh;
+    padding: 3vh;
     background: #1A1A1A;
-    width: 200px;
+    width: 50%;
 
     flex-shrink: 0;
 }
@@ -31,28 +31,28 @@
 
     display: flex;         /* Align children horizontally */
   align-items: center;   /* Center text vertically relative to the button */
-  gap: 10px;
+  gap: 2vw;
 }
 
 #cop_interview_context{
     text-align: center;
-    margin-top: 30px;
-    font-size: 30px;
+    margin-top: 3vh;
+    font-size: 3vh;
 }
 
 .cop_interview_question{
-    font-size: 35px;
+    font-size: 3vh;
     color: white;
-    margin-bottom: 25px;
+    margin-bottom: 3vh;
 }
 #cop_interview_score{
-    font-size: 40px;
+    font-size: 5vh;
     text-align: center;
 }
 
 .cop_score{
 
-    margin: 10px;
+    margin: 1vh;
 }
 
 .cop_warning{
@@ -68,9 +68,11 @@
 }
 #detained{
     text-align: center;
+    width: 100%;
+    
 }
-.detained{
-    padding: 10px;
-    font-size: 25px;
-    margin-top: 25px;
+.detained, #start_sentence, #go_to_the_yard{
+    width: 100%;
+    font-size: 4vh;
+    margin-top: 5vh;
 }

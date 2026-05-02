@@ -10,10 +10,57 @@ document.addEventListener('keyup', (event) => {
    juego.input.release_key(key_pressed);
 });
 
-$(document).on('click', '.cell:not(.empty)', function() {
-    juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
+let touchTimer;
+const LONG_PRESS_DURATION = 500; // Half a second
+
+$(document).on('touchstart', '.cell:not(.empty)', function(e) {
+    const cell = this;
+    const x = Number(cell.id.split('-')[1]);
+    const y = Number(cell.id.split('-')[2]);
+
+    // Start the timer
+    touchTimer = setTimeout(function() {
+        console.log("Long press detected - Looking!");
+        juego.player.actions.look(x, y, juego.map);
+        ui.refresh.go();
+        
+        // Vibrate is a nice touch for mobile feedback
+        if (navigator.vibrate) navigator.vibrate(50); 
+    }, LONG_PRESS_DURATION);
+});
+
+$(document).on('touchend touchmove', '.cell:not(.empty)', function() {
+    // If they let go or move their finger before the timer hits, cancel it
+    clearTimeout(touchTimer);
+});
+
+$(document).on('contextmenu', '.cell', function(e) {
+    e.preventDefault(); // Stops the menu from appearing
+});
+
+
+$(document).on('click', '.cell', function() {
+    //juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
+
+    if (this.originalEvent instanceof PointerEvent 
+        && this.originalEvent.pointerType === 'touch') {
+        return;
+    }
+    juego.input.click(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), false);
     ui.refresh.go();
 });
+
+$(document).on('click', '.jail_cell', function() {
+    //juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
+
+    if (this.originalEvent instanceof PointerEvent 
+        && this.originalEvent.pointerType === 'touch') {
+        return;
+    }
+    juego.input.click(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), true);
+    ui.refresh.go();
+});
+
 
 $(document).on('click', '.cop_interview', function() {
     juego.cop_interview.choose(Number(this.id.split('-')[1]));
@@ -58,7 +105,6 @@ $(document).on('click', '#start_sentence', function() {
 
 for (let button of document.querySelectorAll('button')){
 	button.addEventListener('click', function(e){
-        console.log('yass');
 		ui.refresh.go();
 	});
 }

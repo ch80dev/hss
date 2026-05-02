@@ -1,4 +1,10 @@
 class PlayerMovement{
+    directions = {
+            up: { x: 0, y: -1 },
+            right: { x: 1, y: 0 },
+            down: { x: 0, y: 1 },
+            left: { x: -1, y: 0 },
+        };
     constructor(player){
         this.player = player;
     }
@@ -51,17 +57,21 @@ class PlayerMovement{
         
     }
 
-    
+    fetch_direction_from_delta(delta){
+        for (let direction in this.directions){
+            let dir_delta = this.directions[direction];
+            if (delta.x == dir_delta.x && delta.y == dir_delta.y){
+                return direction;
+            }
+        }
+        console.log('error');
+        return null;
+    }
 
-     move(where, map, juego){
+    move(where, map, juego){
         juego.facing = where;
-        let directions = {
-            up: { x: 0, y: -1 },
-            right: { x: 1, y: 0 },
-            down: { x: 0, y: 1 },
-            left: { x: -1, y: 0 },
-        };
-        let pos = {x : this.player.state.x + directions[where].x, y: this.player.state.y + directions[where].y};
+        
+        let pos = {x : this.player.state.x + this.directions[where].x, y: this.player.state.y + this.directions[where].y};
         let target = juego.get.target(this.player.state.location.type, this.player.state.location.id, pos.x, pos.y);
         if (!map.get.geometry.is_valid(pos.x, pos.y) || map.get.at(pos.x, pos.y) == null ){
             return;

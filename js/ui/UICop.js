@@ -33,7 +33,7 @@ class UICop{
         let answers = [0, 1, 2, 3];
         answers.sort(() => Math.random() - 0.5);
         let interview = juego.cop_interview;
-        let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div><div class='cop_interview_question'>${interview.questions[question_id]}</div>`;
+        let txt = `<div>Officer ${cop.name} ${cop.surname}</div><div><div class='cop_interview_question'>"${interview.questions[question_id]}"</div>`;
         for (let i in interview.buttons.categories){
             let answer = interview.answers[question_id][answers[Object.keys(interview.buttons.categories).indexOf(i)]];
             let category  = Object.keys(interview.buttons.categories[i])[0];
@@ -44,7 +44,7 @@ class UICop{
             if (cost_num == 1 || cost_num == 2){
                 secondary += `<span class='${cost}'>(+${cost_num}${cost})</span>`;
             }
-            txt += `<div class='cop_interview_answer'><button id='cop_interview-${i}' class='cop_interview'><span class='${category}'>+${category_num}${category}</span> ${secondary}</button>${answer}</div>`;
+            txt += `<div class='cop_interview_answer'><button id='cop_interview-${i}' class='cop_interview'><span class='${category}'>+${category_num}${category}</span> ${secondary}</button>"${answer}"</div>`;
         }
         txt += `</div><div id='cop_interview_score'>`;
             for(let category of interview.categories){
@@ -65,8 +65,8 @@ class UICop{
             for (let x = 0; x < jail.max_x; x ++){
                 let cell_class = 'jail_empty';
                 let cell_txt = '';
-                if (jail.at(x, y) != null){
-                    cell_class = cell_classes[jail.at(x, y)];
+                if (jail.map.at(x, y) != null){
+                    cell_class = cell_classes[jail.map.at(x, y)];
                 } else if (jail.guard_sees(x, y)){
                     cell_class = 'jail_guard_sees';
                 }

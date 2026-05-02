@@ -3,7 +3,7 @@ class PlayerActions {
     constructor(player, get){
         this.player = player;
         this.attack = new PlayerAttack(this);
-        this.cop = new PlayerCop(this, get);
+        this.cop = new PlayerCop(player, get);
         this.human = new PlayerHuman(player);        
         this.shop = new PlayerShop(player);
         this.trash = new PlayerTrash(player);

@@ -112,6 +112,8 @@
 .player{
     background: #222222;
     color: #66ccff;
+    border: 1px #222222 solid;
+
 }
 
 .player_fighting{

@@ -48,10 +48,18 @@ $(document).on('click', '.cell', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '.mobile_dir', function() {
+    console.log()
+    juego.player.movement.move(this.id.split('-')[1], juego.map, juego);
+    ui.refresh.go();
+});
+
 $(document).on('mousedown', '.jail_cell', function() {
     juego.input.click(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), true);
     ui.refresh.go();
 });
+
+
 
 
 $(document).on('click', '.cop_interview', function() {

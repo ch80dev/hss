@@ -17,14 +17,17 @@
 
 
 .status_bar_container{
-    height: 3.5vh;
-    text-align: center;
-    position: relative;
+  height: 3.5vh;
     width: 25%;
     float: left;
     background: grey;
     border: 1px black solid;
-    padding: 0px;
+    position: relative;
+    
+    /* Add these three lines */
+    display: flex;
+    align-items: center;     /* Centers vertically */
+    justify-content: center; /* Centers horizontally */
 
 }
 
@@ -47,7 +50,6 @@
 
 
 
-
 #status {
     text-align: center;
     height: var(--status-bar-height);
@@ -56,11 +58,17 @@
 }
 
 .status_caption {
-    position: absolute;
     z-index: 2;
-    font-size: clamp(10px, 2vh,  30px);
+    font-size: 1.5vh;
     width: 100%;
+    pointer-events: none;
 }
+@media (min-width: 700px) {
+  .status_caption {
+    font-size: 3vh; /* Desktop size */
+  }
+}
+
 
 #stigma_bar{
     background: yellow;
@@ -70,3 +78,4 @@
 #stigma_container{
     color: black;
 }
+

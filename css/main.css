@@ -49,6 +49,8 @@ body:has(#loot:not(.hidden)){
     padding: 10px;
 }
 
+
+
 .screen.hidden{
     display: none !important;
 }
@@ -77,6 +79,29 @@ html, body{
 
 #location_name {
     text-align: center;
+}
+
+.mobile_dir{
+    font-size: 4vh;
+    height: 6vh;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh
+}
+
+#mobile_dir-left{
+    margin-right: 3vw;
+}
+#mobile_dir-right{
+    margin-left: 3vw;
+}
+#mobile_dir-left, #mobile_dir-right{
+    width: 47%;
+    float: left;
+    
+}
+
+#mobile_dir-up, #mobile_dir-down{
+    width: 100%;
 }
 
 

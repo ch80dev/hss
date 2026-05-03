@@ -24,10 +24,17 @@ body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
 
+#close-social{
+    width: 100%;
+    font-size: 4vh;
+    height: 6vh;
+}
+
 #combat_toggle{
     width: 100%;
     font-size: 4vh;
     height: 6vh;
+    margin-top: 2vh;
 }
 
 .favorite_entry{

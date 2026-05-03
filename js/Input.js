@@ -83,6 +83,12 @@ class Input {
         } 
     }
 
+    move(direction){
+
+        juego.player.movement.move(direction, juego.map, juego);
+        ui.refresh.go();
+    }
+
     release_key(pressed){
         if (ui.sleeping || juego.player.state.unconscious_for > 0){
             return;

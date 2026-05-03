@@ -1,3 +1,6 @@
+let mobile_press_interval = null;
+
+
 document.addEventListener('keydown', (event) => {
    let key_pressed = event.key;
    juego.input.press_key(key_pressed);
@@ -31,11 +34,22 @@ $(document).on('click', '#combat_toggle', function() {
     ui.refresh.go();
 });
 
-$(document).on('click', '.mobile_dir', function() {
-    console.log()
-    juego.player.movement.move(this.id.split('-')[1], juego.map, juego);
-    ui.refresh.go();
+$(document).on('mousedown touchstart', '.mobile_dir', function() {
+if (this.type === 'touchstart') {
+        this.preventDefault(); 
+    }    console.log()
+    let direction = this.id.split('-')[1];
+    juego.input.move(direction);
+    mobile_press_interval = setInterval(function() {
+        juego.input.move(direction);
+    }, 100);
+    
 });
+
+$(document).on('mouseup mouseleave touchend', '.mobile_dir', function() {
+    clearInterval(mobile_press_interval);
+});
+
 
 
 $(document).on('mousedown', '.jail_cell', function() {

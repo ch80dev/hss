@@ -28,6 +28,8 @@ body:has(#loot:not(.hidden)){
     width: 100%;
     font-size: 4vh;
     height: 6vh;
+    margin-top: 4vh;
+    padding: 1vh
 }
 
 #combat_toggle{

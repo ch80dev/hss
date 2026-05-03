@@ -65,7 +65,7 @@ class InventoryTake {
 
     item(id, map, take_all_id){
         let at = this.player.fetch_from();
-        console.log('BUG', map.get.inspector.entity.fetch_loot(at, id)); //04/24/26 not sure when it got put in
+        //console.log('BUG', map.get.inspector.entity.fetch_loot(at, id)); //04/24/26 not sure when it got put in
         if (map.loot[at] == undefined 
             || (map.loot[at] != undefined 
             && !this.player.inventory.get.can_they_take(map.get.inspector.entity.fetch_loot(at, id).name, map.get.inspector.entity.fetch_loot(at, id).quantity))){
@@ -78,6 +78,7 @@ class InventoryTake {
         }
         let what = loot.name;
         juego.quests.process('fetch', loot.quantity, what);
+        console.log("BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26", what);
         if (ItemConfig.stackable.includes(what) && this.player.inventory.get.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
             if (take_all_id == null){

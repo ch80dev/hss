@@ -86,6 +86,7 @@ class Input {
     move(direction){
 
         juego.player.movement.move(direction, juego.map, juego);
+        juego.next();
         ui.refresh.go();
     }
 

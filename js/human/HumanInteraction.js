@@ -31,7 +31,10 @@ class HumanInteraction {
     generate(){
         let create_quest = false;
         let interactions = DefaultConfig.interactions;
-        let num_of_interactions_for_them = rand_num(1, HumanConfig.num_of_interactions_per_human);
+        let num_of_interactions_for_them = 1;
+        if (this.homeless){
+            num_of_interactions_for_them = rand_num(1, HumanConfig.num_of_interactions_per_human);
+        }
         while(interactions.length <  num_of_interactions_for_them){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
             let less_often = ['directions', 'gamble'];

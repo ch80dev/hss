@@ -35,7 +35,7 @@ class HumanQuest{
             max_money = this.human.money;
         }
         let paying = rand_num(Math.round (max_money / 4), max_money); //limit it to money
-        let quantity = Math.round(paying / price[quest]);
+        let quantity = Math.ceil(paying / price[quest]);
         if (quest == 'trash'){
             quantity = num_of_trash;
         } 

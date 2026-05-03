@@ -4,13 +4,12 @@ TODO
             be able to create a favorite for beat unconscious work quest
             limit player to 3 quests maybe
             make 2 exits on a street very rare - and make that second exit being a street exit 1 in 3 
-    statuc caption is too big on iphone 14 simulator and my phone
 
     more stores
     sbustances    
     
     close button on social too small
-    
+
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

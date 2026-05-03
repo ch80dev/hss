@@ -42,7 +42,7 @@ if (this.type === 'touchstart') {
     juego.input.move(direction);
     mobile_press_interval = setInterval(function() {
         juego.input.move(direction);
-    }, 100);
+    }, 300);
     
 });
 

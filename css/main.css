@@ -96,7 +96,15 @@ html, body{
     font-size: 4vh;
     height: 6vh;
     margin-top: .5vh;
-    margin-bottom: .5vh
+    margin-bottom: .5vh;
+
+    -webkit-touch-callout: none; /* Prevents the iOS popup menu */
+    -webkit-user-select: none;   /* Prevents text selection highlight */
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: none;
 }
 
 #mobile_dir-left{

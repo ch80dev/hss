@@ -34,12 +34,9 @@ $(document).on('click', '#combat_toggle', function() {
     ui.refresh.go();
 });
 
-$(document).on('mousedown touchstart', '.mobile_dir', function() {
-    if (this.type === 'touchstart') {
-        
-        this.preventDefault(); 
-        this.stopPropagation();
-    }   
+$(document).on('mousedown touchstart', '.mobile_dir', function(e) {
+    e.preventDefault(); 
+    e.stopPropagation();
     if (mobile_press_interval) {
         clearInterval(mobile_press_interval);
     }

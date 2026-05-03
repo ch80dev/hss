@@ -1,5 +1,9 @@
 let mobile_press_interval = null;
-
+$('.mobile_dir').each(function() {
+    this.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+});
 
 document.addEventListener('keydown', (event) => {
    let key_pressed = event.key;
@@ -44,7 +48,7 @@ $(document).on('mousedown touchstart', '.mobile_dir', function(e) {
     juego.input.move(direction);
     mobile_press_interval = setInterval(function() {
         juego.input.move(direction);
-    }, 300);
+    }, 150);
     
 });
 

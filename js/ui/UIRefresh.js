@@ -99,6 +99,11 @@ class UIRefresh {
         });
 		$("#money").html(`$${formatter.format(juego.player.state.money)}`);
 		this.ui.display_time();
-		
+		$("#combat_toggle").html("&#9876;");
+		$("#combat_toggle").css('background', 'red');
+		if (juego.player.state.fighting){
+			$("#combat_toggle").html("&#9774;");
+			$("#combat_toggle").css('background', 'green');
+		}
 	}
 }

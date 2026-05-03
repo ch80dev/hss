@@ -9,42 +9,25 @@ document.addEventListener('keyup', (event) => {
    let key_pressed = event.key;
    juego.input.release_key(key_pressed);
 });
-let touchTimer;
-const LONG_PRESS_DURATION = 500; // Half a second
 
-$(document).on('touchstart', '.cell', function(e) {
-    const cell = this;
-    const x = Number(cell.id.split('-')[1]);
-    const y = Number(cell.id.split('-')[2]);
 
-    // Start the timer
-    touchTimer = setTimeout(function() {
-        console.log("Long press detected - Looking!");
-        juego.player.actions.look(x, y, juego.map);
-        ui.refresh.go();
-        
-        // Vibrate is a nice touch for mobile feedback
-        if (navigator.vibrate) navigator.vibrate(50); 
-    }, LONG_PRESS_DURATION);
-});
-
-$(document).on('touchend touchmove', '.cell', function() {
-    // If they let go or move their finger before the timer hits, cancel it
-    clearTimeout(touchTimer);
-});
-
-$(document).on('contextmenu', '.cell', function(e) {
-    e.preventDefault(); // Stops the menu from appearing
-});
 
 
 $(document).on('click', '.cell', function() {
-    //juego.player.actions.look(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), juego.map);
-    if (this.originalEvent instanceof PointerEvent 
-        && this.originalEvent.pointerType === 'touch') {
+    let x = Number(this.id.split('-')[1]);
+    let y = Number(this.id.split('-')[2]);
+    if (juego.player.state.x == x && juego.player.state.y == y){
+        juego.player.state.looting = true;
+        ui.change_screen('loot');
+        ui.refresh.go();
         return;
     }
-    juego.input.click(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), false);
+    juego.player.actions.look(x, y, juego.map);
+    ui.refresh.go();
+});
+
+$(document).on('click', '#combat_toggle', function() {
+    juego.player.state.fighting = !juego.player.state.fighting;
     ui.refresh.go();
 });
 
@@ -53,6 +36,7 @@ $(document).on('click', '.mobile_dir', function() {
     juego.player.movement.move(this.id.split('-')[1], juego.map, juego);
     ui.refresh.go();
 });
+
 
 $(document).on('mousedown', '.jail_cell', function() {
     juego.input.click(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), true);

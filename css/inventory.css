@@ -22,7 +22,7 @@
 #loot{
     margin-top: 5hv;
     position: relative;
-    height: calc(100vh - (var(--top-bar-height) + var(--status-bar-height)));
+    height: calc(90vh - (var(--top-bar-height) + var(--status-bar-height)));
     overflow: visible;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
@@ -40,7 +40,6 @@
     flex: 1;
     border: 1px black solid;
     box-sizing: border-box;
-    height: 100%;
     overflow-y: auto;
 }
 #close_loot_div{

@@ -167,3 +167,11 @@
 .favorite:not(button) {
     border: 1px #ff00ff solid;
 }
+
+
+@media (min-width: 700px) {
+    #mobile_menu{
+        display: none;
+    }
+
+}

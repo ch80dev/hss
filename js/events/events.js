@@ -35,9 +35,14 @@ $(document).on('click', '#combat_toggle', function() {
 });
 
 $(document).on('mousedown touchstart', '.mobile_dir', function() {
-if (this.type === 'touchstart') {
+    if (this.type === 'touchstart') {
+        
         this.preventDefault(); 
-    }    console.log()
+        this.stopPropagation();
+    }   
+    if (mobile_press_interval) {
+        clearInterval(mobile_press_interval);
+    }
     let direction = this.id.split('-')[1];
     juego.input.move(direction);
     mobile_press_interval = setInterval(function() {
@@ -48,6 +53,7 @@ if (this.type === 'touchstart') {
 
 $(document).on('mouseup mouseleave touchend', '.mobile_dir', function() {
     clearInterval(mobile_press_interval);
+    mobile_press_interval = null;
 });
 
 

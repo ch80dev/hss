@@ -107,15 +107,15 @@ class PlayerHuman{
         ui.log(`You sell ${human.resources[id]} for $${(human.conversion[id] * n).toFixed(2)}.`)
     }
 
-    sell_unique_to_human(id, human, ui){
+    sell_unique_to_human(id, interaction_id, human, ui){
         let item = this.player.inventory.fetch.by_id(id);
-        if (human.interactions[id] == undefined || item == null){
-            console.log('error', human.interactions[id], item, id);
+        if (human.interactions[interaction_id] == undefined || item == null){
+            console.log('error', human.interactions[interaction_id], item, id, interaction_id);
             return;
         }
-        this.player.inventory.move.give_to_human(human.resources[id], 1, human);
-        this.player.status.stats.change_money(human.items.get_money(Number(human.conversion[id] * n)));
-        ui.log(`You sell ${human.resources[id]} for $${(human.conversion[id] * n).toFixed(2)}.`)
+        this.player.inventory.move.give_to_human(human.resources[interaction_id], 1, human);
+        this.player.status.stats.change_money(human.items.get_money(Number(human.conversion[interaction_id] * n)));
+        ui.log(`You sell ${human.resources[interaction_id]} for $${(human.conversion[interaction_id] * n).toFixed(2)}.`)
     }
 
     social(x, y, juego){

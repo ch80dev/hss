@@ -96,6 +96,12 @@ $(document).on('click', '.favorite', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '.favorite_human_not_here', function() {
+    console.log(this.id.split('-')[1], this.id.split('-')[2], this.id.split('-')[3], this.id.split('-')[4])
+    //juego.favorites.add_human_not_here(this.id.split('-')[1], Number(this.id.split('-')[2]), juego);
+    //ui.refresh.go();
+});
+
 
 $(document).on('click', '#go_to_the_yard', function() {
     juego.player.actions.cop.go_to_the_yard();

@@ -87,7 +87,7 @@ class HumanQuest{
                 favorite_symbol = `&#x2605;`;
             }
 
-            return `beat ${human.name} ${human.surname} unconscious for $${paying} <button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> `;
+            return `beat ${human.name} ${human.surname} unconscious for $${paying} <button id='favorite_human_not_here-${human.id}-${human.location}-${human.x}-${human.y}' class='favorite_human_not_here'>${favorite_symbol}</button> `;
         }
     }
 }

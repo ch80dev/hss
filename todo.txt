@@ -12,7 +12,8 @@ TODO
     BUG wasnt able to trade 1 crate for cans that i already had 
     BUG player cell grid is off in the dark
     got lost in the dark
-    every street needs a shop TypeError
+    selling drugs should be illegal
+    
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

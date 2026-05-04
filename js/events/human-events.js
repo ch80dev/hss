@@ -74,7 +74,7 @@ $(document).on('click', '.sell_unique_to_human', function() {
     if (human == null){
         return;
     }
-    juego.player.actions.human.sell_unique_to_human(Number(this.id.split('-')[1]), human, ui);
+    juego.player.actions.human.sell_unique_to_human(Number(this.id.split('-')[1]), Number(this.id.split('-')[2]), human, ui);
     ui.refresh.go();
 });
 

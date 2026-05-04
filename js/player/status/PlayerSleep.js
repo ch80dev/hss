@@ -47,11 +47,11 @@ class PlayerSleep {
             //set to 0 if you own the room or apartment            
         }
         let rand = Number((rand_num(1, 10) * .1).toFixed(1));
-        let health_change = this.player.state.stats.change_health(rand);
+        let health_change = this.player.status.stats.change_health(rand);
         juego.next();
         if (!indoors){
             rand = Number((rand_num(1, 15) * .1).toFixed(1));
-            this.player.state.stats.change_health(-rand);
+            this.player.status.stats.change_health(-rand);
             return -rand;
         }
         return health_change;

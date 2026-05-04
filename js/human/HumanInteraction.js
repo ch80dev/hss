@@ -30,9 +30,12 @@ class HumanInteraction {
 
     generate(){
         let create_quest = false;
-        let interactions = DefaultConfig.interactions;
+        let interactions = [];
+        if (DefaultConfig.interactions && DefaultConfig.interactions.length > 0) {
+            interactions = [...DefaultConfig.interactions];
+        }
         let num_of_interactions_for_them = 1;
-        if (this.homeless){
+        if (this.human.homeless){
             num_of_interactions_for_them = rand_num(1, HumanConfig.num_of_interactions_per_human);
         }
         while(interactions.length <  num_of_interactions_for_them){
@@ -51,7 +54,7 @@ class HumanInteraction {
             let interaction = interactions[id];
             if (HumanConfig.interactions_for_money.includes(interaction)){
                 let inc = rand_num(1, HumanConfig.homeless_money);
-                if (!this.homeless){
+                if (!this.human.homeless){
                     inc *= 10;
                 }
                 n += inc;

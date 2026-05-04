@@ -28,6 +28,10 @@ class LightsGenerator{
                 return;
             }
             border = this.map.get.inspector.fetch_open(true); //alley - SHOULDN't THIS BE BORDER?
+            if (border == null){
+                n ++;
+                continue;
+            }
             for (let spot of lights){    
                 let distance 
                     = this.map.get.geometry.fetch_distance(spot.x, spot.y, border.x, border.y); //alley

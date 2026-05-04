@@ -97,8 +97,8 @@ $(document).on('click', '.favorite', function() {
 });
 
 $(document).on('click', '.favorite_human_not_here', function() {
-    console.log(this.id.split('-')[1], this.id.split('-')[2], this.id.split('-')[3], this.id.split('-')[4])
-    //juego.favorites.add_human_not_here(this.id.split('-')[1], Number(this.id.split('-')[2]), juego);
+    console.log(Number(this.id.split('-')[1]), {type: this.id.split('-')[2], id: this.id.split('-')[3] }, Number(this.id.split('-')[4]), Number(this.id.split('-')[5]));
+    juego.favorites.add_human_not_here(Number(this.id.split('-')[1]), {type: this.id.split('-')[2], id: this.id.split('-')[3] }, Number(this.id.split('-')[4]), Number(this.id.split('-')[5]));
     //ui.refresh.go();
 });
 

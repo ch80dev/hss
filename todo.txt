@@ -13,7 +13,9 @@ TODO
     BUG player cell grid is off in the dark
     got lost in the dark
     selling drugs should be illegal
-    
+    be able to use flashlight more uses
+    BUG reached the end of my sentence nad nothing changed
+    BUG finished jail and it brought me back to detained screen
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

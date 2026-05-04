@@ -1,4 +1,5 @@
 class PlayerCop {
+    serving_sentence = null;
     constructor(player, get){
         this.player = player;
         this.get = get;
@@ -87,16 +88,18 @@ class PlayerCop {
     }
 
     serve_sentence(){
-
         //THIS IS IN LOOP - NEEDS TO BE JUEGO
 
         juego.player.state.sentence_served ++;
         ui.refresh.go();
+        if (juego.player.state.in_pacman_jail){
+            return;
+        }
+
         if (juego.player.state.sentence_served < juego.player.state.sentenced_to){
             setTimeout(juego.player.actions.cop.serve_sentence, 1000);
             return;
         }
-        console.log("yeah");
         juego.player.state.sentence_served = null;
         juego.player.state.sentenced_to = null;
         juego.player.state.cop_interview = false;

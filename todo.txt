@@ -18,7 +18,6 @@ TODO
     close button for shops
     color code sell one and sell all
     when you escape, put the police 1, 2, 3, 4 spaces away and let them try again
-    stay in jail if you're out on the yard - 
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

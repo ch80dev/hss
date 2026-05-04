@@ -11,6 +11,7 @@ class PacMan {
     ];
     game_loop = null;
     grid = [];
+    next_move = {x: null, y: null };
     num_of_walls = 17;
     num_of_power_ups = 0;
     power_ups = [];
@@ -29,7 +30,7 @@ class PacMan {
 
     end_jail(){
         this.player.state.in_pacman_jail = false;
-        clearTimeout(this.game_loop);
+        clearInterval(this.game_loop);
         this.player.actions.cop.serve_sentence();
         this.generator.reset();
     }
@@ -55,6 +56,7 @@ class PacMan {
                 pos = { x: enemy.x + enemy.delta.x, y: enemy.y + enemy.delta.y };
             }
             if (pos != null && this.player_at.x == pos.x && this.player_at.y == pos.y){
+                console.log('a');
                 this.lose();
                 return;
             }
@@ -65,6 +67,7 @@ class PacMan {
             pos = { x: enemy.x + enemy.delta.x, y: enemy.y + enemy.delta.y };
             let closest = this.map.fetch_closest_to_player(enemy.x, enemy.y);
             if (distance_to_player == 1 && this.geometry.is_orthogonal(enemy.x, enemy.y, this.player_at.x, this.player_at.y)){
+                console.log('b');
                 this.lose();
                 return;
             } else if (closest != null){
@@ -81,13 +84,16 @@ class PacMan {
         }
     }
 
-    go(pos){
-    
+    go(){
+        if (this.next_move.x == null || this.next_move.y == null){
+            return;
+        }
         this.grid[this.player_at.x][this.player_at.y] = null;
-        this.player_at.x = pos.x;
-        this.player_at.y = pos.y
-        this.grid[pos.x][pos.y] = 2;
-
+        this.player_at.x = this.next_move.x;
+        this.player_at.y = this.next_move.y
+        this.grid[this.next_move.x][this.next_move.y] = 2;
+        this.next_move.x = null;
+        this.next_move.y = null;
     }
 
     guard_sees(pos_x, pos_y){
@@ -100,6 +106,8 @@ class PacMan {
     }
 
     lose(){
+        ui.log("You were unable to avoid them and got hurt.");
+        console.log("lose");
         this.player.status.stats.change_health(-25);
         this.end_jail();
     }
@@ -113,11 +121,13 @@ class PacMan {
         };
         let pos = {x : this.player_at.x + directions[where].x, y: this.player_at.y + directions[where].y};
         if (this.map.is_valid(pos.x, pos.y) && this.map.at(pos.x, pos.y) == 3){
+            console.log('c');
             this.lose();
             return;
         }
         if (this.map.is_valid(pos.x, pos.y) && this.map.is_open(pos.x, pos.y)){
-            this.go(pos);
+            this.next_move.x = pos.x;
+            this.next_move.y = pos.y;
         }
         if (this.power_ups[this.player_at.x][this.player_at.y]){
             
@@ -129,10 +139,15 @@ class PacMan {
                 this.win();
             }
         }
+        this.go();
+
     }
 
     start(){
-        this.game_loop = setInterval(this.loop.go, Config.loop_interval_timing);
+        if (this.game_loop !== null){
+            clearInterval(this.game_loop);
+        }
+        this.game_loop = setInterval(() => this.loop.go(), Config.loop_interval_timing);
     }
 
     win(){

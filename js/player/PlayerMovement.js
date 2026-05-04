@@ -113,7 +113,7 @@ class PlayerMovement{
         } else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.has_a_tool()
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
-            ui.log('This trash can is locked.');
+            ui.log('This trash can is locked. Use a tool or hit it with a weapon to open it.');
             return;
         }  else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') 
             && this.player.inventory.get.has_a_tool()

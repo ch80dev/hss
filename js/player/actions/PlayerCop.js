@@ -62,7 +62,7 @@ class PlayerCop {
             cop.denied = true;
             juego.cop_interview.severity = cop.severity;
             this.player.state.cop_interview = true;
-            ui.log(`Get to ${juego.cop_interview.severity_scores[cop.severity]}. Your final score is &#128077; - &#128078; `)
+            ui.log(`Keep the balance between &#128077; and &#128078; above ${juego.cop_interview.severity_scores[cop.severity]}.   `)
             return;
         } 
         
@@ -91,16 +91,18 @@ class PlayerCop {
         //THIS IS IN LOOP - NEEDS TO BE JUEGO
 
         juego.player.state.sentence_served ++;
-        console.log(juego.player.state.sentence_served, juego.player.state.sentenced_to)
         ui.refresh.go();
         if (juego.player.state.sentence_served < juego.player.state.sentenced_to){
             setTimeout(juego.player.actions.cop.serve_sentence, 1000);
             return;
         }
-        
+        console.log("yeah");
         juego.player.state.sentence_served = null;
         juego.player.state.sentenced_to = null;
         juego.player.state.cop_interview = false;
+        juego.player.state.detained_by = null;
+        ui.change_screen('map');
+        ui.refresh.go();
 
     }
 

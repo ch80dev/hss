@@ -7,7 +7,7 @@ class PlayerState{
     crimes_this_turn = [];
     dead = false;
     cop_interview = false;
-    detained_by = null;
+    detained_by = 0;
     equipped = {
         bag: null,
         hand: null,
@@ -41,7 +41,7 @@ class PlayerState{
     reported_crimes = [];
     in_pacman_jail = false;
     sentence_served = null; //null
-    sentenced_to = null; //null
+    sentenced_to = 100; //null
     shopping = null;
     socializing = null;
     

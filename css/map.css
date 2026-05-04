@@ -144,6 +144,11 @@
     
 }
 
+.shadow:not(.empty):not(.favorite) {
+    background: #222222;
+    border: 1px #222222 solid;
+}
+
 .shop{
     background: #33ff00;
     color: black;

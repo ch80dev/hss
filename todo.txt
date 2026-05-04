@@ -16,6 +16,9 @@ TODO
     be able to use flashlight more uses
     BUG reached the end of my sentence nad nothing changed
     BUG finished jail and it brought me back to detained screen
+    "This trash can is locked use a tool or weapon...
+    Say how long it takes to beg from a guy again 
+    BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

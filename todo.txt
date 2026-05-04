@@ -11,7 +11,8 @@ TODO
 
 
     selling drugs should be illegal
-    be able to use flashlight more uses
+        implement substances first
+
     BUG reached the end of my sentence nad nothing changed
     BUG finished jail and it brought me back to detained screen
     "This trash can is locked use a tool or weapon...

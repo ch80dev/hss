@@ -125,7 +125,7 @@ class HumanInteraction {
                 && ((ItemConfig.recyclables.includes(not_arr[0]) 
                     && ItemConfig.recyclables.includes(rand_item))
                 ||   (not_arr.includes('medicine') && rand_item == 'medicine (expired)') 
-                || (not_arr.includes('medicine (expired)') && rand_item == 'medicine')) && rand_num(1, 3) != 1 )){
+                || (not_arr.includes('medicine (expired)') && rand_item == 'medicine')) )){
 
                 continue;
             }

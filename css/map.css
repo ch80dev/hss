@@ -1,10 +1,9 @@
 
-/*
+
 #map_grid *{
     box-sizing: border-box;
-    font-size: clamp(12px, 3vw, 20px);
 }
-    */
+    
 .alley_exit {
     color: #5c8ca3;
 }

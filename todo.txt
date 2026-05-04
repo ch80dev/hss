@@ -7,9 +7,7 @@ TODO
                 police seem almost too responsive
     more stores
     sbustances    
-    trades are happening too often - ran into two humans in a row who had the same trades
     BUG wasnt able to trade 1 crate for cans that i already had 
-    BUG player cell grid is off in the dark
     got lost in the dark
     selling drugs should be illegal
     be able to use flashlight more uses

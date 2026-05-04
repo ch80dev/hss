@@ -127,7 +127,8 @@ class Turn{
 				juego.quests.process('beating', 1, human.id)		
 				human.just_went_unconscious = false;
 			}
-			if (human.dead){
+			if (human.dead || human.location.type != this.player.state.location.type 
+				|| human.location.id != this.player.state.location.id){
 				continue;
 			} else if (human.unconscious_for != 0){
 				

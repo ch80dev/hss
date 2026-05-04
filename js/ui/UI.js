@@ -34,6 +34,8 @@ class UI{
 		}
 	}
 
+
+
 	update_auto_loot(arr){
 		if (arr.length > 0){
 			this.refresh.show_ui_auto_loot = true;

@@ -119,7 +119,7 @@ class HumanInteraction {
             let rand_item = items_drawn_from[rand];
             if (banned.includes(rand_item) || (no_durables.includes(interaction) && ItemConfig.degradable.includes(rand_item)) 
             || (interaction == 'trade' 
-                && ((not_arr.length > 0 && ItemConfig.recyclables.includes(not_arr[0]) 
+                && ((ItemConfig.recyclables.includes(not_arr[0]) 
                     && ItemConfig.recyclables.includes(rand_item))
                 ||   (not_arr.includes('medicine') && rand_item == 'medicine (expired)') 
                 || (not_arr.includes('medicine (expired)') && rand_item == 'medicine')) && rand_num(1, 3) != 1 )){
@@ -128,7 +128,7 @@ class HumanInteraction {
             }
             if (not_arr.length > 0 && ItemConfig.recyclables.includes(rand_item)){
     
-                console.log('BUG still able to trade cans for bottles 04-29-26', not_arr, rand_item, 
+                console.log('BUG STILL? 05/03/26 still able to trade cans for bottles 04-29-26', not_arr, rand_item, 
                     ItemConfig.recyclables.includes(not_arr[0]), 
                     ItemConfig.recyclables.includes(rand_item));
                 

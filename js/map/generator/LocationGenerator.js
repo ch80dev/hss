@@ -131,12 +131,11 @@ class LocationGenerator {
         if (location_type == 'alley'){
             this.map.populator.populate_with_trash_cans(this.map.locations.alley.length);
         }
-        let shop_being_generated = this.map.generator.shop.queue.length > 0 || rand_num(1, 2) == 1;
         let shop_pos = null;
         if (location_type == 'street'){
             shop_pos = this.map.generator.shop.generate(location_type);
         }
-        if (location_type == 'street' && (shop_being_generated && shop_pos != null)){
+        if (location_type == 'street' &&  shop_pos != null){
 
             this.map.shops.push(shop_pos);
             this.map.is(shop_pos.x, shop_pos.y, MapConfig.cell_class.indexOf('shop'));

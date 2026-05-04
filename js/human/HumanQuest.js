@@ -81,7 +81,13 @@ class HumanQuest{
             if (human == null){
                 return "ERROR";
             }
-            return `beat ${human.name} ${human.surname} unconscious for $${paying}`;
+            let favorite = juego.favorites.fetch_by_id('human', human.id);
+            let favorite_symbol = `&#x2606;`;
+            if (favorite != undefined){
+                favorite_symbol = `&#x2605;`;
+            }
+
+            return `beat ${human.name} ${human.surname} unconscious for $${paying} <button id='favorite-human-${human.id}' class='favorite'>${favorite_symbol}</button> `;
         }
     }
 }

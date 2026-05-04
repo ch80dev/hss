@@ -76,7 +76,8 @@ class EntityInspector {
         if (location_type == 'sewer'){
             return false;
         }
-        for (let light of this.map.lights[location_type][location_id]){
+        for (let id in this.map.lights[location_type][location_id]){
+            let light = this.map.lights[location_type][location_id][id];
             let distance = this.map.get.geometry.fetch_distance(x, y, light.x, light.y );
             if (distance >= 2 ){
                 continue;

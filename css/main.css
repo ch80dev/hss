@@ -80,7 +80,7 @@ html, body{
     color: hsl(0, 0%, 100%);
 }
 
-#money, #social_context, #social_menu{
+#social_context, #social_menu{
     text-align: center;
 }
 
@@ -124,14 +124,20 @@ html, body{
     width: 100%;
 }
 
-
+#money { 
+    float: left; 
+    margin-left: 5vw;
+}
 
 .screen{
     width: 100%;
     clear: both;
 }
 
-
+#time {
+    float: right;
+    margin-right: 5vw;
+}
 
 #top {
     width: 100%;
@@ -139,7 +145,7 @@ html, body{
     height: auto;
     line-height: var(--top-bar-height);
     color: white;
-    margin-bottom: 5vh;
+    margin-bottom: .5vh;
 }
 
 

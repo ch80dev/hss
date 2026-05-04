@@ -87,11 +87,14 @@ class PlayerCop {
     }
 
     serve_sentence(){
+
         //THIS IS IN LOOP - NEEDS TO BE JUEGO
+
         juego.player.state.sentence_served ++;
+        console.log(juego.player.state.sentence_served, juego.player.state.sentenced_to)
         ui.refresh.go();
         if (juego.player.state.sentence_served < juego.player.state.sentenced_to){
-            setTimeout(juego.player.actions.serve_sentence, 1000);
+            setTimeout(juego.player.actions.cop.serve_sentence, 1000);
             return;
         }
         
@@ -103,7 +106,6 @@ class PlayerCop {
 
     start_sentence(){
         this.player.state.sentence_served = 0;
-        console.log(this.player.state.sentence_served);
-        setTimeout(juego.player.actions.serve_sentence, 1000);
+        setTimeout(juego.player.actions.cop.serve_sentence, 1000);
     }
 }

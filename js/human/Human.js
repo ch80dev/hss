@@ -43,6 +43,10 @@ class Human extends Lifeform{
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
         this.directions_to = this.interaction.get_available_directions();
+        this.money = HumanConfig.homeless_money;
+        if (!this.homeless){
+            this.money *= (rand_num(2, 10));
+        }
     }
 
     move(){
@@ -70,7 +74,6 @@ class Human extends Lifeform{
         let distance = this.map.get.geometry.fetch_distance(this.x, this.y, this.player.state.x, this.player.state.y);
         console.log('delete after shown', distance);
         if (!this.map.get.inspector.entity.is_in_the_light(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y) && rand_num(1, distance) != 1){
-            console.log("NIGHT DELETE");
             return;
         }
         if (!this.player.state.reported_crimes.includes(what)){

@@ -6,7 +6,7 @@
 }
     */
 .alley_exit {
-    color: white;
+    color: #5c8ca3;
 }
 .human.blocked {
     background: #222222;
@@ -18,7 +18,6 @@
 }
 
 .cell {
-    color: white;
     width: 3.25vw;
     max-width: 23px;
     height: 3.25vw;
@@ -115,6 +114,8 @@
     border: 1px #555555 solid;
 
 }
+
+
 
 .player_fighting{
     color: red;

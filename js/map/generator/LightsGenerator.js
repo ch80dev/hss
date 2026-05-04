@@ -7,7 +7,12 @@ class LightsGenerator{
     generate(){
         let type = this.map.location.type;
         let border = this.map.get.inspector.fetch_border_spot(true);
+        if (border == null){
+            console.log('border equals null');
+            return;
+        }
         let lights = [border];
+        
         let n = 0;
         let valid_x = [border.x];
         let valid_y = [border.y];

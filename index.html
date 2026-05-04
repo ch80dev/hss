@@ -21,8 +21,17 @@
 </head>
 <body>
 	<div id='top'>
-		<div id="time"></div>
-		<div id="money"></div>
+		<div>
+			<span id="time"></span>
+			<span id="money"></span>
+			<span id="sickness_container" class="hidden">
+				<span id='sickness_caption'>Sickness: <span id="sickness"></span>%</span>
+				<span id="is_sick" class="hidden">SICK (<span id='sickness_penalty'></span>)</span>
+			
+			</span>
+		</div>
+		
+		
 		<div id="status_bars">
 			<div id="status_bar_buffer">&nbsp;</div>
 			<div id="health_container" class="status_bar_container">
@@ -35,10 +44,6 @@
 				<div id="stigma_bar" class="status_bar"></div>
 				<div class='status_caption'>Stigma: <span id="stigma"></span></div>
 			</div>
-		</div><div id="sickness_container" class="hidden">
-				<div id='sickness_caption'>Sickness: <span id="sickness"></span>%</div>
-				<span id="is_sick" class="hidden">SICK (<span id='sickness_penalty'></span>)</span>
-			
 		</div>
 	</div>
 	<div id="map" class="screen hidden">

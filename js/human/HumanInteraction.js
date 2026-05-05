@@ -13,6 +13,7 @@ class HumanInteraction {
             this.human.conversion[id][1] = second_q;
         }
     }
+
     begged(time){        
         this.human.begging_unlocked = { days: time.days + 1, hours: time.hours};
         this.how_much_to_give_when_begged();
@@ -150,8 +151,17 @@ class HumanInteraction {
         if (rand > this.money){
              this.human.items.give_when_begged = this.human.money;
         }
-            
         this.human.items.give_when_begged = rand;
-        
+    }
+
+    how_long_to_beg_again(time){
+        if (this.human.begging_unlocked === true){
+            return 0;
+        }
+        if (time.days == this.human.begging_unlocked.days){
+            return this.human.begging_unlocked.hours - time.hours
+        }
+
+        return 24 - time.hours + this.human.begging_unlocked.hours
     }
 }

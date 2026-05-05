@@ -99,7 +99,7 @@ $(document).on('click', '.favorite', function() {
 $(document).on('click', '.favorite_human_not_here', function() {
     console.log(Number(this.id.split('-')[1]), {type: this.id.split('-')[2], id: this.id.split('-')[3] }, Number(this.id.split('-')[4]), Number(this.id.split('-')[5]));
     juego.favorites.add_human_not_here(Number(this.id.split('-')[1]), {type: this.id.split('-')[2], id: this.id.split('-')[3] }, Number(this.id.split('-')[4]), Number(this.id.split('-')[5]));
-    //ui.refresh.go();
+    ui.refresh.go();
 });
 
 

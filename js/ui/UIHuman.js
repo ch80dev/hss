@@ -70,6 +70,9 @@ class UIHuman{
 				} 
 			} else if (interaction == 'beg'){
 				resource = ` (min. stigma: ${human.min_stigma_beg})`;
+				if (disabled != '' && juego.player.state.stigma >= human.min_stigma_beg){
+					resource += `<div>available in ${human.interaction.how_long_to_beg_again(juego.time)}h</div>`
+				}
 			} else if (interaction == 'directions'){
 				let selected = '';
 				if (this.directions_selected == null){

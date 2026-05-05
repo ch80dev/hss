@@ -10,7 +10,7 @@ class UI{
 	sleeping = false;
 	human = new UIHuman();
 	status_msg = "";
-	screen_focused = 'detained';
+	screen_focused = 'map';
 	unconscious = false;
 	constructor(){
 

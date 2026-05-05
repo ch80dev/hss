@@ -23,13 +23,19 @@ body{
 body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
+.buy_from_shop {
+    font-size: 4vh;
+    height: 6vh; 
+    padding: 1vh;
 
-#close-social{
+}
+
+#close-social, #close-shop, #sleep_at_shop, #sell_all_recycling {
     width: 100%;
     font-size: 4vh;
     height: 6vh;
     margin-top: 4vh;
-    padding: 1vh
+    padding: 1vh;
 }
 
 #combat_toggle{

@@ -29,7 +29,8 @@ class UIShop{
             txt += this.display_motel(player, shop);
         } else if (shop.type =='homeless'){
             txt += this.display_homeless(player, juego.time);
-        }           
+        } 
+        txt += `<div><button id='close-shop'>close</button></div>`          
         $("#shop").html(txt);
     }
 

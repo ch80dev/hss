@@ -22,6 +22,12 @@ $(document).on('click', '.buy_unique', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '#close-shop', function() {
+    juego.player.state.shopping = null;
+    ui.change_screen('map');
+    ui.refresh.go();
+});
+
 $(document).on('click', '#rent_a_room', function() {
     if (juego.player.state.shopping == null){
         return;

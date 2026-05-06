@@ -87,6 +87,20 @@ class ExitInspector{
         return exits[rand_num(0, exits.length - 1)];
     }
 
+    find_nearest(x, y){
+        let exits = this.fetch_all();
+        let distance = null;
+        let nearest = null;
+        for (let exit of exits){
+            let distance_to_exit = this.map.get.geometry.fetch_distance(x, y, exit.x, exit.y);
+            if (distance == null || distance < distance_to_exit){
+                distance = distance_to_exit;
+                nearest = exit;
+            }
+        }
+        return { exit: nearest, distance: distance };
+    }
+
     have_they_used_this(location_type, location_id, x, y){        
         let from = this.map.format_at(location_type, location_id, x, y);
         return (this.map.exits[from] != undefined);

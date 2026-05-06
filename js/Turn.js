@@ -45,7 +45,8 @@ class Turn{
 		for (let cop of cops){
 			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
 			let give_warning = rand_num(1, 4 + cop.severity)   == 1;
-			if (!cop.keeping_the_peace ){
+			if (cop.leaving ){
+				cop.head_towards_exit();
 				continue;
 			}
 			if (cop.location.type != this.player.state.location.type || cop.location.id != this.player.state.location.id){
@@ -64,9 +65,11 @@ class Turn{
 				cop.y = open.y;
 				cop.player_gone = false;
 				cop.patrolling = null;
+				this.cop.heading_to_exit.exit = null;
+        		this.cop.heading_to_exit.distance = null;
 			}
 			cop.flashing = !cop.flashing;
-			cop_on_scene = true;
+			cop_on_scene = true; // this is so humans know to stop fighting
 			if (distance <= cop.sense_range){
 				give_warning = cop.spot_player(this.player.state.x, this.player.state.y, give_warning);
 			}

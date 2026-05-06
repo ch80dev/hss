@@ -4,19 +4,7 @@ class PlayerCop {
         this.player = player;
         this.get = get;
     }
-   lets_them_go(){
-        if (this.player.state.detained_by == null){
-            return;
-        }
-        let cop = this.get.cop(this.player.state.detained_by);
-        if (cop == null){
-            return;
-        }
-        cop.keeping_the_peace = false;
-        this.player.state.detained_by = null;
-        ui.log("'Alright, you're free to go but stay out of trouble...'");
-        ui.change_screen('map');
-    }
+
 
     crime_sentencing(){
         if (this.player.state.detained_by == null){
@@ -85,6 +73,20 @@ class PlayerCop {
     go_to_the_yard(){
         this.player.state.in_pacman_jail = true;
         juego.jail.start();
+    }
+
+    lets_them_go(){
+        if (this.player.state.detained_by == null){
+            return;
+        }
+        let cop = this.get.cop(this.player.state.detained_by);
+        if (cop == null){
+            return;
+        }
+        cop.leaving = true;
+        this.player.state.detained_by = null;
+        ui.log("'Alright, you're free to go but stay out of trouble...'");
+        ui.change_screen('map');
     }
 
     serve_sentence(){

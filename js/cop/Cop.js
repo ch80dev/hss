@@ -4,9 +4,9 @@ class Cop extends Lifeform{
     flashing = false;
     heading_towards = {};
     heading_to_exit = {
-        exit: null, distance: null
+        exit: null, distance: null, 
     }
-    keeping_the_peace = true;
+    leaving = false;
     max_stigma_tolerance = null;
     name = null;
     num_of_tazes = 5;
@@ -32,6 +32,32 @@ class Cop extends Lifeform{
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
         
+    }
+
+    head_towards_exit(){
+        if (this.heading_to_exit.exit == null){
+            let nearest = this.map.get.inspector.exit.fetch_nearest(this.x, this.y);
+            this.heading_to_exit.exit = nearest.exit;
+            this.heading_to_exit.distance = nearest.distance;
+        }
+        let delta = this.map.get.geometry.fetch_delta(this.x, this.y, this.heading_to_exit.exit.x, this.heading_to_exit.exit.y);
+        let spots = [{ x : this.x + delta.x, y: this.y }, { x: this.x, y: this.y + delta.y } ];
+        let good = [];
+        for (let spot of spots){
+            if (!this.map.get.geometry.is_valid(spot.x, spot.y) || !this.map.get.at(spot.x, spot.y) != 1){
+                continue;
+            }
+            good.push(spot);
+        }
+
+        if (good.length < 1){
+            console.log("No where to go", this.x, this.y, spots);
+            return;
+        }
+        let rand = rand_num(0, good.length - 1);
+        this.x = good[rand].x;
+        this.y = good[rand].y;
+
     }
 
     move(){

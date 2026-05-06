@@ -45,13 +45,13 @@ class Turn{
 		for (let cop of cops){
 			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
 			let give_warning = rand_num(1, 4 + cop.severity)   == 1;
-			if (cop.leaving ){
-				cop.head_towards_exit();
-				continue;
-			}
+			
 			if (cop.location.type != this.player.state.location.type || cop.location.id != this.player.state.location.id){
 				cop.pursuit.player_is_not_here();
 				return;
+			} else if (cop.leaving ){
+				cop.head_towards_exit();
+				continue;
 			}
 			if (cop.patrolling != null && cop.patrolling > 0){
 				let open = this.map.get.inspector.fetch_open(true);

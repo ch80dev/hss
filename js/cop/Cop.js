@@ -34,6 +34,14 @@ class Cop extends Lifeform{
         
     }
 
+    disappear(){
+        this.x = null;
+        this.y = null;
+        this.location.type = null;
+        this.location.id = null;
+
+    }
+
     head_towards_exit(){
         if (this.heading_to_exit.exit == null){
             let nearest = this.map.get.inspector.exit.fetch_nearest(this.x, this.y);
@@ -57,7 +65,9 @@ class Cop extends Lifeform{
         let rand = rand_num(0, good.length - 1);
         this.x = good[rand].x;
         this.y = good[rand].y;
-
+        if (this.x == this.heading_to_exit.exit.x && this.y == this.head_towards_exit.exit.y){
+            this.disappear();
+        }
     }
 
     move(){

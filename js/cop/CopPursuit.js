@@ -24,6 +24,7 @@ class CopPursuit {
         this.cop.heading_to_exit.exit = null;
         this.cop.heading_to_exit.distance = null;
     }
+
      player_disappeared(){
         let last_exit = this.player.state.last_exit.from;
         let exit_location_type = last_exit.split('-')[0];
@@ -57,6 +58,10 @@ class CopPursuit {
     }
 
     player_is_not_here(){
+        if (this.cop.leaving){
+            this.cop.disappear();
+            return;
+        }
         if (!this.cop.player_gone){
             this.cop.player_gone = true;
             this.player_disappeared();
@@ -70,6 +75,7 @@ class CopPursuit {
         if (this.cop.patrolling != null && this.cop.patrolling > 0){
             this.cop.patrolling --;
             if (this.cop.patrolling < 1){
+                this.cop.disappear();
                 console.log("DELETE");
             }
             return;

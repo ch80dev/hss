@@ -11,7 +11,6 @@ TODO
     BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change
 
     color code sell one and sell all
-    cops should disappear after you go through an exit and they're not chasing you
     BUG cop was in the sewer after I escaped pursuit
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
     if cop is already on scene, have them respond to whatever crime is being reported.

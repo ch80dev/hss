@@ -1,23 +1,21 @@
 TODO
     When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
         PLAYTEST
-            - be able to create a favorite for beat unconscious work quest
             limit player to 3 quests maybe
-            make 2 exits on a street very rare - and make that second exit being a street exit 1 in 3 
-                police seem almost too responsive
+            
     more stores
     sbustances    
     BUG wasnt able to trade 1 crate for cans that i already had 
-
-
     selling drugs should be illegal
         implement substances first
     BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change
 
     color code sell one and sell all
-    when you escape, put the police 1, 2, 3, 4 spaces away and let them try again
-
-
+    showing the shadows in the dark makes it trivial to find your way around in mthe dark now
+    cops should head back towards the exit if they let you go
+    cops should disappear after you go through an exit and they're not chasing you
+    BUG cop was in the sewer after I escaped pursuit
+    BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
 
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 

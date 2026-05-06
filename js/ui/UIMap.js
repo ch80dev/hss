@@ -45,7 +45,7 @@ class UIMap {
 					cell_class = ' favorite ';
 				}
 				// 3. The "Darkness" Skip
-				if ((juego.player.state.location.type ==  'sewer' || juego.night) && !is_lit && !juego.map.get.inspector.entity.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y) && (map_at != null && map_at != 1)) {
+				if ((juego.player.state.location.type ==  'sewer' || juego.night) && !is_lit && !juego.map.get.inspector.entity.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y) && ((map_at != null && map_at != 1) || (rand_num(1, 15) == 1))) {
 					txt += `<div id='cell-${x}-${y}' class='cell shadow ${cell_class}'></div>`;
 					continue;
 				} else if ((juego.player.state.location.type ==  'sewer' || juego.night) && !is_lit && !juego.map.get.inspector.entity.is_in_the_light(juego.player.state.location.type, juego.player.state.location.id, x, y)) {

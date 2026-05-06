@@ -11,7 +11,6 @@ TODO
     BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change
 
     color code sell one and sell all
-    showing the shadows in the dark makes it trivial to find your way around in mthe dark now
     cops should head back towards the exit if they let you go
     cops should disappear after you go through an exit and they're not chasing you
     BUG cop was in the sewer after I escaped pursuit

@@ -23,7 +23,7 @@ body{
 body:has(#loot:not(.hidden)){
     overflow: hidden;
 }
-.buy_from_shop {
+.buy_from_shop, #buy_cigarettes {
     font-size: 4vh;
     height: 6vh; 
     padding: 1vh;

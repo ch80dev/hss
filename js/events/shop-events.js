@@ -1,3 +1,16 @@
+$(document).on('click', '#buy_cigarettes', function() {
+    if (juego.player.state.shopping == null){
+        return;
+    }
+    let shop = juego.get.shop(juego.player.state.shopping);
+    if (shop == null){
+        return;
+    }
+    juego.player.actions.shop.buy_cigarettes(shop);
+    ui.refresh.go();
+});
+
+
 $(document).on('click', '.buy_from_shop', function() {
     if (juego.player.state.shopping == null){
         return;

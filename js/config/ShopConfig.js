@@ -9,22 +9,29 @@ class ShopConfig {
 	static homeless_out = 6;
 	static homeless_check_in = [12, 18];
 	static homeless_wait = 30;
-	static just_buying = ['food', 'grocery', 'hardware', 'sports'];
+	static just_buying = ['liquor', 'food', 'grocery', 'hardware', 'sports', 'coffee', 'traphouse'];
     	///SHOP
 	static max_stigma = {
+
+		coffee: 25,
 		food: 50,
 		grocery: 25,
 		hardware: 75,
 		homeless: 101,
+		liquor: 75,
 		motel: 50,
 		pawn: 75,
 		recycling: 90,
 		sports: 40,
+		traphouse: 101,
 	}	
 	static motel_room_cost = 50;
 	static num_of_items_in_pawn_shop = 4;
 
 	static names = {
+		coffee: 'Galaxy Cafe',
+		liquor: 'Channel Islands Liquor',
+		traphouse: "Got That Crinack!",
 		food: "Demici's!",
 		grocery: 'Hughes Market',
 		hardware: 'Hootie & The Hardware Store',
@@ -36,11 +43,12 @@ class ShopConfig {
 	}
 	static resources = {
 		coffee: ['coffee', 'sandwich', 'cookie'],
-		liquor: ['alcohol', 'cigarette', '20x cigarettes', 'energy drink', 'sandwich', 'chips', 'cookie', 'candy'],
-
+		liquor: ['cigarette', 'alcohol', 'energy drink', 'sandwich', 'chips', 'cookie', 'candy'],
 		traphouse: ['weed', 'crack', 'cocaine', 'uppers', 'crystal meth', 'pcp'],
+
+
 		food: ["burger", "burrito", "fries", "pizza", "taco",],
-		grocery: ["candy", "chips", "cookie", "sandwich"],
+		grocery: ['alcohol', 'energy drink', "candy", "chips", "cookie", "sandwich"],
 		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters',  'knife', 'lantern', 'hatchet', 'machete', 'pipe'],
 		homeless: null,
 		motel: null, 

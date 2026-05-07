@@ -14,6 +14,14 @@ class UIShop{
         }
         let txt = `<div id='shop_title'><button id='favorite-shop-${shop.id}' class='favorite  button_${this.button_num}'>${favorite_symbol}</button>${ShopConfig.names[shop.type]}</div>`
         this.button_num++;
+        if (shop.type == 'liquor'){
+            let disabled = '';
+            if (player.state.money < ItemConfig.prices['20x cigarettes']){
+                disabled = ' disabled ';
+            }
+            txt += `<button id='buy_cigarettes' class='button_${this.button_num}' ${disabled}> buy 20x cigarettes [$${ItemConfig.prices['20x cigarettes']}]</button>`;
+            this.button_num++;
+        }
         if (ShopConfig.just_buying.includes(shop.type)){
             txt += this.display_buy_generic(player, shop);
         } else if (shop.type == 'recycling'){
@@ -30,6 +38,8 @@ class UIShop{
         } else if (shop.type =='homeless'){
             txt += this.display_homeless(player, juego.time);
         } 
+
+       
         txt += `<div><button id='close-shop'>close</button></div>`          
         $("#shop").html(txt);
     }

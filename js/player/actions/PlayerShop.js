@@ -3,6 +3,23 @@ class PlayerShop{
         this.player = player;
     }
 
+    buy_cigarettes(shop){
+        let price = ItemConfig.prices['20x cigarettes'];
+        if (this.player.state.money < price 
+            || !this.player.inventory.get.can_they_take('cigarette', 20)){
+            return null;
+        }
+        this.player.status.stats.change_money(-price);
+        let do_they_have = this.player.inventory.get.do_they_have('cigarette', 1);
+        if (!do_they_have){
+            this.player.state.inventory.push({id: this.player.inventory.next_id(), name: 'cigarette', quantity: 20, durability: 100 });
+        } else if (do_they_have){
+            let item = this.player.inventory.fetch.by_name('cigarette');
+            item.quantity += 20;
+        }
+        ui.log(`You spent $${price} [${this.player.state.money}] to buy 20x cigarettes.`);
+    }
+
     buy_from_shop(resource_id, shop){
         
         let item = shop.resources[resource_id];
@@ -12,7 +29,13 @@ class PlayerShop{
             return null;
         }
         this.player.status.stats.change_money(-cost);
-        this.player.state.inventory.push({id: this.player.inventory.next_id(), name: item, quantity: 1, durability: 100 });
+        if (!ItemConfig.stackable.includes(item) 
+            || (ItemConfig.stackable.includes(item) && !this.player.inventory.get.do_they_have(item, 1))){
+            this.player.state.inventory.push({id: this.player.inventory.next_id(), name: item, quantity: 1, durability: 100 });
+        } else if (ItemConfig.stackable.includes(item) && this.player.inventory.get.do_they_have(item, 1)){
+            let item = this.player.inventory.fetch.by_name(item);
+            item.quantity ++;
+        }
         ui.log(`You spent $${cost} [${this.player.state.money}] to buy a ${item}.`);
     }
     buy_unique(inventory_id, shop){

@@ -2,6 +2,9 @@ class PlayerStats {
     constructor(player){
         this.player = player;
     }
+    add_energy(n){
+        this.player.state.energy += n;
+    }
     change_health (n){
         this.player.state.health += n;
         if (n < 0 && rand_num(1, 100) > this.player.state.health){
@@ -17,6 +20,9 @@ class PlayerStats {
         }
         return changed;
     }
+
+
+
 
     change_money(n){
         n = Number(n);
@@ -74,9 +80,30 @@ class PlayerStats {
         this.player.state.stigma  = Math.round(this.player.state.stigma  * 10) / 10;
     }
 
+    degrade_max_health(n){
+        this.player.state.max_health -= n;
+        if (this.player.state.health > this.player.state.max_health){
+            this.player.state.health = this.player.state.max_health;
+        }
+        if (this.player.state.max_health == 0){
+             this.player.state.dead = true;            
+        }
+    }
+
     player_still_sick(){
         if (this.player.state.sickness >= this.player.state.max_sickness){
             this.player.state.sick_hours ++;
+        }
+    }
+    withdraw_from_drugs(){
+        for (let drug in this.player.state.drugs.duration){
+            if (this.player.state.drugs.withdrawal[drug] > 0 && this.player.state.drugs.duration[drug] == -this.player.state.drugs.withdrawal[drug]){
+                this.player.state.drugs.withdrawal[drug] --;
+                this.player.state.drugs.duration[drug] ++;
+            } else if (this.player.state.drugs.withdrawal[drug] > 0 
+                && this.player.state.drugs.duration[drug] > -this.player.state.drugs.withdrawal[drug]){
+                this.player.state.drugs.duration[drug] --;
+            } 
         }
     }
 }

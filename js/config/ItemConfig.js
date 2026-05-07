@@ -22,6 +22,23 @@ class ItemConfig {
 	}
     static degradable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];
+
+	static drug_max_health_degradation = {
+		alcohol: .1,
+		cigarette: .1,
+		cocaine: .2,
+		crack: .5,
+		'crystal meth': .5,
+		pcp: .2,
+		uppers: .2,
+		weed: .1,
+	}
+	static energy_items = {
+		cigarette: 15,
+		coffee: 25,
+		'energy drink': 60,
+		
+	}
 	static equipable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
 	static food_in_trash = ['chips', 'sandwich', 'cookie', 'candy'];
 	static food_gain = {
@@ -91,6 +108,17 @@ class ItemConfig {
 		wrench: 12,
 		tent: 20,
 		'sleeping bag': 10,
+		alcohol: 5,
+		cigarette: 1,
+		'20x cigarettes': 8,
+		coffee: 2,
+		'energy drink': 4,
+		weed: 10,
+		uppers: 15,
+		cocaine: 25,
+		crack: 15,
+		pcp: 18,
+		'crystal meth': 8,
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
 	static spoiled_sick_gain = [1, 50];
@@ -117,7 +145,10 @@ class ItemConfig {
 		tent: 1,
 		lantern: 1,
 		pipe: 1,
-		drugs: 1,		
+		drugs: 1,
+		alcohol: 1,
+		cigarette: 1,
+		'energy drink': 1,
 	}
 	
 	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)'];	

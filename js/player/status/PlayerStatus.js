@@ -25,6 +25,29 @@ class PlayerStatus{
         return rand_num(1, 100) <= this.player.state.stamina;
     }
 
+    do_drugs(what){
+        if (what == 'cigarette'){
+            return;
+        }
+        this.player.status.stats.degrade_max_health(ItemConfig.drug_max_health_degradation[what]);
+
+        if (what == 'alcohol'){
+            this.player.state.drunkenness += 25;
+            if (this.player.state.drunkenness > this.player.state.max_drunkenness){
+                this.player.state.drunkenness = this.player.state.max_drunkenness;
+            }
+            return;
+        } 
+
+        this.player.state.drugs.duration[what] += 100;
+        if (this.player.state.drugs.withdrawal[what] < this.player.state.drugs.duration[what]){
+            this.player.state.drugs.withdrawal[what] = Math.roundthis.player.state.drugs.duration[what];
+        }
+
+
+
+    }
+
     fetch_dmg(){
         let max_dmg = 1;
         let weapon_equipped =  null;

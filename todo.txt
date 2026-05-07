@@ -11,6 +11,8 @@ TODO
 
     BUG cop was in the sewer after I escaped pursuit
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
+
+    be able to click on stats to show the numberrs
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 
@@ -78,13 +80,26 @@ LATER
     if a player equips a crate, they can carry more slots.
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
+
+    
+
+
     alcohol - negates stigma req for humans
-    stimulants - negates stam drain to health when stam is 0
+        public drunkenness - 
+        25 drunkenness
+        .1 / 
+    uppers - negates stam drain to health when stam is 0
+        .1 max health
     crystal meth - stops stam drain temporarily
+
     cigarettes/caffeine - stops stamina drain for moving around
-    pcp - deferred damage
-    cocaine / crack - prevents losing consciousness (crack cheaper but causes max_health reduction)
-        weed / heroin?
+    pcp - deferred damage (drains max health)
+    cocaine / crack - prevents losing consciousness (crack cheaper but causes higher max_health reduction)
+        also effect of alcohol and cigarettes
+    weed - stops stigma drain 
+        heroin?
+
+
     homeless people in sewers should attack you
     I had this idea of spoiled food having a negative durability and that's what's added to your sickness total
     SKILL tREE

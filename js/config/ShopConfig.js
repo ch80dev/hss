@@ -35,6 +35,10 @@ class ShopConfig {
 		sports: 'Sports, Sports, Sports!',
 	}
 	static resources = {
+		coffee: ['coffee', 'sandwich', 'cookie'],
+		liquor: ['alcohol', 'cigarette', '20x cigarettes', 'energy drink', 'sandwich', 'chips', 'cookie', 'candy'],
+
+		traphouse: ['weed', 'crack', 'cocaine', 'uppers', 'crystal meth', 'pcp'],
 		food: ["burger", "burrito", "fries", "pizza", "taco",],
 		grocery: ["candy", "chips", "cookie", "sandwich"],
 		hardware: ['flashlight', 'screw driver', 'wrench','crow bar','bolt cutters',  'knife', 'lantern', 'hatchet', 'machete', 'pipe'],

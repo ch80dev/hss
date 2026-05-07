@@ -8,6 +8,11 @@ class PlayerState{
     dead = false;
     cop_interview = false;
     detained_by = null;
+    drunkenness = 0;
+    drugs = {
+
+    };
+    energy = 0;
     equipped = {
         bag: null,
         hand: null,
@@ -30,6 +35,7 @@ class PlayerState{
     looting = false;
     looking_at = null;
     marking = false;
+    max_drunkenness = 100;
     max_health = Config.lifeforms.human.max_health;    
     max_inventory_weight = 100;
     max_sickness = Config.max_sickness;
@@ -70,6 +76,15 @@ class PlayerState{
         }
         if (DefaultConfig.equip_init_inventory){
             this.equipped.hand = 0;
+        }
+
+        for (let drug of Object.keys(ItemConfig.drug_max_health_degradation)){
+            if (drug == 'cigarette' || drug == 'alcohol'){
+                continue;
+            }
+            this.drugs.duration[drug] = 0;
+            this.drugs.withdrawal[drug] = 0;
+
         }
     }
     

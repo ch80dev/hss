@@ -55,7 +55,15 @@ class InventoryUse{
             console.log('cant use');
             return;
         }
-        if (item.name == 'crate'){           
+        if (item.name != 'cigarette' && Object.keys(ItemConfig.drug_max_health_degradation).includes(item.name)){
+            this.player.status.do_drugs(item.name);
+
+        } else if (item.name == 'energy drink' || item.name == 'cigarette' || item.name == 'coffee'){
+            this.player.status.stats.add_energy(ItemConfig.energy_items[item.name]);
+            if (item.name == 'cigarette'){
+                this.player.status.stats.degrade_max_health(ItemConfig.drug_max_health_degradation[item.name])
+            }
+        } else if (item.name == 'crate'){           
             this.player.inventory.move.drop_item(id, map, 'crate (placed)');
             map.is(this.player.state.x, this.player.state.y, MapConfig.cell_class.indexOf('crate'));
             return;

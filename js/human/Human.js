@@ -89,13 +89,14 @@ class Human extends Lifeform{
             let do_they_report = this.player.state.stigma > this.max_stigma_tolerance 
                 && rand_num(1, 100) < this.player.state.stigma;
             if (severity == 1){
-                do_they_report =  true;//rand_num(1, 100) < this.player.state.stigma;
+                do_they_report =  rand_num(1, 100) < this.player.state.stigma;
             } else if (severity == 2){
                 do_they_report = rand_num(1, 2) == 1;
             } else if (severity == 3){
                 do_they_report = true;
             }
             if (do_they_report){
+                console.log("REPORTED", crime, this.player.state.location, this.location);
                 this.report_crime(crime);
             }
         }

@@ -15,6 +15,15 @@ class Queries{
 		return null;
 	}
 
+	cop_at_location(location_type, location_id){
+		for (let cop of this.cops){		
+            if (cop.location.type == location_type && cop.location.id == location_id){
+                return cop;
+            }
+        }
+        return null;
+	}
+
 	cop_by_loc(location_type, location_id, x, y){
 		for (let cop of this.cops){		
             if (cop.location.type == location_type && cop.location.id == location_id 
@@ -45,6 +54,8 @@ class Queries{
         }
         return null;
 	}
+
+	
 
 	rand_human(not_them_id){
 		if (this.humans.length <= 2){

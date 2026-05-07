@@ -17,7 +17,7 @@ class Cop extends Lifeform{
     severity = null;
     surname = null;
 
-    constructor(id, x, y, severity, location_type, location_id, map, player, get){
+    constructor(id, x, y, severity, location_type, location_id, map, player, get, heading_towards_x, heading_towards_y){
         
         super('human', x, y, location_type, location_id, map);
         this.id = id;
@@ -25,8 +25,8 @@ class Cop extends Lifeform{
         this.map = map;
         this.player = player;
         this.pursuit = new CopPursuit(this, map, player)
-        this.heading_towards.x = this.player.state.x;
-        this.heading_towards.y = this.player.state.y;
+        this.heading_towards.x = heading_towards_x;
+        this.heading_towards.y = heading_towards_y;
         this.get = get;
         this.max_stigma_tolerance = rand_num(1, 50);
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
@@ -37,8 +37,10 @@ class Cop extends Lifeform{
     disappear(){
         this.x = null;
         this.y = null;
+        
         this.location.type = null;
         this.location.id = null;
+    
 
     }
 

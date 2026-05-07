@@ -43,7 +43,7 @@ class Turn{
 	lifeforms_move(humans, map, rats, cops){		
 		let cop_on_scene = false;
 		for (let cop of cops){
-			let distance = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
+			let distance_to_player = map.get.geometry.fetch_distance(cop.x, cop.y, this.player.state.x, this.player.state.y);
 			let give_warning = rand_num(1, 4 + cop.severity)   == 1;
 			
 			if (cop.location.type != this.player.state.location.type || cop.location.id != this.player.state.location.id){
@@ -70,18 +70,18 @@ class Turn{
 			}
 			cop.flashing = !cop.flashing;
 			cop_on_scene = true; // this is so humans know to stop fighting
-			if (distance <= cop.sense_range){
+			if (distance_to_player <= cop.sense_range){
 				give_warning = cop.spot_player(this.player.state.x, this.player.state.y, give_warning);
 			}
 			if (this.player.state.unconscious_for < 1 && give_warning){
 				ui.log(" <span class='cop_warn'>'POLICE! FREEZE!'</span>");
 				continue;
 			}
-			if (this.player.state.detained_by == null && this.player.state.unconscious_for < 1 && cop.num_of_tazes > 0 && cop.severity == 2 && cop.player_fleeing && distance <= CopConfig.tazer_max_distance){
+			if (this.player.state.detained_by == null && this.player.state.unconscious_for < 1 && cop.num_of_tazes > 0 && cop.severity == 2 && cop.player_fleeing && distance_to_player <= CopConfig.tazer_max_distance){
 				ui.log("A cop is tazing you.")
-				cop.taze_player(distance);
+				cop.taze_player(distance_to_player);
 				continue;
-			} else if (distance >= 2){
+			} else if (distance_to_player >= 2){
 				cop.move();
 				continue;
 			} 
@@ -134,7 +134,6 @@ class Turn{
 				|| human.location.id != this.player.state.location.id){
 				continue;
 			} else if (human.unconscious_for != 0){
-				
 				human.unconscious_for --;
 				if (human.unconscious_for == 0){
 					ui.log(`${human.name} ${human.surname} regained consciousness!`);

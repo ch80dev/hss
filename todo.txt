@@ -1,5 +1,4 @@
 TODO
-    When cops respond it is a 1 in cop.length + 1 chance to spawn a new cop. 
         PLAYTEST
             limit player to 3 quests maybe
             
@@ -10,11 +9,8 @@ TODO
         implement substances first
     BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change
 
-    color code sell one and sell all
     BUG cop was in the sewer after I escaped pursuit
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
-    if cop is already on scene, have them respond to whatever crime is being reported.
-
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 
@@ -64,7 +60,10 @@ ABANDONED
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
-
+    Instead of 'sense range' have humans and cops have a vision cone.
+    change num of turns response and waiting for police to minutes. 
+        have them wait after you escape 1 hour, 1 day, 1 week, and 1 month. for corresponding severity
+    Tyson said that he didn't notice that there was a sell one and sell all button. Make them more distinguished.
     limit trade to max quantity of 100 
     show player when they're bleeding and be able to stop with bandages
     maybe we can do a list of locations - specifically to show unexplored exist
@@ -77,10 +76,8 @@ LATER
     instead of [1, 2, 3] lengths from street. Make it maybe more world-centric and have it be be "alley behind 123 Larch and 2012 Utah" instead of alley behind Larch [1] and Utah [2]
     rats should be able to exit if there's no food in the alley
     if a player equips a crate, they can carry more slots.
-       
     when sleeping, heal 10% of your sickness and recalc if you're sick if you are not outside.
     when you hover over a button in a shop, highlight the price if its in a list and not on a button (mainly pawn shop)
-    when you lose health, (or any lifeform) there's a random chance to lose consciousness if (1, 100) > health
     alcohol - negates stigma req for humans
     stimulants - negates stam drain to health when stam is 0
     crystal meth - stops stam drain temporarily
@@ -89,11 +86,10 @@ LATER
     cocaine / crack - prevents losing consciousness (crack cheaper but causes max_health reduction)
         weed / heroin?
     homeless people in sewers should attack you
-
+    I had this idea of spoiled food having a negative durability and that's what's added to your sickness total
     SKILL tREE
         see humans that are able to be successfully begged Human.js:42 Uncaught TypeError: Cannot read properties of undefined (reading 'days')
     shopping cart
-    bags
 
 DESIGN
     went from one street to another kind of aimlessly and there wasn't anything interesting in most of them 04-25-26

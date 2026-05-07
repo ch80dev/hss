@@ -13,7 +13,6 @@ class Game{
 
 	police_responding_in = {};
 	player = null; // needs to before map;
-	police_dispatched = [];
 	populate = null;
 	quests = new Quest();
 	rats = [];	
@@ -44,12 +43,10 @@ class Game{
 		let response = this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`];
 		if (response != undefined && response.time <= 0){
 			return;
-
 		}
 		if (response != undefined){
 			ui.log(` [Police: ${response.time}]`);
 			return;
-
 		}
 		let severity = -1;
 		for (let crime of this.player.state.reported_crimes){
@@ -77,14 +74,19 @@ class Game{
 		}
 		response.severity = severity;
 		response.responded = false;
-		ui.log(`Police were called! [${response.time}]`);
+		response.x = this.player.state.x;
+		response.y = this.player.state.y;
+		ui.log(`Police were called! Arriving in ${response.time} turns....`);
 		this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`] = response;
 	}
 	
 	next(){
 		for (let loc_str in this.police_responding_in){
 			let report = this.police_responding_in[loc_str];
-			report.time --;
+			if (!report.responded){
+				report.time --;
+
+			}
 		}
 		this.turn.next(this.humans, this.map, this.rats, this.cops);
 		if (this.player.state.reported_crimes.length > 0 
@@ -109,9 +111,17 @@ class Game{
 		}
 		for (let location in this.police_responding_in){
 			let report = this.police_responding_in[location];
-			if (!report.responded && report.time < 1 && !this.police_dispatched.includes(this.player.fetch_loc_str())){
+			let location_type = location.split('-')[0]
+			let location_id = Number(location.split('-')[1]);
+			let cop_here = this.get.cop_at_location(location_type, location_id);
+			if (!report.responded && report.time < 1){	
 				report.responded = true;
-				this.police_dispatched.push(this.player.fetch_loc_str());
+				if (cop_here != null){
+					cop_here.heading_towards.x = report.x;
+					cop_here.heading_towards.y = report.y;
+					cop_here.severity = report.severity;
+					continue;
+				}
 				let exits = this.map.get.inspector.exit.fetch_all_of_type(report.from);
 				if (report.type != null && exits.length == 0){
 					console.log('error');
@@ -122,7 +132,20 @@ class Game{
 				}
 				let rand = exits[rand_num(0, exits.length - 1)];
 				ui.log("POLICE! FREEZE!");
-				this.cops.push(new Cop(this.cops.length, rand.x, rand.y, report.severity, location.split('-')[0], location.split('-')[1], this.map, this.player, this.get));
+
+				if (this.cops.length == 0 || rand_num(1, this.cops.length + 1) != 1){
+					this.cops.push(new Cop(this.cops.length, rand.x, rand.y, report.severity, location_type, location_id, this.map, this.player, this.get, report.x, report.y));
+					continue;
+				}
+
+				let rand_id = rand_num(0, this.cops.length);
+				let cop = this.get.cop(rand);
+				cop.heading_towards.x = report.x;
+				cop.heading_towards.y = report.y;
+				cop.heading_towards.severity = report.severity;
+				cop.location.type = location_type;
+				cop.location.id = location_id;
+
 			}
 		}
 	}

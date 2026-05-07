@@ -7,6 +7,7 @@ class PlayerState{
     crimes_this_turn = [];
     dead = false;
     cop_interview = false;
+    deferred_damage = 0;
     detained_by = null;
     drunkenness = 0;
     drugs = {
@@ -52,7 +53,7 @@ class PlayerState{
     shopping = null;
     socializing = null;
     
-    stamina = Config.lifeforms.human.max_stamina;
+    stamina = 100; //Config.lifeforms.human.max_stamina;
     stamina_delta = 0;
     stigma = 0;
     sick_hours = 0;

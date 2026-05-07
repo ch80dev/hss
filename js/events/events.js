@@ -114,8 +114,17 @@ $(document).on('click', '#start_sentence', function() {
     ui.refresh.go();
 });
 
+$(document).on('click', '.status_bar', function() {
+    ui.percent_stats[this.id.split('_')[0]] = !ui.percent_stats[this.id.split('_')[0]];
+    ui.refresh.go();
+});
+
+
+
 for (let button of document.querySelectorAll('button')){
 	button.addEventListener('click', function(e){
 		ui.refresh.go();
 	});
 }
+
+

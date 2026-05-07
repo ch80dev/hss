@@ -22,21 +22,23 @@ class ItemConfig {
 	}
     static degradable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];
+	
 
+		
 	static drug_max_health_degradation = {
-		alcohol: .1,
-		cigarette: .1,
+		alcohol: .1, // x
+		cigarette: .1, // x
 		cocaine: .2,
 		crack: .5,
-		'crystal meth': .5,
-		pcp: .2,
-		uppers: .2,
-		weed: .1,
+		'crystal meth': .5, //
+		pcp: .2, // x
+		uppers: .2, // x
+		weed: .1, // x
 	}
 	static energy_items = {
-		cigarette: 15,
-		coffee: 25,
-		'energy drink': 60,
+		cigarette: 30,
+		coffee: 50,
+		'energy drink': 150,
 		
 	}
 	static equipable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete', 'screw driver', 'wrench','crow bar','bolt cutters'];
@@ -64,7 +66,7 @@ class ItemConfig {
 		taco: 40,
 		
 	}
-	static human_items = ['crate', 'drugs', 'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
+	static human_items = ['crate', 'medicine', 'medicine (expired)', 'aluminum can', 'flashlight', 'glass bottle', 'plastic bottle', 'screw driver', 'wrench','crow bar','bolt cutters', 'bat', 'knife', 'lantern', 'hatchet', 'machete'];
 	static light_durability_uses = {
 		flashlight: .25,
 		lantern: .1,
@@ -86,7 +88,6 @@ class ItemConfig {
 		cookie: 1,
 		crate: 8,
 		'crow bar': 60,
-		drugs: 50,		
 		flashlight: 5,		
 		fries: 3,
 		fuel: 4,
@@ -122,7 +123,7 @@ class ItemConfig {
 	}	
 	static recyclables = ['aluminum can', 'glass bottle', 'plastic bottle'];
 	static spoiled_sick_gain = [1, 50];
-	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'medicine', 'medicine (expired)', 'drugs'];
+	static stackable = ['aluminum can', 'glass bottle', 'plastic bottle', 'medicine', 'medicine (expired)', 'cigarette',  'cocaine', 'crack', 'crystal meth', 'pcp', 'uppers', 'weed'];
 	static tool_durability_uses = {
 		'screw driver': 10,
 		wrench: 5,
@@ -145,13 +146,12 @@ class ItemConfig {
 		tent: 1,
 		lantern: 1,
 		pipe: 1,
-		drugs: 1,
 		alcohol: 1,
 		cigarette: 1,
 		'energy drink': 1,
 	}
 	
-	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)'];	
+	static usable = ['crate',  'medicine', 'medicine (expired)', "burger", "burrito", "candy", "chips", "cookie", "fries", "pizza",	"sandwich", "taco", 'tent', 'sleeping bag', 'tent (placed)', 'cigarette', 'energy drink', 'alcohol', 'cocaine', 'crack', 'crystal meth', 'pcp', 'uppers', 'weed'];	
 	static weapon_bleed = {
 		knife: 2,
 		hatchet: 3,
@@ -196,7 +196,6 @@ class ItemConfig {
 		crate: 10,
 		medicine: 1,
 		'medicine (expired)': 1,		
-		drugs: 2,
 		bat: 2.5, 
 		flashlight: 2,
 		knife: .5, 

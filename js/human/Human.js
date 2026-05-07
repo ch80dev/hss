@@ -72,12 +72,10 @@ class Human extends Lifeform{
 
     report_crime(what){
         let distance = this.map.get.geometry.fetch_distance(this.x, this.y, this.player.state.x, this.player.state.y);
-        console.log('delete after shown', distance);
         if (!this.map.get.inspector.entity.is_in_the_light(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y) && rand_num(1, distance) != 1){
             return;
         }
         if (!this.player.state.reported_crimes.includes(what)){
-            console.log(what);
             this.player.state.reported_crimes.push(what);
         }
     }

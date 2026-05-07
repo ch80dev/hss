@@ -58,7 +58,10 @@ class PlayerTrash {
             return;
         }
         trash.searched = true;
-        this.player.status.stats.change_stamina_delta(-.4);
+        if (this.player.state.energy <= 0 && (this.player.state.drugs.duration['cocaine'] <= 0 
+            && this.player.state.drugs.duration['crack'] <= 0)){
+            this.player.status.stats.change_stamina_delta(-.4);
+        }
         this.player.status.add_time(0, 5);
         if (trash.stuff.length == 0){
             ui.log("Nothing usable in trash");

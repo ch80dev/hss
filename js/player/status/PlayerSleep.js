@@ -25,7 +25,7 @@ class PlayerSleep {
     }
 
     go_unconscious(){
-        if (this.player.state.unconscious_for != 0){
+        if (this.player.state.unconscious_for != 0 || this.player.state.drugs.duration['cocaine'] > 0 || this.player.state.drugs.duration['crack'] > 0 || this.player.state.drugs.duration['pcp'] > 0){
             return;
         }
         let unconscious_for = rand_num(1, Config.init_unconscious);

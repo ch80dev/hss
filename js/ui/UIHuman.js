@@ -18,7 +18,7 @@ class UIHuman{
 			let disabled = '';
 			let interaction = human.interactions[id];
 
-			if ((interaction != 'work' && juego.player.state.stigma > human.max_stigma_tolerance)
+			if ((interaction != 'work' && juego.player.state.stigma - juego.player.state.drunkenness > human.max_stigma_tolerance)
 				
 				|| (interaction == 'buy' && juego.player.inventory.get.are_they_full() 
 					&& ((ItemConfig.stackable.includes(human.resources[id]) 

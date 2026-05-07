@@ -14,6 +14,13 @@ TODO
 
     be able to click on stats to show the numberrs
     remove 'drugs'
+    when work fails, generate new interaction 
+    crystal meth needs to be more like a 1000 - maybe 500, uppers as well, weed, 
+    cop should be able to go around of obstacles
+    BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
+    When you get successfully tazed by cops while on something, have them yell, "They're not going down. They must be on something!"
+    If you're attacking a person, they shouldn't be able to call the police on you.
+    when you sleep, reduce some of your sickness if not fully sick
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 
@@ -91,6 +98,7 @@ LATER
         .1 / 
     uppers - negates stam drain to health when stam is 0
         .1 max health
+        
     crystal meth - stops stam drain temporarily
 
     cigarettes/caffeine - stops stamina drain for moving around

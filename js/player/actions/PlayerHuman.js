@@ -127,9 +127,14 @@ class PlayerHuman{
         if (!human.met_them){
             human.met_them = true;
         }
-        if (!human.quest.accepted && this.player.state.stigma > human.max_stigma_tolerance){
+        if (!human.quest.accepted && this.player.state.stigma - this.player.state.drunkenness > human.max_stigma_tolerance && (this.player.state.drugs.duration['cocaine'] <= 0 
+            && this.player.state.drugs.duration['crack'] <= 0)){
             ui.log("They don't want to talk to you. Your stigma is too high.");
             return;
+        }
+        if (this.player.status.are_they_intoxicated()){
+            console.log('player intoxicated');
+            this.player.status.add_crime('intoxication');
         }
         human.quest.check();
         this.player.state.socializing = human.id;

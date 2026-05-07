@@ -114,7 +114,9 @@ class UIMap {
 				} else if (juego.player.movement.at(x, y) && juego.player.state.fighting){
 					cell_class += " player_fighting";
 				} else if ((MapConfig.cell_class[map_at] == 'trash' && loot != undefined && loot.locked)
-					|| (MapConfig.cell_class[map_at] == 'human' && human != undefined && juego.player.state.stigma > human.max_stigma_tolerance )
+					|| (MapConfig.cell_class[map_at] == 'human' && human != undefined && juego.player.state.stigma  - juego.player.state.drunkenness > human.max_stigma_tolerance 
+					&& (juego.player.state.drugs.duration['cocaine'] <= 0 
+            		&& juego.player.state.drugs.duration['crack'] <= 0) )
 				){
 					cell_class += ' blocked ';
 				}

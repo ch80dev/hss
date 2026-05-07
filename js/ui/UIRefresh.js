@@ -28,18 +28,51 @@ class UIRefresh {
 		let stamina_cent = juego.player.state.stamina / juego.player.state.max_stamina * 100;
 		
 		let stigma_cent = (juego.player.state.stigma / juego.player.state.max_stigma * 100);
+		let deferred = '';
+		if (juego.player.state.drunkenness > 0){
+			$("#drunkenness").html(`Drunk: ${juego.player.state.drunkenness}%`);
+		}
+		if (juego.player.state.energy > 0){
+			$("#energy").html(`Energy: ${juego.player.state.energy}`);
+		}
+		if (juego.player.state.deferred_damage < 0){
+			deferred = ` ${juego.player.state.deferred_damage}`;
+		}
 
+		let health_caption = `${health_cent.toFixed(1)}%${deferred}`;
+		if (!this.ui.percent_stats['health']){
+			health_caption = `${juego.player.state.health.toFixed(1)}/${juego.player.state.max_health.toFixed(1)}`;
+		}
+		let stamina_caption = `${stamina_cent.toFixed(1)}%`;
+		if (!this.ui.percent_stats['stamina']){
+			stamina_caption = `${juego.player.state.stamina.toFixed(1)}/${juego.player.state.max_stamina.toFixed(1)}`;
+		}
+		let stigma_caption = `${stigma_cent.toFixed(1)}%`;
+		if (!this.ui.percent_stats['stigma']){
+			stigma_caption = `${juego.player.state.stigma.toFixed(1)}/${juego.player.state.max_stigma.toFixed(1)}`;
+		}
 		$("#health_bar").css('width', health_cent.toFixed(1) + '%');
 		$("#stamina_bar").css('width', stamina_cent.toFixed(1) + '%');
 		$("#stigma_bar").css('width', stigma_cent.toFixed(1) + '%');
-		$("#health").html(`${health_cent.toFixed(1)}%`);
-		$('#stamina').html(`${stamina_cent.toFixed(1)}%`);
+		$("#health").html(health_caption);
+		$('#stamina').html(stamina_caption);
 		$("#stamina").removeClass('low_stamina');
 		if (stamina_cent < Config.low_stamina_threshold){
 			$("#stamina").addClass('low_stamina');
 		}
-		$('#stigma').html(`${stigma_cent.toFixed(1)}%`);
+		$('#stigma').html(stigma_caption);
 		let txt  = '';
+
+		for (let drug in juego.player.state.drugs.duration){
+			let duration = juego.player.state.drugs.duration[drug];
+			let withdrawal = juego.player.state.drugs.withdrawal[drug];
+
+			if (withdrawal != 0){
+				txt += `${drug}: ${duration}`;
+			}
+		}
+		$("#drugs").html(txt);
+		txt = '';
 		if (Object.keys(this.ui.auto_loot_inv).length > 0){
 			txt = 'You looted: ';					
 		} 

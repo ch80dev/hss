@@ -17,6 +17,19 @@ class PlayerStatus{
         this.player.state.minutes_delta += minutes;
     }
 
+    are_they_intoxicated(){
+        if (this.player.state.drunkenness > 0){
+            return true;
+        }
+        for (let drug in this.player.state.drugs.duration){
+            let duration = this.player.state.drugs.duration[drug];
+            if (duration > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     can_they_move(){
         return this.player.state.detained_by == null && this.player.state.socializing == null && this.player.state.looting == false;
     }
@@ -39,9 +52,9 @@ class PlayerStatus{
             return;
         } 
 
-        this.player.state.drugs.duration[what] += 100;
+        this.player.state.drugs.duration[what] += 1000;
         if (this.player.state.drugs.withdrawal[what] < this.player.state.drugs.duration[what]){
-            this.player.state.drugs.withdrawal[what] = Math.roundthis.player.state.drugs.duration[what];
+            this.player.state.drugs.withdrawal[what] = this.player.state.drugs.duration[what];
         }
 
 

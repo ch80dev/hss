@@ -5,6 +5,7 @@ class UI{
 	favorites = new UIFavorite();
 	loot = new UILoot();
 	map = new UIMap();
+	percent_stats = {};
 	refresh = new UIRefresh(this);
 	shop = new UIShop();
 	sleeping = false;
@@ -13,7 +14,10 @@ class UI{
 	screen_focused = 'map';
 	unconscious = false;
 	constructor(){
-
+		let stats = ['health', 'stamina', 'stigma'];
+		for (let stat of stats){
+			this.percent_stats[stat] = true;
+		}
 	}
 
 	change_screen(what){

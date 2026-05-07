@@ -29,6 +29,7 @@ class Turn{
 
 	next(humans, map, rats, cops){
 		this.player.status.stats.change_stamina();
+		this.player.status.stats.withdraw_from_drugs();
 		this.lifeforms_move(humans, map, rats, cops);		
 		if (this.player.state.hours_delta != 0 || this.player.state.minutes_delta != 0){
 			this.forward_time(this.player.state.hours_delta, this.player.state.minutes_delta);

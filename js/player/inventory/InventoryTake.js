@@ -48,7 +48,7 @@ class InventoryTake {
             }
             if (autoloot && (!this.player.state.auto_loot_preferences[item.name] 
                 || (Object.keys(ItemConfig.food_gain).includes(item.name) && item.durability <1 && !this.player.state.auto_loot_preferences[item.name + ' (spoiled)']))){
-                console.log("BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25", item.name + ' (spoiled)', (Object.keys(ItemConfig.food_gain).includes(item.name), this.player.state.auto_loot_preferences[item.name + ' (spoiled)']));
+                //console.log("BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25", item.name + ' (spoiled)', (Object.keys(ItemConfig.food_gain).includes(item.name), this.player.state.auto_loot_preferences[item.name + ' (spoiled)']));
                 id ++;
                 continue;
             }
@@ -78,7 +78,7 @@ class InventoryTake {
         }
         let what = loot.name;
         juego.quests.process('fetch', loot.quantity, what);
-        console.log("BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26", what);
+        //console.log("BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26", what);
         if (ItemConfig.stackable.includes(what) && this.player.inventory.get.is_in_inventory(what)){
             this.player.inventory.move.stack_item_in_inventory(what, loot.quantity);
             if (take_all_id == null){

@@ -14,11 +14,12 @@ class Favorite{
 	}
 
 	add_human_not_here(id, location, x, y){
-		//console.log(id, location, x, y, juego.player.state.location, juego.player.state.x, juego.player.state.y)
+		console.log(id, location, x, y, juego.player.state.location, juego.player.state.x, juego.player.state.y)
 		let human_at = juego.map.format_at(location.type, location.id, x, y);
 		let path = juego.map.get.navigator.find_path(juego.player.state.location, location);
 		let exits = juego.map.get.navigator.fetch_exits_for_path(path);
 		this.add('human', id, location, x, y, exits, []);
+		console.log(this.set);
 	}
 	add_shop_not_here(shop, path ){
 		this.add('shop', shop.id, shop.location, shop.x, shop.y, path, []);

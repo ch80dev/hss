@@ -115,7 +115,7 @@ class PlayerHuman{
         }
         this.player.inventory.move.give_to_human(human.resources[interaction_id], 1, human);
         this.player.status.stats.change_money(human.items.get_money(Number(human.conversion[interaction_id] )));
-        ui.log(`You sell ${human.resources[interaction_id]} for $${(human.conversion[interaction_id]).toFixed(2)}.`)
+        ui.log(`You sell ${human.resources[interaction_id]} for $${(human.conversion[interaction_id])}.`)
     }
 
     social(x, y, juego){

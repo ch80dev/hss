@@ -100,6 +100,7 @@ class UIHuman{
 				button = `<button id='complete_quest' class='button_${this.button_num}'>complete</button>`;
 			} else if (interaction == 'work' && !human.quest.accepted){				
 				resource = human.quest.narrate;	
+				console.log(human.quest.narrate);
 			} else if (interaction == 'work' && human.quest.accepted){
 				let quest = juego.quests.fetch_by_id(human.id);
 				if (quest == null){

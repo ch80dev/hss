@@ -10,7 +10,8 @@ class PlayerState{
     detained_by = null;
     drunkenness = 0;
     drugs = {
-
+        duration: {},
+        withdrawal: {},
     };
     energy = 0;
     equipped = {

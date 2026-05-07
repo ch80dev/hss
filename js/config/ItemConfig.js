@@ -180,9 +180,17 @@ class ItemConfig {
 		'bolt cutters': 2,
 	}
 	static weights = {
+		alcohol: 1,
 		'aluminum can': .03,
+		cigarette: .01,
+		'20x cigarettes': .2,
+		coffee: .5,
+		cocaine: .02,
+		crack: .02,
+		'crystal meth': .03,
 		'glass bottle': .5,
 		'plastic bottle': .05,		
+		'energy drink': .75,
 		fuel: 2,
 		lighter: .1,
 		crate: 10,
@@ -208,12 +216,15 @@ class ItemConfig {
 		chips: .25,
 		cookie: .25,
 		fries: .25,
+		pcp: .04,
 		pizza: .5,
 		'plastic bag': .25, 
 		sandwich: .5,
 		taco: .5,
 		'sleeping bag': 5,
 		tent: 10,
+		uppers: .01,
+		weed: .25,
 		
 	}    
 }

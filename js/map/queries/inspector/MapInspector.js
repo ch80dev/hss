@@ -53,7 +53,7 @@ class MapInspector{
 
     fetch_open(clear){
         let n = 0;
-        while(n < 100){
+        while(n < 1000){
             let rand_x = rand_num (0, MapConfig.max_x - 1);
             let rand_y = rand_num (0, MapConfig.max_x - 1);
             if (clear && !this.is_clear(rand_x, rand_y)){

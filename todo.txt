@@ -13,15 +13,16 @@ TODO
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
 
     be able to click on stats to show the numberrs
+    remove 'drugs'
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 
-    BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
-        human.resources[id] is undefined. 04-29-26 the only way this appears to happen is as returned from rand_item
+        BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
+            human.resources[id] is undefined. 04-29-26 the only way this appears to happen is as returned from rand_item
     BUG still able to trade cans for bottles 04-29-26
 
     BUG tried to sell crate and received error at PlayerHuman:110 04-25-26, added more context to console.log 04-29-26
-    BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
+        BUG not autolooting a sandwich (because of spoiled preference presumably) 04-25-26, 04-28-25
     BUG can't pick up 30 glass bottles even though I'm at 7/8 and 85/100.04-25-26
     BUG hours going over 2404-25-26
    

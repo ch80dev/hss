@@ -73,6 +73,7 @@ class Human extends Lifeform{
     report_crime(what){
         let distance = this.map.get.geometry.fetch_distance(this.x, this.y, this.player.state.x, this.player.state.y);
         if (!this.map.get.inspector.entity.is_in_the_light(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y) && rand_num(1, distance) != 1){
+            console.log("can't see");
             return;
         }
         if (!this.player.state.reported_crimes.includes(what)){
@@ -86,13 +87,14 @@ class Human extends Lifeform{
             let severity = CopConfig.crime_severity[crime];
             let do_they_report = this.player.state.stigma > this.max_stigma_tolerance 
                 && rand_num(1, 100) < this.player.state.stigma;
+            
             if (severity == 1){
                 do_they_report =  rand_num(1, 100) < this.player.state.stigma;
             } else if (severity == 2){
                 do_they_report = rand_num(1, 2) == 1;
             } else if (severity == 3){
                 do_they_report = true;
-            }
+            }            
             if (do_they_report){
                 console.log("REPORTED", crime, this.player.state.location, this.location);
                 this.report_crime(crime);

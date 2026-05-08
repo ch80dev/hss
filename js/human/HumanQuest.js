@@ -12,7 +12,7 @@ class HumanQuest{
         if (this.type == 'trash' && !this.accepted && num_of_trash != this.quantity || this.quantity == 0){
             console.log("BUG: TRASH REGEN");
             this.human.interactions[this.interaction_id] = null;
-            this.generate(interaction_id, ['trash']);
+            this.generate(this.interaction_id, ['trash']);
         }
     }
 

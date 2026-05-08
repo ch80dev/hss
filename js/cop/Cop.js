@@ -16,6 +16,7 @@ class Cop extends Lifeform{
     pursuit = null;
     severity = null;
     surname = null;
+    target_distance = null;
 
     constructor(id, x, y, severity, location_type, location_id, map, player, get, heading_towards_x, heading_towards_y){
         
@@ -42,6 +43,35 @@ class Cop extends Lifeform{
         this.location.id = null;
     
 
+    }
+
+    get_delta(){
+        let delta = {x: 0, y: 0 };
+        let toward_player = this.map.get.geometry.fetch_delta(this.heading_towards.x, this.heading_towards.y, this.x, this.y);
+        let n = 0;
+        let pos = {x: this.x, y: this.y};
+        while(delta.x == 0 && delta.y == 0){
+            let horizontal = rand_num(1, 2) == 1;
+            let moves = [-1, 1];
+            if (n >= 100 && horizontal){
+                toward_player.y = 0;
+                toward_player.x = moves[rand_num(0, 1)];
+            } else if (n >= 100 && !horizontal){
+                toward_player.y = moves[rand_num(0, 1)];
+                toward_player.x = 0;
+            }
+            if (horizontal && toward_player.x != 0 && this.map.get.at(pos.x + toward_player.x, pos.y) == 1 
+                && this.map.get.geometry.is_valid(pos.x + toward_player.x, pos.y)){
+                delta.x = toward_player.x;
+            } else if (!horizontal && toward_player.y != 0 
+                && this.map.get.at(pos.x, pos.y + toward_player.y) == 1 
+                && this.map.get.geometry.is_valid(pos.x, pos.y + toward_player.y)){
+                delta.y = toward_player.y;
+            }
+            n ++;
+            console.log(n);
+        }
+        return delta;
     }
 
     head_towards_exit(){
@@ -74,15 +104,17 @@ class Cop extends Lifeform{
 
     move(){
         //cop appears to be moving away
-        let toward_player = this.map.get.geometry.fetch_delta(this.heading_towards.x, this.heading_towards.y, this.x, this.y);
-        let pos = {x: this.x, y: this.y};
-        if (toward_player.x != 0 && this.map.get.at(pos.x + toward_player.x, pos.y) == 1 
-            && this.map.get.geometry.is_valid(pos.x + toward_player.x, pos.y)){
-            pos.x += toward_player.x;
-        } else if (toward_player.y != 0 && this.map.get.at(pos.x, pos.y + toward_player.y) == 1 
-            && this.map.get.geometry.is_valid(pos.x, pos.y + toward_player.y)){
-            pos.y += toward_player.y;
+        
+       
+        let delta = this.delta;
+        let distance = this.map.get.geometry.fetch_distance(this.x + delta.x, this.y + delta.y, this.heading_towards.x, this.heading_towards.y);
+        if (this.target_distance == null || distance >= this.target_distance){
+            delta = this.get_delta();
+            this.delta = delta;
         }
+        let pos = {x: this.x + delta.x, y: this.y + delta.y};
+
+        /*
         let adjacent_to_human = this.map.get.inspector.fetch_adjacent(this.x, this.y, 1, true);
         let adjacent_to_player = this.map.get.inspector.fetch_adjacent(this.heading_towards.x, this.heading_towards.y, 1, true);
         let common = this.map.get.fetch_common(adjacent_to_human, adjacent_to_player);
@@ -92,6 +124,7 @@ class Cop extends Lifeform{
             pos.x = rand.x;
             pos.y = rand.y;
         }
+        */
         this.go(pos.x, pos.y, MapConfig.cell_class.indexOf('cop'), Config.stamina_cost.move);
     }
 

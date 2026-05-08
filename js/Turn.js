@@ -55,13 +55,16 @@ class Turn{
 				continue;
 			}
 			if (cop.patrolling != null && cop.patrolling > 0){
-				let open = this.map.get.inspector.fetch_open(true);
-				let at = this.map.get.at(cop.x, cop.y);
+				let open = map.get.inspector.fetch_open(true);
+				if (open == null){
+					continue;
+				}
+				let at = map.get.at(cop.x, cop.y);
 				if (at != 1){
 					console.log(at);
 
 				}
-				this.map.is(cop.x, cop.x, 1);
+				map.is(cop.x, cop.x, 1);
 				cop.x = open.x;
 				cop.y = open.y;
 				cop.player_gone = false;

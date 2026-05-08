@@ -41,6 +41,7 @@ class Game{
 	call_police(){
 		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?
 		let response = this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`];
+		console.log('response', response);
 		if (response != undefined && response.time <= 0){
 			return;
 		}
@@ -78,6 +79,7 @@ class Game{
 		response.y = this.player.state.y;
 		ui.log(`Police were called! Arriving in ${response.time} turns....`);
 		this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`] = response;
+		console.log(this.police_responding_in);
 	}
 	
 	next(){
@@ -89,6 +91,7 @@ class Game{
 			}
 		}
 		this.turn.next(this.humans, this.map, this.rats, this.cops);
+		console.log(this.player.state.reported_crimes, );
 		if (this.player.state.reported_crimes.length > 0 
 			&& this.player.state.location.type != 'sewer'){
 			this.call_police();

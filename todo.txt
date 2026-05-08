@@ -5,14 +5,13 @@ TODO
     BUG wasnt able to trade 1 crate for cans that i already had 
         BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change 05-08-26 (Thiink I fixed)
 
-    BUG cop was in the sewer after I escaped pursuit
+    BUG cop was in the sewer after I escaped pursuit ? cops are going through sewer for severity 2 crimes 05/08/26
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
 
     
-    cop should be able to go around of obstacles
     BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
-
-
+    BUG cop appeared to be invisble
+    I think the cop lost me but he just wandered around. Have them yell out something.
 
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 

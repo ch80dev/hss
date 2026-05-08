@@ -2,10 +2,9 @@ class PlayerStats {
     constructor(player){
         this.player = player;
     }
+
     add_energy(n){
-        console.log(n);
         this.player.state.energy += n;
-        console.log(this.player.state.energy);
     }
     change_health (n){
         if (n < 0 && this.player.state.drugs.duration['pcp'] > 0){

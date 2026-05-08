@@ -4,7 +4,32 @@ class PlayerCop {
         this.player = player;
         this.get = get;
     }
+    confiscate_contraband(){
+        for (let item of ItemConfig.contraband){
+            if (!this.player.inventory.get.do_they_have(item, 1)){
+                continue;
+            }
 
+            if(ItemConfig.drugs_hard.includes(item) 
+                && !this.player.state.reported_crimes.includes('possession-drugs')){
+                this.player.state.reported_crimes.push('possession-drugs')
+            } else if (item == 'weed' && !this.player.state.reported_crimes.includes('possession-weed')){
+                this.player.state.reported_crimes.push('possession-weed')
+            } else if(!this.player.state.reported_crimes.includes('possession-weapon') 
+                && (item == 'knife' || item == 'hatchet' || item == 'machete')){
+                this.player.state.reported_crimes.push('possession-weapon')
+            }
+            this.player.inventory.move.delete(item, null);
+            
+        }
+        if (this.player.status.were_they_fighting() && this.player.inventory.get.is_equipped_with('bat')){
+            this.player.inventory.move.delete('bat', null);
+            this.player.state.reported_crimes.push('possession-weapon');
+        } else if (this.player.status.were_they_fighting() && this.player.inventory.get.is_equipped_with('pipe')){
+            this.player.inventory.move.delete('pipe', null);
+            this.player.state.reported_crimes.push('possession-weapon');
+        }
+    }
 
     crime_sentencing(){
         if (this.player.state.detained_by == null){
@@ -16,6 +41,7 @@ class PlayerCop {
             console.log('error');
             return;
         }
+        this.confiscate_contraband();
         let max_sentence = 0;
         for (let crime of this.player.state.reported_crimes){
             max_sentence += CopConfig.crime_sentencing[crime];

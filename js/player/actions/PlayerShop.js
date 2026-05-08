@@ -76,7 +76,7 @@ class PlayerShop{
         if (shop == null){
             return;
         }
-        console.log(shop.max_stigma, this.player.state.stigma);
+        //console.log(shop.max_stigma, this.player.state.stigma);
         if (this.player.state.stigma >= shop.max_stigma){
             ui.log("They stop you at the door before you come in. (Your stigma is too high.)");
             return;

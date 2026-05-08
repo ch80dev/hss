@@ -2,8 +2,6 @@ TODO
         PLAYTEST
             limit player to 3 quests maybe
             
-    more stores
-    sbustances    
     BUG wasnt able to trade 1 crate for cans that i already had 
     selling drugs should be illegal
         implement substances first
@@ -12,10 +10,8 @@ TODO
     BUG cop was in the sewer after I escaped pursuit
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
 
-    be able to click on stats to show the numberrs
-    remove 'drugs'
     when work fails, generate new interaction 
-    crystal meth needs to be more like a 1000 - maybe 500, uppers as well, weed, 
+    
     cop should be able to go around of obstacles
     BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
     When you get successfully tazed by cops while on something, have them yell, "They're not going down. They must be on something!"

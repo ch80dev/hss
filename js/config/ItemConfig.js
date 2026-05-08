@@ -20,6 +20,7 @@ class ItemConfig {
 	static bags_slots = {
 		'plastic bag': 10,
 	}
+	static contraband = ['alcohol', 'cocaine', 'crack', 'crystal meth', 'pcp', 'uppers', 'weed', 'knife', 'hatchet', 'machete']; //pipe or bat only if equipped for an assault or murder
     static degradable = ['plastic bag', 'pipe', 'bat', 'flashlight', 'knife', 'hatchet', 'lantern', 'machete','lighter',  
 		'screw driver', 'wrench','crow bar','bolt cutters', 'tent', 'sleeping bag', 'food', 'food-spoiled'];
 	
@@ -35,6 +36,10 @@ class ItemConfig {
 		uppers: .2, // x
 		weed: .1, // x
 	}
+
+    drugs_hard = ['cocaine', 'crack', 'crystal meth', 'uppers', 'pcp'];
+
+
 	static energy_items = {
 		cigarette: 30,
 		coffee: 50,

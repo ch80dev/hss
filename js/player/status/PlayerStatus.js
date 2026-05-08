@@ -12,6 +12,24 @@ class PlayerStatus{
         this.player.state.crimes_this_turn.push(what);
     }
 
+    check_economic_crime(what, buying){
+        if (buying && ItemConfig.drugs_hard.includes(what)){
+            this.add_crime('possession-drugs');
+        } else if (buying && what == 'weed'){
+            this.add_crime('possession-weed');
+        } else if (buying){
+            return; // all should be sell now
+        }
+
+        if (what == 'cigarette' || what == 'alcohol' || what == 'weed'){
+            this.add_crime(`sell-${what}`);
+        } else if (ItemConfig.drugs_hard.includes(what)){
+            this.add_crime(`sell-drugs`);
+
+        }
+
+    }
+
     add_time(hours, minutes){
         this.player.state.hours_delta += hours;
         this.player.state.minutes_delta += minutes;
@@ -80,5 +98,14 @@ class PlayerStatus{
             return;
         }
         this.player.state.auto_loot_preferences[item.name] = !this.player.state.auto_loot_preferences[item.name];
+    }
+
+    were_they_fighting(){
+        for (let crime of this.player.state.reported_crimes){
+            if (crime.split('-').length > 0 && (crime.split('-')[0] == 'attack' || crime.split('-')[0] == 'kill' || crime.split('-')[0] == 'knock_out')){
+                return true;
+            }
+        }
+        return false;
     }
 }

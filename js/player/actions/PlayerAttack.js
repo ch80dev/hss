@@ -9,6 +9,7 @@ class PlayerAttack {
             target = get.rat(this.player.state.location.type, this.player.state.location.id, x, y);
         } else if (map_at == MapConfig.cell_class.indexOf('human')){
             target = get.human_by_loc(this.player.state.location.type, this.player.state.location.id, x, y);
+            target.just_attacked = true;
         }
         let are_they_unconscious = target.unconscious_for != 0;
         let unconscious = '';

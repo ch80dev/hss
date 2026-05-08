@@ -12,7 +12,7 @@ class Human extends Lifeform{
     interaction = null;
     interactions = {};
     items = new HumanInventory(this);
-    
+    just_attacked = false;
     quest = null;
     resources = [];
     min_stigma_beg = null;

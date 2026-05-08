@@ -6,10 +6,11 @@ class DefaultConfig{
 			console.log(mistakes);
 		}		
 	}
-    static interactions = [];
+    static interactions = ['work'];
     static shop_type = null;//'liquor';
 	//this needs to be null if not enabled
 	static init_inventory = null;// {name: 'weed', id: 0, quantity: 100, durability: 100 };
 	static equip_init_inventory = false;
+	static quest = 'trash'; //null;
 	
 }

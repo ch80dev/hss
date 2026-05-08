@@ -8,11 +8,13 @@ TODO
     BUG cop was in the sewer after I escaped pursuit
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
 
-    when work fails, generate new interaction 
     
     cop should be able to go around of obstacles
     BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
     When you get successfully tazed by cops while on something, have them yell, "They're not going down. They must be on something!"
+
+
+
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

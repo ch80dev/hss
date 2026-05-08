@@ -115,16 +115,16 @@ class UIHuman{
 						more = `<button id='favorite_human_not_here-${victim.id}-${victim.location.type}-${victim.location.id}-${victim.x}-${victim.y}' class='favorite_human_not_here'>${favorite_symbol}</button>`
 					}
 				}
-				resource = human.quest.narrate + more;	
+				resource = human.quest.narative + more;	
 			
-				console.log(human.quest.narrate);
+				console.log(human.quest.narative);
 			} else if (interaction == 'work' && human.quest.accepted){
 				let quest = juego.quests.fetch_by_id(human.id);
 				if (quest == null){
 					continue;
 				}
 				button = `<button id='cancel_quest' class='button_${this.button_num}'>cancel</button>`;
-				resource = `${human.quest.narrate}  [${quest.current}/${human.quest.quantity}]`;				
+				resource = `${human.quest.narative}  [${quest.current}/${human.quest.quantity}]`;				
 			} else if (interaction == 'gamble' && human.gambled != null && human.ante != null){
 				resource = "Keep going?";
 				button = `<button id='cash_out' class='button_${this.button_num}'>cash out $${human.gambled_and_won}</button><button id='bet' class='button_${++this.button_num}' ${disabled}>gamble ${human.ante}</button>`;

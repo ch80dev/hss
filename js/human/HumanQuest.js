@@ -9,20 +9,31 @@ class HumanQuest{
             return;
         }
         let num_of_trash = this.map.get.inspector.entity.fetch_num_of_trash();
-        if (this.type == 'trash' && !this.accepted && num_of_trash != this.quantity){
+        if (this.type == 'trash' && !this.accepted && num_of_trash != this.quantity || this.quantity == 0){
             console.log("BUG: TRASH REGEN");
-            this.generate();
+            this.human.interactions[this.interaction_id] = null;
+            this.generate(interaction_id, ['trash']);
         }
     }
 
-    generate(){
+    generate(interaction_id, not_arr){
         let quests_available = ['trash', 'rats', 'fetch', 'beating']; // trash needs to be first / beating neads to be last
         let num_of_trash = this.map.get.inspector.entity.fetch_num_of_trash();
         let min = 0;
         if (num_of_trash < 10){
             min = 1;
         }
-        let quest = quests_available[rand_num(min, quests_available.length - 1)];        
+        let quest = null;
+        if (not_arr.length < 1 && DefaultConfig.quest != null){
+            quest = DefaultConfig.quest;
+        }
+        while (quest == null){
+            let rand = quests_available[rand_num(min, quests_available.length - 1)];        
+            if (!not_arr.includes(rand)){
+                quest = rand;
+            }
+        }
+        
         let price = {
             beating: 1,
             rats: 10,
@@ -65,8 +76,9 @@ class HumanQuest{
         this.quantity = quantity; 
         this.paying = paying; 
         this.accepted = false; 
-        this.narrate = narrate;
+        this.narative = narrate;
         this.context = context;
+        this.interaction_id = interaction_id;
     }
     
     narrate(type, quantity, paying, context){

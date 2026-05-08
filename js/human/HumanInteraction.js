@@ -29,71 +29,66 @@ class HumanInteraction {
         return [1, Math.ceil(costs[0] / costs[1])];
     }
 
-    generate(){
-        let create_quest = false;
-        let interactions = [];
-        if (DefaultConfig.interactions && DefaultConfig.interactions.length > 0) {
-            interactions = [...DefaultConfig.interactions];
-        }
+    generate_all(){
         let num_of_interactions_for_them = 1;
         if (this.human.homeless){
             num_of_interactions_for_them = rand_num(1, HumanConfig.num_of_interactions_per_human);
         }
-        while(interactions.length <  num_of_interactions_for_them){
+        for (let i = 0; i < num_of_interactions_for_them; i ++){
+            this.human.interactions.push(this.generate(this.human.interactions.length, this.human.interactions));;
+        }
+
+    }
+
+    generate(id, not_arr){
+        let interaction = null;
+        while(interaction == null){
             let rand = HumanConfig.interactions[rand_num(0, HumanConfig.interactions.length - 1)];
+            if (DefaultConfig.interactions.length > 0 && rand_num(1, 3) == 1){
+                rand = DefaultConfig.interactions[rand_num (0, DefaultConfig.interactions.length - 1)];
+            }
             let less_often = ['directions', 'gamble'];
             if (less_often.includes(rand) && rand_num(1,3) != 1){
                 continue;
             }
-            if (!interactions.includes(rand)){
-                interactions.push(rand);
+            if (!not_arr.includes(rand)){
+                interaction = rand;
             }
         }
-        this.human.interactions = interactions;
-        let n = 0;
-        for (let id in  interactions){
-            let interaction = interactions[id];
-            if (HumanConfig.interactions_for_money.includes(interaction)){
-                let inc = rand_num(1, HumanConfig.homeless_money);
-                if (!this.human.homeless){
-                    inc *= 10;
-                }
-                n += inc;
+        if (HumanConfig.interactions_for_money.includes(interaction)){
+            let inc = rand_num(1, HumanConfig.homeless_money);
+            if (!this.human.homeless){
+                inc *= 10;
             }
-            this.human.conversion[id] = null;
-            this.human.resources[id] = null;
-            if (HumanConfig.interactions_for_resources.includes(interaction) && interaction == 'trade'){
-                let first = this.generate_rand_item([], interaction);
-                let second = this.generate_rand_item([first], interaction);
-                this.human.resources[id] = { [first]: second };
-                this.human.conversion[id] = this.generate_conversion(first, second);
-                let first_quantity = Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[first]);
-                let second_quantity = Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[second]);
-                this.adjust_conversion(id, first, first_quantity, second, second_quantity);
-                this.human.inventory.push({ name: first, quantity: first_quantity, durability: 100 });
-                this.human.inventory.push({ name: second, quantity: second_quantity, durability: 100 });
-            } else if (HumanConfig.interactions_for_resources.includes(interaction)){
-                this.human.resources[id] = this.generate_rand_item([], interaction);
-                
-            }
-            if (interaction == 'buy'){                                
-                this.human.inventory.push({ name: this.human.resources[id], quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[this.human.resources[id]]), durability: 100 });
-                this.human.conversion[id] = Number(ItemConfig.prices[this.human.resources[id]]  
-                    +  (ItemConfig.prices[this.human.resources[id]] * rand_num(5, 100) * .01)).toFixed(2); 
-            } else if (interaction == 'sell'){
-                this.human.conversion[id] = Number(ItemConfig.prices[this.human.resources[id]]  
-                    -  (ItemConfig.prices[this.human.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
-            } else if (interaction == 'work'){
-                create_quest = true;
-                
-            }
+            this.human.money += inc;
         }
-        if (n > 0){
-            this.human.money = n; 
+        this.human.conversion[id] = null;
+        this.human.resources[id] = null;
+        if (HumanConfig.interactions_for_resources.includes(interaction) && interaction == 'trade'){
+            let first = this.generate_rand_item([], interaction);
+            let second = this.generate_rand_item([first], interaction);
+            this.human.resources[id] = { [first]: second };
+            this.human.conversion[id] = this.generate_conversion(first, second);
+            let first_quantity = Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[first]);
+            let second_quantity = Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[second]);
+            this.adjust_conversion(id, first, first_quantity, second, second_quantity);
+            this.human.inventory.push({ name: first, quantity: first_quantity, durability: 100 });
+            this.human.inventory.push({ name: second, quantity: second_quantity, durability: 100 });
+        } else if (HumanConfig.interactions_for_resources.includes(interaction)){
+            this.human.resources[id] = this.generate_rand_item([], interaction);
+            
         }
-        if(create_quest){
-            this.human.quest.generate();
+        if (interaction == 'buy'){                                
+            this.human.inventory.push({ name: this.human.resources[id], quantity:  Math.ceil(rand_num(10, HumanConfig.homeless_money) / ItemConfig.prices[this.human.resources[id]]), durability: 100 });
+            this.human.conversion[id] = Number(ItemConfig.prices[this.human.resources[id]]  
+                +  (ItemConfig.prices[this.human.resources[id]] * rand_num(5, 100) * .01)).toFixed(2); 
+        } else if (interaction == 'sell'){
+            this.human.conversion[id] = Number(ItemConfig.prices[this.human.resources[id]]  
+                -  (ItemConfig.prices[this.human.resources[id]] * rand_num(5, 50) * .01)).toFixed(2); ;
+        } else if (interaction == 'work'){
+            this.human.quest.generate(id, []);
         }
+        return interaction;
     }
 
     get_available_directions(){
@@ -164,4 +159,6 @@ class HumanInteraction {
 
         return 24 - time.hours + this.human.begging_unlocked.hours
     }
+
+    
 }

@@ -10,7 +10,7 @@ class Human extends Lifeform{
     homeless = false;
     met_them = false;
     interaction = null;
-    interactions = {};
+    interactions = [];
     items = new HumanInventory(this);
     just_attacked = false;
     quest = null;
@@ -39,7 +39,7 @@ class Human extends Lifeform{
         if (!are_they_homeless){
             this.max_stigma_tolerance = rand_num(1, 50);
         }
-        this.interaction.generate();
+        this.interaction.generate_all();
         this.name = HumanConfig.names[rand_num(0, HumanConfig.names.length - 1)];
         this.surname = HumanConfig.names[rand_num(0, HumanConfig.surnames.length - 1)];
         this.directions_to = this.interaction.get_available_directions();

@@ -53,7 +53,7 @@ class UIFavorite{
 				txt += `<div>${human.interactions[id]}</div>`;	
 				continue;
 			} else if (human.interactions[id] == 'work'){
-				txt += `<div>${human.interactions[id]} ${human.quest.narrate}</div>`;	
+				txt += `<div>${human.interactions[id]} ${human.quest.narative}</div>`;	
 				continue;
 			}
 			let context = `${human.resources[id]} for $${human.conversion[id]}`;

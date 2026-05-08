@@ -13,7 +13,6 @@ TODO
     cop should be able to go around of obstacles
     BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
     When you get successfully tazed by cops while on something, have them yell, "They're not going down. They must be on something!"
-    when you sleep, reduce some of your sickness if not fully sick
 BUGS
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 

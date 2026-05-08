@@ -44,6 +44,9 @@ class PlayerSleep {
         this.player.state.stamina += stamina_gain;
         if (in_a_building){
             this.player.state.stigma = Math.round(this.player.state.stigma * .5);
+            if (this.player.state.sickness > 0 && this.player.state.sickness < 100){
+                this.player.state.sickness = Math.round(this.player.state.sickness * .5);
+            }
             //set to 0 if you own the room or apartment            
         }
         let rand = Number((rand_num(1, 10) * .1).toFixed(1));

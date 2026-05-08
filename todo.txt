@@ -3,9 +3,7 @@ TODO
             limit player to 3 quests maybe
             
     BUG wasnt able to trade 1 crate for cans that i already had 
-    selling drugs should be illegal
-        implement substances first
-    BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change
+        BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change 05-08-26 (Thiink I fixed)
 
     BUG cop was in the sewer after I escaped pursuit
     BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)

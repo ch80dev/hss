@@ -37,7 +37,7 @@ class ItemConfig {
 		weed: .1, // x
 	}
 
-    drugs_hard = ['cocaine', 'crack', 'crystal meth', 'uppers', 'pcp'];
+    static drugs_hard = ['cocaine', 'crack', 'crystal meth', 'uppers', 'pcp'];
 
 
 	static energy_items = {

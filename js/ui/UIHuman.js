@@ -99,7 +99,24 @@ class UIHuman{
 				resource = " [ COMPLETED ]";
 				button = `<button id='complete_quest' class='button_${this.button_num}'>complete</button>`;
 			} else if (interaction == 'work' && !human.quest.accepted){				
-				resource = human.quest.narrate;	
+				let more = '';
+				beating_context: {
+					if (human.quest.type == 'beating'){
+						let victim = juego.get.human(Number(human.quest.context));
+						if (victim == null){
+							console.log('victim null');
+							break beating_context;
+						}
+						let favorite = juego.favorites.fetch_by_id('human', victim.id);
+						let favorite_symbol = `&#x2606;`;
+						if (favorite != undefined){
+							favorite_symbol = `&#x2605;`;
+						}
+						more = `<button id='favorite_human_not_here-${victim.id}-${victim.location.type}-${victim.location.id}-${victim.x}-${victim.y}' class='favorite_human_not_here'>${favorite_symbol}</button>`
+					}
+				}
+				resource = human.quest.narrate + more;	
+			
 				console.log(human.quest.narrate);
 			} else if (interaction == 'work' && human.quest.accepted){
 				let quest = juego.quests.fetch_by_id(human.id);

@@ -123,8 +123,13 @@ class Cop extends Lifeform{
         let dmg = rand_num(1, CopConfig.tazer_damage);
         this.player.status.stats.change_health(-dmg);
         this.player_fleeing = false;
-        ui.log(`They tazed you unconscious and caused ${dmg} damage. [${this.player.state.health}]`);
         this.player.status.sleep.go_unconscious();
+        let msg = `They tazed you unconscious and caused ${dmg} damage. [${this.player.state.health}]`;
+        if (this.player.state.unconscious_for < 1){
+            msg = `<span class='cop_warning'>"They're not going down. They must be on something!"</span>`;
+        }
+        ui.log();
+
         
     }
 

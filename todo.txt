@@ -11,7 +11,6 @@ TODO
     
     cop should be able to go around of obstacles
     BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
-    When you get successfully tazed by cops while on something, have them yell, "They're not going down. They must be on something!"
 
 
 

@@ -138,5 +138,9 @@ class UIRefresh {
 			$("#combat_toggle").html("&#9774;");
 			$("#combat_toggle").css('background', 'green');
 		}
+		if (this.ui.player_fade !== null){
+			this.ui.fade_in_on_player();
+		}
+
 	}
 }

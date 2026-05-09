@@ -91,7 +91,6 @@ class Game{
 			}
 		}
 		this.turn.next(this.humans, this.map, this.rats, this.cops);
-		console.log(this.player.state.reported_crimes, );
 		if (this.player.state.reported_crimes.length > 0 
 			&& this.player.state.location.type != 'sewer'){
 			this.call_police();

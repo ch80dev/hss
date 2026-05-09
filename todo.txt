@@ -1,19 +1,14 @@
 TODO
-        PLAYTEST
-            limit player to 3 quests maybe
-            
-    BUG wasnt able to trade 1 crate for cans that i already had 
-        BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change 05-08-26 (Thiink I fixed)
-
-    BUG cop was in the sewer after I escaped pursuit ? cops are going through sewer for severity 2 crimes 05/08/26
-    BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
-
-    
-    BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
-    BUG cop appeared to be invisble
     I think the cop lost me but he just wandered around. Have them yell out something.
 
 BUGS
+    BUG wasnt able to trade 1 crate for cans that i already had 
+        BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change 05-08-26 (Thiink I fixed)
+    BUG cop was in the sewer after I escaped pursuit ? cops are going through sewer for severity 2 crimes 05/08/26
+    BUG I did interview and was released after my first question. possibly not resetting after interview. (2nd interview)
+    BUG I got tazed while unconscious and I think I'm detained but there's nothingo n screen 
+    BUG cop appeared to be invisble
+
     BUG Got detained by police but reported_crimes is blank. 04-26-25 
 
         BUG buy interaction but no context. just a buy button buy itself. BUG had it happen with trade 04-25-26 
@@ -62,6 +57,7 @@ ABANDONED
     cant sell tool despite having one to humans    
     when your inventory is full, explain that's why you can't buy.
 LATER
+    limit player to 3 quests maybe
     Instead of 'sense range' have humans and cops have a vision cone.
     change num of turns response and waiting for police to minutes. 
         have them wait after you escape 1 hour, 1 day, 1 week, and 1 month. for corresponding severity

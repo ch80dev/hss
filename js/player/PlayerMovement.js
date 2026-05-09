@@ -16,6 +16,7 @@ class PlayerMovement{
     explore(exit_id, map, juego){   
         let from = this.player.fetch_from();
         let coming_from = { type: this.player.state.location.type, id: this.player.state.location.id };
+        ui.player_fade = 0;
         this.player.state.reported_crimes = [];
         if (map.get.inspector.exit.have_they_used_this(this.player.state.location.type, this.player.state.location.id, this.player.state.x, this.player.state.y)){
             let exits_to = map.exits[from];

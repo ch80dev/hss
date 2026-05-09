@@ -10,6 +10,7 @@ class UI{
 	shop = new UIShop();
 	sleeping = false;
 	human = new UIHuman();
+	player_fade = 0;
 	status_msg = "";
 	screen_focused = 'map';
 	unconscious = false;
@@ -22,6 +23,30 @@ class UI{
 
 	change_screen(what){
 		this.screen_focused = what;
+	}
+	fade_in_on_player(){
+		if (ui.player_fade === null){
+			return;
+		}
+		let all_clear = true;
+		for (let x = 0; x < MapConfig.max_x; x ++){
+			for (let y = 0; y < MapConfig.max_x; y ++){
+				let distance = juego.map.get.geometry.fetch_distance(x, y, juego.player.state.x, juego.player.state.y);
+				$(`#cell-${x}-${y}`).css('opacity', 1);
+				if (distance > ui.player_fade){
+					all_clear = false;
+					$(`#cell-${x}-${y}`).css('opacity', 0);
+				}
+			}	
+		}
+
+		if (!all_clear && ui.player_fade !== null){
+			ui.player_fade ++;
+			setTimeout(ui.fade_in_on_player, 10);
+			return;
+		}
+		
+		ui.player_fade = null;
 	}
 
 	fade_for_sleep(){

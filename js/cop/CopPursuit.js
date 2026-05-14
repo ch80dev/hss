@@ -12,8 +12,9 @@ class CopPursuit {
             return;
         }
         let to = this.map.exits[this.cop.heading_to_exit.exit];
-        if(this.map.locations[this.cop.location.type ][this.cop.location.id][this.cop.x][this.cop.y] != 1){
-            console.log(this.map.locations[this.cop.location.type ][this.cop.location.id][this.cop.x][this.cop.y]);
+        if (to.split('-')[0] == 'sewer'){
+            this.cop.disappear();
+            return;
         }
         this.map.locations[this.cop.location.type ][this.cop.location.id][this.cop.x][this.cop.y] = 1;;
         this.cop.location.type = to.split('-')[0];

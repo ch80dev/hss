@@ -1,6 +1,5 @@
 TODO
     I think the cop lost me but he just wandered around. Have them yell out something.
-    BUG cop went through sewer exit for a beg crime. should not have happened
     BUG not sure if I succeeded talking otu of crime but I got sentenced to 0 days
     BUG Cop was not visible after getting sentenced and I had no reported crimes, but was still detained.
     BUG can't move after getting out.

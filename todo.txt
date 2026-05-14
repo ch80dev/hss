@@ -1,6 +1,10 @@
 TODO
     I think the cop lost me but he just wandered around. Have them yell out something.
-
+    bUG when you go up against a wall, it next turns 
+    BUG cop went through sewer exit for a beg crime. should not have happened
+    BUG not sure if I succeeded talking otu of crime but I got sentenced to 0 days
+    BUG Cop was not visible after getting sentenced and I had no reported crimes, but was still detained.
+    BUG can't move after getting out.
 BUGS
     BUG wasnt able to trade 1 crate for cans that i already had 
         BUG unconscious FAVORITE not working because location is an object events.js:100 10 {type: 'street', id: '1'} 4 14 so it did go through just not the favorite symbol didn't change 05-08-26 (Thiink I fixed)
@@ -55,8 +59,11 @@ BUGS
 ABANDONED
     redo map loot and how i handled map data
     cant sell tool despite having one to humans    
-    when your inventory is full, explain that's why you can't buy.
+
+
+
 LATER
+    want ot have a medieval town in the sewer from what I thought of and it's only accessible through three sewer entrances - (go to a sewer entrance, another an so on three times)
     limit player to 3 quests maybe
     Instead of 'sense range' have humans and cops have a vision cone.
     change num of turns response and waiting for police to minutes. 
@@ -110,3 +117,4 @@ DESIGN
     with marking, I can keep track of stuff but it still feels very overwhelming. like i feel like there's a good trade route somewhere but I can't meaningfully keep track in any way
         resolved
     NPCs don't heal
+    was in the dark throughout most of the night, it really sucked.

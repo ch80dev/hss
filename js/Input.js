@@ -35,7 +35,6 @@ class Input {
 
     press_key(pressed){
         //console.log(pressed, ui.screen_focused, );
-        console.log(ui.player_fade);
         if (ui.player_fade !== null){
             console.log(ui.player_fade);
 

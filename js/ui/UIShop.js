@@ -38,7 +38,9 @@ class UIShop{
         } else if (shop.type =='homeless'){
             txt += this.display_homeless(player, juego.time);
         } 
-
+        if (juego.player.inventory.get.are_they_full()){
+			txt += "<div class='inventory_full'>[ Your inventory is full. ]</div>"
+		}
        
         txt += `<div><button id='close-shop'>close</button></div>`          
         $("#shop").html(txt);

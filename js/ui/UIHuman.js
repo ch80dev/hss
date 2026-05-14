@@ -135,6 +135,9 @@ class UIHuman{
 			
 			this.button_num++;
 		}
+		if ((human.interactions.includes('buy') || human.interactions.includes('trade')) && juego.player.inventory.get.are_they_full()){
+			txt += "<div class='inventory_full'>[ Your inventory is full. ]</div>"
+		}
 		$("#social_context").html(txt);
 	}
 	display_unique_items_to_sell(name, interaction_id){

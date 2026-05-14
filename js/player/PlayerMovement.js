@@ -75,11 +75,11 @@ class PlayerMovement{
         let pos = {x : this.player.state.x + this.directions[where].x, y: this.player.state.y + this.directions[where].y};
         let target = juego.get.target(this.player.state.location.type, this.player.state.location.id, pos.x, pos.y);
         if (!map.get.geometry.is_valid(pos.x, pos.y) || map.get.at(pos.x, pos.y) == null ){
-            return;
+            return false;
         }  
         if (this.player.state.inventory.length > this.player.state.inventory_slots){
             ui.log("You're overencumbered and can't move.");
-            return;
+            return false;
         }
         if (this.player.state.location.type == 'sewer'){
             this.player.status.stats.change_stigma(Config.stigma_effects['sewer']);
@@ -91,13 +91,13 @@ class PlayerMovement{
         if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('shop')){ //ENTER SHOP
             //console.log('enter shop');
             this.player.actions.shop.enter(pos.x, pos.y, map);
-            return;
+            return true;
         } else if (this.player.state.fighting && MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead){//ATTACK
             this.player.actions.attack.go(pos.x, pos.y, juego.get, juego.map);
-            return;
+            return true;
         } else if (!this.player.state.fighting && MapConfig.sociable.includes(map.get.at(pos.x, pos.y)) && target != null && !target.dead && !target.attacking_player){//SOCIAL
             this.player.actions.human.social(pos.x, pos.y, juego);
-            return;
+            return true;
         }
         if (this.player.state.energy <= 0 && (this.player.state.drugs.duration['cocaine'] <= 0 
             && this.player.state.drugs.duration['crack'] <= 0)){
@@ -108,29 +108,29 @@ class PlayerMovement{
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked)){
             this.player.actions.trash.hit(pos.x, pos.y, map);
-            return;    
+            return true;    
             
         } else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') && !this.player.inventory.get.has_a_tool()
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
             ui.log('This trash can is locked. Use a tool or hit it with a weapon to open it.');
-            return;
+            return true;
         }  else if (map.get.at(pos.x, pos.y) == MapConfig.cell_class.indexOf('trash') 
             && this.player.inventory.get.has_a_tool()
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`] != undefined 
             && map.loot[`${this.player.state.location.type}-${this.player.state.location.id}-${pos.x}-${pos.y}`].locked){
             this.player.actions.trash.unlock(pos.x, pos.y, map);
-            return;
+            return true;
         }
         
         this.player.state.x = pos.x;
         this.player.state.y = pos.y;        
         if (map.get.at(pos.x, pos.y) != 1 && map.get.at(pos.x, pos.y) < 5){
             this.explore(map.get.at(pos.x, pos.y), map, juego);
-            return;
+            return true;
         } else if (map.get.at(pos.x, pos.y) == 5){
             this.player.actions.trash.search(this.player.state.x, this.player.state.y, map)
-            return;
+            return true;
          } else if (MapConfig.attackable.includes(map.get.at(pos.x, pos.y)) 
 
             && target != null && target.dead){

@@ -41,7 +41,7 @@ class Game{
 	call_police(){
 		//this doesn't take into account that the player could not be there (location.type, location.id) anymore - maybe?
 		let response = this.police_responding_in[`${this.player.state.location.type}-${this.player.state.location.id}`];
-		console.log('response', response);
+		//console.log('response', response);
 		if (response != undefined && response.time <= 0){
 			return;
 		}

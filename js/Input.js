@@ -80,7 +80,8 @@ class Input {
         } else if (juego.player.status.can_they_move() 
             && directions.includes(pressed.substring(5).toLowerCase())){
             let success = juego.player.movement.move(pressed.substring(5).toLowerCase(), juego.map, juego);
-            if (!success){
+            console.log(success);
+            if (success){
                 juego.next();
             }
         } else if (pressed == 'm' && juego.player.state.marking == false){
@@ -93,7 +94,8 @@ class Input {
     move(direction){
 
         let success = juego.player.movement.move(direction, juego.map, juego);
-        if (!success){
+        console.log(success);
+        if (success){
             juego.next();
 
         }

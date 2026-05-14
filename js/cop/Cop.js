@@ -69,7 +69,7 @@ class Cop extends Lifeform{
                 delta.y = toward_player.y;
             }
             n ++;
-            console.log(n);
+            //console.log(n);
         }
         return delta;
     }

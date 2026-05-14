@@ -134,6 +134,7 @@ class Turn{
 				juego.quests.process('beating', 1, human.id)		
 				human.just_went_unconscious = false;
 			}
+			console.log(id);
 			if (human.dead || human.location.type != this.player.state.location.type 
 				|| human.location.id != this.player.state.location.id){
 				continue;
@@ -167,6 +168,7 @@ class Turn{
 			if (human.bleeding > 0){
 				human.bleed();
 			}
+			console.log(distance, human.just_attacked, human.sense_range, map.get.inspector.has_line_of_sight(human.x, human.y, this.player.state.x, this.player.state.y))
 			if(!human.just_attacked && this.player.state.crimes_this_turn.length > 0 && distance <= human.sense_range && map.get.inspector.has_line_of_sight(human.x, human.y, this.player.state.x, this.player.state.y)){
 				console.log(human.attacking_player); 	
 				human.watch();

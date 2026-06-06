@@ -141,6 +141,6 @@ class PlayerMovement{
             this.player.actions.loot_unconscious(map, juego);
         }
         ui.fade_status("");
-        
+        return true;
     }
 }

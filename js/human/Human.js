@@ -88,7 +88,7 @@ class Human extends Lifeform{
             let severity = CopConfig.crime_severity[crime];
             let do_they_report = this.player.state.stigma > this.max_stigma_tolerance 
                 && rand_num(1, 100) < this.player.state.stigma;
-            console.log(severity);
+            
             if (severity == 1){
                 do_they_report =  rand_num(1, 100) < this.player.state.stigma;
             } else if (severity == 2){

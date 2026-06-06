@@ -87,7 +87,7 @@ class ExitInspector{
         return exits[rand_num(0, exits.length - 1)];
     }
 
-    find_nearest(x, y){
+    fetch_nearest(x, y){
         let exits = this.fetch_all();
         let distance = null;
         let nearest = null;

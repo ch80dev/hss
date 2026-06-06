@@ -170,7 +170,6 @@ class Turn{
 			}
 			console.log(distance, human.just_attacked, human.sense_range, map.get.inspector.has_line_of_sight(human.x, human.y, this.player.state.x, this.player.state.y))
 			if(!human.just_attacked && this.player.state.crimes_this_turn.length > 0 && distance <= human.sense_range && map.get.inspector.has_line_of_sight(human.x, human.y, this.player.state.x, this.player.state.y)){
-				console.log(human.attacking_player); 	
 				human.watch();
 			}
 
